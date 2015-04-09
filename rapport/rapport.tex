@@ -1,0 +1,165 @@
+%%
+%% This is file `squelette-rr.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% RR.dtx  (with options: `sample')
+%% ********************************************************************
+%% Copyright (C) 1997-1999 2004 2006-2011 INRIA/APICS/MARELLE by Jose' Grimm
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%% An archive of the software can be found at
+%%    ftp://ftp-sop.inria.fr/marelle/RR-INRIA
+
+\documentclass[twoside]{article}
+\usepackage[a4paper]{geometry}
+\usepackage[latin1]{inputenc} % ou \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % ou \usepackage[OT1]{fontenc}
+\usepackage{RR}
+\usepackage{hyperref}
+\usepackage{subfigure}
+%%\usepackage[frenchb]{babel} % optionnel
+\RRNo{7003}
+%% \RTNo{0703}
+%%
+%% date de publication du rapport
+\RRdate{April 2015}
+%%
+%% Cas d'une version deux
+%% \RRversion{2}
+%% date de publication de la version 2
+%% \RRdater{November 2008}
+%%
+\RRauthor{% les auteurs
+ % Premier auteur, avec une note
+H\'el\'ene Coullon\thanks{Footnote for first author}%
+  % note partag\'ee (optionnelle)
+  \thanks[sfn]{Shared foot note}%
+ % \and entre chaque auteur s'il y en a plusieurs
+  \and
+Christian Perez\thanks{Footnote for second author}%
+ % r\'ef\'erence \`a la note partag\'ee
+%\thanksref{sfn}
+ % liste longue pour tests de mise en page
+%\and Nicolas Bourbaki\thanks{etc} \and Andr\'e Lichnerowicz
+%\and Marcel-Paul Sch\"utzenberger \and Jacques-Louis Lions
+}
+%% Ceci apparait sur chaque page paire.
+\authorhead{Coullon \& Perez}
+%% titre francais long
+\RRtitle{Exemple de document\\
+ utilisant le style\\rapport de recherche\\Inria}
+%% English title
+\RRetitle{Component-based implicit parallelism model for multi-stencil numerical simulations}
+%%
+%\titlehead{Example of RR.sty}
+%%
+%\RRnote{This is a note}
+%\RRnote{This is a second note}
+%%
+\RRresume{Resume en francais
+}
+\RRabstract{
+abstract }
+%%
+\RRmotcle{mots-cles}
+%%
+%% \RRprojet{Apics}  % cas d'un seul projet
+\RRprojets{Avalon}
+%%
+%% \URLorraine % pour ceux qui sont \`a l'est
+%% \URRennes  % pour ceux qui sont \`a l'ouest
+%\URRhoneAlpes % pour ceux qui sont dans les montagnes
+%% \URRocq % pour ceux qui sont au centre de la France
+%% \URFuturs % pour ceux qui sont dans le virtuel
+%% \URSophia % pour ceux qui sont au Sud.
+%%
+%% \RCBordeaux % centre de recherche Bordeaux - Sud Ouest
+%% \RCLille % centre de recherche Lille Nord Europe
+%% \RCParis % Paris Rocquencourt
+%% \RCSaclay % Saclay \^Ile de France
+ \RCGrenoble % Grenoble - Rh\^one-Alpes
+%% \RCNancy % Nancy - Grand Est
+%% \RCRennes % Rennes - Bretagne Atlantique
+%\RCSophia % Sophia Antipolis M\'editerran\'ee
+\newtheorem{mydef}{\textbf{Definition}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage[ruled,noend]{algorithm2e}
+\usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
+
+\tikzset{
+    component/.style={
+    rectangle,rounded corners=3pt,draw=black
+    },
+    smallcp/.style={
+    rectangle,rounded corners=3pt,draw=black,font=\tiny,
+    },
+    resource/.style={
+    rectangle,rounded corners=3pt, dashed,draw=black,font=\tiny,
+    },
+    connection/.style={
+    decoration={ markings,
+      mark=at position 1 with {\node[fill=black,draw=black,circle,,inner sep=2pt](conn){};}
+      },
+    postaction={decorate}
+    },
+    mpiconn/.style={
+    decoration={ markings,
+      mark=at position 0.99 with {\node[fill=black,draw=black,rectangle,,inner sep=2pt](mpi){};}
+      },
+    postaction={decorate}
+    },
+}
+
+
+%%
+\begin{document}
+%%
+\makeRR   % cas d'un rapport de recherche
+%% \makeRT % cas d'un rapport technique.
+%% a partir d'ici, chacun fait comme il le souhaite
+%------------------------------------------------------------------------------
+\section{Introduction}
+\label{sect:introduction}
+%------------------------------------------------------------------------------
+\section{Stencil programs}
+\label{sect:formalism}
+\input{formalism.tex}
+%------------------------------------------------------------------------------
+\section{Component-based parallelism}
+\label{sect:component}
+\input{component.tex}
+%------------------------------------------------------------------------------
+\section{Component Stencil Model}
+\label{sect:csm}
+\input{csm.tex}
+%------------------------------------------------------------------------------
+\section{Component Stencil Language}
+\label{sect:csl}
+\input{csl.tex}
+%------------------------------------------------------------------------------
+\section{Related work}
+\label{sect:rel}
+%------------------------------------------------------------------------------
+\section{Conclusion}
+\label{sect:concl}
+%------------------------------------------------------------------------------
+\label{sect:bib}
+\bibliographystyle{abbrvnat}
+
+
+\tableofcontents
+
+\end{document}
+\endinput
+%%
+%% End of file `squelette-rr.tex'.
