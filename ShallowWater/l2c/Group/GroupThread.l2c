@@ -1,0 +1,5 @@
+//#implements=groupthread
+LCMP(GroupThread)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Go, kernelCompute);
+LEND

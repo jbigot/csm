@@ -1,0 +1,793 @@
+<?xml version='1.0'?>
+<lad xmlns="http://www.inria.fr/avalon/lad"> <!-- lad file of the first version of the heat equation -->
+  <mpi>  
+    <process> 
+      <start_property instance="dr1" property="inGo"/>
+
+       <instance id="dr1" type="Driver">
+         <property id="structInit"><cppref instance="st1" property="services"/></property>
+         <property id="driverappGo"><cppref instance="dra1" property="inGo"/></property>
+       </instance>
+
+      <instance id="st1" type="Structure">
+        <property id="globW"><value type="int64">1000</value></property>
+        <property id="globH"><value type="int64">1000</value></property>
+        <property id="nb_proc"><value type="int32">1</value></property>
+      </instance>
+
+       <instance id="dra1" type="DriverApp">
+         <property id="dataCompute">
+          <cppref instance="h" property="inGo"/>
+          <cppref instance="u" property="inGo"/>
+          <cppref instance="v" property="inGo"/>
+          <cppref instance="z" property="inGo"/>
+          <cppref instance="hs" property="inGo"/>
+          <cppref instance="us" property="inGo"/>
+          <cppref instance="vs" property="inGo"/>
+          <cppref instance="hsa" property="inGo"/>
+          <cppref instance="usa" property="inGo"/>
+          <cppref instance="vsa" property="inGo"/>
+          <cppref instance="q1" property="inGo"/>
+          <cppref instance="q2" property="inGo"/>
+          <cppref instance="qs1" property="inGo"/>
+          <cppref instance="qs2" property="inGo"/>
+          <cppref instance="f1" property="inGo"/>
+          <cppref instance="f2" property="inGo"/>
+          <cppref instance="f3" property="inGo"/>
+          <cppref instance="g1" property="inGo"/>
+          <cppref instance="g2" property="inGo"/>
+          <cppref instance="g3" property="inGo"/>
+          <cppref instance="h1g" property="inGo"/>
+          <cppref instance="h1d" property="inGo"/>
+          <cppref instance="h1l" property="inGo"/>
+          <cppref instance="h1r" property="inGo"/>
+          <cppref instance="h2g" property="inGo"/>
+          <cppref instance="h2d" property="inGo"/>
+          <cppref instance="h2l" property="inGo"/>
+          <cppref instance="h2r" property="inGo"/>
+          <cppref instance="delz1" property="inGo"/>
+          <cppref instance="delz2" property="inGo"/>
+          <cppref instance="delzc1" property="inGo"/>
+          <cppref instance="delzc2" property="inGo"/>
+          <cppref instance="qsa1" property="inGo"/>
+          <cppref instance="qsa2" property="inGo"/>
+          <cppref instance="u1l" property="inGo"/>
+          <cppref instance="u1r" property="inGo"/>
+          <cppref instance="u2l" property="inGo"/>
+          <cppref instance="u2r" property="inGo"/>
+          <cppref instance="v1l" property="inGo"/>
+          <cppref instance="v1r" property="inGo"/>
+          <cppref instance="v2l" property="inGo"/>
+          <cppref instance="v2r" property="inGo"/>
+          <cppref instance="z1l" property="inGo"/>
+          <cppref instance="z1r" property="inGo"/>
+          <cppref instance="z2l" property="inGo"/>
+          <cppref instance="z2r" property="inGo"/>
+          <cppref instance="Rain" property="inGo"/>
+          <cppref instance="rainm" property="inGo"/>
+          <cppref instance="mcf" property="inGo"/>
+         </property>
+         <property id="timeGo"><cppref instance="ti1" property="inGo"/></property>
+       </instance>
+
+       <instance id="ti1" type="Time">
+         <property id="iter"><value type="int16">100</value></property>
+         <property id="phaseCompute">
+          <cppref instance="ph1" property="inGo"/>
+          <cppref instance="ph2" property="inGo"/>
+         </property>
+       </instance>
+
+       <instance id="ph1" type="Phase">
+         <property id="dataCompute">
+          <cppref instance="h" property="services"/>
+          <cppref instance="u" property="services"/>
+          <cppref instance="v" property="services"/>
+          <cppref instance="z" property="services"/>
+         </property>
+         <property id="groupCompute">
+          <cppref instance="group1_1" property="inGo"/>
+          <cppref instance="group1_2" property="inGo"/>
+          <cppref instance="group1_3" property="inGo"/>
+          <cppref instance="group1_4" property="inGo"/>
+          <cppref instance="group1_5" property="inGo"/>
+          <cppref instance="group1_6" property="inGo"/>
+          <cppref instance="group1_7" property="inGo"/>
+         </property>
+       </instance>
+
+       <instance id="ph2" type="Phase">
+         <property id="dataCompute">
+          <cppref instance="z" property="services"/>
+          <cppref instance="hs" property="services"/>
+          <cppref instance="us" property="services"/>
+          <cppref instance="vs" property="services"/>
+         </property>
+         <property id="groupCompute">
+          <cppref instance="group2_1" property="inGo"/>
+          <cppref instance="group2_2" property="inGo"/>
+          <cppref instance="group2_3" property="inGo"/>
+          <cppref instance="group2_4" property="inGo"/>
+          <cppref instance="group2_5" property="inGo"/>
+          <cppref instance="group2_6" property="inGo"/>
+         </property>
+       </instance>
+
+       <instance id="h" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+	       <property id="str"><cppref instance="st1" property="services"/></property>
+	       <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="u" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="v" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="z" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="hs" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="us" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="vs" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="hsa" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="usa" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="vsa" type="Data">
+         <property id="border"><value type="uint16">2</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="q1" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="q2" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="qs1" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="qs2" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="f1" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="f2" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="f3" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="g1" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="g2" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="g3" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h1g" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h1d" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h1l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h1r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h2g" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h2d" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h2l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="h2r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="delz1" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="delz2" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="delzc1" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="delzc2" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="qsa1" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="qsa2" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="u1l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="u1r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="u2l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="u2r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="v1l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="v1r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="v2l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="v2r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="z1l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="z1r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">2</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="z2l" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="z2r" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">3</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="Rain" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">1</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="rainm" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="mcf" type="Data">
+         <property id="border"><value type="uint16">0</value></property>
+         <property id="ei"><value type="uint16">1</value></property>
+         <property id="init_val"><value type="double">0</value></property>
+         <property id="str"><cppref instance="st1" property="services"/></property>
+         <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+
+       <instance id="in1" type="Initializer"/>
+
+       <instance id="group1_1" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel1_1_1" property="inGo"/>
+          <cppref instance="kernel1_1_2" property="inGo"/>
+          <cppref instance="kernel1_1_3" property="inGo"/>
+          <cppref instance="kernel1_1_4" property="inGo"/>
+         </property>
+       </instance>
+       <instance id="group1_2" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel1_2_1" property="inGo"/>
+          <cppref instance="kernel1_2_2" property="inGo"/>
+         </property>
+       </instance>
+       <instance id="group1_3" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel1_3_1" property="inGo"/>
+          <cppref instance="kernel1_3_2" property="inGo"/>
+          <cppref instance="kernel1_3_3" property="inGo"/>
+          <cppref instance="kernel1_3_4" property="inGo"/>
+         </property>
+       </instance>
+       <instance id="group1_4" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel1_4_1" property="inGo"/>
+          <cppref instance="kernel1_4_2" property="inGo"/>
+         </property>
+       </instance>
+       <instance id="group1_5" type="Group">
+         <property id="kernelCompute"><cppref instance="kernel1_5_1" property="inGo"/></property>
+       </instance>
+       <instance id="group1_6" type="Group">
+         <property id="kernelCompute"><cppref instance="kernel1_6_1" property="inGo"/></property>
+       </instance>
+       <instance id="group1_7" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel1_7_1" property="inGo"/>
+          <cppref instance="kernel1_7_2" property="inGo"/>
+          <cppref instance="kernel1_7_3" property="inGo"/>
+          <cppref instance="kernel1_7_4" property="inGo"/>
+         </property>
+       </instance>
+       <instance id="group2_1" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel2_1_1" property="inGo"/>
+          <cppref instance="kernel2_1_2" property="inGo"/>
+         </property>
+       </instance>
+       <instance id="group2_2" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel1_3_1" property="inGo"/><--! kernel2_2_1=kernel1_3_1 -->
+          <cppref instance="kernel1_3_2" property="inGo"/><--! kernel2_2_2=kernel1_3_2 -->
+          <cppref instance="kernel1_3_3" property="inGo"/><--! kernel2_2_3=kernel1_3_3 -->
+          <cppref instance="kernel1_3_4" property="inGo"/><--! kernel2_2_4=kernel1_3_4 -->
+         </property>
+       </instance>
+       <instance id="group2_3" type="Group">
+         <property id="kernelCompute">
+          <cppref instance="kernel1_4_1" property="inGo"/><--! kernel2_3_1=kernel1_4_1 -->
+          <cppref instance="kernel1_4_2" property="inGo"/><--! kernel2_3_2=kernel1_4_2 -->
+         </property>
+       </instance>
+       <instance id="group2_4" type="Group">
+         <property id="kernelCompute"><cppref instance="kernel2_4_1" property="inGo"/></property>
+       </instance>
+       <instance id="group2_5" type="Group">
+         <property id="kernelCompute"><cppref instance="kernel2_5_1" property="inGo"/></property>
+       </instance>
+       <instance id="group2_6" type="Group">
+         <property id="kernelCompute"><cppref instance="kernel2_6_1" property="inGo"/></property>
+       </instance>
+
+       <instance id="kernel1_1_1" type="KlimitesL">
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="u"><cppref instance="u" property="services"/></property>
+        <property id="v"><cppref instance="v" property="services"/></property>
+       </instance>
+       <instance id="kernel1_1_2" type="KlimitesR">
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="u"><cppref instance="u" property="services"/></property>
+        <property id="v"><cppref instance="v" property="services"/></property>
+       </instance>
+       <instance id="kernel1_1_3" type="KlimitesU">
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="u"><cppref instance="u" property="services"/></property>
+        <property id="v"><cppref instance="v" property="services"/></property>
+       </instance>
+       <instance id="kernel1_1_4" type="KlimitesD">
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="u"><cppref instance="u" property="services"/></property>
+        <property id="v"><cppref instance="v" property="services"/></property>
+       </instance>
+       <instance id="kernel1_2_1" type="Khuv1">
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="u"><cppref instance="u" property="services"/></property>
+        <property id="v"><cppref instance="v" property="services"/></property>
+        <property id="z"><cppref instance="z" property="services"/></property>
+
+        <property id="h1l"><cppref instance="h1l" property="services"/></property>
+        <property id="h1r"><cppref instance="h1r" property="services"/></property>
+        <property id="u1l"><cppref instance="u1l" property="services"/></property>
+        <property id="u1r"><cppref instance="u1r" property="services"/></property>
+        <property id="v1l"><cppref instance="v1l" property="services"/></property>
+        <property id="v1r"><cppref instance="v1r" property="services"/></property>
+        <property id="z1l"><cppref instance="z1l" property="services"/></property>
+        <property id="z1r"><cppref instance="z1r" property="services"/></property>
+       </instance>
+       <instance id="kernel1_2_2" type="Khuv2">
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="u"><cppref instance="u" property="services"/></property>
+        <property id="v"><cppref instance="v" property="services"/></property>
+        <property id="z"><cppref instance="z" property="services"/></property>
+
+        <property id="h2l"><cppref instance="h2l" property="services"/></property>
+        <property id="h2r"><cppref instance="h2r" property="services"/></property>
+        <property id="u2l"><cppref instance="u2l" property="services"/></property>
+        <property id="u2r"><cppref instance="u2r" property="services"/></property>
+        <property id="v2l"><cppref instance="v2l" property="services"/></property>
+        <property id="v2r"><cppref instance="v2r" property="services"/></property>
+        <property id="z2l"><cppref instance="z2l" property="services"/></property>
+        <property id="z2r"><cppref instance="z2r" property="services"/></property>
+       </instance>
+       <instance id="kernel1_3_1" type="Kdelz">
+        <property id="z1l"><cppref instance="z1l" property="services"/></property>
+        <property id="z1r"><cppref instance="z1r" property="services"/></property>
+
+        <property id="delz1"><cppref instance="delz1" property="services"/></property>
+       </instance>
+       <instance id="kernel1_3_2" type="Kdelzc1">
+        <property id="z1l"><cppref instance="z1l" property="services"/></property>
+        <property id="z1r"><cppref instance="z1r" property="services"/></property>
+
+        <property id="delzc1"><cppref instance="delzc1" property="services"/></property>
+       </instance>
+       <instance id="kernel1_3_3" type="Kdelz">
+        <property id="z1l"><cppref instance="z2l" property="services"/></property>
+        <property id="z1r"><cppref instance="z2r" property="services"/></property>
+
+        <property id="delz1"><cppref instance="delz2" property="services"/></property>
+       </instance>
+       <instance id="kernel1_3_4" type="Kdelzc2">
+        <property id="z2l"><cppref instance="z2l" property="services"/></property>
+        <property id="z2r"><cppref instance="z2r" property="services"/></property>
+
+        <property id="delzc2"><cppref instance="delzc2" property="services"/></property>
+       </instance>
+       <instance id="kernel1_4_1" type="Kbloc1x">
+        <property id="h1l"><cppref instance="h1l" property="services"/></property>
+        <property id="h1r"><cppref instance="h1r" property="services"/></property>
+        <property id="u1l"><cppref instance="u1l" property="services"/></property>
+        <property id="u1r"><cppref instance="u1r" property="services"/></property>
+        <property id="v1l"><cppref instance="v1l" property="services"/></property>
+        <property id="v1r"><cppref instance="v1r" property="services"/></property>
+        <property id="delz1"><cppref instance="delz1" property="services"/></property>
+
+        <property id="h1g"><cppref instance="h1g" property="services"/></property>
+        <property id="h1d"><cppref instance="h1d" property="services"/></property>
+        <property id="f1"><cppref instance="f1" property="services"/></property>
+        <property id="f2"><cppref instance="f2" property="services"/></property>
+        <property id="f3"><cppref instance="f3" property="services"/></property>
+       </instance>
+       <instance id="kernel1_4_2" type="Kbloc1y">
+        <property id="h2l"><cppref instance="h2l" property="services"/></property>
+        <property id="h2r"><cppref instance="h2r" property="services"/></property>
+        <property id="u2l"><cppref instance="u2l" property="services"/></property>
+        <property id="u2r"><cppref instance="u2r" property="services"/></property>
+        <property id="v2l"><cppref instance="v2l" property="services"/></property>
+        <property id="v2r"><cppref instance="v2r" property="services"/></property>
+        <property id="delz2"><cppref instance="delz2" property="services"/></property>
+
+        <property id="h2g"><cppref instance="h2g" property="services"/></property>
+        <property id="h2d"><cppref instance="h2d" property="services"/></property>
+        <property id="g1"><cppref instance="g1" property="services"/></property>
+        <property id="g2"><cppref instance="g2" property="services"/></property>
+        <property id="g3"><cppref instance="g3" property="services"/></property>
+       </instance>
+       <instance id="kernel1_5_1" type="Kbloc2x">
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="u"><cppref instance="u" property="services"/></property>
+        <property id="v"><cppref instance="v" property="services"/></property>
+        <property id="q1"><cppref instance="q1" property="services"/></property>
+        <property id="q2"><cppref instance="q2" property="services"/></property>
+        <property id="h1g"><cppref instance="h1g" property="services"/></property>
+        <property id="h1d"><cppref instance="h1d" property="services"/></property>
+        <property id="h1l"><cppref instance="h1l" property="services"/></property>
+        <property id="h1r"><cppref instance="h1r" property="services"/></property>
+        <property id="h2g"><cppref instance="h2g" property="services"/></property>
+        <property id="h2d"><cppref instance="h2d" property="services"/></property>
+        <property id="h2l"><cppref instance="h2l" property="services"/></property>
+        <property id="h2r"><cppref instance="h2r" property="services"/></property>
+        <property id="delzc1"><cppref instance="delzc1" property="services"/></property>
+        <property id="delzc2"><cppref instance="delzc2" property="services"/></property>
+        <property id="f1"><cppref instance="f1" property="services"/></property>
+        <property id="f2"><cppref instance="f2" property="services"/></property>
+        <property id="f3"><cppref instance="f3" property="services"/></property>
+        <property id="g1"><cppref instance="g1" property="services"/></property>
+        <property id="g2"><cppref instance="g2" property="services"/></property>
+        <property id="g3"><cppref instance="g3" property="services"/></property>
+        <property id="Rain"><cppref instance="Rain" property="services"/></property>
+        <property id="rainm"><cppref instance="rainm" property="services"/></property>
+        <property id="mcf"><cppref instance="mcf" property="services"/></property>
+
+        <property id="qs1"><cppref instance="qs1" property="services"/></property>
+        <property id="qs2"><cppref instance="qs2" property="services"/></property>
+        <property id="hs"><cppref instance="hs" property="services"/></property>
+        <property id="Rain"><cppref instance="Rain" property="services"/></property>
+       </instance>
+       <instance id="kernel1_6_1" type="Kcheck">
+        <property id="hs"><cppref instance="hs" property="services"/></property>
+        <property id="us"><cppref instance="us" property="services"/></property>
+        <property id="vs"><cppref instance="vs" property="services"/></property>
+        <property id="qs1"><cppref instance="qs1" property="services"/></property>
+        <property id="qs2"><cppref instance="qs2" property="services"/></property>
+       </instance>
+       <instance id="kernel1_7_1" type="KlimitesL">
+        <property id="h"><cppref instance="hs" property="services"/></property>
+        <property id="u"><cppref instance="us" property="services"/></property>
+        <property id="v"><cppref instance="vs" property="services"/></property>
+       </instance>
+       <instance id="kernel1_7_2" type="KlimitesR">
+        <property id="h"><cppref instance="hs" property="services"/></property>
+        <property id="u"><cppref instance="us" property="services"/></property>
+        <property id="v"><cppref instance="vs" property="services"/></property>
+       </instance>
+       <instance id="kernel1_7_3" type="KlimitesU">
+        <property id="h"><cppref instance="hs" property="services"/></property>
+        <property id="u"><cppref instance="us" property="services"/></property>
+        <property id="v"><cppref instance="vs" property="services"/></property>
+       </instance>
+       <instance id="kernel1_7_4" type="KlimitesD">
+        <property id="h"><cppref instance="hs" property="services"/></property>
+        <property id="u"><cppref instance="us" property="services"/></property>
+        <property id="v"><cppref instance="vs" property="services"/></property>
+       </instance>
+       <instance id="kernel2_1_1" type="Khuv1">
+        <property id="h"><cppref instance="hs" property="services"/></property>
+        <property id="u"><cppref instance="us" property="services"/></property>
+        <property id="v"><cppref instance="vs" property="services"/></property>
+        <property id="z"><cppref instance="z" property="services"/></property>
+
+        <property id="h1l"><cppref instance="h1l" property="services"/></property>
+        <property id="h1r"><cppref instance="h1r" property="services"/></property>
+        <property id="u1l"><cppref instance="u1l" property="services"/></property>
+        <property id="u1r"><cppref instance="u1r" property="services"/></property>
+        <property id="v1l"><cppref instance="v1l" property="services"/></property>
+        <property id="v1r"><cppref instance="v1r" property="services"/></property>
+        <property id="z1l"><cppref instance="z1l" property="services"/></property>
+        <property id="z1r"><cppref instance="z1r" property="services"/></property>
+       </instance>
+       <instance id="kernel2_1_2" type="Khuv2">
+        <property id="h"><cppref instance="hs" property="services"/></property>
+        <property id="u"><cppref instance="us" property="services"/></property>
+        <property id="v"><cppref instance="vs" property="services"/></property>
+        <property id="z"><cppref instance="z" property="services"/></property>
+
+        <property id="h2l"><cppref instance="h2l" property="services"/></property>
+        <property id="h2r"><cppref instance="h2r" property="services"/></property>
+        <property id="u2l"><cppref instance="u2l" property="services"/></property>
+        <property id="u2r"><cppref instance="u2r" property="services"/></property>
+        <property id="v2l"><cppref instance="v2l" property="services"/></property>
+        <property id="v2r"><cppref instance="v2r" property="services"/></property>
+        <property id="z2l"><cppref instance="z2l" property="services"/></property>
+        <property id="z2r"><cppref instance="z2r" property="services"/></property>
+       </instance>
+       <--! kernel2_2_1=kernel1_3_1 -->
+       <--! kernel2_2_2=kernel1_3_2 -->
+       <--! kernel2_2_3=kernel1_3_3 -->
+       <--! kernel2_3_1=kernel1_4_1 -->
+       <--! kernel2_3_2=kernel1_4_2 -->
+       <instance id="kernel2_4_1" type="Kbloc2x">
+        <property id="h"><cppref instance="hs" property="services"/></property>
+        <property id="u"><cppref instance="us" property="services"/></property>
+        <property id="v"><cppref instance="vs" property="services"/></property>
+        <property id="q1"><cppref instance="qs1" property="services"/></property>
+        <property id="q2"><cppref instance="qs2" property="services"/></property>
+        <property id="h1g"><cppref instance="h1g" property="services"/></property>
+        <property id="h1d"><cppref instance="h1d" property="services"/></property>
+        <property id="h1l"><cppref instance="h1l" property="services"/></property>
+        <property id="h1r"><cppref instance="h1r" property="services"/></property>
+        <property id="h2g"><cppref instance="h2g" property="services"/></property>
+        <property id="h2d"><cppref instance="h2d" property="services"/></property>
+        <property id="h2l"><cppref instance="h2l" property="services"/></property>
+        <property id="h2r"><cppref instance="h2r" property="services"/></property>
+        <property id="delzc1"><cppref instance="delzc1" property="services"/></property>
+        <property id="delzc2"><cppref instance="delzc2" property="services"/></property>
+        <property id="f1"><cppref instance="f1" property="services"/></property>
+        <property id="f2"><cppref instance="f2" property="services"/></property>
+        <property id="f3"><cppref instance="f3" property="services"/></property>
+        <property id="g1"><cppref instance="g1" property="services"/></property>
+        <property id="g2"><cppref instance="g2" property="services"/></property>
+        <property id="g3"><cppref instance="g3" property="services"/></property>
+        <property id="Rain"><cppref instance="Rain" property="services"/></property>
+        <property id="rainm"><cppref instance="rainm" property="services"/></property>
+        <property id="mcf"><cppref instance="mcf" property="services"/></property>
+
+        <property id="qs1"><cppref instance="qsa1" property="services"/></property>
+        <property id="qs2"><cppref instance="qsa2" property="services"/></property>
+        <property id="hs"><cppref instance="hsa" property="services"/></property>
+        <property id="Rain"><cppref instance="Rain" property="services"/></property>
+       </instance>
+       <instance id="kernel2_5_1" type="Kheun">
+        <property id="hsa"><cppref instance="hsa" property="services"/></property>
+        <property id="qsa1"><cppref instance="qsa1" property="services"/></property>
+        <property id="qsa2"><cppref instance="qsa2" property="services"/></property>
+
+        <property id="h"><cppref instance="h" property="services"/></property>
+        <property id="q1"><cppref instance="q1" property="services"/></property>
+        <property id="q2"><cppref instance="q2" property="services"/></property>
+       </instance>
+       <instance id="kernel2_6_1" type="Kcheck">
+        <property id="hs"><cppref instance="h" property="services"/></property>
+        <property id="us"><cppref instance="u" property="services"/></property>
+        <property id="vs"><cppref instance="v" property="services"/></property>
+        <property id="qs1"><cppref instance="q1" property="services"/></property>
+        <property id="qs2"><cppref instance="q2" property="services"/></property>
+       </instance>
+
+     </process>
+     <communicator>
+       <peer instance="h" property="comm"/>
+       <peer instance="u" property="comm"/>
+       <peer instance="v" property="comm"/>
+       <peer instance="z" property="comm"/>
+       <peer instance="hs" property="comm"/>
+       <peer instance="us" property="comm"/>
+       <peer instance="vs" property="comm"/>
+       <peer instance="hsa" property="comm"/>
+       <peer instance="usa" property="comm"/>
+       <peer instance="vsa" property="comm"/>
+     </communicator>
+   </mpi>
+ </lad>

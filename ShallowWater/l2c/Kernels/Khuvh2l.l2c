@@ -1,0 +1,16 @@
+//#implements=Khuvh2l
+LCMP(Khuvh2l)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Datah, h);
+  L_CPP_USE(Datah, u);
+  L_CPP_USE(Datah, v);
+  L_CPP_USE(Datah, z);
+  L_CPP_USE(Datah, h2l);
+  L_CPP_USE(Datah, h2r);
+  L_CPP_USE(Datah, u2l);
+  L_CPP_USE(Datah, u2r);
+  L_CPP_USE(Datah, v2l);
+  L_CPP_USE(Datah, v2r);
+  L_CPP_USE(Datah, z2l);
+  L_CPP_USE(Datah, z2r);
+LEND
