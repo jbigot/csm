@@ -126,10 +126,14 @@ abstract }
 
 %%
 \begin{document}
+
 %%
 \makeRR   % cas d'un rapport de recherche
 %% \makeRT % cas d'un rapport technique.
 %% a partir d'ici, chacun fait comme il le souhaite
+
+\tableofcontents
+
 %------------------------------------------------------------------------------
 \section{Introduction}
 \label{sect:introduction}
@@ -152,15 +156,14 @@ abstract }
 %------------------------------------------------------------------------------
 \section{Related work}
 \label{sect:rel}
+\input{related.tex}
 %------------------------------------------------------------------------------
 \section{Conclusion}
 \label{sect:concl}
+\input{conclusion.tex}
 %------------------------------------------------------------------------------
 \label{sect:bib}
 \bibliographystyle{abbrvnat}
-
-
-\tableofcontents
 
 \end{document}
 \endinput
