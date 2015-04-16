@@ -111,7 +111,13 @@ abstract }
     },
     connection/.style={
     decoration={ markings,
-      mark=at position 1 with {\node[fill=black,draw=black,circle,,inner sep=2pt](conn){};}
+      mark=at position 1 with {\node[fill=black,draw=black,circle,inner sep=2pt](conn){};}
+      },
+    postaction={decorate}
+    },
+    bconnection/.style={
+    decoration={ markings,
+      mark=at position 1 with {\node[fill=black,draw=black,circle,inner sep=2pt](conn){};}
       },
     postaction={decorate}
     },
@@ -138,20 +144,16 @@ abstract }
 \section{Introduction}
 \label{sect:introduction}
 %------------------------------------------------------------------------------
-\section{Stencil programs}
+\section{Multi-stencil programs}
 \label{sect:formalism}
 \input{formalism.tex}
 %------------------------------------------------------------------------------
-\section{Component-based parallelism}
+\section{Component-based parallelism model}
 \label{sect:component}
 \input{component.tex}
 %------------------------------------------------------------------------------
-\section{Component Stencil Model}
-\label{sect:csm}
-\input{csm.tex}
-%------------------------------------------------------------------------------
 \section{Component Stencil Language}
-\label{sect:csl}
+\label{sect:csm}
 \input{csl.tex}
 %------------------------------------------------------------------------------
 \section{Related work}
