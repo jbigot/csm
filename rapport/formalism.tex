@@ -64,7 +64,7 @@ A \textit{stencil computation} is defined as a quintuplet $s(R,w,D,\text{exp},\m
 \end{mydef}
 In a stencil computation $s$, $\forall d \in D$, the stencil numerical expression $\text{exp}$ is applied such that $w(d) = \text{exp}(R(d),R(\mathcal{N}(d))$. In this work, a stencil computation $s(R,w,D,\text{exp},\mathcal{N})$ always verifies $R \cap w = \emptyset$, otherwize an implicit numerical scheme has to be solve which is over the scope of this paper.
 
-Figure~\ref{} gives an example of a stencil computation $s(R,w,D,\text{exp},\mathcal{N})$, where $\mathcal{M}(V,E)$ is a two dimensional Cartesian mesh. A single domain $D$ is defined in this example and is composed of cells formed by a cycle of four vertices $v \in V$ and four edges $e \in E$. Furthermore, in this example $R=\{A\}$, $w=B$, and for $(x,y) \in D$ the neighborhood function is 
+Figure~\ref{fig:ex} gives an example of a stencil computation $s(R,w,D,\text{exp},\mathcal{N})$, where $\mathcal{M}(V,E)$ is a two dimensional Cartesian mesh. A single domain $D$ is defined in this example and is composed of cells formed by a cycle of four vertices $v \in V$ and four edges $e \in E$. Furthermore, in this example $R=\{A\}$, $w=B$, and for $(x,y) \in D$ the neighborhood function is 
 \begin{equation*}
 \mathcal{N} : (x,y) \rightarrow \{(x,y+1),(x,y-1),(x+1,y),(x-1,y)\}.
 \end{equation*}
@@ -72,6 +72,12 @@ Finally, the numerical expression of this example is
 \begin{equation*}
 \text{exp}(A(x,y),A(\mathcal{N}(x,y)) = B(x,y) = A(x,y)+(A(x,y+1)+A(x,y-1)+A(x+1,y)+A(x-1,y))/4.
 \end{equation*}
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{./images/example.pdf}}
+  \caption{Example of a stencil computation.}
+  \label{fig:ex}
+\end{center}\end{figure}
 
 Finally, the second type of numerical computation is a local computation.
 \begin{mydef}
