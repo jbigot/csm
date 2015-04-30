@@ -88,9 +88,33 @@ abstract }
 %% \RCNancy % Nancy - Grand Est
 %% \RCRennes % Rennes - Bretagne Atlantique
 %\RCSophia % Sophia Antipolis M\'editerran\'ee
-\newtheorem{mydef}{\textbf{Definition}}
+%\newtheorem{mydef}{\textbf{Definition}}
+%\newtheorem{myprop}{\textbf{Property}}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{myprop}[theorem]{Proposition}
+%\newtheorem{corollary}[theorem]{Corollary}
+
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{mydef}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{example}[1][Example]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{remark}[1][Remark]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\def\pprec{\mathrel{\scalebox{.9}[1]{$\prec$}\mkern-3mu%
+  \scalebox{.4}[1]{$\prec$}\mkern-5.5mu\scalebox{.4}[1]{$\prec$}}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
 \usepackage{graphics}
 \usepackage{tikz}
 \usepackage[ruled,noend]{algorithm2e}
