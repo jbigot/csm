@@ -19,11 +19,12 @@
 
 \documentclass[twoside]{article}
 \usepackage[a4paper]{geometry}
-\usepackage[latin1]{inputenc} % ou \usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc} % ou \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc} % ou \usepackage[OT1]{fontenc}
 \usepackage{RR}
 \usepackage{hyperref}
 \usepackage{subfigure}
+\usepackage{cite}
 %%\usepackage[frenchb]{babel} % optionnel
 \RRNo{7003}
 %% \RTNo{0703}
@@ -193,7 +194,8 @@ abstract }
 \input{conclusion.tex}
 %------------------------------------------------------------------------------
 \label{sect:bib}
-\bibliographystyle{abbrvnat}
+\bibliographystyle{plain}
+\bibliography{biblio}
 
 \end{document}
 \endinput

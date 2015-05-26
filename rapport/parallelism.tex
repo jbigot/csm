@@ -133,11 +133,11 @@ Using the function $T_{task}$ to build $\Gamma_{task}$, however, duplication of 
 \begin{figure}[h!]
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (c0) at (0,0) {$c_0$};
-   \node[component] (c1) at (1,0) {$c_1$};
-   \node[component] (c2) at (2,0) {$c_2$};
-   \node[component] (c3) at (3,0) {$c_3$};
-   \node[component] (c4) at (4,0) {$c_4$};
+   \node[] (c0) at (0,0) {$c_0$};
+   \node[] (c1) at (1,0) {$c_1$};
+   \node[] (c2) at (2,0) {$c_2$};
+   \node[] (c3) at (3,0) {$c_3$};
+   \node[] (c4) at (4,0) {$c_4$};
  
   \path[->]
     (c0) edge node {} (c1)
@@ -180,4 +180,215 @@ T_{task}(T_{data}(\Gamma,0),0).
 
 %------------------------------
 \subsection{Series-parallel graphs and series-parallel tree decomposition}
+In this section we argue that the graphs $\Gamma_{task}$ or $\Gamma_{hybrid}$, previously defined, on which an approximation will be defined, are minimal series-parallel graphs. For this reason, the structure of those graphs can be represented as binary trees of parallel and series compositions of sub-graphs, also called \emph{binary decomposition tree}~\cite{Valdes:1979:RSP:800135.804393}. First, the needed definitions on series-parallel graphs will be given...
 
+\paragraph{GSP and MSP classes.} 
+A vertex $v$ of a DAG $G$ is a \emph{source} if no edge of $G$ enters $v$. Similarly, a vertex $v$ is a \emph{sink} if no edge of $G$ leaves $v$. In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the class of minimal series-parallel DAGs (MSP).
+
+\begin{mydef}Minimal Series Parallel
+\begin{itemize}
+\item The DAG having a single vertex and no edges is MSP.
+\item If $G_1=(V_1,E_1)$ and $G_2=(V_2,E_2)$ are two MSP DAGs, so is either of the DAGs constructed by the following operations:
+\begin{itemize}
+\item Parallel composition: $G_p=(V_1\cup V_2,E_1\cup E_2)$.
+\item Series composition: $G_s=(V_1\cup V_2,E_1\cup E_2\cup (N_1 \times R_2))$, where $N_1$ is the set of sinks of $G_1$ and $R_2$ is the set of sources of $G_2$.
+\end{itemize}
+\end{itemize}
+\end{mydef}
+
+\begin{mydef}
+A DAG is \emph{General Series Parallel} (GSP) if and only if its transitive reduction is a MSP DAG.
+\end{mydef}
+
+A \emph{binary decomposition tree} is a tree having a leaf for each vertex of the MSP DAG it represents, and whose internal nodes are labelled $S$ or $P$ to indicate respectively the series or parallel composition of the MSP sub-DAGs represented by the subtrees rooted at $S$ or $P$. Figures~\ref{fig:gsp}, ~\ref{fig:msp} and~\ref{fig:t} respectively give an example of a GSP DAG, its transitive reduction which is MSP, and its tree decomposition.
+
+\begin{figure}[h!]
+\begin{center}
+\subfigure[][\label{fig:gsp}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (a) at (0,0) {$a$};
+   \node[] (b) at (1,0) {$b$};
+   \node[] (c) at (2,0.5) {$c$};
+   \node[] (d) at (3,0.5) {$d$};
+   \node[] (e) at (2,-0.5) {$e$};
+   \node[] (f) at (3,-0.5) {$f$};
+   \node[] (g) at (4,0) {$g$};
+   \node[] (h) at (1,-1) {$h$};
+   \node[] (i) at (2,-1) {$i$};
+   \node[] (j) at (3,-1) {$j$};
+ 
+  \path[->]
+    (a) edge node {} (b)
+        edge [bend left=50] node [swap] {} (d)
+        edge node {} (h)
+    (b) edge node {} (c)
+        edge node {} (e)
+    (c) edge node {} (d)
+        edge node {} (f)
+    (e) edge node {} (d)
+        edge node {} (f)
+    (d) edge node {} (g)
+    (f) edge node {} (g)
+    (h) edge node {} (i)
+        edge [bend right=50] node [swap] {} (j)
+    (i) edge node {} (j);
+  \end{tikzpicture}
+}
+\hspace{10pt}
+\subfigure[][\label{fig:msp}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+  \node[] (a) at (0,0) {$a$};
+   \node[] (b) at (1,0) {$b$};
+   \node[] (c) at (2,0.5) {$c$};
+   \node[] (d) at (3,0.5) {$d$};
+   \node[] (e) at (2,-0.5) {$e$};
+   \node[] (f) at (3,-0.5) {$f$};
+   \node[] (g) at (4,0) {$g$};
+   \node[] (h) at (1,-1) {$h$};
+   \node[] (i) at (2,-1) {$i$};
+   \node[] (j) at (3,-1) {$j$};
+ 
+  \path[->]
+    (a) edge node {} (b)
+        edge node {} (h)
+    (b) edge node {} (c)
+        edge node {} (e)
+    (c) edge node {} (d)
+        edge node {} (f)
+    (e) edge node {} (d)
+        edge node {} (f)
+    (d) edge node {} (g)
+    (f) edge node {} (g)
+    (h) edge node {} (i)
+    (i) edge node {} (j);
+  \end{tikzpicture}
+}
+\end{center}
+\caption{(a) GSP and (b) MSP DAGs}
+\label{fig:gspmsp}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (S1) at (0,0) {$\mathcal{S}$};
+   \node[] (P1) at (0.5,1) {$\mathcal{P}$};
+   \node[] (a) at (-0.5,1) {$a$};
+   \node[] (S2) at (-1,2) {$\mathcal{S}$}; %+1
+   \node[] (S3) at (2,2) {$\mathcal{S}$}; %-1
+   \node[] (b) at (-2,3) {$b$};
+   \node[] (S4) at (0,3) {$\mathcal{S}$};
+   \node[] (P2) at (-1,4) {$\mathcal{P}$};
+   \node[] (g) at (1,4) {$g$};
+   \node[] (S5) at (-2,5) {$\mathcal{S}$};
+   \node[] (S6) at (0,5) {$\mathcal{S}$};
+   \node[] (c) at (-2.5,6) {$c$};
+   \node[] (d) at (-1.5,6) {$d$};
+   \node[] (e) at (-0.5,6) {$e$};
+   \node[] (f) at (0.5,6) {$f$};
+   
+   \node[] (h) at (1,3) {$h$};
+   \node[] (S7) at (3,3) {$\mathcal{S}$};
+   \node[] (i) at (2.5,4) {$i$};
+   \node[] (j) at (3.5,4) {$j$};
+ 
+  \path[->]
+    (S1) edge node {} (a)
+          edge node {} (P1)
+    (P1) edge node {} (S2)
+          edge node {} (S3)
+    (S2) edge node {} (b)
+        edge node {} (S4)
+    (S4) edge node {} (P2)
+          edge node {} (g)
+    (P2) edge node {} (S5)
+          edge node {} (S6)
+    (S5) edge node {} (c)
+          edge node {} (d)
+    (S6) edge node {} (e)
+          edge node {} (f)
+    (S3) edge node {} (h)
+         edge node {} (S7)
+    (S7) edge node {} (i)
+          edge node {} (j);
+  \end{tikzpicture}
+  \caption{Binary decomposition tree of the MSP of Figure~\ref{fig:msp}}
+  \label{fig:t}
+\end{center}
+\end{figure}
+
+Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have also proposed a linear algorithm to know if a DAG is MSP, and if it is to decompose it to the associated series-parallel tree. This algorithm is based on the duality of the class of MSP DAGs, with the class of \emph{Two Terminal Series Parallel} DAGs (TTSP) from which a binary tree decomposition can be performed in linear time. Other algorithms have also been proposed, all of them in linear time~\cite{Schoenmakers95anew}.
+
+Finally, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have identify a forbidden shape, or subgraph, called $N$ and represented in Figure~\ref{fig:n}.
+
+\begin{mydef}
+A DAG $G$ is GSP if and only if its transitive closure does not contain $N$ as a subgraph.
+\end{mydef}
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (a) at (0,0) {$a$};
+   \node[] (b) at (1,0) {$b$};
+   \node[] (c) at (0,-1) {$c$};
+   \node[] (d) at (1,-1) {$d$};
+ 
+  \path[->]
+    (a) edge node {} (b)
+    (c) edge node {} (b)
+        edge node {} (d);
+  \end{tikzpicture}
+  \caption{Forbidden $N$ subgraph shape for a DAG to be GSP.}
+  \label{fig:n}
+\end{center}
+\end{figure}
+
+\paragraph{Multi-stencil programs.}
+We are interesting in GSP and MSP classes of graphs to be able to represent computations of a multi-stencil program as a set of sequences or parallel executions. Actually, such a representation can directly be dumped to a parallel language, in which \emph{sequence} of instructions and \emph{parallel} execution of instructions are defined. Series-parallel trees can also be used as input of scheduling optimizations~\cite{Finta1996323,Wang20082684} to improve task parallelism efficiency. Finally, in this paper is presented that such a series-parallel representation can also be dumped to component models by defining specific control components. Thus, the proposed DSL inheritates, among others, some software engineering advantages of component models, such as code re-use, productivity and maintainability.
+
+However, even by applying the transitive reduction on the computation DAG $\Gamma_{task}$ (or $\Gamma_{hybrid}$), it is possible to obtain a DAG not MSP. Actually, it is possible in a multi-stencil program to have a set of computations such that their dependencies form the forbidden $N$ subgraph. For example, if $c_0$, $c_1$, $c_2$ and $c_3$ are computations of a $\mathcal{MSP}$ such that $c_0 \prec c_1$, $c_2 \prec c_1$ and $c_2 \prec c_3$, the \emph{zigzag} relation $c_0 \prec c_1 \succ c_2 \prec c_3$ which form a forbidden subgraph of MSP DAGs is found in $\Gamma_{task}$. For this reason, we have made the choice to over-constrain such a case by adding the relation $c_0 \prec c_3$ such that a complete graph is created and can be translated to a series-parallel decomposition as illustrated in Figure~\ref{fig:allover}.
+
+\begin{figure}[h!]
+\begin{center}
+\subfigure[][Over-constraint on the forbidden $N$ shape.\label{fig:over}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (c0) at (0,0) {$c_0$};
+   \node[] (c1) at (2,0) {$c_1$};
+   \node[] (c2) at (0,-1) {$c_2$};
+   \node[] (c3) at (2,-1) {$c_3$};
+ 
+  \path[->]
+    (c0) edge node {} (c1)
+          edge [dashed] node [swap] {} (c3)
+    (c2) edge node {} (c1)
+        edge node {} (c3);
+  \end{tikzpicture}
+}
+\hspace{50pt}
+\subfigure[][Series-parallel tree associated to the over-constraint\label{fig:treeover}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (P1) at (0,0) {$\mathcal{P}$};
+   \node[] (S1) at (-1,1) {$\mathcal{S}$};
+   \node[] (S2) at (1,1) {$\mathcal{S}$};
+   \node[] (c0) at (-1.5,2) {$c_0$};
+   \node[] (c1) at (-0.5,2) {$c_1$};
+   \node[] (c2) at (0.5,2) {$c_2$};
+   \node[] (c3) at (1.5,2) {$c_3$};
+ 
+  \path[->]
+    (P1) edge [dashed] node [swap] {} (S1)
+          edge [dashed] node [swap] {} (S2)
+    (S1) edge node {} (c0)
+          edge node {} (c1)
+    (S2) edge node {} (c2)
+        edge node {} (c3);
+  \end{tikzpicture}
+}
+\caption{Deletion of forbidden subgraphs.}
+\label{fig:allover}
+\end{center}
+\end{figure}
+
+This approximation on the dependencies is acceptable for multi-stencil programs, first because it rarely appends, second because of the relative homogeneity of computations. Actually, all computations, except the ones on the physical border of the domain, are performed on an entire domain of the mesh, and as a computation performs a single quantity at a time ($w_i$ of $c_i$ is a singleton), the amount of arithmetic operations in a computation are quite homogeneous.
+
+After this over-constraint is applied, $\Gamma_{task}$ (or $\Gamma_{hybrid}$) is a MSP DAG. As a result, the binary series-parallel tree decomposition can be computed in linear time.
