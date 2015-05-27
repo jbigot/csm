@@ -344,7 +344,7 @@ A DAG $G$ is GSP if and only if its transitive closure does not contain $N$ as a
 \end{figure}
 
 \paragraph{Multi-stencil programs.}
-We are interesting in GSP and MSP classes of graphs to be able to represent computations of a multi-stencil program as a set of sequences or parallel executions. Actually, such a representation can directly be dumped to a parallel language, in which \emph{sequence} of instructions and \emph{parallel} execution of instructions are defined. Series-parallel trees can also be used as input of scheduling optimizations~\cite{Finta1996323,Wang20082684} to improve task parallelism efficiency. Finally, in this paper is presented that such a series-parallel representation can also be dumped to component models by defining specific control components. Thus, the proposed DSL inheritates, among others, some software engineering advantages of component models, such as code re-use, productivity and maintainability.
+We are interested in GSP and MSP classes of graphs to be able to represent computations of a multi-stencil program as a set of sequences or parallel executions. Actually, such a representation can directly be dumped to a parallel language, in which \emph{sequence} of instructions and \emph{parallel} execution of instructions are defined. Series-parallel trees can also be used as input of scheduling optimizations~\cite{Finta1996323,Wang20082684} to improve task parallelism efficiency. Finally, in this paper is presented that such a series-parallel representation can also be dumped to component models by defining specific control components. Thus, the proposed DSL inheritates, among others, some software engineering advantages of component models, such as code re-use, productivity and maintainability.
 
 However, even by applying the transitive reduction on the computation DAG $\Gamma_{task}$ (or $\Gamma_{hybrid}$), it is possible to obtain a DAG not MSP. Actually, it is possible in a multi-stencil program to have a set of computations such that their dependencies form the forbidden $N$ subgraph. For example, if $c_0$, $c_1$, $c_2$ and $c_3$ are computations of a $\mathcal{MSP}$ such that $c_0 \prec c_1$, $c_2 \prec c_1$ and $c_2 \prec c_3$, the \emph{zigzag} relation $c_0 \prec c_1 \succ c_2 \prec c_3$ which form a forbidden subgraph of MSP DAGs is found in $\Gamma_{task}$. For this reason, we have made the choice to over-constrain such a case by adding the relation $c_0 \prec c_3$ such that a complete graph is created and can be translated to a series-parallel decomposition as illustrated in Figure~\ref{fig:allover}.
 
@@ -391,4 +391,13 @@ However, even by applying the transitive reduction on the computation DAG $\Gamm
 
 This approximation on the dependencies is acceptable for multi-stencil programs, first because it rarely appends, second because of the relative homogeneity of computations. Actually, all computations, except the ones on the physical border of the domain, are performed on an entire domain of the mesh, and as a computation performs a single quantity at a time ($w_i$ of $c_i$ is a singleton), the amount of arithmetic operations in a computation are quite homogeneous.
 
-After this over-constraint is applied, $\Gamma_{task}$ (or $\Gamma_{hybrid}$) is a MSP DAG. As a result, the binary series-parallel tree decomposition can be computed in linear time.
+After these over-constraints are applied, $\Gamma_{task}$ (or $\Gamma_{hybrid}$) is a MSP DAG. As a result, the binary series-parallel tree decomposition can be computed in linear time. At this point, the $\mathcal{MSP}$ program could be dumped to any parallel language in which a sequence and a parallel execution is available. For example, we could imagine a parallel functionnal language with a binary \emph{sequence} function and a binary \emph{parallel} function such that the tree of Figure~\ref{fig:t} corresponds the following nested call:
+
+\begin{equation}
+\begin{split}
+\text{sequence}(a,\text{parallel}(&\\
+&\text{sequence}(b,\text{sequence}(\text{parallel}(\text{sequence}(c,d),\text{sequence}(e,f)),g)),\\
+&\text{sequence}(h,\text{sequence}(i,j))\\
+&))
+\end{split}
+\end{equation}

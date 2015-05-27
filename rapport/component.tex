@@ -1,3 +1,16 @@
+Instead of dumping the series-parallel tree decomposition of $\Gamma_{task}$ (or $\Gamma_{hybrid}$) to a functionnal high abstraction level language, or to an imperative high abstraction level language, such as OpenMP, we have chosen to dump it to a component model assembly. Component models are an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228} where an application is represented as a set of components, each of them responsible for a functionnality, and linked together through their interfaces. As a result, a component assembly represents the functional dependencies of the application. Each component is an independant black box, and one component could be replaced in the assembly by another one having same interfaces. Thus, component models improve code re-use, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. Moreover, component models bring a separation of concerns in the application by a clear division of functionnalities in different components.
+
+Recent work on component models have shown a simultaneous answer to performance, maintainability and portability of application~\cite{l2c} which makes component models a serious and interesting candidate for modern high performance computing. However, to obtain performance in applications, overheads introduced by separation of concerns in independant components, and their communications, have to be reduced as much as possible at runtime. For this reason, only two component models are nowadays considered as HPC-oriented: $L^2C$~\cite{l2c} and CCA~\cite{Allan04acomponent}. Both of them propose simple primitive components, and interactions between components are reduced to virtual method calls and MPI communications. The resulting component assembly, however, is close to the execution model and some components represent low level concerns which are difficult to implement just like a standard HPC code. A DSL hide those difficulties to the end-user while keeping advantages of component models.
+
+Proposing a DSL which is dumped into a component assembly has many advantages:
+\begin{itemize}
+\item advantages of component models are inherited for the DSL itself. Thus, the DSL is easier to maintain, scalable, portable and still efficient;
+\item the DSL conception phase is improved because of code re-use and productivity;
+\item the DSL is light. Its compiler generates a component assembly instead of code.
+\end{itemize}
+
+In this Section, a primitive component model, from which $L^2C$ could be defined, is presented. From this primitive model, three \emph{control} components are introduced to finally dump the binary tree decomposition to a component assembly described in the last section.
+
 %-------------------------------------
 \subsection{A primitive component model}
 
