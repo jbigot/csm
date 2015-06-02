@@ -1,4 +1,4 @@
-In this section we argue that the graphs $\Gamma_{task}$ or $\Gamma_{hybrid}$, previously defined, on which an approximation will be defined, are minimal series-parallel graphs. For this reason, the structure of those graphs can be represented as binary trees of parallel and series compositions of sub-graphs, also called \emph{binary decomposition tree}~\cite{Valdes:1979:RSP:800135.804393}. First, the needed definitions on series-parallel graphs will be given...
+In this section we argue that the graphs $\Gamma_{hybrid}$ or $\Gamma_{task}$, previously defined, on which an approximation will be defined, are minimal series-parallel graphs. For this reason, the structure of those graphs can be represented as binary trees of parallel and series compositions of sub-graphs, also called \emph{binary decomposition tree}~\cite{Valdes:1979:RSP:800135.804393}. First, the needed definitions on series-parallel graphs will be given...
 
 %--------------------
 \subsection{GSP and MSP classes}
@@ -167,6 +167,7 @@ The binary decomposition tree algorithm is based on the fact that the decomposit
 \begin{figure}[h!]
 \captionsetup[subfigure]{labelformat=empty}
 \begin{center}
+%FIRST RULE
 \subfloat[]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
@@ -179,10 +180,12 @@ The binary decomposition tree algorithm is based on the fact that the decomposit
   \end{tikzpicture}
   }
 \hspace{50pt}
+%ARROW
 \subfloat[]{
 $\Rightarrow$
 }
 \hspace{50pt}
+%SECOND RULE
 \subfloat[]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
@@ -204,7 +207,7 @@ $\Rightarrow$
    \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
  
   \path[->]
-    (x) edge [bend left] node [above] {$T_1$} (y);
+    (x) edge [bend left] node [above] {$T_1$} (y)
         edge node [above] {$T_2$} (y);
   \end{tikzpicture}
   }
@@ -260,7 +263,13 @@ A DAG $G$ is GSP if and only if its transitive closure does not contain $N$ as a
 \subsection{Multi-stencil programs.}
 We are interested in GSP and MSP classes of graphs to be able to represent computations of a multi-stencil program as a set of sequences and parallel executions. Actually, such a representation can directly be dumped to a parallel language, in which \emph{sequence} of instructions and \emph{parallel} execution of instructions are defined. Series-parallel trees can also be used as input of scheduling optimizations~\cite{Finta1996323,Wang20082684} to improve task parallelism efficiency, which opens more perspectives to this work. Finally, in this paper is presented that such a series-parallel representation can also be dumped to component models by defining specific control components. Thus, the proposed DSL inheritates software engineering advantages of component models, such as code re-use, productivity and maintainability.
 
-However, even by applying the transitive reduction on the computation DAG $\Gamma_{task}$ (or $\Gamma_{hybrid}$), it is possible to obtain a DAG not MSP. Actually, it is possible in a multi-stencil program to have a set of computations such that their dependencies form the forbidden $N$ subgraph. For example, if $c_0$, $c_1$, $c_2$ and $c_3$ are computations of a $\mathcal{MSP}$ such that $c_0 \prec c_1$, $c_2 \prec c_1$ and $c_2 \prec c_3$, the \emph{zigzag} relation $c_0 \prec c_1 \succ c_2 \prec c_3$ which form a forbidden subgraph of MSP DAGs is found in $\Gamma_{task}$. For this reason, we have made the choice to over-constrain such a case by adding the relation $c_0 \prec c_3$ such that a complete graph is created and can be translated to a series-parallel decomposition as illustrated in Figure~\ref{fig:allover}.
+Returning back to the parallelization formalism of Section~\ref{}, two important steps have to be performed to make $\Gamma_{hybrid}$ a MSP graph:
+\begin{itemize}
+\item transitive reduction,
+\item deletion of the forbidden $N$ shape.
+\end{itemize}
+
+The transitive reduction has already been applied on $\Gamma_{hybrid}$ by the transitivity of the relation $\blacktriangleleft$. However, even by applying this transitive reduction it is possible to obtain a DAG which is not MSP. Actually, it is possible in a multi-stencil program to have a set of computations such that their dependencies form the forbidden $N$ subgraph. For example, if $c_0$, $c_1$, $c_2$ and $c_3$ are computations of a $\mathcal{MSP}$ such that $c_0 \prec c_1$, $c_2 \prec c_1$ and $c_2 \prec c_3$, the \emph{zigzag} relation $c_0 \prec c_1 \succ c_2 \prec c_3$ which form a forbidden subgraph of MSP DAGs is found in $\Gamma_{hybrid}$. For this reason, we have made the choice to over-constrain such a case by adding the relation $c_0 \prec c_3$ such that a complete graph is created and can be translated to a series-parallel decomposition as illustrated in Figure~\ref{fig:allover}.
 
 \begin{figure}[h!]
 \begin{center}
@@ -305,7 +314,554 @@ However, even by applying the transitive reduction on the computation DAG $\Gamm
 
 This approximation on the dependencies is acceptable for multi-stencil programs, first because it rarely appends, second because of the relative homogeneity of computations. Actually, all computations, except the ones on the physical border of the domain, are performed on an entire domain of the mesh, and as a computation performs a single quantity at a time ($w_i$ of $c_i$ is a singleton), the amount of arithmetic operations in a computation are quite homogeneous.
 
-After these over-constraints are applied, $\Gamma_{task}$ (or $\Gamma_{hybrid}$) is a MSP DAG. As a result, the binary series-parallel tree decomposition can be computed in linear time. At this point, the $\mathcal{MSP}$ program could be dumped to any parallel language in which a sequence and a parallel execution are available. For example, we could imagine a parallel functionnal language with a binary \emph{sequence} function and a binary \emph{parallel} function such that the tree of Figure~\ref{fig:t} corresponds the following nested call:
+After these over-constraints are applied, $\Gamma_{hybrid}$ is a MSP DAG. As a result, the binary tree decomposition algorithm of Valdes \& Al can be applied on $\Gamma_{hybrid}$. However, because of updated-computations inserted in $\Gamma_{data}$, we have to define additional reduction rules for the algorithm. For an updated-computation $c^*_j(c_j,\text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\}))$, we define $*_j$ as the update needed by $c_j$, $*_j = \text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\})$. As a result, the updated-computation $c^*_j$ is defined by $c^*_j(c_j,*_j)$. The initial label of the edges of the graph to reduce are the computations of the multi-stencil program. Four new rules are needed to perform the binary tree decomposition of $\Gamma_{hybrid}$ and are defined in Figure~\ref{fig:newrules}.
+
+\begin{figure}[h!]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+%FIRST RULE
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (z) at (3,0) {};
+ 
+  \path[->]
+    (x) edge node [above] {$c_1^*$} (y)
+    (y) edge node [above] {$c_2$} (z);
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+%ARROW
+\subfloat[]{
+$\Rightarrow$
+}
+\hspace{50pt}
+%TRANSFORMATION
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+   \node[] (s1) at (1.5,0.5) {$\mathcal{S}$};
+   \node[] (s2) at (1,1.5) {$\mathcal{S}$};
+   \node[] (star) at (0.5,2.5) {$*_1$};
+   \node[] (t1) at (1.5,2.5) {$c_1$};
+   \node[] (t2) at (2,1.5) {$c_2$};
+ 
+  \path[->]
+    (x) edge node {} (y)
+    (s1) edge node {} (s2)
+        edge node {} (t2)
+    (s2) edge node {} (star)
+         edge node {} (t1);
+  \end{tikzpicture}
+}
+\\
+%SECOND RULE
+%FIRST RULE
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (z) at (3,0) {};
+ 
+  \path[->]
+    (x) edge node [above] {$c_1^*$} (y)
+    (y) edge node [above] {$c_2^*$} (z);
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+%ARROW
+\subfloat[]{
+$\Rightarrow$
+}
+\hspace{50pt}
+%TRANSFORMATION
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+   \node[] (s1) at (1.5,0.5) {$\mathcal{S}$};
+   \node[] (s2) at (0.5,1.5) {$\mathcal{S}$};
+   \node[] (s3) at (2.5,1.5) {$\mathcal{S}$};
+   \node[] (star1) at (0,2.5) {$*_1$};
+   \node[] (t1) at (1,2.5) {$c_1$};
+   \node[] (star2) at (2,2.5) {$*_2$};
+   \node[] (t2) at (3,2.5) {$c_2$};
+ 
+  \path[->]
+    (x) edge node {} (y)
+    (s1) edge node {} (s2)
+        edge node {} (s3)
+    (s2) edge node {} (star1)
+         edge node {} (t1)
+    (s3) edge node {} (star2)
+         edge node {} (t2);
+  \end{tikzpicture}
+}
+\\
+%THIRD RULE
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+ 
+  \path[->]
+    (x) edge [bend left] node [above] {$c_1^*$} (y)
+        edge [bend right] node [below] {$c_2^*$} (y);
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+%ARROW
+\subfloat[]{
+$\Rightarrow$
+}
+\hspace{50pt}
+%TRANSFORMATION
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+   \node[] (p) at (1.5,0.5) {$\mathcal{P}$};
+   \node[] (s) at (1,1.5) {$\mathcal{S}$};
+   \node[] (star) at (0.5,2.5) {$*_1$};
+   \node[] (t1) at (1.5,2.5) {$c_1$};
+   \node[] (t2) at (2,1.5) {$c_2$};
+ 
+  \path[->]
+    (x) edge node {} (y)
+    (p) edge node {} (s)
+        edge node {} (t2)
+    (s) edge node {} (star)
+        edge node {} (t1);
+  \end{tikzpicture}
+}
+\\
+%FOURTH RULE
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+ 
+  \path[->]
+    (x) edge [bend left] node [above] {$c_1^*$} (y)
+        edge [bend right] node [below] {$c_2^*$} (y);
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+%ARROW
+\subfloat[]{
+$\Rightarrow$
+}
+\hspace{50pt}
+%TRANSFORMATION
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+   \node[] (p) at (1.5,0.5) {$\mathcal{P}$};
+   \node[] (s2) at (0.5,1.5) {$\mathcal{S}$};
+   \node[] (s3) at (2.5,1.5) {$\mathcal{S}$};
+   \node[] (star1) at (0,2.5) {$*_1$};
+   \node[] (t1) at (1,2.5) {$c_1$};
+   \node[] (star2) at (2,2.5) {$*_2$};
+   \node[] (t2) at (3,2.5) {$c_2$};
+ 
+  \path[->]
+    (x) edge node {} (y)
+    (p) edge node {} (s2)
+        edge node {} (s3)
+    (s2) edge node {} (star1)
+         edge node {} (t1)
+    (s3) edge node {} (star2)
+         edge node {} (t2);
+  \end{tikzpicture}
+}
+\caption{Reduction rules of the decomposition tree algorithm.}
+\label{fig:newrules}
+\end{center}
+\end{figure}
+
+Using those additional reduction rules, the binary series-parallel tree decomposition can be computed in linear time. A complete example of reduction is given in Figure~\ref{fig:example}. The initial $\Gamma_{hybrid}$ DAG and its inverse line graph are given first, followed by the set of reductions. The label of the final single edge corresponds to the binary tree decomposition of the initial $\Gamma_{hybrid}$ graph. 
+
+%====BIG EXAMPLE
+\begin{figure}[ht!]
+\begin{center}
+% INITIAL GRAPH
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (c0) at (0,0) {$c_0$};
+   \node[] (c1) at (1,0) {$c_1^*$};
+   \node[] (c2) at (2,0.5) {$c_2$};
+   \node[] (c3) at (2,-0.5) {$c_3$};
+   \node[] (c4) at (3,0.5) {$c_4^*$};
+   \node[] (c5) at (3,-0.5) {$c_5$};
+   \node[] (c6) at (4,0.5) {$c_6$};
+   \node[] (c7) at (5,0) {$c_7$};
+   \node[] (c8) at (6,0) {$c_8^*$};
+ 
+  \path[->]
+    (c0) edge node {} (c1)
+    (c1) edge node {} (c2)
+         edge node {} (c3)
+    (c2) edge node {} (c4)
+    (c4) edge node {} (c6)
+    (c3) edge node {} (c5)
+    (c5) edge node {} (c7)
+    (c6) edge node {} (c7)
+    (c7) edge node {} (c8);
+  \end{tikzpicture}
+}
+\\
+% INVERSE LINE GRAPH
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c0d) at (1,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (2,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c2d) at (3,0.5) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c3d) at (3,-0.5) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c4d) at (4,0.5) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c6d) at (5,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c7d) at (6,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (7,0) {};
+ 
+  \path[->]
+    (c0s) edge node [above] {$c_0$} (c0d)
+    (c0d) edge node [above] {$c_1^*$} (c1d)
+    (c1d) edge node [above] {$c_2$} (c2d)
+          edge node [above] {$c_3$} (c3d)
+    (c2d) edge node [above] {$c_4^*$} (c4d)
+    (c4d) edge node [above] {$c_6$} (c6d)
+    (c6d) edge node [above] {$c_7$} (c7d)
+    (c7d) edge node [above] {$c_8$} (c8d)
+    (c3d) edge node [above] {$c_5$} (c6d);
+  \end{tikzpicture}
+}
+\\
+% TRANSFORMATIONS
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (2,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c2d) at (3,0.5) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c3d) at (3,-0.5) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c4d) at (4,0.5) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c6d) at (5,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (7,0) {};
+
+   %reduction c0 c1
+   \node[] (s1) at (1,0.5) {$\mathcal{S}$};
+   \node[] (c0) at (0.5,1.5) {$c_0$};
+   \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
+   \node[] (star1) at (1,2.5) {$*_1$};
+   \node[] (c1) at (2,2.5) {$c_1$};
+
+   %reduction c7 c8
+   \node[] (s3) at (6,0.5) {$\mathcal{S}$};
+   \node[] (c7) at (5.5,1.5) {$c_7$};
+   \node[] (s4) at (6.5,1.5) {$\mathcal{S}$};
+   \node[] (star8) at (6,2.5) {$*_8$};
+   \node[] (c8) at (7,2.5) {$c_8$};
+ 
+  \path[->]
+    (c0s) edge node {} (c1d)
+    (c1d) edge node [above] {$c_2$} (c2d)
+          edge node [above] {$c_3$} (c3d)
+    (c2d) edge node [above] {$c_4^*$} (c4d)
+    (c4d) edge node [above] {$c_6$} (c6d)
+    (c6d) edge node [above] {} (c8d)
+    (c3d) edge node [above] {$c_5$} (c6d)
+
+    %reduction c0 c1
+    (s1) edge node {} (c0)
+         edge node {} (s2)
+    (s2) edge node {} (star1)
+         edge node {} (c1)
+    %reduction c7 c8
+    (s3) edge node {} (c7)
+         edge node {} (s4)
+    (s4) edge node {} (star8)
+         edge node {} (c8);
+  \end{tikzpicture}
+}
+\\
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (2,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c4d) at (4,0.5) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c6d) at (5,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (7,0) {};
+
+   %reduction c0 c1
+   \node[] (s1) at (1,0.5) {$\mathcal{S}$};
+   \node[] (c0) at (0.5,1.5) {$c_0$};
+   \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
+   \node[] (star1) at (1,2.5) {$*_1$};
+   \node[] (c1) at (2,2.5) {$c_1$};
+
+   %reduction c7 c8
+   \node[] (s3) at (6,0.5) {$\mathcal{S}$};
+   \node[] (c7) at (5.5,1.5) {$c_7$};
+   \node[] (s4) at (6.5,1.5) {$\mathcal{S}$};
+   \node[] (star8) at (6,2.5) {$*_8$};
+   \node[] (c8) at (7,2.5) {$c_8$};
+
+   %reduction c3 c5
+   \node[] (s5) at (3.5,-2) {$\mathcal{S}$};
+   \node[] (c3) at (3,-1) {$c_3$};
+   \node[] (c5) at (4,-1) {$c_5$};
+
+   %reduction c2 c4
+   \node[] (s6) at (3.5,1) {$\mathcal{S}$};
+   \node[] (c2) at (3,2) {$c_2$};
+   \node[] (s7) at (4,2) {$\mathcal{S}$};
+   \node[] (star4) at (3.5,3) {$*_4$};
+   \node[] (c4) at (4.5,3) {$c_4$};
+ 
+  \path[->]
+    (c0s) edge node {} (c1d)
+    (c1d) edge [bend left] node [above] {} (c4d)
+    (c4d) edge node [above] {$c_6$} (c6d)
+    (c6d) edge node [above] {} (c8d)
+    (c1d) edge [bend right] node [above] {} (c6d)
+
+    %reduction c0 c1
+    (s1) edge node {} (c0)
+         edge node {} (s2)
+    (s2) edge node {} (star1)
+         edge node {} (c1)
+    %reduction c7 c8
+    (s3) edge node {} (c7)
+         edge node {} (s4)
+    (s4) edge node {} (star8)
+         edge node {} (c8)
+
+    %reduction c3 c5
+    (s5) edge node {} (c3)
+         edge node {} (c5)
+
+    %reduction c7 c8
+    (s6) edge node {} (c2)
+         edge node {} (s7)
+    (s7) edge node {} (star4)
+         edge node {} (c4);
+  \end{tikzpicture}
+}
+\end{center}
+\caption{Big example}
+\label{fig:example}
+\end{figure}
+
+\begin{figure}[ht!]
+\ContinuedFloat
+\begin{center}
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (2,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c6d) at (5,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (7,0) {};
+
+   %reduction c0 c1
+   \node[] (s1) at (1,0.5) {$\mathcal{S}$};
+   \node[] (c0) at (0.5,1.5) {$c_0$};
+   \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
+   \node[] (star1) at (1,2.5) {$*_1$};
+   \node[] (c1) at (2,2.5) {$c_1$};
+
+   %reduction c7 c8
+   \node[] (s3) at (6,0.5) {$\mathcal{S}$};
+   \node[] (c7) at (5.5,1.5) {$c_7$};
+   \node[] (s4) at (6.5,1.5) {$\mathcal{S}$};
+   \node[] (star8) at (6,2.5) {$*_8$};
+   \node[] (c8) at (7,2.5) {$c_8$};
+
+   %reduction c3 c5
+   \node[] (s5) at (3.5,-2) {$\mathcal{S}$};
+   \node[] (c3) at (3,-1) {$c_3$};
+   \node[] (c5) at (4,-1) {$c_5$};
+
+   %reduction c2 c6
+   \node[] (s8) at (3.5,1) {$\mathcal{S}$};
+   \node[] (c6) at (4,2) {$c_6$};
+   \node[] (s6) at (3,2) {$\mathcal{S}$};
+   \node[] (c2) at (2.5,3) {$c_2$};
+   \node[] (s7) at (3.5,3) {$\mathcal{S}$};
+   \node[] (star4) at (3,4) {$*_4$};
+   \node[] (c4) at (4,4) {$c_4$};
+ 
+  \path[->]
+    (c0s) edge node {} (c1d)
+    (c1d) edge [bend left] node [above] {} (c6d)
+    (c6d) edge node [above] {} (c8d)
+    (c1d) edge [bend right] node [above] {} (c6d)
+
+    %reduction c0 c1
+    (s1) edge node {} (c0)
+         edge node {} (s2)
+    (s2) edge node {} (star1)
+         edge node {} (c1)
+    %reduction c7 c8
+    (s3) edge node {} (c7)
+         edge node {} (s4)
+    (s4) edge node {} (star8)
+         edge node {} (c8)
+
+    %reduction c3 c5
+    (s5) edge node {} (c3)
+         edge node {} (c5)
+
+    %reduction c2 c6
+    (s8) edge node {} (s6)
+         edge node {} (c6)
+    (s6) edge node {} (c2)
+         edge node {} (s7)
+    (s7) edge node {} (star4)
+         edge node {} (c4);
+  \end{tikzpicture}
+}
+\\
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (2,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c6d) at (6,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (8,0) {};
+
+   %reduction c0 c1
+   \node[] (s1) at (1,0.5) {$\mathcal{S}$};
+   \node[] (c0) at (0.5,1.5) {$c_0$};
+   \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
+   \node[] (star1) at (1,2.5) {$*_1$};
+   \node[] (c1) at (2,2.5) {$c_1$};
+
+   %reduction c7 c8
+   \node[] (s3) at (7,0.5) {$\mathcal{S}$};
+   \node[] (c7) at (6.5,1.5) {$c_7$};
+   \node[] (s4) at (7.5,1.5) {$\mathcal{S}$};
+   \node[] (star8) at (7,2.5) {$*_8$};
+   \node[] (c8) at (8,2.5) {$c_8$};
+
+   %reduction c2 c4 c6 c3 c5
+   \node[] (p1) at (4,0.5) {$\mathcal{P}$};
+   \node[] (s5) at (3,1) {$\mathcal{S}$};
+   \node[] (c3) at (2.5,2) {$c_3$};
+   \node[] (c5) at (3.5,2) {$c_5$};
+   \node[] (s8) at (5,1) {$\mathcal{S}$};
+   \node[] (c6) at (5.5,2) {$c_6$};
+   \node[] (s6) at (4.5,2) {$\mathcal{S}$};
+   \node[] (c2) at (4,3) {$c_2$};
+   \node[] (s7) at (5,3) {$\mathcal{S}$};
+   \node[] (star4) at (4.5,4) {$*_4$};
+   \node[] (c4) at (5.5,4) {$c_4$};
+ 
+  \path[->]
+    (c0s) edge node {} (c1d)
+    (c1d) edge node [above] {} (c6d)
+    (c6d) edge node [above] {} (c8d)
+
+    %reduction c0 c1
+    (s1) edge node {} (c0)
+         edge node {} (s2)
+    (s2) edge node {} (star1)
+         edge node {} (c1)
+    %reduction c7 c8
+    (s3) edge node {} (c7)
+         edge node {} (s4)
+    (s4) edge node {} (star8)
+         edge node {} (c8)
+
+    %reduction c2 c4 c6 c3 c5
+    (p1) edge node {} (s5)
+         edge node {} (s8)
+    (s5) edge node {} (c3)
+         edge node {} (c5)
+    (s8) edge node {} (s6)
+         edge node {} (c6)
+    (s6) edge node {} (c2)
+         edge node {} (s7)
+    (s7) edge node {} (star4)
+         edge node {} (c4);
+  \end{tikzpicture}
+}
+\\
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
+   \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (8,0) {};
+
+   %all
+   \node[] (s9) at (2.5,1.5) {$\mathcal{S}$};
+   \node[] (s10) at (4,0.5) {$\mathcal{S}$};
+
+   %reduction c0 c1
+   \node[] (s1) at (1,2) {$\mathcal{S}$};
+   \node[] (c0) at (0.5,3) {$c_0$};
+   \node[] (s2) at (1.5,3) {$\mathcal{S}$};
+   \node[] (star1) at (1,4) {$*_1$};
+   \node[] (c1) at (2,4) {$c_1$};
+
+   %reduction c7 c8
+   \node[] (s3) at (7,1) {$\mathcal{S}$};
+   \node[] (c7) at (6.5,2) {$c_7$};
+   \node[] (s4) at (7.5,2) {$\mathcal{S}$};
+   \node[] (star8) at (7,3) {$*_8$};
+   \node[] (c8) at (8,3) {$c_8$};
+
+   %reduction c2 c4 c6 c3 c5
+   \node[] (p1) at (4,2) {$\mathcal{P}$};
+   \node[] (s5) at (3,2.5) {$\mathcal{S}$};
+   \node[] (c3) at (2.5,3.5) {$c_3$};
+   \node[] (c5) at (3.5,3.5) {$c_5$};
+   \node[] (s8) at (5,2.5) {$\mathcal{S}$};
+   \node[] (c6) at (5.5,3.5) {$c_6$};
+   \node[] (s6) at (4.5,3.5) {$\mathcal{S}$};
+   \node[] (c2) at (4,4.5) {$c_2$};
+   \node[] (s7) at (5,4.5) {$\mathcal{S}$};
+   \node[] (star4) at (4.5,5.5) {$*_4$};
+   \node[] (c4) at (5.5,5.5) {$c_4$};
+ 
+  \path[->]
+    (c0s) edge node {} (c8d)
+
+    %reduction c0 c1
+    (s1) edge node {} (c0)
+         edge node {} (s2)
+    (s2) edge node {} (star1)
+         edge node {} (c1)
+    %reduction c7 c8
+    (s3) edge node {} (c7)
+         edge node {} (s4)
+    (s4) edge node {} (star8)
+         edge node {} (c8)
+
+    %reduction c2 c4 c6 c3 c5
+    (p1) edge node {} (s5)
+         edge node {} (s8)
+    (s5) edge node {} (c3)
+         edge node {} (c5)
+    (s8) edge node {} (s6)
+         edge node {} (c6)
+    (s6) edge node {} (c2)
+         edge node {} (s7)
+    (s7) edge node {} (star4)
+         edge node {} (c4)
+
+    %all
+    (s9) edge node {} (s1)
+         edge node {} (p1)
+    (s10) edge node {} (s9)
+          edge node {} (s3);
+  \end{tikzpicture}
+}
+\end{center}
+\caption{Big example}
+\label{fig:example}
+\end{figure}
+
+At this point, the $\mathcal{MSP}$ program can be dumped to any parallel language in which a sequence and a parallel execution are available. For example, we could imagine a parallel functionnal language with a binary \emph{sequence} function and a binary \emph{parallel} function such that the tree of Figure~\ref{fig:t} corresponds the following nested call:
 
 \begin{equation}
 \begin{split}
