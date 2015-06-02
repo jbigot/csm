@@ -23,7 +23,9 @@
 \usepackage[T1]{fontenc} % ou \usepackage[OT1]{fontenc}
 \usepackage{RR}
 \usepackage{hyperref}
-\usepackage{subfigure}
+%\usepackage{subfigure}
+\usepackage{subfig}
+\usepackage{caption}
 \usepackage{cite}
 %%\usepackage[frenchb]{babel} % optionnel
 \RRNo{7003}
@@ -103,6 +105,8 @@ abstract }
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newenvironment{mydef}[1][Definition]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{myth}[1][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 %\newenvironment{example}[1][Example]{\begin{trivlist}
 %\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 %\newenvironment{remark}[1][Remark]{\begin{trivlist}
@@ -177,6 +181,10 @@ abstract }
 \label{sect:parallelism}
 \input{parallelism.tex}
 %------------------------------------------------------------------------------
+\section{Series-parallel graphs and tree decompositions}
+\label{sect:msp}
+\input{msp.tex}
+%------------------------------------------------------------------------------
 \section{Component models}
 \label{sect:component}
 \input{component.tex}
@@ -185,7 +193,7 @@ abstract }
 \label{sect:csl}
 %------------------------------------------------------------------------------
 \section{Evaluation}
-%\label{sect:eval}
+\label{sect:eval}
 %\input{evaluation.tex}
 %------------------------------------------------------------------------------
 \section{Related work}
