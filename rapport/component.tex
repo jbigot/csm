@@ -1,26 +1,151 @@
-Instead of dumping the series-parallel tree decomposition of $\Gamma_{task}$ (or $\Gamma_{hybrid}$) to a functionnal high abstraction level language, or to an imperative high abstraction level language, such as OpenMP, we have chosen to dump it to a component model assembly. Component model is an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228} which improves code re-use, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. Moreover, component models bring a separation of concerns in the application by a clear division of functionnalities in different components.
-Recent work on component models have shown a simultaneous answer to performance, maintainability and portability of application~\cite{l2c} which makes component models a serious and interesting candidate for modern high performance computing. 
+Instead of dumping the series-parallel tree decomposition of $\Gamma_{hybrid}$ (or $\Gamma_{task}$) to a functionnal high abstraction level language, or to an imperative high abstraction level language, such as OpenMP, we have chosen to dump it to a component model assembly. Component model is an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228} which improves code re-use, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. Moreover, component models bring a separation of concerns in the application by a clear division of functionnalities in different components.
+Recent work on component models have shown a simultaneous answer to performance, maintainability and portability of application~\cite{l2c} which makes component models a serious and interesting candidate for maintainable modern high performance computing. 
 
-Proposing a DSL which is dumped into a component assembly has many advantages:
+Proposing a DSL which is dumped to a component assembly has many advantages:
 \begin{itemize}
 \item advantages of component models are inherited for the DSL itself. Thus, the DSL is easier to maintain, scalable, portable and still efficient; %a part portable, le reste devrait etre montrable dans evaluations
 \item the DSL conception phase is improved because of code re-use and productivity; %SEQ,PAR,SSEQ peuvent etre utilises pour tout DSL
-\item the DSL conception phase is facilitated by the separation of concerns in the set of components; %montrer assemblage, et les differentes preoccupations dans les differents composants
-\item the DSL is light as its compiler generates a component assembly instead of code. %lié aussi a la separation de preoccupations, ce n'est pas au concepteur de DSL de gérer la generation de code, il utilise des composants qui peuvent etre codes par d'autres
+\item the DSL conception phase is facilitated by the separation of concerns; %montrer assemblage, et les differentes preoccupations dans les differents composants
+\item the DSL is light as its compilation does not generate codes but a light component assembly. %lié aussi a la separation de preoccupations, ce n'est pas au concepteur de DSL de gérer la generation de code, il utilise des composants qui peuvent etre codes par d'autres
 \end{itemize}
 
-%-------------------------------------
-\subsection{Definitions}
-%definir les trucs communs a tous les modeles a composants : composant, port (use, use-multiple, provide), interfaces, assemblages (descriptive, idl), connections valides
+Component-based software engineering~\cite{Szyperski:2002:CSB:515228} extends the concept of class by specifying in its interface not only the services it offers, or public methods, but also all its possible interactions with outer world, including the services it requires. As a result, each component is an independant entity composed of a set of services its provides, and a set of services it requires (and uses). 
 
-%certains modeles propose des concepts plus evolues tels que la hierarchie, la genericite, les connecteurs, 
+A \emph{port} is an entity embbedded in the component which makes possible an \emph{assembly} of components. An assembly of components (of instanciated components) is a way to actually produce a complete application by a set of components and their interactions. An interface of provided services of a component is associated to a \emph{provide} port, while an interface of required services is associated to a \emph{use} port. It is also possible to group more than one required interface into a single port, as a list, called a \emph{use-multiple} port. As illustrated in Figures~\ref{fig:control}, a provide port will be represented by a white circle, a use port by a black circle and a use-multiple port by a black circle with a white $m$ in it.
 
-%where an application is represented as a set of components, each of them responsible for a functionnality, and linked together through their interfaces. As a result, a component assembly represents the functional dependencies of the application. Each component is an independant black box, and one component could be replaced in the assembly by another one having same interfaces. Thus, component models 
-
-%However, to obtain performance in applications, overheads introduced by separation of concerns of independant components, and their communications, have to be reduced as much as possible at runtime. For this reason, only two component models are nowadays considered as HPC-oriented: $L^2C$~\cite{l2c} and CCA~\cite{Allan04acomponent}. Both of them propose simple primitive components, and interactions between components are reduced to virtual method calls and MPI communications. The resulting component assembly, however, is close to the execution model and some components represent low level concerns which are as difficult to implement as standard HPC codes. A DSL hide those difficulties to the end-user while keeping advantages of component models.
+Many component models exist, each of them with its particularities. However, components, ports, interfaces and assemblies are common concepts to all component models. The rest of this section will only use those concepts to define how the series-parallel tree decomposition, described in the previous Section, can be dumped to a component assembly, whatever the component model is.
 
 %-------------------------------------
-\subsection{Control components}
+\subsection{Control-components}
+As already explained, our aim is to dump the series-parallel tree decomposition of $\Gamma_{hybrid}$ to a component assembly. As a result, specific components have to be proposed such that $\mathcal{S}$ and $\mathcal{P}$ nodes of the decomposition can be associated to components. For this reason, we propose three specific \emph{control-components}. Those components are called control-components because they are used in a different way than usual components. Actually, as explained before, a component represents a precise functionnality of the application, while control-components represent a way to control the execution time of other components. Each control-component contains a single provide port, this port is associated to a single method which correspond to the execution of the control-component.
+
+\paragraph{Sequence component.} A sequence component, denoted $SEQ$, is a control-component for which the provided service is to garantee that the required services (provided by other components) are used one after the other in a precise order. Thus, the sequence component apply synchronous and ordered calls to required services. To do so, an ordered use-multiple port is needed.
+
+\paragraph{Synchronized-sequence component.} A synchronized-sequence component, denoted $SSEQ$, is a control-component for which the provided service is to garantee that a set of data synchronizations is performed before a sequence of other required services. A $SSEQ$ component is thus composed of two use-multiple ports, one not necessarily ordered to link the $SSEQ$ to data to synchronize (could be more than one), and the second, ordered, to be connect $SSEQ$ to other services, as $SEQ$ does.
+
+\paragraph{Parallel component.} A parallel component, denoted $PAR$, is a control-component for which the provided service is to call simultaneously (asynchronously) a set of required services, and to wait the end of all asynchronous calls before terminating. Thus, $PAR$ is composed of a single use-multiple port which does not need to be ordered.
+
+\begin{figure}[h!]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+%FIRST RULE
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$SEQ$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {$m$};
+ 
+  \path[->]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u);
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+%ARROW
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$SSEQ$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u1) at (1.5,0) {$m$};
+   \node[use] (u2) at (0,1) {$m$};
+ 
+  \path[->]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u1)
+    	  edge node {} (u2);
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+%ARROW
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$PAR$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {$m$};
+ 
+  \path[->]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u);
+  \end{tikzpicture}
+}
+\caption{$SEQ$, $SSEQ$ and $PAR$ control-components.}
+\label{fig:control}
+\end{center}
+\end{figure}
+
+To be able to dump the series-parallel tree decomposition of $\Gamma_{hybrid}$ to a component assembly, each computation $c_i$ has to be associated to a component. Such a component contains a single provide port for which the service is to perform the computation. As a computation $c_i(R_i,w_i,D_i,\text{exp}_i)$ manipulates data $R$ and $w$, the component needs a use-multiple port to be linked to data.
+
+\begin{figure}[h!]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (c) at (0,0) {$c_i$};
+   \node[provide] (p) at (-1,0) {};
+   \node[use] (u) at (0,1) {$m$};
+ 
+  \path[->]
+    (p) edge node {} (c)
+    (c) edge node {} (u);
+  \end{tikzpicture}
+  \caption{Computation component}
+\label{fig:control}
+\end{center}
+\end{figure}
+
+%-------------------------------------
+\subsection{Canonical series-parallel tree decomposition}
+In the series-parallel binary tree decomposition of $\Gamma_{hybrid}$, $\mathcal{S}$ and $\mathcal{P}$ are binary operators. On the ther hand, definitions of $SEQ$, $SSEQ$ and $PAR$ are not binary, mainly because of HPC concerns. Actually, as less as the number of calls is, the better the performance is. In the work of Finta \& Al~\cite{Finta:1996:SUS:235643.235649}, a canonical form of the series-parallel binary tree decomposition has also been studied. The canonical form consists in merging two identical and successive compositions ($\mathcal{S}$ or $\mathcal{P}$) as a single one. In the case of $\Gamma_{hybrid}$, however, a particular case appear when $\mathcal{S}$ is the source node of a leaf of updates $*_i$. In this case, it is forbidden to merge two sequence compositions $\mathcal{S}$. The canonical form of the final binary tree decomposition of Figure~\ref{fig:example}, is represented in Figure~\ref{fig:canon}.
+
+\begin{figure}[h!]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (s10) at (4,0.5) {$\mathcal{S}$};
+   \node[] (c0) at (0.5,2) {$c_0$};
+   \node[] (s2) at (1.5,2) {$\mathcal{S}$};
+   \node[] (star1) at (1,3) {$*_1$};
+   \node[] (c1) at (2,3) {$c_1$};
+   \node[] (c7) at (6.5,2) {$c_7$};
+   \node[] (s4) at (7.5,2) {$\mathcal{S}$};
+   \node[] (star8) at (7,3) {$*_8$};
+   \node[] (c8) at (8,3) {$c_8$};
+   \node[] (p1) at (4,2) {$\mathcal{P}$};
+   \node[] (s5) at (3,2.5) {$\mathcal{S}$};
+   \node[] (c3) at (2.5,3.5) {$c_3$};
+   \node[] (c5) at (3.5,3.5) {$c_5$};
+   \node[] (s8) at (5,2.5) {$\mathcal{S}$};
+   \node[] (c6) at (6,3.5) {$c_6$};
+   \node[] (c2) at (4,3.5) {$c_2$};
+   \node[] (s7) at (5,3.5) {$\mathcal{S}$};
+   \node[] (star4) at (4.5,4.5) {$*_4$};
+   \node[] (c4) at (5.5,4.5) {$c_4$};
+ 
+  \path[->]
+    (s10) edge node {} (c0)
+    	  edge node {} (s2)
+    	  edge node {} (p1)
+    	  edge node {} (c7)
+    	  edge node {} (s4)
+    (s2) edge node {} (star1)
+         edge node {} (c1)
+    (s4) edge node {} (star8)
+         edge node {} (c8)
+    (p1) edge node {} (s5)
+         edge node {} (s8)
+    (s5) edge node {} (c3)
+         edge node {} (c5)
+    (s8) edge node {} (c2)
+    	 edge node {} (s7)
+         edge node {} (c6)
+    (s7) edge node {} (star4)
+         edge node {} (c4);
+  \end{tikzpicture}
+\caption{Canonical form of the example of Figure~\ref{fig:example}.}
+\label{fig:canon}
+\end{center}
+\end{figure}
+
+
 
 %-------------------------------------
 \subsection{Transformation to a parallel assembly}

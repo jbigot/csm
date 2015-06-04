@@ -162,6 +162,8 @@ The \emph{line digraph} of a digraph $G$ is a digraph $L(G)$ that has:
 If the DAG $G$ is a MSP graph, its \emph{inverse line DAG} $L^{-1}(G)$ is TTSP.
 \end{myth}
 
+It has to be indicate that for a DAG $G$, $L^{-1}(G)$ is not unique. Thus, in the work of Valdes \& Al, and in this work, $L^{-1}(G)$ will refer to the unique digraph having a single source and a single sink whose line digraph is $L(L^{-1}(G))=G$.
+
 The binary decomposition tree algorithm is based on the fact that the decomposition can be obtained as a byproduct of a reduction process. In order to obtain the decomposition, Valdes \& Al associate a label with each edge of the digraph being reduced. Initially the label of each edge is a trivial binary tree consisting of a single node. As the reduction process introduces new edges the rules of Figure~\ref{fig:rules} are used to compute the binary trees used to label them. The algorithm ends when the TTSP graph is reduced to its minimum, i.e.\ two vertices and a single edge between them.
 
 \begin{figure}[h!]
@@ -208,7 +210,7 @@ $\Rightarrow$
  
   \path[->]
     (x) edge [bend left] node [above] {$T_1$} (y)
-        edge node [above] {$T_2$} (y);
+        edge [bend right] node [below] {$T_2$} (y);
   \end{tikzpicture}
   }
 \hspace{50pt}
