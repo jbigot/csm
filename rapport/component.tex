@@ -92,9 +92,11 @@ To be able to dump the series-parallel tree decomposition of $\Gamma_{hybrid}$ t
 \end{center}
 \end{figure}
 
+Every use-multiple port of a control-component can be linked in the assembly to another control-component or to a computation component.
+
 %-------------------------------------
 \subsection{Canonical series-parallel tree decomposition}
-In the series-parallel binary tree decomposition of $\Gamma_{hybrid}$, $\mathcal{S}$ and $\mathcal{P}$ are binary operators. On the ther hand, definitions of $SEQ$, $SSEQ$ and $PAR$ are not binary, mainly because of HPC concerns. Actually, as less as the number of calls is, the better the performance is. In the work of Finta \& Al~\cite{Finta:1996:SUS:235643.235649}, a canonical form of the series-parallel binary tree decomposition has also been studied. The canonical form consists in merging two identical and successive compositions ($\mathcal{S}$ or $\mathcal{P}$) as a single one. In the case of $\Gamma_{hybrid}$, however, a particular case appear when $\mathcal{S}$ is the source node of a leaf of updates $*_i$. In this case, it is forbidden to merge two sequence compositions $\mathcal{S}$. The canonical form of the final binary tree decomposition of Figure~\ref{fig:example}, is represented in Figure~\ref{fig:canon}.
+In the series-parallel binary tree decomposition of $\Gamma_{hybrid}$, $\mathcal{S}$ and $\mathcal{P}$ are binary operators. On the ther hand, definitions of $SEQ$, $SSEQ$ and $PAR$ are not binary, mainly because of HPC concerns. Actually, as less as the number of calls is, the better the performance is. In the work of Finta \& Al~\cite{Finta:1996:SUS:235643.235649}, a canonical form of the series-parallel binary tree decomposition has been introduced. The canonical form consists in merging two identical and successive compositions ($\mathcal{S}$ or $\mathcal{P}$) as a single one. In the case of $\Gamma_{hybrid}$, however, a particular case appear when $\mathcal{S}$ is the source node of a leaf of updates $*_i$. In this case, it is forbidden to merge two sequence compositions $\mathcal{S}$. The canonical form of the final binary tree decomposition of Figure~\ref{fig:example}, is represented in Figure~\ref{fig:canon}.
 
 \begin{figure}[h!]
 \captionsetup[subfigure]{labelformat=empty}
@@ -145,7 +147,206 @@ In the series-parallel binary tree decomposition of $\Gamma_{hybrid}$, $\mathcal
 \end{center}
 \end{figure}
 
+From this canonical representation of the multi-stencil program $\mathcal{MSP}$, a direct dump to a component assembly is possible following the transformation rules of Figure~\ref{fig:dump}.
 
+\begin{figure}[h!]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+%SEQ RULE
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (x) at (0,0) {$\mathcal{S}$};
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+%ARROW
+\subfloat[]{
+$\Rightarrow$
+}
+\hspace{50pt}
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$SEQ$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {$m$};
+ 
+  \path[->]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u);
+\end{tikzpicture}
+}
+%SSEQ RULE
+\\
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (x) at (0,0) {$\mathcal{S}$};
+   \node[] (y) at (0,1) {$*_i$};
+ 
+  \path[->]
+    (x) edge node {} (y);
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+\subfloat[]{
+$\Rightarrow$
+}
+\hspace{50pt}
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$SSEQ$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u1) at (1.5,0) {$m$};
+   \node[use] (u2) at (0,1) {$m$};
+ 
+  \path[->]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u1)
+    	  edge node {} (u2);
+  \end{tikzpicture}
+}
+\\
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (x) at (0,0) {$\mathcal{P}$};
+  \end{tikzpicture}
+  }
+\hspace{50pt}
+\subfloat[]{
+$\Rightarrow$
+}
+\hspace{50pt}
+\subfloat[]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$PAR$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {$m$};
+ 
+  \path[->]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u);
+  \end{tikzpicture}
+}
+\caption{Direct dump rules from the canonical form to the component assembly.}
+\label{fig:dump}
+\end{center}
+\end{figure}
+
+For example, the canonical decomposition tree of Figure~\ref{fig:canon} is dumped into the component assembly of Figure~\ref{fig:assembly}.
+
+\begin{figure}[h!]
+\captionsetup[subfigure]{labelformat=empty}
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   %seq0
+   \node[component] (seq0) at (0,0) {$SEQ$};
+   \node[provide] (seq0p) [left = 1cm of seq0] {};
+   \node[use] (seq0u) [right = 1cm of seq0] {$m$};
+   %c0
+   \node[component] (c0) [right = 1.5cm of seq0u] {$c_0$};
+   \node[use] (c0u) [above = 0.8cm of c0] {$m$};
+   %sseq0
+   \node[component] (sseq0) [below = 1.5cm of c0] {$SSEQ$};
+   \node[use] (sseq0u1) [below = 0.8cm of c0] {$m$};
+   \node[use] (sseq0u2) [right = 1cm of sseq0] {$m$};
+   %c1
+   \node[component] (c1) [right = 1cm of sseq0u2] {$c_1$};
+   \node[use] (c1u) [right = 1cm of c1] {$m$};
+   %par0
+   \node[component] (par0) [below = 1cm of sseq0] {$PAR$};
+   \node[use] (par0u) [right = 1cm of par0] {$m$};
+   %seq2
+   \node[component] (seq2) [right = 1cm of par0u] {$SEQ$};
+   \node[use] (seq2u) [right = 1cm of seq2] {$m$};
+   %c3
+   \node[component] (c3) [right = 1cm of seq2u] {$c_3$};
+   \node[use] (c3u) [above = 0.8cm of c3] {$m$};
+   %c5
+   \node[component] (c5) [below = 1.5cm of c3] {$c_5$};
+   \node[use] (c5u) [below = 0.8cm of c3] {$m$};
+   %seq3
+   \node[component] (seq3) [below = 3cm of seq2] {$SEQ$};
+   \node[use] (seq3u) [right = 1cm of seq3] {$m$};
+   %c2
+   \node[component] (c2) [right = 1cm of seq3u] {$c_2$};
+   \node[use] (c2u) [above = 0.8cm of c2] {$m$};
+   %sseq1
+   \node[component] (sseq1) [below = 1.5cm of c2] {$SSEQ$};
+   \node[use] (sseq1u1) [below = 0.8cm of c2] {$m$};
+   \node[use] (sseq1u2) [right = 1.5cm of sseq1] {$m$};
+   %c4
+   \node[component] (c4) [right = 1cm of sseq1u2] {$c_4$};
+   \node[use] (c4u) [above = 0.8cm of c4] {$m$};
+   %c6
+   \node[component] (c6) [below = 1.5cm of sseq1] {$c_6$};
+   \node[use] (c6u) [above = 0.8cm of c6] {$m$};
+   %c7
+   \node[component] (c7) [below = 5cm of par0] {$c_7$};
+   \node[use] (c7u) [above = 0.8cm of c7] {$m$};
+   %sseq2
+   \node[component] (sseq2) [below = 1.5cm of c7] {$SSEQ$};
+   \node[use] (sseq2u1) [below = 0.8cm of c7] {$m$};
+   \node[use] (sseq2u2) [right = 1.5cm of sseq2] {$m$};
+   %c8
+   \node[component] (c8) [right = 1cm of sseq2u2] {$c_8$};
+   \node[use] (c8u) [above = 0.8cm of c8] {$m$};
+
+   \path[->]
+   %seq0
+    (seq0) edge node {} (seq0u)
+    (seq0p) edge node {} (seq0)
+   %c0
+    (seq0u) edge node {} (c0)
+    (c0) edge node {} (c0u)
+   %seq1
+     (seq0u) edge node {} (sseq0.west)
+     (sseq0) edge node {} (sseq0u1)
+     (sseq0) edge node {} (sseq0u2)
+   %c1
+     (sseq0u2) edge node {} (c1)
+      (c1) edge node {} (c1u)
+   %par0
+    (seq0u) edge node {} (par0.west)
+    (par0) edge node {} (par0u)
+   %seq2
+    (par0u) edge node {} (seq2.west)
+    (seq2) edge node {} (seq2u)
+   %c3
+    (seq2u) edge node {} (c3)
+    (c3) edge node {} (c3u)
+   %c5
+    (seq2u) edge node {} (c5)
+    (c5) edge node {} (c5u)
+   %seq3
+    (par0u) edge node {} (seq3.west)
+    (seq3) edge node {} (seq3u)
+   %c2
+    (seq3u) edge node {} (c2)
+    (c2) edge node {} (c2u)
+   %sseq1
+    (seq3u) edge node {} (sseq1.west)
+    (sseq1) edge node {} (sseq1u1)
+    (sseq1) edge node {} (sseq1u2)
+   %c4
+    (sseq1u2) edge node {} (c4)
+    (c4) edge node {} (c4u)
+   %c6
+    (seq3u) edge node {} (c6)
+    (c6) edge node {} (c6u)
+   %c7
+    (seq0u) edge node {} (c7.west)
+    (c7) edge node {} (c7u)
+   %sseq2
+    (seq0u) edge node {} (sseq2.west)
+    (sseq2) edge node {} (sseq2u1)
+    (sseq2) edge node {} (sseq2u2)
+   %c8
+    (sseq2u2) edge node {} (c8)
+    (c8) edge node {} (c8u);
+\end{tikzpicture}
+\caption{Direct dump rules from the canonical form to the component assembly.}
+\label{fig:assembly}
+\end{center}
+\end{figure}
 
 %-------------------------------------
 \subsection{Transformation to a parallel assembly}
