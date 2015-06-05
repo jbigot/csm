@@ -349,4 +349,7 @@ For example, the canonical decomposition tree of Figure~\ref{fig:canon} is dumpe
 \end{figure}
 
 %-------------------------------------
-\subsection{Transformation to a parallel assembly}
+\subsection{Complete component assembly}
+At this point of the work, the computation part of the parallel $\mathcal{MSP}$ program is solved and dumped to a component assembly. Of course, this component assembly does not represent the entire $\mathcal{MSP}$ program. Actually, additionnal services are needed. For example, computations are performed on quantities, or data, thus those data have to be accessible somewhere through services of components in the assembly. Those quantities are mapped onto a distributed mesh, which also means that the mesh has to be accessible by the data. In addition to this, and as explained in Section~\ref{sect:dataparal}, the data parallelization needs the management of specific updated-computations $c_i^*$, which means that the complete assembly have to manage an update service, as well as the partitioning of the mesh and the quantities mapped onto it.
+
+However, there is not a unique way to design the rest of the assembly and to make accessible the different services (data, update, mesh etc.). The work presented until know can be considered as a generic solution to solve the parallel computation part, but the rest of the assembly is dependant of the implementation choice. However, the implementation presented in this work, and detailed in the next Section, follows the SIPSim model~\cite{} which seems to be an interesting solution to dump onto component models.

@@ -2,6 +2,7 @@ Multi-stencil mesh-based numerical simulation can be parallelized in various way
 
 %------------------------------
 \subsection{Coarse-grain data parallelism}
+\label{sect:dataparal}
 In a data parallelization technique, the idea is to split the data on which the program is computed in balanced sub-parts, one for each available resource. The same sequential program can afterwards be applied on each sub-part simultaneously, with some additioinal synchronizations between resources to update the data not computed locally, and thus to guarantee a correct result.
 
 More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\Delta,\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As a data is mapped onto the mesh, the set of data $\Delta$ is partitionned the same way than the mesh in $\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{data}$.
