@@ -1,4 +1,4 @@
-In this section we argue that the graphs $\Gamma_{hybrid}$ or $\Gamma_{task}$, previously defined, on which an approximation will be defined, are minimal series-parallel graphs. For this reason, the structure of those graphs can be represented as binary trees of parallel and series compositions of sub-graphs, also called \emph{binary decomposition tree}~\cite{Valdes:1979:RSP:800135.804393}. First, the needed definitions on series-parallel graphs will be given...
+In this section we argue that the graphs $\Gamma_{hybrid}$ or $\Gamma_{task}$, previously defined, on which an approximation will be defined, are minimal series-parallel graphs. For this reason, the structure of those graphs can be represented as binary trees of parallel and series compositions of sub-graphs, also called \emph{binary decomposition tree}~\cite{Valdes:1979:RSP:800135.804393}. First, the needed definitions on series-parallel graphs are given, and second the case of the dag $\Gamma_{hybrid}$ is studied.
 
 %--------------------
 \subsection{GSP and MSP classes}
@@ -136,7 +136,7 @@ A \emph{binary decomposition tree} is a tree having a leaf for each vertex of th
 \end{center}
 \end{figure}
 
-Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have also proposed a linear algorithm to know if a DAG is MSP and, if it is, to decompose it to its associated binary decomposition tree. This algorithm is based on the duality of the class of MSP DAGs, with the class of \emph{Two Terminal Series Parallel} DAGs (TTSP) from which a binary tree decomposition can be performed in linear time. However, in this paper we are interested in DAGs that we already know as MSP. Thus, we only give the needed definitions to understand the binary decomposition algorithm, and not the recognition algorithm. To let the reader understand this algorithm, which is modified in this work, the needed definitions are given. 
+Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have also proposed a linear algorithm to know if a DAG is MSP and, if it is, to decompose it to its associated binary decomposition tree. This algorithm is based on the duality of the class of MSP DAGs, with the class of \emph{Two Terminal Series Parallel} DAGs (TTSP) from which a binary tree decomposition can be performed in linear time. As it will be explained later, in this paper we are interested in DAGs that we already know to be MSP. Thus, we only give the needed definitions to understand the binary decomposition algorithm, and not the recognition algorithm. To let the reader understand this algorithm, which is modified in this work, the needed definitions are given. 
 %  Other algorithms have also been proposed, all of them in linear time~\cite{Schoenmakers95anew}.
 
 \begin{mydef}
@@ -162,9 +162,9 @@ The \emph{line digraph} of a digraph $G$ is a digraph $L(G)$ that has:
 If the DAG $G$ is a MSP graph, its \emph{inverse line DAG} $L^{-1}(G)$ is TTSP.
 \end{myth}
 
-It has to be indicate that for a DAG $G$, $L^{-1}(G)$ is not unique. Thus, in the work of Valdes \& Al, and in this work, $L^{-1}(G)$ will refer to the unique digraph having a single source and a single sink whose line digraph is $L(L^{-1}(G))=G$.
+It has to be indicated that for a DAG $G$, $L^{-1}(G)$ is not unique. Thus, in the work of Valdes \& Al, and in this work, $L^{-1}(G)$ will refer to the unique digraph having a single source and a single sink whose line digraph is $L(L^{-1}(G))=G$.
 
-The binary decomposition tree algorithm is based on the fact that the decomposition can be obtained as a byproduct of a reduction process. In order to obtain the decomposition, Valdes \& Al associate a label with each edge of the digraph being reduced. Initially the label of each edge is a trivial binary tree consisting of a single node. As the reduction process introduces new edges the rules of Figure~\ref{fig:rules} are used to compute the binary trees used to label them. The algorithm ends when the TTSP graph is reduced to its minimum, i.e.\ two vertices and a single edge between them.
+The binary decomposition tree algorithm is based on the fact that the decomposition can be obtained as a byproduct of a reduction process on $L^{-1}(G)$, which is TTSP. In order to obtain the decomposition, Valdes \& Al associate a label with each edge of the digraph being reduced. Initially the label of each edge is a trivial binary tree consisting of a single node. As the reduction process introduces new edges the rules of Figure~\ref{fig:rules} are used to compute the binary trees used to label them. The algorithm ends when the TTSP graph is reduced to its minimum, i.e.\ two vertices and a single edge between them.
 
 \begin{figure}[h!]
 \captionsetup[subfigure]{labelformat=empty}
@@ -263,9 +263,9 @@ A DAG $G$ is GSP if and only if its transitive closure does not contain $N$ as a
 
 %------------------
 \subsection{Multi-stencil programs.}
-We are interested in GSP and MSP classes of graphs to be able to represent computations of a multi-stencil program as a set of sequences and parallel executions. Actually, such a representation can directly be dumped to a parallel language, in which \emph{sequence} of instructions and \emph{parallel} execution of instructions are defined. Series-parallel trees can also be used as input of scheduling optimizations~\cite{Finta1996323,Wang20082684} to improve task parallelism efficiency, which opens more perspectives to this work. Finally, in this paper is presented that such a series-parallel representation can also be dumped to component models by defining specific control components. Thus, the proposed DSL inheritates software engineering advantages of component models, such as code re-use, productivity and maintainability.
+We are interested in GSP and MSP classes of graphs to be able to represent computations of a multi-stencil program as a set of sequences and parallel executions. Actually, such a representation can directly be dumped to a parallel language, in which \emph{sequence} of instructions and \emph{parallel} execution of instructions are defined. Series-parallel trees can also be used as input of scheduling optimizations~\cite{Finta1996323,Wang20082684} to improve task parallelism efficiency, which opens more perspectives to this work. Finally, in this paper is presented that such a series-parallel representation can also be dumped to component models by defining specific \emph{control components}. Thus, the proposed DSL inheritates software engineering advantages of component models, such as code re-use, productivity and maintainability.
 
-Returning back to the parallelization formalism of Section~\ref{}, two important steps have to be performed to make $\Gamma_{hybrid}$ a MSP graph:
+Returning back to the parallelization formalism of Section~\ref{sect:parallelism}, two important steps have to be performed to make $\Gamma_{hybrid}$ a MSP graph:
 \begin{itemize}
 \item transitive reduction,
 \item deletion of the forbidden $N$ shape.
@@ -278,11 +278,15 @@ The transitive reduction has already been applied on $\Gamma_{hybrid}$ by the tr
 \subfloat[][Over-constraint on the forbidden $N$ shape.\label{fig:over}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[] (c0) at (0,0) {$c_0$};
+   \node[] (bc0) at (-1,0) {};
    \node[] (c1) at (2,0) {$c_1$};
    \node[] (c2) at (0,-1) {$c_2$};
+   \node[] (bc2) at (-1,-1) {};
    \node[] (c3) at (2,-1) {$c_3$};
  
   \path[->]
+    (bc0) edge [dotted] node {} (c0)
+    (bc2) edge [dotted] node {} (c2)
     (c0) edge node {} (c1)
           edge [dashed] node [swap] {} (c3)
     (c2) edge node {} (c1)
@@ -292,20 +296,26 @@ The transitive reduction has already been applied on $\Gamma_{hybrid}$ by the tr
 \hspace{50pt}
 \subfloat[][Series-parallel tree associated to the over-constraint\label{fig:treeover}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[] (P1) at (0,0) {$\mathcal{P}$};
-   \node[] (S1) at (-1,1) {$\mathcal{S}$};
-   \node[] (S2) at (1,1) {$\mathcal{S}$};
-   \node[] (c0) at (-1.5,2) {$c_0$};
-   \node[] (c1) at (-0.5,2) {$c_1$};
-   \node[] (c2) at (0.5,2) {$c_2$};
-   \node[] (c3) at (1.5,2) {$c_3$};
+   \node[] (S0) at (0,0) {$\mathcal{S}$};
+   \node[] (bS0) at (-1,-1) {};
+   \node[] (P1) at (-1,1) {$\mathcal{P}$};
+   \node[] (aP1) at (-1.5,2) {};
+   \node[] (aaP1) at (-0.5,2) {};
+   \node[] (P2) at (1,1) {$\mathcal{P}$};
+   \node[] (c0) at (-2,3) {$c_0$};
+   \node[] (c1) at (0.5,3) {$c_1$};
+   \node[] (c2) at (0,3) {$c_2$};
+   \node[] (c3) at (2,3) {$c_3$};
  
   \path[->]
-    (P1) edge [dashed] node [swap] {} (S1)
-          edge [dashed] node [swap] {} (S2)
-    (S1) edge node {} (c0)
-          edge node {} (c1)
-    (S2) edge node {} (c2)
+    (bS0) edge [dotted] node {} (S0)
+    (S0) edge node {} (P1)
+         edge node {} (P2)
+    (P1) edge [dotted] node [swap] {} (aP1)
+          edge [dotted] node [swap] {} (aaP1)
+    (aP1) edge node {} (c0)
+    (aaP1) edge node {} (c2)
+    (P2) edge node {} (c1)
         edge node {} (c3);
   \end{tikzpicture}
 }
@@ -314,9 +324,10 @@ The transitive reduction has already been applied on $\Gamma_{hybrid}$ by the tr
 \end{center}
 \end{figure}
 
-This approximation on the dependencies is acceptable for multi-stencil programs, first because it rarely appends, second because of the relative homogeneity of computations. Actually, all computations, except the ones on the physical border of the domain, are performed on an entire domain of the mesh, and as a computation performs a single quantity at a time ($w_i$ of $c_i$ is a singleton), the amount of arithmetic operations in a computation are quite homogeneous.
+We consider this approximation acceptable for multi-stencil programs, because of the relative homogeneity of computations. Actually, all computations, except the ones on the physical border of the domain, are performed on an entire domain of the mesh, and as a computation performs a single quantity at a time ($w_i$ of $c_i$ is a singleton), the amount of arithmetic operations in a computation are quite homogeneous. However, this approximation can also be responsible for a useless wait for computation $c_3$ and less performance. For this reason, perspectives of this work open to a new kind of component models.
 
-After these over-constraints are applied, $\Gamma_{hybrid}$ is a MSP DAG. As a result, the binary tree decomposition algorithm of Valdes \& Al can be applied on $\Gamma_{hybrid}$. However, because of updated-computations inserted in $\Gamma_{data}$, we have to define additional reduction rules for the algorithm. For an updated-computation $c^*_j(c_j,\text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\}))$, we define $*_j$ as the update needed by $c_j$, $*_j = \text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\})$. As a result, the updated-computation $c^*_j$ is defined by $c^*_j(c_j,*_j)$. The initial label of the edges of the graph to reduce are the computations of the multi-stencil program. Four new rules are needed to perform the binary tree decomposition of $\Gamma_{hybrid}$ and are defined in Figure~\ref{fig:newrules}.
+After these over-constraints are applied, $\Gamma_{hybrid}$ is a MSP DAG. As a result, the binary tree decomposition algorithm of Valdes \& Al can be applied on $\Gamma_{hybrid}$. However, because of updated-computations inserted in $\Gamma_{data}$, we have to define additional reduction rules for the algorithm. %For an updated-computation $c^*_j(c_j,\text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\}))$, we define $*_j$ as the update needed by $c_j$, $*_j = \text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\})$. As a result, the updated-computation $c^*_j$ is defined by $c^*_j(c_j,*_j)$. 
+The initial label of the edges of the graph $L^{-1}(\Gamma_{hybrid})$ to reduce are the computations of the multi-stencil program. Four new rules are needed to perform the binary tree decomposition of $\Gamma_{hybrid}$ and are defined in Figure~\ref{fig:newrules}. The symetric transforations are not represented.
 
 \begin{figure}[h!]
 \captionsetup[subfigure]{labelformat=empty}
@@ -410,7 +421,7 @@ $\Rightarrow$
  
   \path[->]
     (x) edge [bend left] node [above] {$c_1^*$} (y)
-        edge [bend right] node [below] {$c_2^*$} (y);
+        edge [bend right] node [below] {$c_2$} (y);
   \end{tikzpicture}
   }
 \hspace{50pt}
@@ -863,13 +874,13 @@ Using those additional reduction rules, the binary series-parallel tree decompos
 \label{fig:example}
 \end{figure}
 
-At this point, the $\mathcal{MSP}$ program can be dumped to any parallel language in which a sequence and a parallel execution are available. For example, we could imagine a parallel functionnal language with a binary \emph{sequence} function and a binary \emph{parallel} function such that the tree of Figure~\ref{fig:t} corresponds the following nested call:
+At this point, the $\mathcal{MSP}$ program can be dumped to any parallel language in which a sequence and a parallel execution are available. For example, we could imagine a parallel functionnal language with a binary \emph{sequence} function and a binary \emph{parallel} function.% such that the tree of Figure~\ref{fig:t} corresponds the following nested call:
 
-\begin{equation}
-\begin{split}
-\text{sequence}(a,\text{parallel}(&\\
-&\text{sequence}(b,\text{sequence}(\text{parallel}(\text{sequence}(c,d),\text{sequence}(e,f)),g)),\\
-&\text{sequence}(h,\text{sequence}(i,j))\\
-&))
-\end{split}
-\end{equation}
+% \begin{equation}
+% \begin{split}
+% \text{sequence}(a,\text{parallel}(&\\
+% &\text{sequence}(b,\text{sequence}(\text{parallel}(\text{sequence}(c,d),\text{sequence}(e,f)),g)),\\
+% &\text{sequence}(h,\text{sequence}(i,j))\\
+% &))
+% \end{split}
+% \end{equation}

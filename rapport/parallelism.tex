@@ -1,24 +1,24 @@
 Multi-stencil mesh-based numerical simulation can be parallelized in various ways and is an interesting kind of application to take advantage of modern heterogeneous HPC architectures, mixing clusters, multi-cores CPUs, vectorization units, GPGPU and many-core accelerators.
 
 %------------------------------
-\subsection{Coarse-grain data parallelism}
+\subsection{Data parallelism}
 \label{sect:dataparal}
 In a data parallelization technique, the idea is to split the data on which the program is computed in balanced sub-parts, one for each available resource. The same sequential program can afterwards be applied on each sub-part simultaneously, with some additioinal synchronizations between resources to update the data not computed locally, and thus to guarantee a correct result.
 
-More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\Delta,\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As a data is mapped onto the mesh, the set of data $\Delta$ is partitionned the same way than the mesh in $\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{data}$.
+More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\Delta,\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As a data is mapped onto the mesh, the set of data $\Delta$ is partitionned the same way than the mesh in $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{data}$.
 
 \begin{mydef}
-For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronisation} is needed between $c_i$ and $c_j$, denoted $c_i \pprec c_j$, if $c_j=s_j(R_j,w_j,D_j,\text{exp}_j)$, and $w_i \subset R_j$. Moreover, the data to update is $w_i \cap R_j = w_i$.
+For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronisation} is needed between $c_i$ and $c_j$, denoted $c_i \pprec c_j$, if $c_j=s_j(R_j,w_j,\text{exp}_j)$, and $\{w_i\} \subset R_j$. Moreover, the data to update is $\{w_i\} \cap R_j = w_i$.
 \end{mydef}
 
 Actually, a synchronization can only be needed by the data read by a stencil computation (not local), and only if this data has been modified before, which means that it has been written before. This synchronization is needed because the neighborhood function $\mathcal{N}$ of a stencil computation involves values computed on different resources.
 
 \begin{mydef}
-A synchronization between two computations $c_i \pprec c_j$ is defined as a specific computation $\text{update}(w_i \cap R_j)=\text{update}(w_i)$.
+A synchronization between two computations $c_i \pprec c_j$ is defined as a specific computation $\text{update}(\{w_i\} \cap R_j)=\text{update}(w_i)$.
 \end{mydef}
 
 \begin{mydef}
-An \textit{updated-computation} a computation which needs a data synchronization before it can be performed. If $c_i \pprec c_j$, with $i<j$, the computation $c_j$ is transformed to an updated-computation $c^*_j(R_j,w_j,D_j,\text{exp}_j,\text{update}(w_i))$ such that $\text{update}(w_i)$ is performed before the evaluation of $exp_j$. The updated-computation can also be denoted as $c^*_j(c_j,\text{update}(w_i))$.
+An \textit{updated-computation} is a computation which needs a set of data synchronizations before it can be performed. The computation $c_j$ is transformed to an updated-computation $c^*_j(R_j,w_j,\text{exp}_j,*_j)$ if $\bigcup_{i} \{w_i\} \neq \emptyset \text{, }\forall i<j\text{, and }c_i \pprec c_j$. In such a case $*_j=update(\bigcup_{i} \{w_i\})$ is performed before the evaluation of $exp_j$.
 \end{mydef}
 
 \begin{mydef}
@@ -29,17 +29,18 @@ The concatenation of two ordered lists of respectively $n$ and $m$ computations 
 From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{data}$ is obtained from the call $\Gamma_{data} = T_{data}(\Gamma,0)$, where $T_{data}$ is the recursive function defined as
 \begin{equation*}
 T_{data}(\Gamma,i) = 
-\begin{cases} 	[\Gamma[i]] \cdot T_{data}(\Gamma,i+1) & \mbox{if }\forall j\leq i\mbox{, } c_j \not\pprec c_i\\
-				[c^*_i(\Gamma[i],\text{update}(\{w_k\})] \cdot T_{data}(\Gamma,i+1) & \forall k < i\mbox{, }c_k \pprec c_i\\
+\begin{cases} 	[\Gamma[i]] \cdot T_{data}(\Gamma,i+1) & \mbox{if }\forall j< i\mbox{, } c_j \not\pprec c_i\\
+				[c^*_i(\Gamma[i],\text{update}(\bigcup_{k}\{w_k\})] \cdot T_{data}(\Gamma,i+1) & \forall k < i\mbox{, }c_k \pprec c_i\\
 				[] & \mbox{if }i=|\Gamma|.
 \end{cases}
 \end{equation*}
 \end{mydef}
 
-The construction of $\Gamma_{data}$ implies that if a synchronization is needed it is always proceeded before the computation wich needs it. However, an optimization is possible to combine synchronizations together, and thus to synchronize more than one data at a time. If the number of synchronizations is reduced, final performance of the program will be better. For this reason, we define a reduction to apply to $\Gamma_{data}$, and which is performed as a post-transformation.
+The construction of $\Gamma_{data}$ implies that if a synchronization is needed it is always proceeded before the computation wich needs it. One can notice that a combination of synchronizations is possible in some cases, and thus it is possible to synchronize more than one data at a time. %If the number of synchronizations is reduced, final performance of the program will be better. 
+For this reason, we define a reduction which can be applied to $\Gamma_{data}$, and which is performed as a post-transformation. This reduction, could propose better performance depending on the used network speed.
 
 \begin{myprop}
-Denoting four computations $c_l$, $c_k$, $c_i$ and $c_j$ of $\Gamma$, with $l<k$, $i<j$, and where $c_l \pprec c_k$ and $c_i \pprec c_j$. Then, computations $c_k$ and $c_j$ are tansformed to $c^*_k(c_k,update(w_l)$ and $c^*_j(c_j,update(w_i)$. If $i<k$, a single update call can be performed at $k$ such that $c^*_k(c_k,update(w_l\cup w_i)$, and in this case, the computation $c_j$ is not transformed.
+Denoting four computations $c_l$, $c_k$, $c_i$ and $c_j$ of $\Gamma$, with $l<k$, $i<j$, and where $c_l \pprec c_k$ and $c_i \pprec c_j$. Then, computations $c_k$ and $c_j$ are tansformed to $c^*_k(c_k,update(w_l))$ and $c^*_j(c_j,update(w_i))$. If $i<k$, a single update call can be performed at $k$ such that $c^*_k(c_k,update(w_l\cup w_i))$, and in this case, the computation $c_j$ is not transformed.
 \end{myprop}
 
 \begin{proof}
@@ -49,22 +50,21 @@ By definition, the synchronization of $w_i$ can be performed between $c_i$ and $
 In other words, for each synchronization in $\Gamma_{data}$, if the computation $c_i$ from which $c_j$ is synchronized occurs before the last synchronization, the two synchronizations can be reduced to one with the union of the data to update.
 
 
- The final step of this parallelization is to run $\Gamma_{data}$ on each resource. Thus, for each resource $0 \leq k \leq p-1$ a multi-stencil program defined by
+ The final step of this parallelization is to run $\Gamma_{data}$ on each resource. Thus, for each resource $0 \leq k \leq p-1$ a multi-stencil program, defined by
 \begin{equation}
 \mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{data}),
 \end{equation}
 is performed.
 
-We denote this parallelization technique a coarse-grain data parallelization in contrast with the same technique applied to the finer level of a single computation. In this case, for a computation $c(R,w,D,\text{exp})$, the local domain $D$ is partitionned for $p$ resources $\{D_0,\dots,D_{p-1}\}$, and each resource $k$ is responsible for a sub-computation $c_k(R,w,D_k,\text{exp}')$.
-%This finer data parallelization is particularly adapted to shared memory architectures (multi-cores, many-cores or GPUs), and in such case it does not require the addition of synchronizations because the computed element is local to the sub-domain $D_k$. Actually, if the computation is a stencil, the computation only read neighborhood elements but does not write them which does not require a synchronization, and if the computation is local nothing is read or written in the sub-domain of another resource. 
-This finer data parallelization technique is not directly adressed by the work presented in this paper, but is exhibited, as it will be explained later. 
+%We denote this parallelization technique a coarse-grain data parallelization in contrast with the same technique applied to the finer level of a single computation. In this case, for a computation $c(R,w,D,\text{exp})$, the local domain $D$ is partitionned for $p$ resources $\{D_0,\dots,D_{p-1}\}$, and each resource $k$ is responsible for a sub-computation $c_k(R,w,D_k,\text{exp}')$.
+%This finer data parallelization technique is not directly adressed by the work presented in this paper, but is exhibited, as it will be explained later. 
 
 %------------------------------
 \subsection{Task parallelism}
-A task parallelization technique is a technique to transform a program as a dependency graph of different tasks. A dependency graph exhibits parallel tasks, or on the contrary sequential execution of tasks. In a multi-stencil program a task is defined as a computation $c(R,w,D,\text{exp})$. As a result, the dependency graph of a multi-stencil program represents the dependencies between local and stencil computations of $\Gamma$.
+A task parallelization technique is a technique to transform a program as a dependency graph of different tasks. A dependency graph exhibits parallel tasks, or on the contrary sequential execution of tasks. In a multi-stencil program a task is defined as a computation $c(R,w,\text{exp})$. As a result, the dependency graph of a multi-stencil program represents the dependencies between local and stencil computations of $\Gamma$.
 
 \begin{mydef}
-For two computations $c_i(R_i,w_i,D_i,e_i)$ and $c_j(R_j,w_j,D_j,e_j)$, with $i < j$, it is said that $c_j$ is data dependant from $c_i$, denoted $c_i\prec c_j$, if $w_i \cap R_j \neq \emptyset$. In this case, $c_i$ has to be computed before $c_j$. The binary relation $c_i\prec c_j$ represents a \textit{dependency}.
+For two computations $c_i(R_i,w_i,\text{exp}_i)$ and $c_j(R_j,w_j,\text{exp}_j)$, with $i < j$, it is said that $c_j$ is data dependant from $c_i$, denoted $c_i\prec c_j$, if $\{w_i\} \cap R_j \neq \emptyset$. In this case, $c_i$ has to be computed before $c_j$. The binary relation $c_i\prec c_j$ represents a \textit{dependency}.
 \end{mydef}
 
 \begin{myprop}
@@ -72,23 +72,23 @@ The binary relation $\prec$ is not transitive.
 \end{myprop}
 
 \begin{proof}
-Considering three computations $c_0(R_0,w_0,D_0,e_0)$, $c_1(R_1,w_1,D_1,e_1)$ and $c_2(R_2,w_2,D_2,e_2)$, where $w_0\cap R_1 \neq \emptyset$ and $w_1\cap R_2 \neq \emptyset$. In this case two dependencies can be extracted $c_0 \prec c_1$ and $c_1 \prec c_2$. However, the dependency $c_0 \prec c_2$ is not true as $w_0\cap R_2 = \emptyset$.
+Considering three computations $c_0(R_0,w_0,\text{exp}_0)$, $c_1(R_1,w_1,\text{exp}_1)$ and $c_2(R_2,w_2,\text{exp}_2)$, where $\{w_0\}\cap R_1 \neq \emptyset$ and $\{w_1\}\cap R_2 \neq \emptyset$. In this case two dependencies can be extracted $c_0 \prec c_1$ and $c_1 \prec c_2$. However, the dependency $c_0 \prec c_2$ is not true as $\{w_0\}\cap R_2 = \emptyset$.
 \end{proof}
 
-It has been proved that the binary relation $\prec$ is not transitive. This property is due to the fact that $\prec$ is defined as a data dependency between computations. A dependency chain, however, creates another type of dependency only due to time.
+It has been proved that the binary relation $\prec$ is not transitive. This property is due to the fact that $\prec$ is defined as a data dependency between computations. However, another type of dependency, only due to time, is created from $\prec$.
 
 \begin{mydef}
-For two computations $c_i(R_i,w_i,D_i,e_i)$ and $c_j(R_j,w_j,D_j,e_j)$, a time dependency is denoted $c_i \blacktriangleleft c_j$ and means that $c_i$ has to be computed before $c_j$.
+For two computations $c_i(R_i,w_i,\text{exp}_i)$ and $c_j(R_j,w_j,\text{exp}_j)$, a time dependency is denoted $c_i \blacktriangleleft c_j$ and means that $c_i$ has to be computed before $c_j$.
 \end{mydef}
 
 As a result, the relation $\blacktriangleleft$ is more general than $\prec$.
 
 \begin{myprop}
-For two computations $c_i(R_i,w_i,D_i,e_i)$ and $c_j(R_j,w_j,D_j,e_j)$ such that $c_i \prec c_j$, $c_i \blacktriangleleft c_j$ is verified.
+For two computations $c_i(R_i,w_i,\text{exp}_i)$ and $c_j(R_j,w_j,\text{exp}_j)$ such that $c_i \prec c_j$, $c_i \blacktriangleleft c_j$ is verified.
 \end{myprop}
 
 \begin{proof}
-By definition $c_i \prec c_j$ means that $w_i\cap R_j \neq \emptyset$ and that $c_i$ has to computed before $c_j$. %Thus, the relation $c_i \prec c_j$ is stronger than $c_i \blacktriangleleft c_j$.
+By definition $c_i \prec c_j$ means that $\{w_i\}\cap R_j \neq \emptyset$ and that $c_i$ has to computed before $c_j$. %Thus, the relation $c_i \prec c_j$ is stronger than $c_i \blacktriangleleft c_j$.
 \end{proof}
 
 \begin{myprop}
@@ -96,21 +96,21 @@ The binary relation $\blacktriangleleft$ is transitive.
 \end{myprop}
 
 \begin{proof}
-Considering three computations $c_0(R_0,w_0,D_0,e_0)$, $c_1(R_1,w_1,D_1,e_1)$ and $c_2(R_2,w_2,D_2,e_2)$, where $c_0 \blacktriangleleft c_1$ and $c_1 \blacktriangleleft c_2$. $c_0$ is computed before $c_1$ and $c_1$ is computed before $c_2$, as a result $c_0$ is computed before $c_2$ and the relation $c_0 \blacktriangleleft c_2$ is verified. 
+Considering three computations $c_0(R_0,w_0,\text{exp}_0)$, $c_1(R_1,w_1,\text{exp}_1)$ and $c_2(R_2,w_2,\text{exp}_2)$, where $c_0 \blacktriangleleft c_1$ and $c_1 \blacktriangleleft c_2$. $c_0$ is computed before $c_1$ and $c_1$ is computed before $c_2$, as a result $c_0$ is computed before $c_2$ and the relation $c_0 \blacktriangleleft c_2$ is verified. 
 \end{proof}
 
 \begin{mydef}
-A directed acyclic graph (DAG) $G(V,A)$ is a graph where the edges are directed from a source to a destination vertex, and where following the direction of edges, no cycle can be found from a vertex $u$ to itself. A directed edge is called an arc, and for two vertices $v,u \in V$ an arc from $u$ to $v$ is denoted $(\overset{\frown}{u,v}) \in A$.
+A directed acyclic graph (DAG) $G(V,A)$ is a graph where the edges are directed from a source to a destination vertex and where, following the direction of edges, no cycle can be found from a vertex $u$ to itself. A directed edge is called an arc, and for two vertices $v,u \in V$ an arc from $u$ to $v$ is denoted $(\overset{\frown}{u,v}) \in A$.
 \end{mydef}
 
-From an ordered list of computations, a directed dependency graph $\Gamma_{task}(V,A)$ can be built finding all pairs of computations $c_i(R_i,w_i,D_i,e_i)$ and $c_j(R_j,w_j,D_j,e_j)$, with $i<j$, such that $c_i \blacktriangleleft c_j$. Those time dependencies can be found from pairs of data dependencies $c_i \prec c_j$.
+From an ordered list of computations, a directed dependency graph $\Gamma_{task}(V,A)$ can be built finding all pairs of computations $c_i(R_i,w_i,\text{exp}_i)$ and $c_j(R_j,w_j,\text{exp}_j)$, with $i<j$, such that $c_i \blacktriangleleft c_j$. Those time dependencies can be found from pairs of data dependencies $c_i \prec c_j$.
 
 \begin{mydef}
 For two directed graphs $G(V,A)$ and $G'(V',A')$, the union $(V,A)\cup (V',A')$ is defined as the union of each set $(V\cup V', A \cup A')$.
 \end{mydef}
 
 \begin{mydef}
-From an ordered list $\Gamma$ of computations $c(R,w,D,\text{exp})$, a directed dependency graph $\Gamma_{task}(V,A)$ is obtained from the call $T_{task}(\Gamma,0)$, where $T_{task}$ is the recursive function
+From an ordered list $\Gamma$ of computations $c(R,w,\text{exp})$, a directed dependency graph $\Gamma_{task}(V,A)$ is obtained from the call $T_{task}(\Gamma,0)$, where $T_{task}$ is the recursive function
 \begin{equation*}
 T_{task}(\Gamma,i) = 
 \begin{cases} 	(\{\},\{\}) & \mbox{if }i=|\Gamma|\\
@@ -129,7 +129,7 @@ The directed graph $\Gamma_{task}$ is an acyclic graph.
 $\Gamma_{task}$ is built from $\Gamma$ which is an ordered and sequential list of computations. Moreover, each computation of the list $\Gamma$ is associated to a vertex of $V$, even if the same computation is represented more than once in $\Gamma$. As a result it is not possible to go back to a previous computation and to create a cycle.
 \end{proof}
 
-Using the function $T_{task}$ to build $\Gamma_{task}$, however, duplication of dependencies may occur because of the transitivity of the relation $\blacktriangleleft$. Actually, as the relation $\prec$ verifies the relation $\blacktriangleleft$, and as $\blacktriangleleft$ is transitive, if for three computations $c_k(R_k,w_k,D_k,e_k)$, $c_i(R_i,w_i,D_i,e_i)$ and $c_j(R_j,w_j,D_j,e_j)$, with $k<i<j$ and where $c_k \prec c_i$, $c_i \prec c_j$ and $c_k \prec c_j$, then the transitivity $c_k \blacktriangleleft c_j$ is verified because of the relations $c_k \blacktriangleleft c_i$ and $c_i \blacktriangleleft c_j$. However, $c_k \blacktriangleleft c_j$ is also directly represented by the binary relation $c_k \prec c_j$. As a result, a duplication of the dependency is created in $\Gamma_{task}$. In Figure~\ref{fig:duplication} an example of duplication is given for the relation $c_1 \blacktriangleleft c_4$.
+Using the function $T_{task}$ to build $\Gamma_{task}$, however, duplication of dependencies may occur because of the transitivity of the relation $\blacktriangleleft$. Actually, as the relation $\prec$ verifies the relation $\blacktriangleleft$, and as $\blacktriangleleft$ is transitive, if for three computations $c_k(R_k,w_k,\text{exp}_k)$, $c_i(R_i,w_i,\text{exp}_i)$ and $c_j(R_j,w_j,\text{exp}_j)$, with $k<i<j$ and where $c_k \prec c_i$, $c_i \prec c_j$ and $c_k \prec c_j$, then the transitivity $c_k \blacktriangleleft c_j$ is verified because of the relations $c_k \blacktriangleleft c_i$ and $c_i \blacktriangleleft c_j$. However, $c_k \blacktriangleleft c_j$ is also directly represented by the binary relation $c_k \prec c_j$. As a result, a duplication of the dependency is created in $\Gamma_{task}$. In Figure~\ref{fig:duplication} an example of duplication is given for the relation $c_1 \blacktriangleleft c_4$.
 
 \begin{figure}[h!]
 \begin{center}
@@ -172,7 +172,7 @@ Thus, the removal of the redundant dependencies of $\Gamma_{task}$ consists in a
 
 %------------------------------
 \subsection{Hybrid parallelism}
-It is also possible to combine coarse-grain data and task parallelization techniques to get hybrid parallelism, sometimes more efficient on hybrid architectures. A coarse-grain data parallelism creates for $k$ resources $k$ multi-stencil computations $\mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{data})$, where $\Gamma_{data}$ is built from an ordered list of computations and is itself an ordered list of computations $c$ and updated-computations $c^*$. On the other hand, the task parallelization technique builds, from an ordered list of computation, a graph dependency $\Gamma_{task}$. As a result $T_{data}$ and $T_{task}$ can be composed to build $\Gamma_{hybrid}$. Thus, $k$ multi-stencil programs
+It is also possible to combine data and task parallelization techniques to get hybrid parallelism, sometimes more efficient on hybrid architectures. A coarse-grain data parallelism creates for $k$ resources $k$ multi-stencil computations $\mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{data})$, where $\Gamma_{data}$ is built from an ordered list of computations and is itself an ordered list of computations $c$ and updated-computations $c^*$. On the other hand, the task parallelization technique builds, from an ordered list of computation, a graph dependency $\Gamma_{task}$. As a result $T_{data}$ and $T_{task}$ can be composed to build $\Gamma_{hybrid}$. Thus, $k$ multi-stencil programs
 \begin{equation*}
 \mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{hybrid})
 \end{equation*}
