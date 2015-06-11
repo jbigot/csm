@@ -327,175 +327,176 @@ The transitive reduction has already been applied on $\Gamma_{hybrid}$ by the tr
 We consider this approximation acceptable for multi-stencil programs, because of the relative homogeneity of computations. Actually, all computations, except the ones on the physical border of the domain, are performed on an entire domain of the mesh, and as a computation performs a single quantity at a time ($w_i$ of $c_i$ is a singleton), the amount of arithmetic operations in a computation are quite homogeneous. However, this approximation can also be responsible for a useless wait for computation $c_3$ and less performance. For this reason, perspectives of this work open to a new kind of component models.
 
 After these over-constraints are applied, $\Gamma_{hybrid}$ is a MSP DAG. As a result, the binary tree decomposition algorithm of Valdes \& Al can be applied on $\Gamma_{hybrid}$. However, because of updated-computations inserted in $\Gamma_{data}$, we have to define additional reduction rules for the algorithm. %For an updated-computation $c^*_j(c_j,\text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\}))$, we define $*_j$ as the update needed by $c_j$, $*_j = \text{update}(\{w_i\text{, }\forall i\text{ }c_i \prec c_j\})$. As a result, the updated-computation $c^*_j$ is defined by $c^*_j(c_j,*_j)$. 
-The initial label of the edges of the graph $L^{-1}(\Gamma_{hybrid})$ to reduce are the computations of the multi-stencil program. Four new rules are needed to perform the binary tree decomposition of $\Gamma_{hybrid}$ and are defined in Figure~\ref{fig:newrules}. The symetric transforations are not represented.
+The initial label of the edges of the graph $L^{-1}(\Gamma_{hybrid})$ to reduce are the computations of the multi-stencil program. %Four new rules are needed to perform the binary tree decomposition of $\Gamma_{hybrid}$ and are defined in Figure~\ref{fig:newrules}. The symetric transforations are not represented.
 
-\begin{figure}[h!]
-\captionsetup[subfigure]{labelformat=empty}
-\begin{center}
-%FIRST RULE
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (z) at (3,0) {};
+% \begin{figure}[h!]
+% \captionsetup[subfigure]{labelformat=empty}
+% \begin{center}
+% %FIRST RULE
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (z) at (3,0) {};
  
-  \path[->]
-    (x) edge node [above] {$c_1^*$} (y)
-    (y) edge node [above] {$c_2$} (z);
-  \end{tikzpicture}
-  }
-\hspace{50pt}
-%ARROW
-\subfloat[]{
-$\Rightarrow$
-}
-\hspace{50pt}
-%TRANSFORMATION
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
-   \node[] (s1) at (1.5,0.5) {$\mathcal{S}$};
-   \node[] (s2) at (1,1.5) {$\mathcal{S}$};
-   \node[] (star) at (0.5,2.5) {$*_1$};
-   \node[] (t1) at (1.5,2.5) {$c_1$};
-   \node[] (t2) at (2,1.5) {$c_2$};
+%   \path[->]
+%     (x) edge node [above] {$c_1^*$} (y)
+%     (y) edge node [above] {$c_2$} (z);
+%   \end{tikzpicture}
+%   }
+% \hspace{50pt}
+% %ARROW
+% \subfloat[]{
+% $\Rightarrow$
+% }
+% \hspace{50pt}
+% %TRANSFORMATION
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+%    \node[] (s1) at (1.5,0.5) {$\mathcal{S}$};
+%    \node[] (s2) at (1,1.5) {$\mathcal{S}$};
+%    \node[] (star) at (0.5,2.5) {$*_1$};
+%    \node[] (t1) at (1.5,2.5) {$c_1$};
+%    \node[] (t2) at (2,1.5) {$c_2$};
  
-  \path[->]
-    (x) edge node {} (y)
-    (s1) edge node {} (s2)
-        edge node {} (t2)
-    (s2) edge node {} (star)
-         edge node {} (t1);
-  \end{tikzpicture}
-}
-\\
-%SECOND RULE
-%FIRST RULE
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (z) at (3,0) {};
+%   \path[->]
+%     (x) edge node {} (y)
+%     (s1) edge node {} (s2)
+%         edge node {} (t2)
+%     (s2) edge node {} (star)
+%          edge node {} (t1);
+%   \end{tikzpicture}
+% }
+% \\
+% %SECOND RULE
+% %FIRST RULE
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (z) at (3,0) {};
  
-  \path[->]
-    (x) edge node [above] {$c_1^*$} (y)
-    (y) edge node [above] {$c_2^*$} (z);
-  \end{tikzpicture}
-  }
-\hspace{50pt}
-%ARROW
-\subfloat[]{
-$\Rightarrow$
-}
-\hspace{50pt}
-%TRANSFORMATION
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
-   \node[] (s1) at (1.5,0.5) {$\mathcal{S}$};
-   \node[] (s2) at (0.5,1.5) {$\mathcal{S}$};
-   \node[] (s3) at (2.5,1.5) {$\mathcal{S}$};
-   \node[] (star1) at (0,2.5) {$*_1$};
-   \node[] (t1) at (1,2.5) {$c_1$};
-   \node[] (star2) at (2,2.5) {$*_2$};
-   \node[] (t2) at (3,2.5) {$c_2$};
+%   \path[->]
+%     (x) edge node [above] {$c_1^*$} (y)
+%     (y) edge node [above] {$c_2^*$} (z);
+%   \end{tikzpicture}
+%   }
+% \hspace{50pt}
+% %ARROW
+% \subfloat[]{
+% $\Rightarrow$
+% }
+% \hspace{50pt}
+% %TRANSFORMATION
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+%    \node[] (s1) at (1.5,0.5) {$\mathcal{S}$};
+%    \node[] (s2) at (0.5,1.5) {$\mathcal{S}$};
+%    \node[] (s3) at (2.5,1.5) {$\mathcal{S}$};
+%    \node[] (star1) at (0,2.5) {$*_1$};
+%    \node[] (t1) at (1,2.5) {$c_1$};
+%    \node[] (star2) at (2,2.5) {$*_2$};
+%    \node[] (t2) at (3,2.5) {$c_2$};
  
-  \path[->]
-    (x) edge node {} (y)
-    (s1) edge node {} (s2)
-        edge node {} (s3)
-    (s2) edge node {} (star1)
-         edge node {} (t1)
-    (s3) edge node {} (star2)
-         edge node {} (t2);
-  \end{tikzpicture}
-}
-\\
-%THIRD RULE
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+%   \path[->]
+%     (x) edge node {} (y)
+%     (s1) edge node {} (s2)
+%         edge node {} (s3)
+%     (s2) edge node {} (star1)
+%          edge node {} (t1)
+%     (s3) edge node {} (star2)
+%          edge node {} (t2);
+%   \end{tikzpicture}
+% }
+% \\
+% %THIRD RULE
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
  
-  \path[->]
-    (x) edge [bend left] node [above] {$c_1^*$} (y)
-        edge [bend right] node [below] {$c_2$} (y);
-  \end{tikzpicture}
-  }
-\hspace{50pt}
-%ARROW
-\subfloat[]{
-$\Rightarrow$
-}
-\hspace{50pt}
-%TRANSFORMATION
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
-   \node[] (p) at (1.5,0.5) {$\mathcal{P}$};
-   \node[] (s) at (1,1.5) {$\mathcal{S}$};
-   \node[] (star) at (0.5,2.5) {$*_1$};
-   \node[] (t1) at (1.5,2.5) {$c_1$};
-   \node[] (t2) at (2,1.5) {$c_2$};
+%   \path[->]
+%     (x) edge [bend left] node [above] {$c_1^*$} (y)
+%         edge [bend right] node [below] {$c_2$} (y);
+%   \end{tikzpicture}
+%   }
+% \hspace{50pt}
+% %ARROW
+% \subfloat[]{
+% $\Rightarrow$
+% }
+% \hspace{50pt}
+% %TRANSFORMATION
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+%    \node[] (p) at (1.5,0.5) {$\mathcal{P}$};
+%    \node[] (s) at (1,1.5) {$\mathcal{S}$};
+%    \node[] (star) at (0.5,2.5) {$*_1$};
+%    \node[] (t1) at (1.5,2.5) {$c_1$};
+%    \node[] (t2) at (2,1.5) {$c_2$};
  
-  \path[->]
-    (x) edge node {} (y)
-    (p) edge node {} (s)
-        edge node {} (t2)
-    (s) edge node {} (star)
-        edge node {} (t1);
-  \end{tikzpicture}
-}
-\\
-%FOURTH RULE
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
+%   \path[->]
+%     (x) edge node {} (y)
+%     (p) edge node {} (s)
+%         edge node {} (t2)
+%     (s) edge node {} (star)
+%         edge node {} (t1);
+%   \end{tikzpicture}
+% }
+% \\
+% %FOURTH RULE
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (1.5,0) {};
  
-  \path[->]
-    (x) edge [bend left] node [above] {$c_1^*$} (y)
-        edge [bend right] node [below] {$c_2^*$} (y);
-  \end{tikzpicture}
-  }
-\hspace{50pt}
-%ARROW
-\subfloat[]{
-$\Rightarrow$
-}
-\hspace{50pt}
-%TRANSFORMATION
-\subfloat[]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
-   \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
-   \node[] (p) at (1.5,0.5) {$\mathcal{P}$};
-   \node[] (s2) at (0.5,1.5) {$\mathcal{S}$};
-   \node[] (s3) at (2.5,1.5) {$\mathcal{S}$};
-   \node[] (star1) at (0,2.5) {$*_1$};
-   \node[] (t1) at (1,2.5) {$c_1$};
-   \node[] (star2) at (2,2.5) {$*_2$};
-   \node[] (t2) at (3,2.5) {$c_2$};
+%   \path[->]
+%     (x) edge [bend left] node [above] {$c_1^*$} (y)
+%         edge [bend right] node [below] {$c_2^*$} (y);
+%   \end{tikzpicture}
+%   }
+% \hspace{50pt}
+% %ARROW
+% \subfloat[]{
+% $\Rightarrow$
+% }
+% \hspace{50pt}
+% %TRANSFORMATION
+% \subfloat[]{
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[circle,draw=black,fill=black,scale=0.3] (x) at (0,0) {};
+%    \node[circle,draw=black,fill=black,scale=0.3] (y) at (3,0) {};
+%    \node[] (p) at (1.5,0.5) {$\mathcal{P}$};
+%    \node[] (s2) at (0.5,1.5) {$\mathcal{S}$};
+%    \node[] (s3) at (2.5,1.5) {$\mathcal{S}$};
+%    \node[] (star1) at (0,2.5) {$*_1$};
+%    \node[] (t1) at (1,2.5) {$c_1$};
+%    \node[] (star2) at (2,2.5) {$*_2$};
+%    \node[] (t2) at (3,2.5) {$c_2$};
  
-  \path[->]
-    (x) edge node {} (y)
-    (p) edge node {} (s2)
-        edge node {} (s3)
-    (s2) edge node {} (star1)
-         edge node {} (t1)
-    (s3) edge node {} (star2)
-         edge node {} (t2);
-  \end{tikzpicture}
-}
-\caption{Reduction rules of the decomposition tree algorithm.}
-\label{fig:newrules}
-\end{center}
-\end{figure}
+%   \path[->]
+%     (x) edge node {} (y)
+%     (p) edge node {} (s2)
+%         edge node {} (s3)
+%     (s2) edge node {} (star1)
+%          edge node {} (t1)
+%     (s3) edge node {} (star2)
+%          edge node {} (t2);
+%   \end{tikzpicture}
+% }
+% \caption{Reduction rules of the decomposition tree algorithm.}
+% \label{fig:newrules}
+% \end{center}
+% \end{figure}
 
-Using those additional reduction rules, the binary series-parallel tree decomposition can be computed in linear time. A complete example of reduction is given in Figure~\ref{fig:example}. The initial $\Gamma_{hybrid}$ DAG and its inverse line graph are given first, followed by the set of reductions. The label of the final single edge corresponds to the binary tree decomposition of the initial $\Gamma_{hybrid}$ graph. 
+% Using those additional reduction rules, the binary series-parallel tree decomposition can be computed in linear time. 
+A complete example of reduction is given in Figure~\ref{fig:example}. The initial $\Gamma_{hybrid}$ DAG and its inverse line graph are given first, followed by the set of reductions. The label of the final single edge corresponds to the binary tree decomposition of the initial $\Gamma_{hybrid}$ graph. 
 
 %====BIG EXAMPLE
 \begin{figure}[ht!]
@@ -566,6 +567,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c0 c1
    \node[] (s1) at (1,0.5) {$\mathcal{S}$};
    \node[] (c0) at (0.5,1.5) {$c_0$};
+   %\node[] (c1) at (1.5,1.5) {$c_1^*$};
    \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
    \node[] (star1) at (1,2.5) {$*_1$};
    \node[] (c1) at (2,2.5) {$c_1$};
@@ -573,6 +575,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c7 c8
    \node[] (s3) at (6,0.5) {$\mathcal{S}$};
    \node[] (c7) at (5.5,1.5) {$c_7$};
+   %\node[] (c8) at (6.5,1.5) {$c_8^*$};
    \node[] (s4) at (6.5,1.5) {$\mathcal{S}$};
    \node[] (star8) at (6,2.5) {$*_8$};
    \node[] (c8) at (7,2.5) {$c_8$};
@@ -588,14 +591,16 @@ Using those additional reduction rules, the binary series-parallel tree decompos
 
     %reduction c0 c1
     (s1) edge node {} (c0)
-         edge node {} (s2)
+    %     edge node {} (c1)
+        edge node {} (s2)
     (s2) edge node {} (star1)
-         edge node {} (c1)
+        edge node {} (c1)
     %reduction c7 c8
     (s3) edge node {} (c7)
-         edge node {} (s4)
+    %     edge node {} (c8);
+        edge node {} (s4)
     (s4) edge node {} (star8)
-         edge node {} (c8);
+        edge node {} (c8);
   \end{tikzpicture}
 }
 \\
@@ -610,6 +615,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c0 c1
    \node[] (s1) at (1,0.5) {$\mathcal{S}$};
    \node[] (c0) at (0.5,1.5) {$c_0$};
+   %\node[] (c1) at (1.5,1.5) {$c_1^*$};
    \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
    \node[] (star1) at (1,2.5) {$*_1$};
    \node[] (c1) at (2,2.5) {$c_1$};
@@ -617,6 +623,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c7 c8
    \node[] (s3) at (6,0.5) {$\mathcal{S}$};
    \node[] (c7) at (5.5,1.5) {$c_7$};
+   %\node[] (c8) at (6.5,1.5) {$c_8^*$};
    \node[] (s4) at (6.5,1.5) {$\mathcal{S}$};
    \node[] (star8) at (6,2.5) {$*_8$};
    \node[] (c8) at (7,2.5) {$c_8$};
@@ -629,6 +636,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c2 c4
    \node[] (s6) at (3.5,1) {$\mathcal{S}$};
    \node[] (c2) at (3,2) {$c_2$};
+   %\node[] (c4) at (4,2) {$c_4^*$};
    \node[] (s7) at (4,2) {$\mathcal{S}$};
    \node[] (star4) at (3.5,3) {$*_4$};
    \node[] (c4) at (4.5,3) {$c_4$};
@@ -642,11 +650,13 @@ Using those additional reduction rules, the binary series-parallel tree decompos
 
     %reduction c0 c1
     (s1) edge node {} (c0)
+    %     edge node {} (c1)
          edge node {} (s2)
     (s2) edge node {} (star1)
          edge node {} (c1)
     %reduction c7 c8
     (s3) edge node {} (c7)
+    %     edge node {} (c8)
          edge node {} (s4)
     (s4) edge node {} (star8)
          edge node {} (c8)
@@ -657,6 +667,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
 
     %reduction c7 c8
     (s6) edge node {} (c2)
+    %     edge node {} (c4);
          edge node {} (s7)
     (s7) edge node {} (star4)
          edge node {} (c4);
@@ -680,6 +691,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c0 c1
    \node[] (s1) at (1,0.5) {$\mathcal{S}$};
    \node[] (c0) at (0.5,1.5) {$c_0$};
+   %\node[] (c1) at (1.5,1.5) {$c_1^*$};
    \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
    \node[] (star1) at (1,2.5) {$*_1$};
    \node[] (c1) at (2,2.5) {$c_1$};
@@ -687,6 +699,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c7 c8
    \node[] (s3) at (6,0.5) {$\mathcal{S}$};
    \node[] (c7) at (5.5,1.5) {$c_7$};
+   %\node[] (c8) at (6.5,1.5) {$c_8^*$};
    \node[] (s4) at (6.5,1.5) {$\mathcal{S}$};
    \node[] (star8) at (6,2.5) {$*_8$};
    \node[] (c8) at (7,2.5) {$c_8$};
@@ -701,6 +714,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    \node[] (c6) at (4,2) {$c_6$};
    \node[] (s6) at (3,2) {$\mathcal{S}$};
    \node[] (c2) at (2.5,3) {$c_2$};
+   %\node[] (c4) at (3.5,3) {$c_4^*$};
    \node[] (s7) at (3.5,3) {$\mathcal{S}$};
    \node[] (star4) at (3,4) {$*_4$};
    \node[] (c4) at (4,4) {$c_4$};
@@ -713,11 +727,13 @@ Using those additional reduction rules, the binary series-parallel tree decompos
 
     %reduction c0 c1
     (s1) edge node {} (c0)
+    %     edge node {} (c1)
          edge node {} (s2)
     (s2) edge node {} (star1)
          edge node {} (c1)
     %reduction c7 c8
     (s3) edge node {} (c7)
+    %     edge node {} (c8)
          edge node {} (s4)
     (s4) edge node {} (star8)
          edge node {} (c8)
@@ -730,6 +746,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
     (s8) edge node {} (s6)
          edge node {} (c6)
     (s6) edge node {} (c2)
+    %     edge node {} (c4);
          edge node {} (s7)
     (s7) edge node {} (star4)
          edge node {} (c4);
@@ -746,6 +763,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c0 c1
    \node[] (s1) at (1,0.5) {$\mathcal{S}$};
    \node[] (c0) at (0.5,1.5) {$c_0$};
+   %\node[] (c1) at (1.5,1.5) {$c_1^*$};
    \node[] (s2) at (1.5,1.5) {$\mathcal{S}$};
    \node[] (star1) at (1,2.5) {$*_1$};
    \node[] (c1) at (2,2.5) {$c_1$};
@@ -753,6 +771,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    %reduction c7 c8
    \node[] (s3) at (7,0.5) {$\mathcal{S}$};
    \node[] (c7) at (6.5,1.5) {$c_7$};
+   %\node[] (c8) at (7.5,1.5) {$c_8^*$};
    \node[] (s4) at (7.5,1.5) {$\mathcal{S}$};
    \node[] (star8) at (7,2.5) {$*_8$};
    \node[] (c8) at (8,2.5) {$c_8$};
@@ -766,6 +785,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
    \node[] (c6) at (5.5,2) {$c_6$};
    \node[] (s6) at (4.5,2) {$\mathcal{S}$};
    \node[] (c2) at (4,3) {$c_2$};
+   %\node[] (c4) at (5,3) {$c_4^*$};
    \node[] (s7) at (5,3) {$\mathcal{S}$};
    \node[] (star4) at (4.5,4) {$*_4$};
    \node[] (c4) at (5.5,4) {$c_4$};
@@ -777,11 +797,13 @@ Using those additional reduction rules, the binary series-parallel tree decompos
 
     %reduction c0 c1
     (s1) edge node {} (c0)
+    %     edge node {} (c1)
          edge node {} (s2)
     (s2) edge node {} (star1)
          edge node {} (c1)
     %reduction c7 c8
     (s3) edge node {} (c7)
+    %     edge node {} (c8)
          edge node {} (s4)
     (s4) edge node {} (star8)
          edge node {} (c8)
@@ -794,6 +816,7 @@ Using those additional reduction rules, the binary series-parallel tree decompos
     (s8) edge node {} (s6)
          edge node {} (c6)
     (s6) edge node {} (c2)
+         %edge node {} (c4);
          edge node {} (s7)
     (s7) edge node {} (star4)
          edge node {} (c4);
