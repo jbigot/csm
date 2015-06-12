@@ -86,6 +86,7 @@ To be able to dump the series-parallel tree decomposition of $\Gamma_{hybrid}$ t
    \node[component] (c) at (0,0) {$c_i$};
    \node[provide] (p) at (-1,0) {};
    \node[use] (u) at (0,1) {$m$};
+   \node[] (r) [right = 1cm of u] {$R_i \cup \{w_i\}$};
  
   \path[->]
     (p) edge node {} (c)
@@ -218,6 +219,7 @@ $\Rightarrow$
    \node[component] (sync) at (0,0) {$SYNC$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (0,1) {$m$};
+   \node[] (r) [right = 0.5cm of u] {$R^*_i$};
  
   \path[->]
     (p) edge node {} (sync)
@@ -229,7 +231,7 @@ $\Rightarrow$
 \end{center}
 \end{figure}
 
-For example, the canonical decomposition tree of Figure~\ref{fig:canon} is dumped into the component assembly of Figure~\ref{fig:assembly}.
+For example, the canonical decomposition tree of Figure~\ref{fig:canon} is dumped into the component assembly of Figure~\ref{fig:assembly}. The text next to computation and synchronization components indicates to which data they have to be linked to. Actually, any computation $c_i$ or $c_i^*$ has to be linked to the data it reads and writes $R_i \cup w_i$. On the other hand, a synchronization $*_i$, has to be linked to the data it updates $R^*_i$.
 
 \begin{figure}[h!]
 \captionsetup[subfigure]{labelformat=empty}
@@ -242,15 +244,15 @@ For example, the canonical decomposition tree of Figure~\ref{fig:canon} is dumpe
    %c0
    \node[component] (c0) [right = 2.5cm of seq0u] {$c_0$};
    \node[use] (c0u) [above = 0.8cm of c0] {$m$};
-   \node[] (r0) [right = 0.5cm of c0u] {$R_0$};
+   \node[] (r0) [right = 1cm of c0u] {\textcolor{gray}{$R_0 \cup \{w_0\}$}};
    %sync0
    \node[component] (sync0) [below = 1.5cm of c0] {$SYNC$};
    \node[use] (sync0u) [above = 0.8cm of sync0] {$m$};
-   \node[] (star1) [right = 0.5cm of sync0u] {$*_1$};
+   \node[] (star1) [right = 0.5cm of sync0u] {\textcolor{gray}{$R^*_1$}};
    %c1
    \node[component] (c1) [below = 1.5cm of sync0] {$c_1^*$};
    \node[use] (c1u) [above = 0.8cm of c1] {$m$};
-   \node[] (r1) [right = 0.5cm of c1u] {$R_1$};
+   \node[] (r1) [right = 1cm of c1u] {\textcolor{gray}{$R_1 \cup \{w_1\}$}};
    %par0
    \node[component] (par0) [below = 1cm of c1] {$PAR$};
    \node[use] (par0u) [right = 1cm of par0] {$m$};
@@ -263,42 +265,42 @@ For example, the canonical decomposition tree of Figure~\ref{fig:canon} is dumpe
   %c2
    \node[component] (c2) [right = 1.5cm of par1u] {$c_2$};
    \node[use] (c2u) [above = 0.8cm of c2] {$m$};
-   \node[] (r2) [right = 0.5cm of c2u] {$R_2$};
+   \node[] (r2) [right = 1cm of c2u] {\textcolor{gray}{$R_2 \cup \{w_2\}$}};
   %sync1
    \node[component] (sync1) [below = 1.5cm of c2] {$SYNC$};
    \node[use] (sync1u) [above = 0.8cm of sync1] {$m$};
-   \node[] (star4) [right = 0.5cm of sync1u] {$*_4$};
+   \node[] (star4) [right = 0.5cm of sync1u] {\textcolor{gray}{$R^*_4$}};
   %c4
    \node[component] (c4) [below = 1.5cm of par1] {$c_4^*$};
    \node[use] (c4u) [above = 0.8cm of c4] {$m$};
-   \node[] (r4) [right = 0.5cm of c4u] {$R_4$};
+   \node[] (r4) [right = 1cm of c4u] {\textcolor{gray}{$R_4 \cup \{w_4\}$}};
   %c6
    \node[component] (c6) [below = 1.5cm of c4] {$c_6$};
    \node[use] (c6u) [above = 0.8cm of c6] {$m$};
-   \node[] (r6) [right = 0.5cm of c6u] {$R_6$};
+   \node[] (r6) [right = 1cm of c6u] {\textcolor{gray}{$R_6 \cup \{w_6\}$}};
   %seq2
    \node[component] (seq2) [below = 4.5cm of seq1] {$SEQ$};
    \node[use] (seq2u) [right = 1cm of seq2] {$m$};
   %c3
    \node[component] (c3) [right = 1cm of seq2u] {$c_3$};
    \node[use] (c3u) [above = 0.8cm of c3] {$m$};
-   \node[] (r3) [right = 0.5cm of c3u] {$R_3$};
+   \node[] (r3) [right = 1cm of c3u] {\textcolor{gray}{$R_3 \cup \{w_3\}$}};
   %c5
    \node[component] (c5) [below = 1.5cm of c3] {$c_5$};
    \node[use] (c5u) [above = 0.8cm of c5] {$m$};
-   \node[] (r5) [right = 0.5cm of c5u] {$R_5$};
+   \node[] (r5) [right = 1cm of c5u] {\textcolor{gray}{$R_5 \cup \{w_5\}$}};
   %c7
    \node[component] (c7) [below = 1.5cm of par0] {$c_7$};
    \node[use] (c7u) [above = 0.8cm of c7] {$m$};
-   \node[] (r7) [right = 0.5cm of c7u] {$R_7$};
+   \node[] (r7) [right = 1cm of c7u] {\textcolor{gray}{$R_7 \cup \{w_7\}$}};
   %sync2
    \node[component] (sync2) [below = 1.5cm of c7] {$SYNC$};
    \node[use] (sync2u) [above = 0.8cm of sync2] {$m$};
-   \node[] (star8) [right = 0.5cm of sync2u] {$*_8$};
+   \node[] (star8) [right = 0.5cm of sync2u] {\textcolor{gray}{$R^*_8$}};
   %c8
    \node[component] (c8) [below = 1.5cm of sync2] {$c_8^*$};
    \node[use] (c8u) [above = 0.8cm of c8] {$m$};
-   \node[] (r8) [right = 0.5cm of c8u] {$R_8$};
+   \node[] (r8) [right = 1cm of c8u] {\textcolor{gray}{$R_8 \cup \{w_8\}$}};
 
    \path[->]
    %seq0
@@ -361,6 +363,8 @@ For example, the canonical decomposition tree of Figure~\ref{fig:canon} is dumpe
 
 %-------------------------------------
 \subsection{Complete component assembly}
-At this point of the work, the computation part of the parallel $\mathcal{MSP}$ program is solved and dumped to a component assembly. Of course, this component assembly does not represent the entire $\mathcal{MSP}$ program. Actually, additionnal services are needed. For example, computations are performed on quantities, or data, thus those data have to be accessible somewhere through services of components in the assembly. Those quantities are mapped onto a distributed mesh, which also means that the mesh has to be accessible by the data. In addition to this, and as explained in Section~\ref{sect:dataparal}, the data parallelization needs the management of specific updated-computations $c_i^*$, which means that the complete assembly have to manage an update service, as well as the partitioning of the mesh and the quantities mapped onto it.
+At this point of the work, the computation part $\Gamma$ of the parallel $\mathcal{MSP}$ program is solved and dumped to a component assembly. Of course, this component assembly does not represent the entire $\mathcal{MSP}$ program which also contains $\mathcal{M}$, $\Delta$ and $T$. Actually, additionnal services are needed. For example, computations are performed on quantities, or data, thus those data have to be accessible somewhere through services of components in the assembly. Those quantities are mapped onto a distributed mesh, which also means that the mesh has to be accessible by the data. In addition to this, and as explained in Section~\ref{sect:dataparal}, the data parallelization needs the management of specific update computations $*_i$, which means that the complete assembly have to manage an update service, as well as the partitioning of the mesh and the quantities mapped onto it.
 
-However, there is not a unique way to design the rest of the assembly and to make accessible the different services (data, update, mesh etc.). The work presented until now can be considered as a generic solution to solve the parallel computation part, but the rest of the assembly is dependant of the implementation choice. However, the implementation presented in this work, and detailed in the next Section, is inspired by the SIPSim model~\cite{} which is an interesting \emph{implicit parallelism model} to dump onto component models.
+to be continued...
+
+%However, there is not a unique way to design the rest of the assembly and to make accessible the different services (data, update, mesh etc.). The work presented until now can be considered as a generic solution to solve the parallel computation part, but the rest of the assembly is dependant of the implementation choice. However, the implementation presented in this work, and detailed in the next Section, is inspired by the SIPSim model~\cite{} which is an interesting \emph{implicit parallelism model} to dump onto component models.
