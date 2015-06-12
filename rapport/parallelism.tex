@@ -18,8 +18,18 @@ A synchronization between two computations $c_i \pprec c_j$ is defined as a spec
 \end{mydef}
 
 \begin{mydef}
-An \textit{updated-computation} is a computation which needs a set of data synchronizations before it can be performed. The computation $c_j$ is transformed to an updated-computation $c^*_j(R_j,w_j,\text{exp}_j,*_j)$ if $\bigcup_{i} \{w_i\} \neq \emptyset \text{, }\forall i<j\text{, and }c_i \pprec c_j$. In such a case $*_j=update(\bigcup_{i} \{w_i\})$ is performed before the evaluation of $exp_j$.
+An \textit{updated-computation} is a computation which needs a set of data synchronizations before it can be performed.
 \end{mydef}
+
+\begin{mydef}
+If $c_j$ is an \textit{updated-computation}, it is replaced in $\Gamma_{data}$ by the ordered list of two elements
+\begin{equation*}
+[*_j(R^*_j,w^*_j),c^*_j(R_j \cup \{w^*_j\},w_j,\text{exp}_j)].
+\end{equation*}
+The computation $*_j$ is defined as the pair $*_j(R^*_j,w^*_j)$, where $R^*_j = \{\bigcup_{i} \{w_i\} \text{, }\forall i<j\text{, and }c_i \pprec c_j\}$, and $w^*_j$ is a dummy data which does not represent a quantity of the $\mathcal{MSP}$. This dummy $w^*_j$ is used, however, to keep a relation between the update phase $*_j$ and the computation $c_j$. For this reason, $c_j$ is replaced by $c^*_j$ where data read are modified to $R_j \cup \{w^*_j\}$. Finally, $*_j$ performs the computation $update(R^*_j)$ and $R^*_j \subseteq R_j \subseteq \Delta$.
+\end{mydef}
+
+ %$c^*_j(R_j,w_j,\text{exp}_j,*_j)$ if $\bigcup_{i} \{w_i\} \neq \emptyset \text{, }\forall i<j\text{, and }c_i \pprec c_j$. In such a case $*_j$ is itself a computation wich performs $update(\bigcup_{i} \{w_i\})$.
 
 \begin{mydef}
 The concatenation of two ordered lists of respectively $n$ and $m$ computations $l_1=[c_i]_{0 \leq i \leq n-1}$ and $l_2=[c'_i]_{0 \leq i \leq m-1}$ is denoted $l_1 \cdot l_2$ and is equal to a new ordered list $l_3=[c_0,\dots,c_{n-1},c'_0,\dots,c'_{m-1}]$.
@@ -30,24 +40,25 @@ From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{data}
 \begin{equation*}
 T_{data}(\Gamma,i) = 
 \begin{cases} 	[\Gamma[i]] \cdot T_{data}(\Gamma,i+1) & \mbox{if }\forall j< i\mbox{, } c_j \not\pprec c_i\\
-				[c^*_i(\Gamma[i],\text{update}(\bigcup_{k}\{w_k\})] \cdot T_{data}(\Gamma,i+1) & \forall k < i\mbox{, }c_k \pprec c_i\\
+				[*_i(R^*_i,w^*_i),\Gamma[i]^*(R_i \cup \{w^*_i\},w_i,\text{exp}_i)] \cdot T_{data}(\Gamma,i+1) & \text{where } R^*_i = \{\bigcup_{k} \{w_k\} \text{, }\\
+        & \forall k<i\text{, and }c_k \pprec c_i\}\\
 				[] & \mbox{if }i=|\Gamma|.
 \end{cases}
 \end{equation*}
 \end{mydef}
 
-The construction of $\Gamma_{data}$ implies that if a synchronization is needed it is always proceeded before the computation wich needs it. One can notice that a combination of synchronizations is possible in some cases, and thus it is possible to synchronize more than one data at a time. %If the number of synchronizations is reduced, final performance of the program will be better. 
-For this reason, we define a reduction which can be applied to $\Gamma_{data}$, and which is performed as a post-transformation. This reduction, could propose better performance depending on the used network speed.
+% The construction of $\Gamma_{data}$ implies that if a synchronization is needed it is always proceeded before the computation wich needs it. One can notice that a combination of synchronizations is possible in some cases, and thus it is possible to synchronize more than one data at a time. %If the number of synchronizations is reduced, final performance of the program will be better. 
+% For this reason, we define a reduction which can be applied to $\Gamma_{data}$, and which is performed as a post-transformation. This reduction, could propose better performance depending on the used network speed.
 
-\begin{myprop}
-Denoting four computations $c_l$, $c_k$, $c_i$ and $c_j$ of $\Gamma$, with $l<k$, $i<j$, and where $c_l \pprec c_k$ and $c_i \pprec c_j$. Then, computations $c_k$ and $c_j$ are tansformed to $c^*_k(c_k,update(w_l))$ and $c^*_j(c_j,update(w_i))$. If $i<k$, a single update call can be performed at $k$ such that $c^*_k(c_k,update(w_l\cup w_i))$, and in this case, the computation $c_j$ is not transformed.
-\end{myprop}
+% \begin{myprop}
+% Denoting four computations $c_l$, $c_k$, $c_i$ and $c_j$ of $\Gamma$, with $l<k$, $i<j$, and where $c_l \pprec c_k$ and $c_i \pprec c_j$. Then, computations $c_k$ and $c_j$ are tansformed to $c^*_k(c_k,update(w_l))$ and $c^*_j(c_j,update(w_i))$. If $i<k$, a single update call can be performed at $k$ such that $c^*_k(c_k,update(w_l\cup w_i))$, and in this case, the computation $c_j$ is not transformed.
+% \end{myprop}
 
-\begin{proof}
-By definition, the synchronization of $w_i$ can be performed between $c_i$ and $c_j$. As $i<k$ the computation $c_i$ is not performed between $k$ and $j$. As a result, the synchronization of $w_i$ can be performed between $c_i$ and $c_k$.
-\end{proof}
+% \begin{proof}
+% By definition, the synchronization of $w_i$ can be performed between $c_i$ and $c_j$. As $i<k$ the computation $c_i$ is not performed between $k$ and $j$. As a result, the synchronization of $w_i$ can be performed between $c_i$ and $c_k$.
+% \end{proof}
 
-In other words, for each synchronization in $\Gamma_{data}$, if the computation $c_i$ from which $c_j$ is synchronized occurs before the last synchronization, the two synchronizations can be reduced to one with the union of the data to update.
+% In other words, for each synchronization in $\Gamma_{data}$, if the computation $c_i$ from which $c_j$ is synchronized occurs before the last synchronization, the two synchronizations can be reduced to one with the union of the data to update.
 
 
  The final step of this parallelization is to run $\Gamma_{data}$ on each resource. Thus, for each resource $0 \leq k \leq p-1$ a multi-stencil program, defined by
@@ -172,14 +183,45 @@ Thus, the removal of the redundant dependencies of $\Gamma_{task}$ consists in a
 
 %------------------------------
 \subsection{Hybrid parallelism}
-It is also possible to combine data and task parallelization techniques to get hybrid parallelism, sometimes more efficient on hybrid architectures. A coarse-grain data parallelism creates for $k$ resources $k$ multi-stencil computations $\mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{data})$, where $\Gamma_{data}$ is built from an ordered list of computations and is itself an ordered list of computations $c$ and updated-computations $c^*$. On the other hand, the task parallelization technique builds, from an ordered list of computation, a graph dependency $\Gamma_{task}$. As a result $T_{data}$ and $T_{task}$ can be composed to build $\Gamma_{hybrid}$. Thus, $k$ multi-stencil programs
+It is also possible to combine data and task parallelization techniques to get hybrid parallelism, sometimes more efficient on hybrid architectures. A coarse-grain data parallelism creates for $k$ resources $k$ multi-stencil computations $\mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{data})$, where $\Gamma_{data}$ is built from an ordered list of computations and is itself an ordered list of computations $c_i$ and updated-computations $*_i$. On the other hand, the task parallelization technique builds, from an ordered list of computation, a graph dependency $\Gamma_{task}$. As a result $T_{data}$ and $T_{task}$ can be composed to build $\Gamma_{hybrid}$. 
+
+However, we have to clarify the dependency operator $\prec$ for the specific case of updated-computations. As explained in Section~\ref{sect:dataparal}, if $c_j$ is an updated-computations, which means that at least one $c_i$ exists such that $i<j$ and $c_i \pprec c_j$, $c_j$ is transformed to the ordered list of two computations
+
 \begin{equation*}
-\mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{hybrid})
+[*_j(R^*_j,w^*_j),c^*_j(R_j \cup \{w^*_j\},w_j,\text{exp}_j)].
 \end{equation*}
-are responsible for an hybrid parallelization of a multi-stencil program. The set of computation $\Gamma_{hybrid}$ is a dependency graph between computations $c$ and updated-computations $c^*$ and can be built from the call to 
+
+As a result, and because $*_j$ is itself a computation, it appears dependencies relations. First, by definition, the dependency $c^*_j \prec *_j$ is created because $\{w^*_j\} \subset R_j \cup \{w^*_j\}$. Second, as $R^*_j = \{\bigcup_{i} \{w_i\} \text{, }\forall i<j\text{, and }c_i \pprec c_j\}$, for each $i<j$ the dependency $c_i \prec *_j$ is also created.
+
+The choice of separating $*_j$ from $c_j$ has been done to entirely expose the eventual task parallelism in the hybrid parallelization. For example, Figure~\ref{fig:more} give an exemple where initially $c_0 \pprec c_2$ and $c_0 \prec c_1$, $c_1 \prec c_2$. Thus, $c_2$ is replaced first in $\Gamma_{data}$ by $[*_2(\{w_0\},w^*_2),c^*_2(R_2 \cup \{w^*_2\},\text{exp}_2)]$. As a result, when applying $T_{task}$ on $\Gamma_{data}$, it appears that $*_2$ can be performed in parallel with $c_1$. This is due to the fact that $*_2$ is splitted from from $c_2$ and that $R^*_2=\{w_0\}$ is a subset of $R_2=\{w_0,w_1\}$ and not equal to $R_2$.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (c0) at (0,0) {$c_0$};
+   \node[] (c1) at (2,0) {$c_1$};
+   \node[] (star2) at (2,1) {$*_2$};
+   \node[] (c2) at (4,0) {$c^*_2$};
+ 
+  \path[->]
+    (c0) edge node {} (c1)
+         edge node {} (star2)
+    (c1) edge node {} (c2)
+    (star2) edge node {} (c2);
+  \end{tikzpicture}
+  \caption{Example of hybrid parallelization.}
+  \label{fig:more}
+\end{center}
+\end{figure}
+
+As a result, the hybrid parallelization of a multi-stencil program $\mathcal{MSP}$, produces $k$ multi-stencil programs
+\begin{equation*}
+\mathcal{MSP}_k(T,\mathcal{M}_k,\Delta_k,\Gamma_{hybrid}).
+\end{equation*}
+The set of computations $\Gamma_{hybrid}$ is a dependency graph between computations $c_i$ and update computations $*_i$, and can be built from the call to 
 \begin{equation*}
 T_{task}(T_{data}(\Gamma,0),0).
 \end{equation*}
 
-The rest of this paper deals with the hybrid parallelization of multi-stencil programs described above. The first reason for this choice is that this paper does not adress the portability problem, which however will be a perspective. Second, by adressing the hybrid parallelism case, we also are able to adress data parallelism and task parallelism, from which hybrid parallelism is built.
+The rest of this paper deals with the hybrid parallelization of multi-stencil programs described above. The reason of this choice is the fact that by adressing the hybrid parallelism case, we also are able to adress data parallelism and task parallelism, from which hybrid parallelism is built.
 
