@@ -14,6 +14,7 @@ import copy
 from xml import *
 from cac_parser import *
 from cac_drawer import *
+from networkx.algorithms import bipartite
 
 #===============================================================
 # Class msp_to_tsp
@@ -21,7 +22,7 @@ from cac_drawer import *
 # the series-parallel tree decomposition.
 # This tree decomposition can then be dumped to different solutions.
 # INPUT = file to parse in the msp language
-# OUTPUT = tree decomposition
+# OUTPUT = series-parallel tree decomposition and intermediate graphs
 #===============================================================
 class msp_to_tsp:
 	#-----------------------
@@ -33,11 +34,28 @@ class msp_to_tsp:
 	#-----------------------
 	def compile(self):
 	#-----------------------
+		# parse the input file
 		self.read_dsl()
-		self.gamma_data()
+		# compute gamma data : separate updates
+		#self.gamma_data()
+		# compute gamma data : do not separate updates
+		self.gamma_data_seq()
+		# compute gamma hybrid
 		self.gamma_hyb()
-		self.transitive_reduction()
-		self.tsp()
+		# first transitive reduction
+		self.transitive_reduction(self.gamma)
+		##### DRAW
+		drawGamma(self.gamma,"./outputs/trans.dot")
+		# compute sources/roots of self.gamma
+		self.sources()
+		# remove N shapes
+		self.nshape = self.gamma.copy()
+		self.remove_nshape(self.sources)
+		self.transitive_reduction(self.nshape)
+		##### DRAW
+		drawGamma(self.nshape,"./outputs/nshape.dot")
+		# series-parallel tree decomposition
+		#self.tsp()
 	#-----------------------
 
 	#-----------------------
@@ -76,7 +94,7 @@ class msp_to_tsp:
 		current = 0
 		while current<len(self.computations):
 			toupdate = set()
-			for j in range(current,-1,-1):
+			for j in range(current-1,-1,-1):
 				# if the current ith computation is a stencil and if what is read has been written in the jth computation
 				# add w of jth in toupdate
 				if self.computations[current][1]=="stencil" and (self.computations[j][3] in self.computations[current][2]) :
@@ -98,7 +116,35 @@ class msp_to_tsp:
 				
 		##### PRINT
 		#for elem in self.computations:
-		#	print elem
+			#print elem
+	#-----------------------
+	
+	#-----------------------
+	# alternative to gamma_data
+	# to build Gamma_data the ordered list self.computations is modified
+	# in this case updates for one computation are not splitted but represent a single computation
+	#-----------------------
+	def gamma_data_seq(self):
+	#-----------------------
+		current = 0
+		while current<len(self.computations):
+			toupdate = set()
+			for j in range(current-1,-1,-1):
+				# if the current ith computation is a stencil and if what is read has been written in the jth computation
+				# add w of jth in toupdate
+				if self.computations[current][1]=="stencil" and (self.computations[j][3] in self.computations[current][2]) :
+					toupdate.add(self.computations[j][3])
+			if len(toupdate)>0:
+				name_wu = "wu_"+self.computations[current][0]
+				self.computations.insert(current,Computation("upd_"+self.computations[current][0],"update",toupdate,name_wu,""))
+				current = current+1
+				self.computations[current][2].add(name_wu)
+				
+			current = current+1
+				
+		##### PRINT
+		#for elem in self.computations:
+			#print elem
 	#-----------------------
 
 	#-----------------------
@@ -112,28 +158,23 @@ class msp_to_tsp:
 		#adjMat initialization
 		# 1 at (i,j) if a directed edge from i to j
 		# 0 otherwize
-		self.adjMat = [[-1000000000 for x in range(len(self.computations))] for x in range(len(self.computations))]
+		self.adjMat = [[-9999999999 for x in range(len(self.computations))] for x in range(len(self.computations))]
 		
 		self.gamma = nx.DiGraph()
 		for i in range(0,len(self.computations)):
 			self.gamma.add_node(i,label=self.computations[i][0])
 		for i in range(0,len(self.computations)):
-			for j in range(i,-1,-1):
+			for j in range(i-1,-1,-1):
 				if self.computations[i][1]!="bound" and (self.computations[j][3] in self.computations[i][2]):
 					self.gamma.add_edge(j,i)
 					self.adjMat[j][i] = 1
 		
-		#build node labels	
-		# self.node_labels = {}
-		# for i in range(0,len(self.computations)):
-		# 	self.node_labels[i]=self.computations[i][0]
-		
 		##### DRAW
-		#drawGamma(self.gamma,"./outputs/dag.dot")
+		drawGamma(self.gamma,"./outputs/dag.dot")
 	#-----------------------
 
 	#-----------------------
-	def transitive_reduction(self):
+	def transitive_reduction(self,graph):
 	#-----------------------
 		# new adjacancy matrix to compute
 		new_adjMat = copy.deepcopy(self.adjMat)
@@ -143,10 +184,6 @@ class msp_to_tsp:
 			for i in range(0,len(self.computations)):
 				for j in range(0,len(self.computations)):
 					new_adjMat[i][j] = max(new_adjMat[i][j],new_adjMat[i][k]+new_adjMat[k][j])
-					
-		# print self.adjMat
-		# print "\n"
-		# print new_adjMat
 		
 		# if a direct path exists in self.adjMat between i and j
 		# but also an undirect in new_adjMat
@@ -154,11 +191,96 @@ class msp_to_tsp:
 		for i in range(0,len(self.computations)):
 			for j in range(0,len(self.computations)):
 				if self.adjMat[i][j]==1 and new_adjMat[i][j]>1 :
-					#print "Remove edge : (" + str(i) + "," + str(j) + ")\n"
-					self.gamma.remove_edge(i,j)
+					#print "Remove edge : (" + self.computations[i][0] + "," + self.computations[j][0] + ")\n"
+					graph.remove_edge(i,j)
+					#note the removal for future transitive reduction
+					self.adjMat[i][j]=-9999999999
 		
 		##### DRAW
 		#drawGamma(self.gamma,"./outputs/trans.dot")
+	#-----------------------
+	
+	#-----------------------
+	def sources(self):
+	#-----------------------
+		self.sources = set()
+		for no in self.gamma.nodes():
+			if len(self.gamma.predecessors(no))==0:
+				self.sources.add(no)
+	#-----------------------
+	
+	#-----------------------
+	def remove_nshape(self,sources):
+	#-----------------------	
+		# compute successors for the given sources
+		# compute a set with single values
+		# and compute the list
+		successors = set()
+		succ_list = []
+		for s in sources:
+			successors |=  set(self.gamma.successors(s))
+			succ_list += self.gamma.successors(s)
+			
+		# if successors and succ_list has the same size it means that the intersection of successors of sources is empty
+		# if successors is shorter than succ_list, the subgraph is connected
+		is_connected = (len(successors)<len(succ_list))
+			
+		##### PRINT
+		sys.stdout.write('Sources = (')
+		for s in sources :
+			sys.stdout.write(self.computations[s][0]+',')
+		sys.stdout.write(")\n successors set = (")
+		for succ in successors :
+			sys.stdout.write(self.computations[succ][0]+',')
+		print ")\n"
+		sys.stdout.write(")\n successors list = (")
+		for succ in succ_list :
+			sys.stdout.write(self.computations[succ][0]+',')
+		print ")\n"
+		print is_connected
+		#####
+		
+		# if it is not the end of the graph
+		if len(successors)>0:
+			# create the subgraph containing sources and successors nodes
+			subgraph_nodes = sources | successors
+			subgraph = self.gamma.subgraph(list(subgraph_nodes))
+			# if this subgraph is not connected, recursive call
+			if not is_connected :
+				#print "not connected"
+				self.remove_nshape(successors)
+			else :
+				# if the graph is connected and is not complete, make it complete, transitive reduction, and recursive call
+				if not self.is_complete(len(sources),len(successors),subgraph):
+					#print "Make complete the subgraph from sources"
+					self.make_complete(sources,successors)
+					self.remove_nshape(successors)
+				# else recursive call
+				else :
+					#print "next graph"
+					self.remove_nshape(successors)
+		#else :
+			#print "End of graph"
+	#-----------------------
+	
+	#-----------------------
+	def is_complete(self,k1,k2,graph):
+	#-----------------------
+		if len(graph.edges()) == k1 * k2:
+			return True
+		else:
+			return False
+	#-----------------------
+	
+	#-----------------------
+	def make_complete(self,sources,successors):
+	#-----------------------
+		for s in sources:
+			for succ in successors:
+				if s!=succ and (s,succ) not in self.nshape.edges() and (succ,s) not in self.nshape.edges():
+					#self.gamma.add_edge(s,succ,label='*')
+					self.nshape.add_edge(s,succ,label='*')
+					self.adjMat[s][succ]=1
 	#-----------------------
 
 	#-----------------------
@@ -168,7 +290,7 @@ class msp_to_tsp:
 		self.inverse = nx.MultiDiGraph()
 		
 		#to note the transformation from node to edge
-		self.transformed = [[-1 for x in range(0,2)] for x in range(len(self.gamma.nodes()))]
+		self.transformed = [[-1 for x in range(0,2)] for x in range(len(self.nshape.nodes()))]
 		#to count the index of new nodes
 		self.counter_nodes = 0
 		
@@ -177,9 +299,9 @@ class msp_to_tsp:
 		#to store leaves
 		self.leaves = []
 		
-		#call the recursive function to build self.inverse : the inverse line digraph of self.gamma
-		nodes = self.gamma.nodes()
-		#we need a loop if there are more than one root in self.gamma
+		#call the recursive function to build self.inverse : the inverse line digraph of self.nshape
+		nodes = self.nshape.nodes()
+		#we need a loop if there are more than one root in self.nshape
 		for no in nodes:
 			if self.transformed[no][0]<0 and self.transformed[no][1]<0:
 				#to recursively change the source node of a new edge
@@ -198,7 +320,7 @@ class msp_to_tsp:
 		self.merge_root_leaf()
 		
 		##### DRAW
-		#drawInverse(self.inverse,"./outputs/inverse.dot")
+		drawInverse(self.inverse,"./outputs/inverse.dot")
 		
 		#array of Digraphs, representing the labels of the series-parallel tree decomposition
 		#needed for the last operation self.labelled_reduction
@@ -206,6 +328,8 @@ class msp_to_tsp:
 		self.toReduce = {}
 		#store the root node of each graph in self.toReduce
 		self.rootNode = {}
+		#global indexes for new sequence and parallel nodes
+		self.lab_index = len(self.transformed)
 		for i in range(0,len(self.transformed)):
 			lab_graph = nx.DiGraph()
 			lab_graph.add_node(i,label=self.computations[i][0])
@@ -218,35 +342,37 @@ class msp_to_tsp:
 				self.mergeParallel((self.transformed[i][0],self.transformed[i][1]),self.rootNode[(self.transformed[i][0],self.transformed[i][1])],i,self.toReduce[(self.transformed[i][0],self.transformed[i][1])],lab_graph,False)
 		#at this point there is not parallel edges to reduce
 		#a parallel reduction can only be created by a sequence reduction (see in self.mergeSequence)
+		drawInverse(self.inverse,"./outputs/inverse2.dot")
 		
-		#global indexes for new sequence and parallel nodes
-		self.lab_index = len(self.transformed)
 		#series-parallel tree decomposition, reduction of self.toReduce
 		self.startEdge = (0,1)
-		while len(self.toReduce) > 1 :
+		self.stop = False
+		while len(self.toReduce) > 1:
 			#print "restart from " + str(self.startEdge)
 			self.labelled_reduction(self.startEdge)
 		
 		##### DRAW	
-		#nx.draw_graphviz(self.toReduce[self.startEdge])
-		#nx.write_dot(self.toReduce[self.startEdge],"./outputs/tsp.dot")
+		nx.draw_graphviz(self.toReduce[self.startEdge])
+		nx.write_dot(self.toReduce[self.startEdge],"./outputs/tsp.dot")
 	#-----------------------
 
 	#-----------------------
-	# node is the node of self.gamma the original graph
+	# node is the node of self.nshape the original graph
 	# source_node for the recursion indicate the source node in self.inverse
 	#-----------------------
 	def inverse_line(self,node,source_node):
 	#-----------------------
+		#print "Current node of self.nshape to transform to an edge "+self.computations[node][0]
 		#if the source node is the first node create it (first call)
-		pred = self.gamma.predecessors(node)
+		pred = self.nshape.predecessors(node)
 		if len(pred) == 0 :
+			#print self.computations[node][0]+" - Create source node in self.inverse "+str(source_node)
 			self.inverse.add_node(source_node)
 			self.counter_nodes = self.counter_nodes +1
 			self.roots.append(node)
 		
 		#detect if in the successors of node, one has already been transformed
-		succ = self.gamma.successors(node)
+		succ = self.nshape.successors(node)
 		change_counter = -1
 		for i in succ:
 			if self.transformed[i][0]>0 and self.transformed[i][1]>0:
@@ -260,7 +386,10 @@ class msp_to_tsp:
 			#print "change_counter <0 for node "+self.computations[node][0]
 			destination = self.counter_nodes
 			#create the destination node
+			#print self.computations[node][0]+" - Create source node in self.inverse "+str(destination)
 			self.inverse.add_node(destination)
+			#add 1 to the counter of nodes in self.inverse
+			self.counter_nodes = self.counter_nodes + 1
 		#otherwise use the existing one to be connected to
 		#change the destination
 		else:
@@ -268,15 +397,16 @@ class msp_to_tsp:
 			
 		#create the edge from source_node to the destination
 		#print "Create edge "+str(source_node)+","+str(destination)+" with label "+self.computations[node][0]
+		#print self.computations[node][0]+" - Create edge in self.inverse "+ str(source_node)+","+str(destination)
 		self.inverse.add_edge(source_node,destination,label=self.computations[node][0])
 		#mark the node as transformed
 		self.transformed[node] = [source_node,destination]
 		
 		# new source_node is the one created above
-		source_node = copy.copy(destination)
-		if change_counter < 0:
+		new_source_node = copy.copy(destination)
+		#if change_counter < 0:
 			# add one to index of nodes in self.inverse
-			self.counter_nodes = self.counter_nodes + 1
+			#self.counter_nodes = self.counter_nodes + 1
 			
 		#recursive call to successors
 		#print "Successors of "+self.computations[node][0]+" : \n"
@@ -289,7 +419,7 @@ class msp_to_tsp:
 				if self.transformed[i][0]<0 and self.transformed[i][1]<0:
 					#copy counter_nodes to come back to the good value when backtracking recursive calls
 					#print "Call inverse_line("+str(i)+","+str(source_node)+")\n\n"
-					self.inverse_line(i,source_node)
+					self.inverse_line(i,new_source_node)
 	#-----------------------
 	
 	#-----------------------
@@ -304,8 +434,9 @@ class msp_to_tsp:
 				destination = self.transformed[root][1]
 				#remove the edge from the graph
 				self.inverse.remove_edge(source,destination)
+				self.inverse.remove_node(source)
 				#add the good edge by merging source with the source of self.roots[0]
-				self.inverse.add_edge(self.transformed[self.roots[0]][0],destination)
+				self.inverse.add_edge(self.transformed[self.roots[0]][0],destination,label=self.computations[root][0])
 				#change self.transformed
 				self.transformed[root][0] = self.transformed[self.roots[0]][0]
 		
@@ -316,10 +447,11 @@ class msp_to_tsp:
 				destination = self.transformed[leaf][1]
 				#remove the edge from the graph
 				self.inverse.remove_edge(source,destination)
+				self.inverse.remove_node(destination)
 				#add the good edge by merging source with the source of self.roots[0]
-				self.inverse.add_edge(self.transformed[self.leaves[0]][0],destination)
+				self.inverse.add_edge(source,self.transformed[self.leaves[0]][1],label=self.computations[leaf][0])
 				#change self.transformed
-				self.transformed[leaf][0] = self.transformed[self.leaves[0]][0]
+				self.transformed[leaf][1] = self.transformed[self.leaves[0]][1]
 	#-----------------------
 	
 	#-----------------------
@@ -329,19 +461,14 @@ class msp_to_tsp:
 	#-----------------------
 	def labelled_reduction(self,start):
 	#-----------------------
-		rule = False
 		newEdge = ()
 		
 		if self.isSequence(start) :
 			left = start
 			right = (start[1],self.inverse.successors(start[1])[0])
 			newEdge = (left[0],right[1])
-			print "mergeSequence of edges ("+str(left)+"),("+str(right)+")\n"
+			#print "mergeSequence of edges ("+str(left)+"),("+str(right)+")\n"
 			self.mergeSequence(left,right)
-			rule = True
-			
-		#if a reduction was performed
-		if rule :
 			#recursive call from the new edge created
 			self.labelled_reduction(newEdge)
 		else :
@@ -382,6 +509,7 @@ class msp_to_tsp:
 		#remove in self.inverse
 		self.inverse.remove_edge(left[0],left[1])
 		self.inverse.remove_edge(right[0],right[1])
+		self.inverse.remove_node(left[1])
 		newEdge = (left[0],right[1])
 		
 		# as in the creation of self.toReduce, verify if the sequence reduction does not create a parallel reduction
@@ -401,13 +529,13 @@ class msp_to_tsp:
 		if left[0]==0:
 			self.startEdge = newEdge
 		
-		print self.inverse.edges()
+		#print self.inverse.edges()
 	#-----------------------
 	
 	#-----------------------
 	def mergeParallel(self,edge,root1,root2,up_graph,down_graph,fromSeq):
 	#-----------------------
-		print "mergeParallel of double edge "+str(edge)+"\n"
+		#print "mergeParallel of double edge "+str(edge)+"\n"
 		
 		#if the call is from mergeSequence
 		#increase the index
@@ -426,6 +554,9 @@ class msp_to_tsp:
 		#add the edge
 		self.toReduce[edge] = new_graph
 		self.rootNode[edge] = self.lab_index
+		#remove in self.inverse
+		while self.inverse.number_of_edges(edge[0],edge[1])>1:
+			self.inverse.remove_edge(edge[0],edge[1])
 		#increase the index	
 		self.lab_index = self.lab_index + 1
 	#-----------------------
@@ -439,5 +570,5 @@ class msp_to_tsp:
 # Main entry
 #===============================================================
 if __name__ == "__main__":
-    compiler = msp_to_tsp("./small_example.msp")
+    compiler = msp_to_tsp("./SW2.msp")
     compiler.compile()

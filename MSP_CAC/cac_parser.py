@@ -73,18 +73,20 @@ def parse(pfile,mesh,data,time,computations):
 	#computation extraction
 	while len(line)>0:
 		tmp = line.split(':')
+		#type of computation on the left of ":"
 		ctype = tmp[0].strip('\t').strip(' ')
 		tmp2 = tmp[1].split('(')
+		#name/id of the computation on the left of "("
 		cid = tmp2[0].strip(' ')
 		tmp3 = tmp2[1].split('}')
 		if ctype!="stencil" :
-			cw = tmp3[1].strip(',').strip('\n').strip(')')
+			cw = tmp3[1].strip(',').strip('\n').strip(' ').strip(')')
 			cn = ""
 		else :
 			tmp33 = tmp3[1].split(',')
-			cw = tmp33[1]
-			cn = tmp33[2].strip(',').strip('\n').strip(')')
-		tmp4 = tmp3[0].strip('{').split(',')
+			cw = tmp33[1].strip(' ')
+			cn = tmp33[2].strip(',').strip('\n').strip(' ').strip(')')
+		tmp4 = tmp3[0].strip('{').strip(' ').split(',')
 		cr = set()
 		for el in tmp4:
 			cr.add(el)
