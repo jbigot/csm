@@ -37,7 +37,7 @@ class msp_to_tsp:
 		# parse the input file
 		self.read_dsl()
 		# compute gamma data : separate updates
-		#self.gamma_data()
+		#self.gamma_data() #it seems it does not work for SW entirely
 		# compute gamma data : do not separate updates
 		self.gamma_data_seq()
 		# compute gamma hybrid
@@ -45,17 +45,19 @@ class msp_to_tsp:
 		# first transitive reduction
 		self.transitive_reduction(self.gamma)
 		##### DRAW
-		drawGamma(self.gamma,"./outputs/trans.dot")
+		#drawGamma(self.gamma,"./outputs/trans.dot")
 		# compute sources/roots of self.gamma
 		self.sources()
 		# remove N shapes
-		self.nshape = self.gamma.copy()
+		#self.nshape = self.gamma.copy()
+		self.nshape = self.gamma
+		self.level = 0
 		self.remove_nshape(self.sources)
-		self.transitive_reduction(self.nshape)
+		#self.transitive_reduction(self.nshape)
 		##### DRAW
 		drawGamma(self.nshape,"./outputs/nshape.dot")
 		# series-parallel tree decomposition
-		#self.tsp()
+		self.tsp()
 	#-----------------------
 
 	#-----------------------
@@ -88,6 +90,7 @@ class msp_to_tsp:
 	#-----------------------
 	# to build Gamma_data the ordered list self.computations is modified
 	# some update computations are added into it when needed
+	# O(n^2)
 	#-----------------------
 	def gamma_data(self):
 	#-----------------------
@@ -123,6 +126,7 @@ class msp_to_tsp:
 	# alternative to gamma_data
 	# to build Gamma_data the ordered list self.computations is modified
 	# in this case updates for one computation are not splitted but represent a single computation
+	# O(n^2)
 	#-----------------------
 	def gamma_data_seq(self):
 	#-----------------------
@@ -152,6 +156,7 @@ class msp_to_tsp:
 	# use of the type DiGraph of Networkx
 	# this method also builds the initial adjacence matrix adjMat
 	# this matrix is used in the next step for the transitive reduction of self.gamma
+	# O(n^2)
 	#-----------------------
 	def gamma_hyb(self):
 	#-----------------------
@@ -165,14 +170,17 @@ class msp_to_tsp:
 			self.gamma.add_node(i,label=self.computations[i][0])
 		for i in range(0,len(self.computations)):
 			for j in range(i-1,-1,-1):
-				if self.computations[i][1]!="bound" and (self.computations[j][3] in self.computations[i][2]):
+				if (self.computations[i][1]!="bound" or self.computations[j][1]!="bound") and (self.computations[j][3] in self.computations[i][2]):
 					self.gamma.add_edge(j,i)
 					self.adjMat[j][i] = 1
 		
 		##### DRAW
-		drawGamma(self.gamma,"./outputs/dag.dot")
+		#drawGamma(self.gamma,"./outputs/dag.dot")
 	#-----------------------
 
+	#-----------------------
+	# variant of Floyd Warshall's algorithm to keep max path
+	# O(n^3)
 	#-----------------------
 	def transitive_reduction(self,graph):
 	#-----------------------
@@ -200,6 +208,7 @@ class msp_to_tsp:
 		#drawGamma(self.gamma,"./outputs/trans.dot")
 	#-----------------------
 	
+	# O(n)
 	#-----------------------
 	def sources(self):
 	#-----------------------
@@ -210,8 +219,10 @@ class msp_to_tsp:
 	#-----------------------
 	
 	#-----------------------
+	# recursive BFS by successors O(n)+O(n^2)
+	#-----------------------
 	def remove_nshape(self,sources):
-	#-----------------------	
+	#-----------------------
 		# compute successors for the given sources
 		# compute a set with single values
 		# and compute the list
@@ -224,20 +235,25 @@ class msp_to_tsp:
 		# if successors and succ_list has the same size it means that the intersection of successors of sources is empty
 		# if successors is shorter than succ_list, the subgraph is connected
 		is_connected = (len(successors)<len(succ_list))
+		
+		#remove from sources the nodes also present in destination
+		for succ in successors:
+			if succ in sources:
+				sources.remove(succ)
 			
 		##### PRINT
-		sys.stdout.write('Sources = (')
-		for s in sources :
-			sys.stdout.write(self.computations[s][0]+',')
-		sys.stdout.write(")\n successors set = (")
-		for succ in successors :
-			sys.stdout.write(self.computations[succ][0]+',')
-		print ")\n"
-		sys.stdout.write(")\n successors list = (")
-		for succ in succ_list :
-			sys.stdout.write(self.computations[succ][0]+',')
-		print ")\n"
-		print is_connected
+		# sys.stdout.write('Sources = (')
+		# for s in sources :
+		# 	sys.stdout.write(self.computations[s][0]+',')
+		# sys.stdout.write(")\n successors set = (")
+		# for succ in successors :
+		# 	sys.stdout.write(self.computations[succ][0]+',')
+		# print ")\n"
+		# sys.stdout.write(")\n successors list = (")
+		# for succ in succ_list :
+		# 	sys.stdout.write(self.computations[succ][0]+',')
+		# print ")\n"
+		# print is_connected
 		#####
 		
 		# if it is not the end of the graph
@@ -273,14 +289,20 @@ class msp_to_tsp:
 	#-----------------------
 	
 	#-----------------------
+	# O(n^3) ou O(n^4) WRONG !!!
+	#-----------------------
 	def make_complete(self,sources,successors):
 	#-----------------------
 		for s in sources:
 			for succ in successors:
-				if s!=succ and (s,succ) not in self.nshape.edges() and (succ,s) not in self.nshape.edges():
+				succ_succ = self.nshape.successors(succ)
+				if s!=succ and s not in succ_succ:#(s,succ) not in self.nshape.edges() and (succ,s) not in self.nshape.edges():
 					#self.gamma.add_edge(s,succ,label='*')
 					self.nshape.add_edge(s,succ,label='*')
 					self.adjMat[s][succ]=1
+		#drawGamma(self.nshape,"./outputs/nshape_"+str(self.level)+".dot")
+		self.transitive_reduction(self.nshape)
+		#drawGamma(self.nshape,"./outputs/nshape_"+str(self.level)+"_trans.dot")
 	#-----------------------
 
 	#-----------------------
@@ -342,7 +364,7 @@ class msp_to_tsp:
 				self.mergeParallel((self.transformed[i][0],self.transformed[i][1]),self.rootNode[(self.transformed[i][0],self.transformed[i][1])],i,self.toReduce[(self.transformed[i][0],self.transformed[i][1])],lab_graph,False)
 		#at this point there is not parallel edges to reduce
 		#a parallel reduction can only be created by a sequence reduction (see in self.mergeSequence)
-		drawInverse(self.inverse,"./outputs/inverse2.dot")
+		#drawInverse(self.inverse,"./outputs/inverse2.dot")
 		
 		#series-parallel tree decomposition, reduction of self.toReduce
 		self.startEdge = (0,1)
@@ -570,5 +592,5 @@ class msp_to_tsp:
 # Main entry
 #===============================================================
 if __name__ == "__main__":
-    compiler = msp_to_tsp("./SW2.msp")
+    compiler = msp_to_tsp("./SW.msp")
     compiler.compile()
