@@ -45,7 +45,7 @@ class msp_to_tsp:
 		# first transitive reduction
 		self.transitive_reduction(self.gamma)
 		##### DRAW
-		#drawGamma(self.gamma,"./outputs/trans.dot")
+		drawGamma(self.gamma,"./outputs/trans.dot")
 		# compute sources/roots of self.gamma
 		self.sources()
 		# remove N shapes
@@ -58,6 +58,17 @@ class msp_to_tsp:
 		drawGamma(self.nshape,"./outputs/nshape.dot")
 		# series-parallel tree decomposition
 		self.tsp()
+		
+		# canonical form
+		self.canonic = nx.DiGraph()
+		labels = nx.get_node_attributes(self.toReduce[self.startEdge],'label')
+		nodes = self.toReduce[self.startEdge].nodes()
+		successors = self.toReduce[self.startEdge].successors(nodes[0])
+		self.canonical(nodes[0],successors,labels)
+		##### DRAW
+		drawGamma(self.canonic,"./outputs/canonic.dot")
+		
+		return self.canonic
 	#-----------------------
 
 	#-----------------------
@@ -219,7 +230,7 @@ class msp_to_tsp:
 	#-----------------------
 	
 	#-----------------------
-	# recursive BFS by successors O(n)+O(n^2)
+	# recursive BFS by successors
 	#-----------------------
 	def remove_nshape(self,sources):
 	#-----------------------
@@ -236,7 +247,9 @@ class msp_to_tsp:
 		# if successors is shorter than succ_list, the subgraph is connected
 		is_connected = (len(successors)<len(succ_list))
 		
-		#remove from sources the nodes also present in destination
+		# remove from sources the nodes also present in destination
+		# in this case we have a loop
+		# this is correct but has to be proved ideally
 		for succ in successors:
 			if succ in sources:
 				sources.remove(succ)
@@ -289,7 +302,7 @@ class msp_to_tsp:
 	#-----------------------
 	
 	#-----------------------
-	# O(n^3) ou O(n^4) WRONG !!!
+	# O(n^2)
 	#-----------------------
 	def make_complete(self,sources,successors):
 	#-----------------------
@@ -550,8 +563,6 @@ class msp_to_tsp:
 		#if the reduction was on the first edge, modify self.startEdge
 		if left[0]==0:
 			self.startEdge = newEdge
-		
-		#print self.inverse.edges()
 	#-----------------------
 	
 	#-----------------------
@@ -582,6 +593,24 @@ class msp_to_tsp:
 		#increase the index	
 		self.lab_index = self.lab_index + 1
 	#-----------------------
+	
+	#-----------------------
+	# replace the graph computed in self.tsp by its canonical form
+	# each time two successive internal nodes (S or P) have the same type, concat them
+	#-----------------------
+	def canonical(self,node,successors,labels):
+	#-----------------------
+		if node not in self.canonic:
+			self.canonic.add_node(node,label=labels[node])
+		for succ in successors:
+			ssuccessors = self.toReduce[self.startEdge].successors(succ)
+			if not (labels[node]=='S' and labels[succ]=='S') and not (labels[node]=='P' and labels[succ]=='P'):
+				self.canonic.add_node(succ,label=labels[succ])
+				self.canonic.edd_edge(node,succ)
+				self.canonical(succ,ssuccessors,labels)
+			else:
+				self.canonical(node,ssuccessors,labels)
+	#-----------------------
 #===============================================================
 # Class dump
 # 
@@ -593,4 +622,10 @@ class msp_to_tsp:
 #===============================================================
 if __name__ == "__main__":
     compiler = msp_to_tsp("./SW.msp")
-    compiler.compile()
+	# from msp file to tsp canonical tree decomposition
+    tsp = compiler.compile()
+	# read resources file
+	
+	# read meta.inf file
+	
+	#dump to a component assembly
