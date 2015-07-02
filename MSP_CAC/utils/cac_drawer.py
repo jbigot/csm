@@ -18,13 +18,7 @@ import matplotlib.pyplot as plt
 # Funtions
 #===============================================================
 #-----------------------
-def drawGamma(graph,pfile):
-#-----------------------
-    nx.draw_graphviz(graph)
-    nx.write_dot(graph,pfile)
-    
-#-----------------------
-def drawInverse(graph,pfile):
+def saveGraph(graph,pfile):
 #-----------------------
     nx.draw_graphviz(graph)
     nx.write_dot(graph,pfile)

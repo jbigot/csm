@@ -45,7 +45,7 @@ class msp_to_tsp:
 		# first transitive reduction
 		self.transitive_reduction(self.gamma)
 		##### DRAW
-		drawGamma(self.gamma,"./outputs/trans.dot")
+		saveGraph(self.gamma,"./outputs/trans.dot")
 		# compute sources/roots of self.gamma
 		self.sources()
 		# remove N shapes
@@ -55,7 +55,7 @@ class msp_to_tsp:
 		self.remove_nshape(self.sources)
 		#self.transitive_reduction(self.nshape)
 		##### DRAW
-		drawGamma(self.nshape,"./outputs/nshape.dot")
+		saveGraph(self.nshape,"./outputs/nshape.dot")
 		# series-parallel tree decomposition
 		self.tsp()
 		
@@ -63,10 +63,16 @@ class msp_to_tsp:
 		self.canonic = nx.DiGraph()
 		labels = nx.get_node_attributes(self.toReduce[self.startEdge],'label')
 		nodes = self.toReduce[self.startEdge].nodes()
-		successors = self.toReduce[self.startEdge].successors(nodes[0])
-		self.canonical(nodes[0],successors,labels)
+		#find the root
+		root = 0
+		for node in nodes:
+			if len(self.toReduce[self.startEdge].predecessors(node))==0:
+				root = node
+				
+		successors = self.toReduce[self.startEdge].successors(root)
+		self.canonical(root,successors,labels)
 		##### DRAW
-		drawGamma(self.canonic,"./outputs/canonic.dot")
+		saveGraph(self.canonic,"./outputs/canonic.dot")
 		
 		return self.canonic
 	#-----------------------
@@ -186,7 +192,7 @@ class msp_to_tsp:
 					self.adjMat[j][i] = 1
 		
 		##### DRAW
-		#drawGamma(self.gamma,"./outputs/dag.dot")
+		#saveGraph(self.gamma,"./outputs/dag.dot")
 	#-----------------------
 
 	#-----------------------
@@ -216,7 +222,7 @@ class msp_to_tsp:
 					self.adjMat[i][j]=-9999999999
 		
 		##### DRAW
-		#drawGamma(self.gamma,"./outputs/trans.dot")
+		#saveGraph(self.gamma,"./outputs/trans.dot")
 	#-----------------------
 	
 	# O(n)
@@ -355,7 +361,7 @@ class msp_to_tsp:
 		self.merge_root_leaf()
 		
 		##### DRAW
-		drawInverse(self.inverse,"./outputs/inverse.dot")
+		saveGraph(self.inverse,"./outputs/inverse.dot")
 		
 		#array of Digraphs, representing the labels of the series-parallel tree decomposition
 		#needed for the last operation self.labelled_reduction
@@ -387,8 +393,7 @@ class msp_to_tsp:
 			self.labelled_reduction(self.startEdge)
 		
 		##### DRAW	
-		nx.draw_graphviz(self.toReduce[self.startEdge])
-		nx.write_dot(self.toReduce[self.startEdge],"./outputs/tsp.dot")
+		saveGraph(self.toReduce[self.startEdge],"./outputs/tsp.dot")
 	#-----------------------
 
 	#-----------------------
@@ -606,22 +611,45 @@ class msp_to_tsp:
 			ssuccessors = self.toReduce[self.startEdge].successors(succ)
 			if not (labels[node]=='S' and labels[succ]=='S') and not (labels[node]=='P' and labels[succ]=='P'):
 				self.canonic.add_node(succ,label=labels[succ])
-				self.canonic.edd_edge(node,succ)
+				self.canonic.add_edge(node,succ)
 				self.canonical(succ,ssuccessors,labels)
 			else:
 				self.canonical(node,ssuccessors,labels)
 	#-----------------------
 #===============================================================
+
+
+
+#===============================================================
 # Class dump
 # 
 #===============================================================
 #class dump:
+#===============================================================
+
+
+
+#===============================================================
+def printHelp():
+	print "help"
+#===============================================================	
+
+
 
 #===============================================================
 # Main entry
 #===============================================================
 if __name__ == "__main__":
-    compiler = msp_to_tsp("./SW.msp")
+	# for i in range(0,len(sys.argv),2):
+	# 	if sys.argv[i]=="-msp":
+	# 		mspFile = sys.argv[i+1]
+	# 	if sys.argv[i]=="--help":
+	# 		printHelp()
+	# 		break
+	# 	else :
+	# 		print "argument "+sys.argv[i]+" is not a valid argument"
+	# 		printHelp()
+    compiler = msp_to_tsp("./inputs/SW.msp")
 	# from msp file to tsp canonical tree decomposition
     tsp = compiler.compile()
 	# read resources file
