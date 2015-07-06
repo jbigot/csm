@@ -55,10 +55,6 @@ else:
 def makeRootNode():
     root = xmlImplem.Element('lad', {'xmlns': 'http://www.inria.fr/avalon/lad'})
     child = xmlImplem.SubElement(root, 'mpi')
-    #root.tail = '\n'
-    #root.text = '\n'
-    #child.tail = '\n'
-    #child.text = '\n'
     return (root, child)
 
 

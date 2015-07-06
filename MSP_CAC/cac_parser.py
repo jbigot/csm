@@ -93,4 +93,46 @@ def parse(pfile,mesh,data,time,computations):
 		computations.append(Computation(cid,ctype,cr,cw,cn))
 		line = toparse.readline()
 	#####
+	toparse.close()
+#-----------------------
+
+#-----------------------
+def parseMetaInf(pfile,dico):
+#-----------------------
+	#open the file to read
+	toparse = open(pfile,'r')
+	
+	# fill the doctionary
+	for line in toparse:
+		if line.find('=') > -1:
+			spl = line.strip('\n').strip('\t').split('=')
+			dico[spl[0].strip(' ')] = spl[1].strip(' ')
+			
+	toparse.close()
+#-----------------------
+
+#-----------------------
+def parseData(metafile,dico,dataid):
+#-----------------------
+	pfile = open(metafile,'r')
+
+	# fill the doctionary
+	# get to the data to parse
+	line = pfile.readline()
+	spl = line.strip('\n').strip('\t').split('=')
+	while not (line.find('data') > -1 and spl[1].strip(' ') == dataid):
+		line = pfile.readline()
+		spl = line.strip('\n').strip('\t').split('=')
+	
+	#read the values until the next "data" or the end of file
+	spl = line.strip('\n').strip('\t').split('=')
+	dico[spl[0].strip(' ')] = spl[1].strip(' ')
+	line = pfile.readline()
+	while line.find('data') and (line!=""):
+		if line.strip('\n').strip('\t').strip(" ")!= "":
+			spl = line.strip('\n').strip('\t').split('=')
+			dico[spl[0].strip(' ')] = spl[1].strip(' ')
+		line = pfile.readline()
+			
+	pfile.close()
 #-----------------------

@@ -17,22 +17,31 @@ from cac_drawer import *
 from networkx.algorithms import bipartite
 
 #===============================================================
-# Class msp_to_tsp
+# Class compiler
 # This class represent the actual compiler from the DSL to 
-# the series-parallel tree decomposition.
-# This tree decomposition can then be dumped to different solutions.
-# INPUT = file to parse in the msp language
-# OUTPUT = series-parallel tree decomposition and intermediate graphs
+# a component assembly.
+# two parts : 1 - from msp to tsp, 2 - from tsp to component assembly, or dump
 #===============================================================
-class msp_to_tsp:
+class CAC_Compiler:
 	#-----------------------
-	def __init__(self,file):
+	def __init__(self,mspfile,metafile,tfile,dfile):
 	#-----------------------
-		self.pfile = file
+		self.MSPfile = mspfile
+		self.metaFile = metafile
+		self.templateFile = open(tfile,'r')
+		self.dataTempFile = open(dfile,'r')
+		self.nb_proc = 1
+	#-----------------------
+	
+	#-----------------------
+	def compile(self):
+	#-----------------------
+		self.msp_to_tsp()
+		self.dump()
 	#-----------------------
 
 	#-----------------------
-	def compile(self):
+	def msp_to_tsp(self):
 	#-----------------------
 		# parse the input file
 		self.read_dsl()
@@ -64,13 +73,13 @@ class msp_to_tsp:
 		labels = nx.get_node_attributes(self.toReduce[self.startEdge],'label')
 		nodes = self.toReduce[self.startEdge].nodes()
 		#find the root
-		root = 0
+		self.root = 0
 		for node in nodes:
 			if len(self.toReduce[self.startEdge].predecessors(node))==0:
-				root = node
+				self.root = node
 				
-		successors = self.toReduce[self.startEdge].successors(root)
-		self.canonical(root,successors,labels)
+		successors = self.toReduce[self.startEdge].successors(self.root)
+		self.canonical(self.root,successors,labels)
 		##### DRAW
 		saveGraph(self.canonic,"./outputs/canonic.dot")
 		
@@ -90,7 +99,7 @@ class msp_to_tsp:
 		self.time = 0
 		
 		#see parser.py for more details
-		parse(self.pfile,self.mesh,self.data,self.time,self.computations)
+		parse(self.MSPfile,self.mesh,self.data,self.time,self.computations)
 		
 		##### PRINT
 		# print "MESH TYPE = " + self.mesh + "\n"
@@ -294,8 +303,6 @@ class msp_to_tsp:
 				else :
 					#print "next graph"
 					self.remove_nshape(successors)
-		#else :
-			#print "End of graph"
 	#-----------------------
 	
 	#-----------------------
@@ -616,15 +623,230 @@ class msp_to_tsp:
 			else:
 				self.canonical(node,ssuccessors,labels)
 	#-----------------------
-#===============================================================
-
-
-
-#===============================================================
-# Class dump
-# 
-#===============================================================
-#class dump:
+	
+	#-----------------------
+	# First hybrid dump to L2C component assembly : lad file
+	# duplicate the assembly nb_proc times
+	#-----------------------
+	def dump(self):
+	#-----------------------	
+		self.lad = "<?xml version='1.0'?>\n"
+		self.lad += "<lad xmlns=\"http://www.inria.fr/avalon/lad\"> <!-- lad file of the first version of the heat equation -->\n"
+		self.lad += "<mpi>\n"
+		
+		# create the almost complete template but depending on the processor number
+		self.data_template = Template(self.dataTempFile.read())
+		self.dico = {}
+		text_template = self.createTemplate()
+		template = Template(text_template)
+		
+		dic = {}
+		#for one proc
+		for p in range(0,self.nb_proc):
+			self.lad += "<process>\n"
+			dic["proc"] = p
+			self.lad += template.substitute(dic)
+			self.lad += "</process>\n"
+			
+		self.lad += "</mpi>\n"
+		self.lad += "</lad>\n"
+		print self.lad
+	#-----------------------
+	
+	#-----------------------
+	# this function builds the complete lad template, from the two files given as input :
+	# the data template file
+	# the rest of the template file
+	# it builds a final complete template with only $proc to substitute
+	#-----------------------
+	def createTemplate(self):
+	#-----------------------
+		# 1- dump data
+		# recreate the parameter $proc by itself
+		self.dico["proc"]="$proc"
+		dump_data = ""
+		cppref_data = ""
+		for d in self.data :
+			parseData(self.metaFile,self.dico,d[0])
+			#cpp ref data
+			cppref_data += "<cppref instance=\""+self.dico["data"]+"_$proc"+"\" property=\"inGo\"/>\n"
+			#dump_data
+			dump_data += self.data_template.substitute(self.dico)
+		dump_data += "\n"
+		#print cppref_data
+		#print dump_data
+		
+		# 2- dump computations (linked to data)
+		parseMetaInf(self.metaFile,self.dico)
+		self.dico["nb_proc"] = self.nb_proc
+		# $alldata
+		self.dico["alldata"] = dump_data
+		# $cppref_data to generate
+		self.dico["cppref_data"] = cppref_data
+		
+		# $computations and $cppref_computations to generate (same for all proc)
+		self.dump_comp = ""
+		self.cppref_comp = ""
+		labels = nx.get_node_attributes(self.canonic,'label')
+		self.countS = 0
+		self.countP = 0
+		self.countSync = 0
+		self.computationDump(labels,self.root)
+		self.dico["computations"] = self.dump_comp
+		self.dico["cppref_computations"] = self.cppref_comp
+		#print self.dump_comp
+		#print self.cppref_comp
+		self.dico["iter"] = self.time
+		
+		# 3- dump all general template (linked to data and computations)
+		self.template = Template(self.templateFile.read())
+		#print self.dico
+		dump = self.template.substitute(self.dico)
+		
+		return dump
+	#-----------------------	
+	
+	#-----------------------
+	# BFS strategy
+	# This function creates the lad dump of the TSP graph computed before
+	# each 'S' node is translated to a SEQ component
+	# each 'P' node is translated to a PAR component
+	# each update computation is translated to a SYNC component
+	# each normal computation is translated to its component
+	#-----------------------
+	def computationDump(self,labels,node):
+	#-----------------------
+		if labels[node]=='S':
+			self.dump_comp += self.makeSequence(labels,node)
+			# for the root element it corresponds to cppref_comp, it is linked to Time
+			if node==self.root:
+				self.cppref_comp = "<cppref instance=\"Seq"+str(self.countS)+"_$proc\" property=\"inGo\"/>\n"
+			self.countS += 1
+		elif labels[node]=='P':
+			self.dump_comp += self.makeParallel(labels,node)
+			# for the root element it corresponds to cppref_comp, it is linked to Time
+			if node==self.root:
+				self.cppref_comp = "<cppref instance=\"Par"+str(self.countP)+"_$proc\" property=\"inGo\"/>\n"
+			self.countP += 1
+		else :
+			if self.computations[node][1]=="update":
+				self.dump_comp += self.makeSync(labels,node)
+				self.countSync += 1
+			else:
+				self.dump_comp += self.makeComputation(labels,node)
+				
+		# print "add node "+labels[node]
+		# print self.dump_comp
+		
+		successors = self.canonic.successors(node)
+		for succ in successors:
+			self.computationDump(labels,succ)
+	#-----------------------
+	
+	#-----------------------
+	# Create a sequence component instance in the lad
+	#-----------------------
+	def makeSequence(self,labels,node):
+	#-----------------------
+		out = "<instance id=\"Seq"+str(self.countS)+"_$proc\" type=\"Sequence\">\n"
+		out += "<property id=\"compute\">\n"
+		successors = self.canonic.successors(node)
+		local_countS = self.countS
+		local_countP = self.countP
+		local_countSync = self.countSync
+		for succ in successors:
+			if labels[succ]=='S':
+				out += "<cppref instance=\"Seq"+str(local_countS)+"_$proc\" property=\"inGo\"/>\n"
+				local_countS += 1
+			elif labels[succ]=='P':
+				out += "<cppref instance=\"Par"+str(local_countP)+"_$proc\" property=\"inGo\"/>\n"
+				local_countP += 1
+			else:
+				if self.computations[succ][1]=="update":
+					out += "<cppref instance=\"Sync"+str(local_countSync)+"_$proc\" property=\"inGo\"/>\n"
+					local_countSync += 1
+				else:
+					out += "<cppref instance=\""+self.computations[succ][0]+"_$proc\" property=\"inGo\"/>\n"
+		out += "</property>\n"
+		out += "</instance>\n"
+		
+		#print out
+		return out
+	#-----------------------
+	
+	#-----------------------
+	# Create a parallel component instance in the lad
+	#-----------------------
+	def makeParallel(self,labels,node):
+	#-----------------------
+		out = "<instance id=\"Par"+str(self.countP)+"_$proc\" type=\"Parallel\">\n"
+		out += "<property id=\"compute\">\n"
+		successors = self.canonic.successors(node)
+		local_countS = self.countS
+		local_countP = self.countP
+		local_countSync = self.countSync
+		for succ in successors:
+			if labels[succ]=='S':
+				out += "<cppref instance=\"Seq"+str(local_countS)+"_$proc\" property=\"inGo\"/>\n"
+				local_countS += 1
+			elif labels[succ]=='P':
+				out += "<cppref instance=\"Par"+str(local_countP)+"_$proc\" property=\"inGo\"/>\n"
+				local_countP += 1
+			else:
+				if self.computations[succ][1]=="update":
+					out += "<cppref instance=\"Sync"+str(local_countSync)+"_$proc\" property=\"inGo\"/>\n"
+					local_countSync += 1
+				else:
+					out += "<cppref instance=\""+self.computations[succ][0]+"_$proc\" property=\"inGo\"/>\n"
+		out += "</property>\n"
+		out += "</instance>\n"
+		
+		#print out
+		return out
+	#-----------------------
+	
+	#-----------------------
+	# Create a sync component instance in the lad
+	#-----------------------
+	def makeSync(self,labels,node):
+	#-----------------------
+		out = "<instance id=\"Sync"+str(self.countSync)+"_$proc\" type=\"Sync\">\n"
+		
+		#data read and written
+		out += "<property id=\"dataCompute\">\n"
+		read = self.computations[node][2]
+		# what is written in an update is fake
+		for d in read:
+			out += "<cppref instance=\""+d+"_$proc\" property=\"services\"/>\n"
+		out += "</property>\n"
+		out += "</instance>\n"
+		
+		#print out
+		return out
+	#-----------------------
+	
+	#-----------------------
+	# Create a computation component instance in the lad
+	#-----------------------
+	def makeComputation(self,labels,node):
+	#-----------------------
+		out = "<instance id=\""+self.computations[node][0]+"_$proc\" type=\""+self.computations[node][0]+"\">\n"
+		#data read and written
+		out += "<property id=\"dataCompute\">\n"
+		read = self.computations[node][2]
+		written = self.computations[node][3]
+		for d in read:
+			# fake link to the update
+			if not d.find("wu_"):
+				out += "<cppref instance=\""+d+"_$proc\" property=\"services\"/>\n"
+		out += "<cppref instance=\""+written+"_$proc\" property=\"services\"/>\n"
+		out += "</property>\n"
+		out += "</instance>\n"
+		
+		#print out
+		return out
+	#-----------------------
+	
 #===============================================================
 
 
@@ -639,7 +861,9 @@ def printHelp():
 #===============================================================
 # Main entry
 #===============================================================
-if __name__ == "__main__":
+#-----------------------
+def main():
+#-----------------------
 	# for i in range(0,len(sys.argv),2):
 	# 	if sys.argv[i]=="-msp":
 	# 		mspFile = sys.argv[i+1]
@@ -649,11 +873,12 @@ if __name__ == "__main__":
 	# 	else :
 	# 		print "argument "+sys.argv[i]+" is not a valid argument"
 	# 		printHelp()
-    compiler = msp_to_tsp("./inputs/SW.msp")
-	# from msp file to tsp canonical tree decomposition
-    tsp = compiler.compile()
-	# read resources file
 	
-	# read meta.inf file
-	
-	#dump to a component assembly
+    compiler = CAC_Compiler("./inputs/SW.msp","./inputs/SW.meta.inf","./inputs/template_skelgis.xml","./inputs/template_skelgis_data.xml")
+    compiler.compile()
+#-----------------------
+
+#-----------------------
+if __name__ == "__main__":
+	main()
+#-----------------------
