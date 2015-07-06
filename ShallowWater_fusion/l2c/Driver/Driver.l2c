@@ -1,6 +1,0 @@
-//#implements=driver
-LCMP(Driver)
-    L_CPP_PROVIDE(Go, inGo);
-    L_CPP_USE(Structh, structInit);
-    L_CPP_USE(Go, driverappGo);
-LEND

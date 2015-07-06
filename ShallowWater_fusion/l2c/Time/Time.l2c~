@@ -1,7 +1,0 @@
-//#implements=time
-LCMP(Time)
-  L_PROPERTY(int16_t, iter);
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Go, spaceGo);
-  L_CPP_USE(Spaceh, sp);
-LEND
