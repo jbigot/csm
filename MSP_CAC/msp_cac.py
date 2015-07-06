@@ -30,7 +30,7 @@ class CAC_Compiler:
 		self.metaFile = metafile
 		self.templateFile = open(tfile,'r')
 		self.dataTempFile = open(dfile,'r')
-		self.nb_proc = 1
+		self.nb_proc = 2
 	#-----------------------
 	
 	#-----------------------
@@ -638,16 +638,25 @@ class CAC_Compiler:
 		# create the almost complete template but depending on the processor number
 		self.data_template = Template(self.dataTempFile.read())
 		self.dico = {}
+		self.duplicatesM = copy.deepcopy(self.duplicates)
 		text_template = self.createTemplate()
 		template = Template(text_template)
 		
+		# for each processor build the assembly by substitution of $proc
 		dic = {}
-		#for one proc
 		for p in range(0,self.nb_proc):
 			self.lad += "<process>\n"
 			dic["proc"] = p
 			self.lad += template.substitute(dic)
 			self.lad += "</process>\n"
+		
+		# for each data add all its instances on different processors in a communicator
+		if self.nb_proc > 1:
+			for d in self.data :
+				self.lad += "<communicator>"
+				for p in range(0,self.nb_proc):
+					self.lad += "<peer instance=\""+d[0]+"_"+str(p)+"\" property=\"comm\"/>"
+				self.lad += "</communicator>"
 			
 		self.lad += "</mpi>\n"
 		self.lad += "</lad>\n"
@@ -770,11 +779,13 @@ class CAC_Compiler:
 					out += "<cppref instance=\"Sync"+str(local_countSync)+"_$proc\" property=\"inGo\"/>\n"
 					local_countSync += 1
 				else:
-					out += "<cppref instance=\""+self.computations[succ][0]+"_$proc\" property=\"inGo\"/>\n"
+					name = self.computations[succ][0]
+					duplicate = int(math.fabs(self.duplicatesM[name] - self.duplicates[name]))
+					out += "<cppref instance=\""+name+"_"+str(duplicate)+"_$proc\" property=\"inGo\"/>\n"
+					self.duplicatesM[name] -= 1
 		out += "</property>\n"
 		out += "</instance>\n"
 		
-		#print out
 		return out
 	#-----------------------
 	
@@ -801,11 +812,13 @@ class CAC_Compiler:
 					out += "<cppref instance=\"Sync"+str(local_countSync)+"_$proc\" property=\"inGo\"/>\n"
 					local_countSync += 1
 				else:
-					out += "<cppref instance=\""+self.computations[succ][0]+"_$proc\" property=\"inGo\"/>\n"
+					name = self.computations[succ][0]
+					duplicate = int(math.fabs(self.duplicatesM[name] - self.duplicates[name]))
+					out += "<cppref instance=\""+name+"_"+str(duplicate)+"_$proc\" property=\"inGo\"/>\n"
+					self.duplicatesM[name] -= 1
 		out += "</property>\n"
 		out += "</instance>\n"
 		
-		#print out
 		return out
 	#-----------------------
 	
@@ -825,7 +838,6 @@ class CAC_Compiler:
 		out += "</property>\n"
 		out += "</instance>\n"
 		
-		#print out
 		return out
 	#-----------------------
 	
@@ -835,7 +847,9 @@ class CAC_Compiler:
 	def makeComputation(self,labels,node):
 	#-----------------------
 		name = self.computations[node][0]
-		out = "<instance id=\""+name+"_"+str(self.duplicates[name])+"_$proc\" type=\""+name+"\">\n"
+		#duplicatesM has been decremented in makeSequence and makeParallel, so +1 to get the good name
+		duplicate = int(math.fabs((self.duplicatesM[name]+1) - self.duplicates[name]))
+		out = "<instance id=\""+name+"_"+str(duplicate)+"_$proc\" type=\""+name+"\">\n"
 		#data read and written
 		out += "<property id=\"dataCompute\">\n"
 		read = self.computations[node][2]
@@ -847,8 +861,6 @@ class CAC_Compiler:
 		out += "<cppref instance=\""+written+"_$proc\" property=\"services\"/>\n"
 		out += "</property>\n"
 		out += "</instance>\n"
-		
-		#print out
 		return out
 	#-----------------------
 	
