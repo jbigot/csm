@@ -28,7 +28,7 @@ from cac_types import *
 # Funtions
 #===============================================================
 #-----------------------
-def parse(pfile,mesh,data,time,computations):
+def parse(pfile,mesh,data,time,computations,duplicate):
 #-----------------------
 	#open the file to read
 	toparse = open(pfile,'r')
@@ -90,7 +90,14 @@ def parse(pfile,mesh,data,time,computations):
 		cr = set()
 		for el in tmp4:
 			cr.add(el)
+		# create the computation
 		computations.append(Computation(cid,ctype,cr,cw,cn))
+		# incremente the number of instances needed for the name of the computation
+		if cid in duplicate.keys():
+			duplicate[cid] += 1
+		else :
+			duplicate[cid] = 1
+			
 		line = toparse.readline()
 	#####
 	toparse.close()

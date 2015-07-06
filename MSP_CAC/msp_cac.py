@@ -97,9 +97,10 @@ class CAC_Compiler:
 		self.mesh = ""
 		#time
 		self.time = 0
+		self.duplicates = {}
 		
 		#see parser.py for more details
-		parse(self.MSPfile,self.mesh,self.data,self.time,self.computations)
+		parse(self.MSPfile,self.mesh,self.data,self.time,self.computations,self.duplicates)
 		
 		##### PRINT
 		# print "MESH TYPE = " + self.mesh + "\n"
@@ -650,7 +651,10 @@ class CAC_Compiler:
 			
 		self.lad += "</mpi>\n"
 		self.lad += "</lad>\n"
-		print self.lad
+		
+		ladFile = open("./outputs/lad"+str(self.nb_proc)+".lad", "w")
+		ladFile.write(self.lad)
+		ladFile.close()
 	#-----------------------
 	
 	#-----------------------
@@ -830,7 +834,8 @@ class CAC_Compiler:
 	#-----------------------
 	def makeComputation(self,labels,node):
 	#-----------------------
-		out = "<instance id=\""+self.computations[node][0]+"_$proc\" type=\""+self.computations[node][0]+"\">\n"
+		name = self.computations[node][0]
+		out = "<instance id=\""+name+"_"+str(self.duplicates[name])+"_$proc\" type=\""+name+"\">\n"
 		#data read and written
 		out += "<property id=\"dataCompute\">\n"
 		read = self.computations[node][2]
