@@ -849,7 +849,9 @@ class CAC_Compiler:
 		name = self.computations[node][0]
 		#duplicatesM has been decremented in makeSequence and makeParallel, so +1 to get the good name
 		duplicate = int(math.fabs((self.duplicatesM[name]+1) - self.duplicates[name]))
-		out = "<instance id=\""+name+"_"+str(duplicate)+"_$proc\" type=\""+name+"\">\n"
+		# the instance with the name the duplication id and the proc
+		# the type with K+name
+		out = "<instance id=\""+name+"_"+str(duplicate)+"_$proc\" type=\"K"+name+"\">\n"
 		#data read and written
 		out += "<property id=\"dataCompute\">\n"
 		read = self.computations[node][2]
