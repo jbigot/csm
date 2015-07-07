@@ -44,31 +44,38 @@ class CAC_Compiler:
 	def msp_to_tsp(self):
 	#-----------------------
 		# parse the input file
+		print "Read msp file"
 		self.read_dsl()
 		# compute gamma data : separate updates
 		#self.gamma_data() #it seems it does not work for SW entirely
 		# compute gamma data : do not separate updates
+		print "Compute Gamma data"
 		self.gamma_data_seq()
 		# compute gamma hybrid
+		print "Compute Gamma hybrid"
 		self.gamma_hyb()
 		# first transitive reduction
+		print "Compute transitive reduction"
 		self.transitive_reduction(self.gamma)
 		##### DRAW
 		saveGraph(self.gamma,"./outputs/trans.dot")
 		# compute sources/roots of self.gamma
 		self.sources()
 		# remove N shapes
+		print "Remove Nshapes"
 		#self.nshape = self.gamma.copy()
 		self.nshape = self.gamma
 		self.level = 0
 		self.remove_nshape(self.sources)
-		#self.transitive_reduction(self.nshape)
 		##### DRAW
 		saveGraph(self.nshape,"./outputs/nshape.dot")
+		
 		# series-parallel tree decomposition
+		print "Compute series-parallel decomposition"
 		self.tsp()
 		
 		# canonical form
+		print "Compute canonical form"
 		self.canonic = nx.DiGraph()
 		labels = nx.get_node_attributes(self.toReduce[self.startEdge],'label')
 		nodes = self.toReduce[self.startEdge].nodes()
@@ -77,8 +84,15 @@ class CAC_Compiler:
 		for node in nodes:
 			if len(self.toReduce[self.startEdge].predecessors(node))==0:
 				self.root = node
-				
+		
+		# table to store the order index for each node (representing the order index for its successors)
+		# this is used to keep the good order of computations in the canonical form
+		self.order_index = {}
+		# self.orders contains the initial orders and is used to sort successors
+		self.orders = nx.get_node_attributes(self.toReduce[self.startEdge],'order')
+		# start the canonical reduction
 		successors = self.toReduce[self.startEdge].successors(self.root)
+		self.orderSuccessors(successors)
 		self.canonical(self.root,successors,labels)
 		##### DRAW
 		saveGraph(self.canonic,"./outputs/canonic.dot")
@@ -381,7 +395,8 @@ class CAC_Compiler:
 		self.lab_index = len(self.transformed)
 		for i in range(0,len(self.transformed)):
 			lab_graph = nx.DiGraph()
-			lab_graph.add_node(i,label=self.computations[i][0])
+			# put an order
+			lab_graph.add_node(i,label=self.computations[i][0],order=i)
 			#if the edge is not in toReduce add it
 			if not (self.transformed[i][0],self.transformed[i][1]) in self.toReduce:
 				self.toReduce[(self.transformed[i][0],self.transformed[i][1])] = lab_graph
@@ -545,8 +560,16 @@ class CAC_Compiler:
 		right_graph = self.toReduce[right]
 		#make the union of the two graphs (which are disjoints) as a new graph
 		new_graph = nx.union(left_graph,right_graph)
+		# get the orders of the root node of the left and right graph
+		# if the order if not correct modify it
+		orders = nx.get_node_attributes(new_graph,'order')
+		if orders[self.rootNode[left]] > orders[self.rootNode[right]]:
+			temp = orders[self.rootNode[left]]
+			orders[self.rootNode[left]] = orders[self.rootNode[right]]
+			orders[self.rootNode[right]] = temp
+			nx.set_node_attributes(new_graph, 'order', orders)
 		#add sequence node and edges
-		new_graph.add_node(self.lab_index,label='S')
+		new_graph.add_node(self.lab_index,label='S',order = 0)
 		new_graph.add_edge(self.lab_index,self.rootNode[left])
 		new_graph.add_edge(self.lab_index,self.rootNode[right])
 		#remove the two edges reduced
@@ -590,8 +613,16 @@ class CAC_Compiler:
 		
 		#make the union of the two graphs (which are disjoints) as a new graph
 		new_graph = nx.union(up_graph,down_graph)
+		# get the orders of the root node of the left and right graph
+		# if the order if not correct modify it
+		orders = nx.get_node_attributes(new_graph,'order')
+		if orders[root1] > orders[root2]:
+			temp = root1
+			orders[root1] = orders[root2]
+			orders[root2] = temp
+			nx.set_node_attributes(new_graph, 'order', orders)
 		#add sequence node and edges
-		new_graph.add_node(self.lab_index,label='P')
+		new_graph.add_node(self.lab_index,label='P',order=0)
 		new_graph.add_edge(self.lab_index,root1)
 		new_graph.add_edge(self.lab_index,root2)
 		#remove the two edges reduced
@@ -610,15 +641,23 @@ class CAC_Compiler:
 	#-----------------------
 	# replace the graph computed in self.tsp by its canonical form
 	# each time two successive internal nodes (S or P) have the same type, concat them
+	#successors has been ordered before
 	#-----------------------
 	def canonical(self,node,successors,labels):
 	#-----------------------
+		# if it is a new node add it
 		if node not in self.canonic:
 			self.canonic.add_node(node,label=labels[node])
+		# for each successor (already sorted)
 		for succ in successors:
+			# get the succesors of the succ and ordered them
 			ssuccessors = self.toReduce[self.startEdge].successors(succ)
+			self.orderSuccessors(ssuccessors)
 			if not (labels[node]=='S' and labels[succ]=='S') and not (labels[node]=='P' and labels[succ]=='P'):
-				self.canonic.add_node(succ,label=labels[succ])
+				if node not in self.order_index :
+					self.order_index[node]=0
+				self.canonic.add_node(succ,label=labels[succ],order=self.order_index[node])
+				self.order_index[node] += 1
 				self.canonic.add_edge(node,succ)
 				self.canonical(succ,ssuccessors,labels)
 			else:
@@ -626,11 +665,26 @@ class CAC_Compiler:
 	#-----------------------
 	
 	#-----------------------
+	def cmpOrders(self,x,y):
+	#-----------------------
+		return self.orders[x] < self.orders[y]
+	#-----------------------
+	
+	#-----------------------
+	def orderSuccessors(self,successors):
+	#-----------------------
+		successors.sort(cmp=self.cmpOrders)
+		#lambda x,y: self.cmpOrders(x,y)
+	#-----------------------
+	
+	#-----------------------
 	# First hybrid dump to L2C component assembly : lad file
 	# duplicate the assembly nb_proc times
 	#-----------------------
 	def dump(self):
-	#-----------------------	
+	#-----------------------
+		print "Compute the dump"
+	
 		self.lad = "<?xml version='1.0'?>\n"
 		self.lad += "<lad xmlns=\"http://www.inria.fr/avalon/lad\"> <!-- lad file of the first version of the heat equation -->\n"
 		self.lad += "<mpi>\n"
@@ -638,7 +692,8 @@ class CAC_Compiler:
 		# create the almost complete template but depending on the processor number
 		self.data_template = Template(self.dataTempFile.read())
 		self.dico = {}
-		self.duplicatesM = copy.deepcopy(self.duplicates)
+		self.duplicatesRef = copy.deepcopy(self.duplicates)
+		self.duplicatesNew = copy.deepcopy(self.duplicates)
 		text_template = self.createTemplate()
 		template = Template(text_template)
 		
@@ -752,6 +807,8 @@ class CAC_Compiler:
 		# print self.dump_comp
 		
 		successors = self.canonic.successors(node)
+		# keep the good order of successors
+		self.orderSuccessors(successors)
 		for succ in successors:
 			self.computationDump(labels,succ)
 	#-----------------------
@@ -764,6 +821,7 @@ class CAC_Compiler:
 		out = "<instance id=\"Seq"+str(self.countS)+"_$proc\" type=\"Sequence\">\n"
 		out += "<property id=\"compute\">\n"
 		successors = self.canonic.successors(node)
+		self.orderSuccessors(successors)
 		local_countS = self.countS
 		local_countP = self.countP
 		local_countSync = self.countSync
@@ -780,9 +838,9 @@ class CAC_Compiler:
 					local_countSync += 1
 				else:
 					name = self.computations[succ][0]
-					duplicate = int(math.fabs(self.duplicatesM[name] - self.duplicates[name]))
+					duplicate = int(math.fabs(self.duplicatesRef[name] - self.duplicates[name]))
 					out += "<cppref instance=\""+name+"_"+str(duplicate)+"_$proc\" property=\"inGo\"/>\n"
-					self.duplicatesM[name] -= 1
+					self.duplicatesRef[name] -= 1
 		out += "</property>\n"
 		out += "</instance>\n"
 		
@@ -797,6 +855,11 @@ class CAC_Compiler:
 		out = "<instance id=\"Par"+str(self.countP)+"_$proc\" type=\"Parallel\">\n"
 		out += "<property id=\"compute\">\n"
 		successors = self.canonic.successors(node)
+		# print "before"
+		# print successors
+		self.orderSuccessors(successors)
+		# print "after"
+		# print successors
 		local_countS = self.countS
 		local_countP = self.countP
 		local_countSync = self.countSync
@@ -813,9 +876,9 @@ class CAC_Compiler:
 					local_countSync += 1
 				else:
 					name = self.computations[succ][0]
-					duplicate = int(math.fabs(self.duplicatesM[name] - self.duplicates[name]))
+					duplicate = int(math.fabs(self.duplicatesRef[name] - self.duplicates[name]))
 					out += "<cppref instance=\""+name+"_"+str(duplicate)+"_$proc\" property=\"inGo\"/>\n"
-					self.duplicatesM[name] -= 1
+					self.duplicatesRef[name] -= 1
 		out += "</property>\n"
 		out += "</instance>\n"
 		
@@ -847,18 +910,18 @@ class CAC_Compiler:
 	def makeComputation(self,labels,node):
 	#-----------------------
 		name = self.computations[node][0]
-		#duplicatesM has been decremented in makeSequence and makeParallel, so +1 to get the good name
-		duplicate = int(math.fabs((self.duplicatesM[name]+1) - self.duplicates[name]))
+		duplicate = int(math.fabs((self.duplicatesNew[name]) - self.duplicates[name]))
 		# the instance with the name the duplication id and the proc
 		# the type with K+name
 		out = "<instance id=\""+name+"_"+str(duplicate)+"_$proc\" type=\"K"+name+"\">\n"
+		self.duplicatesNew[name] -= 1
 		#data read and written
 		out += "<property id=\"dataCompute\">\n"
 		read = self.computations[node][2]
 		written = self.computations[node][3]
 		for d in read:
 			# fake link to the update
-			if not d.find("wu_"):
+			if d.find("wu_") < 0 :
 				out += "<cppref instance=\""+d+"_$proc\" property=\"services\"/>\n"
 		out += "<cppref instance=\""+written+"_$proc\" property=\"services\"/>\n"
 		out += "</property>\n"
