@@ -1,0 +1,11 @@
+//#implements=data
+LCMP(Data)
+  L_PROPERTY(int16_t, border);
+  L_PROPERTY(int16_t, domain);
+  L_PROPERTY(double, init_val);
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_PROVIDE(Datah, services);
+  L_MPI_COMM(comm)
+  L_CPP_USE(Structh,str);
+  L_CPP_USE(Inith,initializer);
+LEND
