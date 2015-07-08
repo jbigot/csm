@@ -94,6 +94,10 @@ class CAC_Compiler:
 		successors = self.toReduce[self.startEdge].successors(self.root)
 		self.orderSuccessors(successors)
 		self.canonical(self.root,successors,labels)
+		
+		self.orders = nx.get_node_attributes(self.canonic,'order')
+		#self.printBFSSuccessors(self.canonic,self.root,nx.get_node_attributes(self.canonic,'label'))
+		
 		##### DRAW
 		saveGraph(self.canonic,"./outputs/canonic.dot")
 		
@@ -114,7 +118,10 @@ class CAC_Compiler:
 		self.duplicates = {}
 		
 		#see parser.py for more details
+		time = 0
 		parse(self.MSPfile,self.mesh,self.data,self.time,self.computations,self.duplicates)
+		print self.mesh
+		print time
 		
 		##### PRINT
 		# print "MESH TYPE = " + self.mesh + "\n"
@@ -153,7 +160,7 @@ class CAC_Compiler:
 					counter = counter+1
 					current = current+1
 				for el in toadd:
-					self.computations[current][2].add(el)
+					self.computations[current][2].append(el)
 				current = current+1
 			else :
 				current = current+1
@@ -183,7 +190,7 @@ class CAC_Compiler:
 				name_wu = "wu_"+self.computations[current][0]
 				self.computations.insert(current,Computation("upd_"+self.computations[current][0],"update",toupdate,name_wu,""))
 				current = current+1
-				self.computations[current][2].add(name_wu)
+				self.computations[current][2].append(name_wu)
 				
 			current = current+1
 				
@@ -382,6 +389,13 @@ class CAC_Compiler:
 		#merge roots and leaves to build a unique inverse line digraph
 		self.merge_root_leaf()
 		
+		# initialize order of nodes to build ordered sequences in the final dump
+		self.orders_init = {}
+		self.global_order_index = 0
+		start = self.roots[0]
+		self.bfs_orderInit(start)
+		
+		
 		##### DRAW
 		saveGraph(self.inverse,"./outputs/inverse.dot")
 		
@@ -395,8 +409,7 @@ class CAC_Compiler:
 		self.lab_index = len(self.transformed)
 		for i in range(0,len(self.transformed)):
 			lab_graph = nx.DiGraph()
-			# put an order
-			lab_graph.add_node(i,label=self.computations[i][0],order=i)
+			lab_graph.add_node(i,label=self.computations[i][0],order=self.orders_init[(self.transformed[i][0],self.transformed[i][1])])
 			#if the edge is not in toReduce add it
 			if not (self.transformed[i][0],self.transformed[i][1]) in self.toReduce:
 				self.toReduce[(self.transformed[i][0],self.transformed[i][1])] = lab_graph
@@ -417,6 +430,37 @@ class CAC_Compiler:
 		
 		##### DRAW	
 		saveGraph(self.toReduce[self.startEdge],"./outputs/tsp.dot")
+		
+		#self.orders = nx.get_node_attributes(self.toReduce[self.startEdge],'order')
+		#self.printBFSSuccessors(self.toReduce[self.startEdge],self.rootNode[self.startEdge],nx.get_node_attributes(self.toReduce[self.startEdge],'label'))
+	#-----------------------
+	
+	#-----------------------
+	def printBFSSuccessors(self,graph,node,labels):
+	#-----------------------
+		successors = graph.successors(node)
+		print successors
+		print "for node "+labels[node]+" orders of successors "		
+		print successors
+		self.orderSuccessors(successors)
+		print successors
+		
+		print "for node "+labels[node]+" successors "
+		for succ in successors:
+				print labels[succ]
+		for succ in successors:
+			self.printBFSSuccessors(graph,succ,labels)
+	#-----------------------
+	
+	#-----------------------
+	def bfs_orderInit(self,node):
+	#-----------------------
+		successors = self.inverse.successors(node)
+		for succ in successors:
+			self.orders_init[(node,succ)] = self.global_order_index
+			self.global_order_index += 1
+		for succ in successors:
+			self.bfs_orderInit(succ)
 	#-----------------------
 
 	#-----------------------
@@ -563,10 +607,15 @@ class CAC_Compiler:
 		# get the orders of the root node of the left and right graph
 		# if the order if not correct modify it
 		orders = nx.get_node_attributes(new_graph,'order')
+		#print orders
 		if orders[self.rootNode[left]] > orders[self.rootNode[right]]:
 			temp = orders[self.rootNode[left]]
 			orders[self.rootNode[left]] = orders[self.rootNode[right]]
 			orders[self.rootNode[right]] = temp
+			nx.set_node_attributes(new_graph, 'order', orders)
+		# happens often for 'P' and 'S' previously added
+		elif orders[self.rootNode[left]] == orders[self.rootNode[right]]:
+			orders[self.rootNode[right]] += 1
 			nx.set_node_attributes(new_graph, 'order', orders)
 		#add sequence node and edges
 		new_graph.add_node(self.lab_index,label='S',order = 0)
@@ -621,6 +670,10 @@ class CAC_Compiler:
 			orders[root1] = orders[root2]
 			orders[root2] = temp
 			nx.set_node_attributes(new_graph, 'order', orders)
+		# happens often for 'P' and 'S' previously added
+		elif orders[root1] == orders[root2]:
+			orders[root2] += 1
+			nx.set_node_attributes(new_graph, 'order', orders)
 		#add sequence node and edges
 		new_graph.add_node(self.lab_index,label='P',order=0)
 		new_graph.add_edge(self.lab_index,root1)
@@ -647,7 +700,9 @@ class CAC_Compiler:
 	#-----------------------
 		# if it is a new node add it
 		if node not in self.canonic:
-			self.canonic.add_node(node,label=labels[node])
+			self.canonic.add_node(node,label=labels[node],order=0)
+			self.order_index[node] = 1
+			
 		# for each successor (already sorted)
 		for succ in successors:
 			# get the succesors of the succ and ordered them
@@ -667,14 +722,25 @@ class CAC_Compiler:
 	#-----------------------
 	def cmpOrders(self,x,y):
 	#-----------------------
-		return self.orders[x] < self.orders[y]
+		if self.orders[x] < self.orders[y]:
+			return -1
+		elif self.orders[x] > self.orders[y]:
+			return 1
+		else:
+			return 0
 	#-----------------------
 	
 	#-----------------------
 	def orderSuccessors(self,successors):
 	#-----------------------
 		successors.sort(cmp=self.cmpOrders)
-		#lambda x,y: self.cmpOrders(x,y)
+		
+		# for passnum in range(len(successors)-1,0,-1):
+		# 	for i in range(passnum):
+		# 		if self.orders[successors[i]]>self.orders[successors[i+1]]:
+		# 			temp = successors[i]
+		# 			successors[i] = successors[i+1]
+		# 			successors[i+1] = temp
 	#-----------------------
 	
 	#-----------------------
@@ -759,6 +825,9 @@ class CAC_Compiler:
 		self.countS = 0
 		self.countP = 0
 		self.countSync = 0
+		# when the same component is used more than once, the property names has to be kept
+		# save the first instanciation computation index
+		self.saveProperty = {}
 		self.computationDump(labels,self.root)
 		self.dico["computations"] = self.dump_comp
 		self.dico["cppref_computations"] = self.cppref_comp
@@ -819,7 +888,7 @@ class CAC_Compiler:
 	def makeSequence(self,labels,node):
 	#-----------------------
 		out = "<instance id=\"Seq"+str(self.countS)+"_$proc\" type=\"Sequence\">\n"
-		out += "<property id=\"compute\">\n"
+		out += "<property id=\"Compute\">\n"
 		successors = self.canonic.successors(node)
 		self.orderSuccessors(successors)
 		local_countS = self.countS
@@ -853,7 +922,7 @@ class CAC_Compiler:
 	def makeParallel(self,labels,node):
 	#-----------------------
 		out = "<instance id=\"Par"+str(self.countP)+"_$proc\" type=\"Parallel\">\n"
-		out += "<property id=\"compute\">\n"
+		out += "<property id=\"Compute\">\n"
 		successors = self.canonic.successors(node)
 		# print "before"
 		# print successors
@@ -916,15 +985,28 @@ class CAC_Compiler:
 		out = "<instance id=\""+name+"_"+str(duplicate)+"_$proc\" type=\"K"+name+"\">\n"
 		self.duplicatesNew[name] -= 1
 		#data read and written
-		out += "<property id=\"dataCompute\">\n"
+		if name in self.saveProperty :
+			read2 = self.computations[self.saveProperty[name]][2]
+			written2 = self.computations[self.saveProperty[name]][3]
+		else:
+			read2 = self.computations[node][2]
+			written2 = self.computations[node][3]
+			self.saveProperty[name] = node
+			
 		read = self.computations[node][2]
 		written = self.computations[node][3]
-		for d in read:
+		for d,d2 in zip(read,read2):
 			# fake link to the update
 			if d.find("wu_") < 0 :
-				out += "<cppref instance=\""+d+"_$proc\" property=\"services\"/>\n"
-		out += "<cppref instance=\""+written+"_$proc\" property=\"services\"/>\n"
-		out += "</property>\n"
+				out += "<property id=\""+d2+"\"><cppref instance=\""+d+"_$proc\" property=\"services\"/></property>"
+		# for d in read:
+		# 	# fake link to the update
+		# 	if d.find("wu_") < 0 :
+		# 		out += "<property id=\""+d+"\"><cppref instance=\""+d+"_$proc\" property=\"services\"/></property>"
+		# 
+		if written not in read :
+			out += "<property id=\""+written2+"\"><cppref instance=\""+written+"_$proc\" property=\"services\"/></property>"
+			#out += "<property id=\""+written+"\"><cppref instance=\""+written+"_$proc\" property=\"services\"/></property>"
 		out += "</instance>\n"
 		return out
 	#-----------------------

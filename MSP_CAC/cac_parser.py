@@ -62,6 +62,7 @@ def parse(pfile,mesh,data,time,computations,duplicate):
 		line = toparse.readline()
 	#time
 	time = int(line.split(':')[1].strip(' '))
+	print time
 	######
 	
 	##### COMPUTATIONS
@@ -87,9 +88,9 @@ def parse(pfile,mesh,data,time,computations,duplicate):
 			cw = tmp33[1].strip(' ')
 			cn = tmp33[2].strip(',').strip('\n').strip(' ').strip(')')
 		tmp4 = tmp3[0].strip('{').strip(' ').split(',')
-		cr = set()
+		cr = list()
 		for el in tmp4:
-			cr.add(el)
+			cr.append(el)
 		# create the computation
 		computations.append(Computation(cid,ctype,cr,cw,cn))
 		# incremente the number of instances needed for the name of the computation
