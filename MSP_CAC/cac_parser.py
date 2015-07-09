@@ -62,7 +62,6 @@ def parse(pfile,mesh,data,time,computations,duplicate):
 		line = toparse.readline()
 	#time
 	time = int(line.split(':')[1].strip(' '))
-	print time
 	######
 	
 	##### COMPUTATIONS

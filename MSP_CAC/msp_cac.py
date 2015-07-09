@@ -125,14 +125,14 @@ class CAC_Compiler:
 		parse(self.MSPfile,self.mesh,self.data,self.time,self.computations,self.duplicates)
 		
 		##### PRINT
-		print "MESH TYPE = " + self.mesh + "\n"
-		print "DATA = "
-		print self.data
-		print "\n"
-		print "TIME = " + str(self.time) + "\n"
-		print "COMPUTATIONS = "
-		print self.computations
-		print "\n"
+		# print "MESH TYPE = " + self.mesh + "\n"
+		# print "DATA = "
+		# print self.data
+		# print "\n"
+		# print "TIME = " + str(self.time) + "\n"
+		# print "COMPUTATIONS = "
+		# print self.computations
+		# print "\n"
 		#####
 	#-----------------------
 
