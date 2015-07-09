@@ -36,7 +36,9 @@ class CAC_Compiler:
 	#-----------------------
 	def compile(self):
 	#-----------------------
+		# from msp file to series-parallel tree decomposition
 		self.msp_to_tsp()
+		# from TSP to l2C component assembly
 		self.dump()
 	#-----------------------
 
@@ -85,18 +87,20 @@ class CAC_Compiler:
 			if len(self.toReduce[self.startEdge].predecessors(node))==0:
 				self.root = node
 		
+		### networks are not ordered, we have to keep order of computations by specific attributes during all steps of the compilation
 		# table to store the order index for each node (representing the order index for its successors)
 		# this is used to keep the good order of computations in the canonical form
 		self.order_index = {}
-		# self.orders contains the initial orders and is used to sort successors
+		# self.orders from self.toReduce[self.startEdge]
 		self.orders = nx.get_node_attributes(self.toReduce[self.startEdge],'order')
+		
 		# start the canonical reduction
 		successors = self.toReduce[self.startEdge].successors(self.root)
-		self.orderSuccessors(successors)
+		self.orderSuccessors(successors) #always work on an ordered list of successors !
 		self.canonical(self.root,successors,labels)
 		
+		# self.orders from self.canonic
 		self.orders = nx.get_node_attributes(self.canonic,'order')
-		#self.printBFSSuccessors(self.canonic,self.root,nx.get_node_attributes(self.canonic,'label'))
 		
 		##### DRAW
 		saveGraph(self.canonic,"./outputs/canonic.dot")
@@ -118,20 +122,17 @@ class CAC_Compiler:
 		self.duplicates = {}
 		
 		#see parser.py for more details
-		time = 0
 		parse(self.MSPfile,self.mesh,self.data,self.time,self.computations,self.duplicates)
-		print self.mesh
-		print time
 		
 		##### PRINT
-		# print "MESH TYPE = " + self.mesh + "\n"
-		# print "DATA = "
-		# print self.data
-		# print "\n"
-		# print "TIME = " + str(self.time) + "\n"
-		# print "COMPUTATIONS = "
-		# print self.computations
-		# print "\n"
+		print "MESH TYPE = " + self.mesh + "\n"
+		print "DATA = "
+		print self.data
+		print "\n"
+		print "TIME = " + str(self.time) + "\n"
+		print "COMPUTATIONS = "
+		print self.computations
+		print "\n"
 		#####
 	#-----------------------
 
@@ -139,6 +140,7 @@ class CAC_Compiler:
 	# to build Gamma_data the ordered list self.computations is modified
 	# some update computations are added into it when needed
 	# O(n^2)
+	# in this version of the function, each needed update is itself a new computation
 	#-----------------------
 	def gamma_data(self):
 	#-----------------------
@@ -154,6 +156,7 @@ class CAC_Compiler:
 				toadd = set()
 				counter = 0
 				for up in toupdate:
+					# fake data is added to the update (written) and the initial computation (read) to keep an order of computation
 					name_wu = "wu_"+self.computations[current][0]+"_"+str(counter)
 					self.computations.insert(current,Computation("upd_"+self.computations[current][0]+"_"+str(counter),"update",set(up),name_wu,""))
 					toadd.add(name_wu)
@@ -175,6 +178,7 @@ class CAC_Compiler:
 	# to build Gamma_data the ordered list self.computations is modified
 	# in this case updates for one computation are not splitted but represent a single computation
 	# O(n^2)
+	# in this version of the function, all updates needed for a computation represent a single update
 	#-----------------------
 	def gamma_data_seq(self):
 	#-----------------------
@@ -211,6 +215,7 @@ class CAC_Compiler:
 		#adjMat initialization
 		# 1 at (i,j) if a directed edge from i to j
 		# 0 otherwize
+		#used for transitive reduction
 		self.adjMat = [[-9999999999 for x in range(len(self.computations))] for x in range(len(self.computations))]
 		
 		self.gamma = nx.DiGraph()
@@ -268,6 +273,9 @@ class CAC_Compiler:
 	
 	#-----------------------
 	# recursive BFS by successors
+	# take a source set of nodes, and their successors
+	# if sources have common successors and that the subgraph is not complete bipartite, make it complete + transitive reduction
+	# longest part of the compiler
 	#-----------------------
 	def remove_nshape(self,sources):
 	#-----------------------
@@ -435,6 +443,9 @@ class CAC_Compiler:
 		#self.printBFSSuccessors(self.toReduce[self.startEdge],self.rootNode[self.startEdge],nx.get_node_attributes(self.toReduce[self.startEdge],'label'))
 	#-----------------------
 	
+	#-----------------------
+	# for debug
+	# print succesors before and after the sort by order
 	#-----------------------
 	def printBFSSuccessors(self,graph,node,labels):
 	#-----------------------
