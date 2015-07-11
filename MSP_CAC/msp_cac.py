@@ -31,6 +31,8 @@ class CAC_Compiler:
 		self.templateFile = open(tfile,'r')
 		self.dataTempFile = open(dfile,'r')
 		self.nb_proc = 2
+		#self.dump_type = "hybrid"
+		self.dump_type = "data_base"
 	#-----------------------
 	
 	#-----------------------
@@ -53,59 +55,59 @@ class CAC_Compiler:
 		# compute gamma data : do not separate updates
 		print "Compute Gamma data"
 		self.gamma_data_seq()
-		# compute gamma hybrid
-		print "Compute Gamma hybrid"
-		self.gamma_hyb()
-		# first transitive reduction
-		print "Compute transitive reduction"
-		self.transitive_reduction(self.gamma)
-		##### DRAW
-		saveGraph(self.gamma,"./outputs/trans.dot")
-		# compute sources/roots of self.gamma
-		self.sources()
-		# remove N shapes
-		print "Remove Nshapes"
-		#self.nshape = self.gamma.copy()
-		self.nshape = self.gamma
-		self.level = 0
-		self.remove_nshape(self.sources)
-		##### DRAW
-		saveGraph(self.nshape,"./outputs/nshape.dot")
 		
-		# series-parallel tree decomposition
-		print "Compute series-parallel decomposition"
-		self.tsp()
-		
-		# canonical form
-		print "Compute canonical form"
-		self.canonic = nx.DiGraph()
-		labels = nx.get_node_attributes(self.toReduce[self.startEdge],'label')
-		nodes = self.toReduce[self.startEdge].nodes()
-		#find the root
-		self.root = 0
-		for node in nodes:
-			if len(self.toReduce[self.startEdge].predecessors(node))==0:
-				self.root = node
-		
-		### networks are not ordered, we have to keep order of computations by specific attributes during all steps of the compilation
-		# table to store the order index for each node (representing the order index for its successors)
-		# this is used to keep the good order of computations in the canonical form
-		self.order_index = {}
-		# self.orders from self.toReduce[self.startEdge]
-		self.orders = nx.get_node_attributes(self.toReduce[self.startEdge],'order')
-		
-		# start the canonical reduction
-		successors = self.toReduce[self.startEdge].successors(self.root)
-		self.orderSuccessors(successors) #always work on an ordered list of successors !
-		self.canonical(self.root,successors,labels)
-		
-		# self.orders from self.canonic
-		self.orders = nx.get_node_attributes(self.canonic,'order')
-		
-		##### DRAW
-		saveGraph(self.canonic,"./outputs/canonic.dot")
-		
-		return self.canonic
+		if self.dump_type != "data_base":
+			# compute gamma hybrid
+			print "Compute Gamma hybrid"
+			self.gamma_hyb()
+			# first transitive reduction
+			print "Compute transitive reduction"
+			self.transitive_reduction(self.gamma)
+			##### DRAW
+			saveGraph(self.gamma,"./outputs/trans.dot")
+			# compute sources/roots of self.gamma
+			self.sources()
+			# remove N shapes
+			print "Remove Nshapes"
+			#self.nshape = self.gamma.copy()
+			self.nshape = self.gamma
+			self.level = 0
+			self.remove_nshape(self.sources)
+			##### DRAW
+			saveGraph(self.nshape,"./outputs/nshape.dot")
+			
+			# series-parallel tree decomposition
+			print "Compute series-parallel decomposition"
+			self.tsp()
+			
+			# canonical form
+			print "Compute canonical form"
+			self.canonic = nx.DiGraph()
+			labels = nx.get_node_attributes(self.toReduce[self.startEdge],'label')
+			nodes = self.toReduce[self.startEdge].nodes()
+			#find the root
+			self.root = 0
+			for node in nodes:
+				if len(self.toReduce[self.startEdge].predecessors(node))==0:
+					self.root = node
+			
+			### networks are not ordered, we have to keep order of computations by specific attributes during all steps of the compilation
+			# table to store the order index for each node (representing the order index for its successors)
+			# this is used to keep the good order of computations in the canonical form
+			self.order_index = {}
+			# self.orders from self.toReduce[self.startEdge]
+			self.orders = nx.get_node_attributes(self.toReduce[self.startEdge],'order')
+			
+			# start the canonical reduction
+			successors = self.toReduce[self.startEdge].successors(self.root)
+			self.orderSuccessors(successors) #always work on an ordered list of successors !
+			self.canonical(self.root,successors,labels)
+			
+			# self.orders from self.canonic
+			self.orders = nx.get_node_attributes(self.canonic,'order')
+			
+			##### DRAW
+			saveGraph(self.canonic,"./outputs/canonic.dot")
 	#-----------------------
 
 	#-----------------------
@@ -142,6 +144,7 @@ class CAC_Compiler:
 	# O(n^2)
 	# in this version of the function, each needed update is itself a new computation
 	#-----------------------
+	# TODO !!! Same than in gamma_data_seq, if the data has already been updated don't do it again
 	def gamma_data(self):
 	#-----------------------
 		current = 0
@@ -185,22 +188,36 @@ class CAC_Compiler:
 		current = 0
 		while current<len(self.computations):
 			toupdate = set()
+			tolink = set()
 			for j in range(current-1,-1,-1):
 				# if the current ith computation is a stencil and if what is read has been written in the jth computation
 				# add w of jth in toupdate
+				# however if an update is done between the current computation and the computation j
+				# and the data is updated in this update, do not add it, only link it to the update
 				if self.computations[current][1]=="stencil" and (self.computations[j][3] in self.computations[current][2]) :
-					toupdate.add(self.computations[j][3])
+					addit = True
+					for i in range(j+1,current-1,1):
+						if self.computations[i][1]=="update" and (self.computations[j][3] in self.computations[i][2]):
+							addit = False
+							tolink.add(self.computations[i][3])
+							break
+					if addit==True:
+						#print "add "+self.computations[j][3]
+						toupdate.add(self.computations[j][3])
 			if len(toupdate)>0:
 				name_wu = "wu_"+self.computations[current][0]
 				self.computations.insert(current,Computation("upd_"+self.computations[current][0],"update",toupdate,name_wu,""))
 				current = current+1
 				self.computations[current][2].append(name_wu)
+			if len(tolink)>0:
+				for link in tolink:
+					self.computations[current][2].append(link)
 				
 			current = current+1
 				
 		##### PRINT
-		#for elem in self.computations:
-			#print elem
+		# for elem in self.computations:
+		# 	print elem
 	#-----------------------
 
 	#-----------------------
@@ -820,8 +837,7 @@ class CAC_Compiler:
 		dump_data += "\n"
 		#print cppref_data
 		#print dump_data
-		
-		# 2- dump computations (linked to data)
+		# fill $alldata and $cpprefdata
 		parseMetaInf(self.metaFile,self.dico)
 		self.dico["nb_proc"] = self.nb_proc
 		# $alldata
@@ -829,17 +845,23 @@ class CAC_Compiler:
 		# $cppref_data to generate
 		self.dico["cppref_data"] = cppref_data
 		
+		# 1- dump computations
 		# $computations and $cppref_computations to generate (same for all proc)
 		self.dump_comp = ""
 		self.cppref_comp = ""
-		labels = nx.get_node_attributes(self.canonic,'label')
-		self.countS = 0
-		self.countP = 0
-		self.countSync = 0
 		# when the same component is used more than once, the property names has to be kept
 		# save the first instanciation computation index
 		self.saveProperty = {}
-		self.computationDump(labels,self.root)
+		
+		self.countSync = 0
+		if self.dump_type=="hybrid":
+			labels = nx.get_node_attributes(self.canonic,'label')
+			self.countS = 0
+			self.countP = 0
+			self.computationDump(labels,self.root)
+		elif self.dump_type=="data_base":
+			self.computationDumpDataBase()
+		
 		self.dico["computations"] = self.dump_comp
 		self.dico["cppref_computations"] = self.cppref_comp
 		#print self.dump_comp
@@ -878,10 +900,10 @@ class CAC_Compiler:
 			self.countP += 1
 		else :
 			if self.computations[node][1]=="update":
-				self.dump_comp += self.makeSync(labels,node)
+				self.dump_comp += self.makeSync(node)
 				self.countSync += 1
 			else:
-				self.dump_comp += self.makeComputation(labels,node)
+				self.dump_comp += self.makeComputation(node)
 				
 		# print "add node "+labels[node]
 		# print self.dump_comp
@@ -891,6 +913,22 @@ class CAC_Compiler:
 		self.orderSuccessors(successors)
 		for succ in successors:
 			self.computationDump(labels,succ)
+	#-----------------------
+	
+	#-----------------------
+	def computationDumpDataBase(self):
+	#-----------------------
+		self.dump_comp = "<instance id=\"Seq"+str(0)+"_$proc\" type=\"Sequence\">\n"
+		self.dump_comp += "<property id=\"Compute\">\n"
+		for comp in range(0,len(self.computations)):
+			if self.computations[comp][1]=="update":
+				self.dump_comp += self.makeSync(comp)
+				self.countSync += 1
+			else:
+				self.dump_comp += self.makeComputation(comp)
+		self.dump_comp += "</property>\n"
+		self.dump_comp += "</instance>\n"
+		self.cppref_comp = "<cppref instance=\"Seq"+str(0)+"_$proc\" property=\"inGo\"/>\n"
 	#-----------------------
 	
 	#-----------------------
@@ -968,7 +1006,7 @@ class CAC_Compiler:
 	#-----------------------
 	# Create a sync component instance in the lad
 	#-----------------------
-	def makeSync(self,labels,node):
+	def makeSync(self,node):
 	#-----------------------
 		out = "<instance id=\"Sync"+str(self.countSync)+"_$proc\" type=\"Sync\">\n"
 		
@@ -987,7 +1025,7 @@ class CAC_Compiler:
 	#-----------------------
 	# Create a computation component instance in the lad
 	#-----------------------
-	def makeComputation(self,labels,node):
+	def makeComputation(self,node):
 	#-----------------------
 		name = self.computations[node][0]
 		duplicate = int(math.fabs((self.duplicatesNew[name]) - self.duplicates[name]))
