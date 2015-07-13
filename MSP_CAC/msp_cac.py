@@ -31,8 +31,8 @@ class CAC_Compiler:
 		self.templateFile = open(tfile,'r')
 		self.dataTempFile = open(dfile,'r')
 		self.nb_proc = 2
-		#self.dump_type = "hybrid"
-		self.dump_type = "data_base"
+		self.dump_type = "hybrid"
+		#self.dump_type = "data_base"
 	#-----------------------
 	
 	#-----------------------
@@ -50,11 +50,11 @@ class CAC_Compiler:
 		# parse the input file
 		print "Read msp file"
 		self.read_dsl()
-		# compute gamma data : separate updates
-		#self.gamma_data() #it seems it does not work for SW entirely
 		# compute gamma data : do not separate updates
 		print "Compute Gamma data"
 		self.gamma_data_seq()
+		# compute gamma data : separate updates
+		#self.gamma_data()
 		
 		if self.dump_type != "data_base":
 			# compute gamma hybrid
@@ -144,36 +144,46 @@ class CAC_Compiler:
 	# O(n^2)
 	# in this version of the function, each needed update is itself a new computation
 	#-----------------------
-	# TODO !!! Same than in gamma_data_seq, if the data has already been updated don't do it again
 	def gamma_data(self):
 	#-----------------------
 		current = 0
 		while current<len(self.computations):
 			toupdate = set()
+			tolink = set()
 			for j in range(current-1,-1,-1):
 				# if the current ith computation is a stencil and if what is read has been written in the jth computation
 				# add w of jth in toupdate
 				if self.computations[current][1]=="stencil" and (self.computations[j][3] in self.computations[current][2]) :
-					toupdate.add(self.computations[j][3])
+					addit = True
+					for i in range(j+1,current-1,1):
+						if self.computations[i][1]=="update" and (self.computations[j][3] in self.computations[i][2]):
+							addit = False
+							tolink.add(self.computations[i][3])
+							break
+					if addit==True:
+						toupdate.add(self.computations[j][3])
 			if len(toupdate)>0:
 				toadd = set()
 				counter = 0
 				for up in toupdate:
 					# fake data is added to the update (written) and the initial computation (read) to keep an order of computation
 					name_wu = "wu_"+self.computations[current][0]+"_"+str(counter)
-					self.computations.insert(current,Computation("upd_"+self.computations[current][0]+"_"+str(counter),"update",set(up),name_wu,""))
+					temp = set()
+					temp.add(up)
+					self.computations.insert(current,Computation("upd_"+self.computations[current][0]+"_"+str(counter),"update",temp,name_wu,""))
 					toadd.add(name_wu)
 					counter = counter+1
 					current = current+1
 				for el in toadd:
 					self.computations[current][2].append(el)
-				current = current+1
-			else :
-				current = current+1
+			if len(tolink)>0:
+				for link in tolink:
+					self.computations[current][2].append(link)		
+			current = current+1
 				
 		##### PRINT
-		#for elem in self.computations:
-			#print elem
+		# for elem in self.computations:
+		# 	print elem
 	#-----------------------
 	
 	#-----------------------
