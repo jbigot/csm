@@ -1,6 +1,7 @@
 #ifndef COMMUNICATIONS_H
 #define COMMUNICATIONS_H
 
+#include "string.h"
 #include "mpi.h"
 
 //!  template communication Class 
