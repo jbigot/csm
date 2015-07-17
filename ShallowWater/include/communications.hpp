@@ -21,7 +21,7 @@ public:
     \param rank is the mpi rank to exchange with
     */
   //-------------------------------------------------------------------------------
-  static void Exchanges(T * toSend, T* toGet,unsigned int size,int rank, MPI_Comm comm)
+  static void Exchanges(T * toSend, T* toGet,unsigned int size,int rank, MPI_Comm comm, int tag)
   //-------------------------------------------------------------------------------
   {
     MPI_Status status;
@@ -29,8 +29,8 @@ public:
 
     //work for every basic types not for complex types
     char * get = new char[size*sizeof(T)];
-    MPI_Sendrecv(reinterpret_cast<char *>(toSend), size*(sizeof(T)), MPI_BYTE,rank,0,
-                    get,size*(sizeof(T)),MPI_BYTE,rank,0,comm/*MPI_COMM_WORLD*/,&status);
+    MPI_Sendrecv(reinterpret_cast<char *>(toSend), size*(sizeof(T)), MPI_BYTE,rank,tag,
+                    get,size*(sizeof(T)),MPI_BYTE,rank,tag,comm/*MPI_COMM_WORLD*/,&status);
     for(int i=0;i<size;i++)
       memcpy(&toGet[i], get+i*sizeof(T), sizeof(T));
     delete [] get;
