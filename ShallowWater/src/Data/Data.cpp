@@ -117,10 +117,8 @@ public:
   {
   	int rank;
   	MPI_Comm_rank(comm,&rank);
-  	//std::cout<<"rank="<<rank<<std::endl;
   	if(rank%2==0)
   	{
-  		//std::cout<<"pair"<<std::endl;
 	    if(tile_y!=0)
 	      {
 	  double * toSend = getUpBorderToSend();
@@ -130,9 +128,7 @@ public:
 	  ss << 0 << rank << neigh[0];
 	  int tag;
 	  ss >> tag;
-	  //std::cout<<"proc "<<rank<<" send up to "<<neigh[0]<<std::endl;
 	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[0],comm,tag);
-	  //std::cout<<"end comm up with tag "<<tag<<std::endl;
 	  setUpBorder(toGet);
 	  delete [] toSend;
 	  delete [] toGet;
@@ -146,9 +142,7 @@ public:
 	  ss << 0 << neigh[2] << rank;
 	  int tag;
 	  ss >> tag;
-	  //std::cout<<"proc "<<rank<<" send down to "<<neigh[2]<<std::endl;
 	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[2],comm,tag);
-	  //std::cout<<"end comm down with tag "<<tag<<std::endl;
 	  setDownBorder(toGet);
 	  delete [] toSend;
 	  delete [] toGet;
@@ -163,9 +157,7 @@ public:
   ss << 1 << rank << neigh[1];
   int tag;
   ss >> tag;
-  //std::cout<<"start comm right with tag"<<tag<<std::endl;
   Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[1],comm,tag);
-  //std::cout<<"end comm right with tag"<<tag<<std::endl;
   setRightBorder(toGet);
   delete [] toSend;
   delete [] toGet;
@@ -179,9 +171,7 @@ public:
   ss << 1 << neigh[3] << rank;
   int tag;
   ss >> tag;
-  //std::cout<<"start comm left with tag"<<tag<<std::endl;
   Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[3],comm,tag);
-  //std::cout<<"end comm left with tag"<<tag<<std::endl;
   setLeftBorder(toGet);
   delete [] toSend;
   delete [] toGet;
@@ -189,7 +179,6 @@ public:
 	  }
 	else
 	  {
-	  	//std::cout<<"impair"<<std::endl;
 	  	if(tile_y!=(nb_tile_y-1))
 	      {          
 	  double * toSend = getDownBorderToSend();
@@ -199,9 +188,7 @@ public:
 	  ss << 0 << neigh[2] << rank;
 	  int tag;
 	  ss >> tag;
-	  //std::cout<<"proc "<<rank<<" send up to "<<neigh[2]<<std::endl;
 	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[2],comm,tag);
-	  //std::cout<<"end comm down with tag "<<tag<<std::endl;
 	  setDownBorder(toGet);
 	  delete [] toSend;
 	  delete [] toGet;
@@ -215,9 +202,7 @@ public:
 	  ss << 0 << rank << neigh[0];
 	  int tag;
 	  ss >> tag;
-	  //std::cout<<"proc "<<rank<<" send down to "<<neigh[0]<<std::endl;
 	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[0],comm,tag);
-	  //std::cout<<"end comm up with tag "<<tag<<std::endl;
 	  setUpBorder(toGet);
 	  delete [] toSend;
 	  delete [] toGet;
@@ -231,9 +216,7 @@ public:
   ss << 1 << neigh[3] << rank;
   int tag;
   ss >> tag;
-  //std::cout<<"start comm left with tag"<<tag<<std::endl;
   Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[3],comm,tag);
-  //std::cout<<"end comm left with tag"<<tag<<std::endl;
   setLeftBorder(toGet);
   delete [] toSend;
   delete [] toGet;
@@ -247,18 +230,14 @@ public:
   ss << 1 << rank << neigh[1];
   int tag;
   ss >> tag;
-  //std::cout<<"start comm right with tag"<<tag<<std::endl;
   Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[1],comm,tag);
-  //std::cout<<"end comm right with tag"<<tag<<std::endl;
   setRightBorder(toGet);
   delete [] toSend;
   delete [] toGet;
       }
 	  }
 
-	//std::cout<<"start barrier for data "<<tagdata<<std::endl;
-    MPI_Barrier(comm);
-    //std::cout<<"end barrier for data "<<tagdata<<std::endl;
+    //MPI_Barrier(comm);
   }
   //-------------------------------------------------------------------------------
   //! start_comm interface

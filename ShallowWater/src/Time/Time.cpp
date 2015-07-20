@@ -28,7 +28,7 @@ public:
     //-----                                                                                                                                                                                              
     for(int i=0;i<iter;i++)
     {
-      std::cout<<"========= ITERATION "<<i<<"==========="<<std::endl;
+      //std::cout<<"========= ITERATION "<<i<<"==========="<<std::endl;
       for(int j=0;j<phase.size();j++)
         phase[j]->go();
     }
