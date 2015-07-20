@@ -54,8 +54,8 @@ public:
     //----- 
     for(int i=0;i<500;i++)
       {
-	dh1->update();
-	dh2->update();
+	// dh1->update();
+	// dh2->update();
 	d1=dh1->getData();
 	d2=dh2->getData();
 

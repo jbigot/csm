@@ -21,9 +21,9 @@ public:
   void go ()
   {
     //cout<<"====START Sync===="<<endl;
-    //cout<<"updates "<<n<<endl; 
+    //cout<<"updates "<<n<<endl;
     for(int i=0;i<data.size();i++)
-      data[i]->update();
+      data[i]->update(i+1);
   }
 
   void dataCompute(Datah * port)

@@ -10,6 +10,7 @@
 #include <inith.h>
 #include <iterator.hpp>
 #include <communications.hpp>
+#include <sstream>
 
 typedef llcmcpp::Go Go;
 
@@ -111,32 +112,52 @@ public:
   //! update interface
   /*! */
   //-------------------------------------------------------------------------------
-  void update ()
+  void update (int tagdata)
   //-------------------------------------------------------------------------------
   {
-    if(tile_y!=0)
-      {
-  double * toSend = getUpBorderToSend();
-  double * toGet = new double[(width-2*border)*border];
-  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[0],comm);
-  setUpBorder(toGet);
-  delete [] toSend;
-  delete [] toGet;
-      }
-    if(tile_y!=(nb_tile_y-1))
-      {          
-  double * toSend = getDownBorderToSend();
-  double * toGet = new double[(width-2*border)*border];
-  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[2],comm);
-  setDownBorder(toGet);
-  delete [] toSend;
-  delete [] toGet;
-      }
-    if(tile_x!=(nb_tile_x-1))
+  	int rank;
+  	MPI_Comm_rank(comm,&rank);
+  	if(rank%2==0)
+  	{
+	    if(tile_y!=0)
+	      {
+	  double * toSend = getUpBorderToSend();
+	  double * toGet = new double[(width-2*border)*border];
+	  std::stringstream ss;
+	  ss << tagdata;
+	  ss << 0 << rank << neigh[0];
+	  int tag;
+	  ss >> tag;
+	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[0],comm,tag);
+	  setUpBorder(toGet);
+	  delete [] toSend;
+	  delete [] toGet;
+	      }
+	    if(tile_y!=(nb_tile_y-1))
+	      {          
+	  double * toSend = getDownBorderToSend();
+	  double * toGet = new double[(width-2*border)*border];
+	  std::stringstream ss;
+	  ss << tagdata;
+	  ss << 0 << neigh[2] << rank;
+	  int tag;
+	  ss >> tag;
+	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[2],comm,tag);
+	  setDownBorder(toGet);
+	  delete [] toSend;
+	  delete [] toGet;
+	      }
+
+	    if(tile_x!=(nb_tile_x-1))
       {  
   double * toSend = getRightBorderToSend();
   double * toGet = new double[(height-2*border)*border];
-  Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[1],comm);
+  std::stringstream ss;
+  ss << tagdata;
+  ss << 1 << rank << neigh[1];
+  int tag;
+  ss >> tag;
+  Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[1],comm,tag);
   setRightBorder(toGet);
   delete [] toSend;
   delete [] toGet;
@@ -145,11 +166,78 @@ public:
       {
   double * toSend = getLeftBorderToSend();
   double * toGet = new double[(height-2*border)*border];
-  Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[3],comm);
+  std::stringstream ss;
+  ss << tagdata;
+  ss << 1 << neigh[3] << rank;
+  int tag;
+  ss >> tag;
+  Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[3],comm,tag);
   setLeftBorder(toGet);
   delete [] toSend;
   delete [] toGet;
       }
+	  }
+	else
+	  {
+	  	if(tile_y!=(nb_tile_y-1))
+	      {          
+	  double * toSend = getDownBorderToSend();
+	  double * toGet = new double[(width-2*border)*border];
+	  std::stringstream ss;
+	  ss << tagdata;
+	  ss << 0 << neigh[2] << rank;
+	  int tag;
+	  ss >> tag;
+	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[2],comm,tag);
+	  setDownBorder(toGet);
+	  delete [] toSend;
+	  delete [] toGet;
+	      }
+	      if(tile_y!=0)
+	      {
+	  double * toSend = getUpBorderToSend();
+	  double * toGet = new double[(width-2*border)*border];
+	  std::stringstream ss;
+	  ss << tagdata;
+	  ss << 0 << rank << neigh[0];
+	  int tag;
+	  ss >> tag;
+	  Communications<double>::Exchanges(toSend,toGet,(width-2*border)*border,neigh[0],comm,tag);
+	  setUpBorder(toGet);
+	  delete [] toSend;
+	  delete [] toGet;
+	      }
+	      if(tile_x!=0)
+      {
+  double * toSend = getLeftBorderToSend();
+  double * toGet = new double[(height-2*border)*border];
+  std::stringstream ss;
+  ss << tagdata;
+  ss << 1 << neigh[3] << rank;
+  int tag;
+  ss >> tag;
+  Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[3],comm,tag);
+  setLeftBorder(toGet);
+  delete [] toSend;
+  delete [] toGet;
+      }
+      if(tile_x!=(nb_tile_x-1))
+      {  
+  double * toSend = getRightBorderToSend();
+  double * toGet = new double[(height-2*border)*border];
+  std::stringstream ss;
+  ss << tagdata;
+  ss << 1 << rank << neigh[1];
+  int tag;
+  ss >> tag;
+  Communications<double>::Exchanges(toSend,toGet,(height-2*border)*border,neigh[1],comm,tag);
+  setRightBorder(toGet);
+  delete [] toSend;
+  delete [] toGet;
+      }
+	  }
+
+    //MPI_Barrier(comm);
   }
   //-------------------------------------------------------------------------------
   //! start_comm interface
