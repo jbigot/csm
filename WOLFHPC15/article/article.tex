@@ -1,0 +1,116 @@
+\documentclass{acm_proc_article-sp}
+\usepackage{tikz}
+\usepackage{listings}
+%----------TIKZ
+\usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
+
+\tikzset{
+    use/.style={
+    circle,draw=black,fill=black,scale=0.5,text=white
+    },
+    provide/.style={
+    circle,draw=black,fill=white,scale=0.5
+    },
+    component/.style={
+    rectangle,rounded corners=3pt,draw=black
+    },
+    dcomponent/.style={
+    rectangle,rounded corners=3pt,dashed,draw=black
+    },
+    smallcp/.style={
+    rectangle,rounded corners=3pt,draw=black,font=\tiny,
+    },
+    resource/.style={
+    rectangle,rounded corners=3pt, dashed,draw=black,font=\tiny,
+    },
+    connection/.style={
+    decoration={ markings,
+      mark=at position 1 with {\node[fill=black,draw=black,circle,inner sep=2pt](conn){};}
+      },
+    postaction={decorate}
+    },
+    bconnection/.style={
+    decoration={ markings,
+      mark=at position 1 with {\node[fill=black,draw=black,circle,inner sep=2pt](conn){};}
+      },
+    postaction={decorate}
+    },
+    mpiconn/.style={
+    decoration={ markings,
+      mark=at position 0.99 with {\node[fill=black,draw=black,rectangle,,inner sep=2pt](mpi){};}
+      },
+    postaction={decorate}
+    },
+}
+%-------------
+
+\begin{document}
+
+\title{A component-based DSL for multi-stencil programs}
+
+\numberofauthors{2} 
+\author{
+% 1st. author
+\alignauthor
+Christian Perez\\
+       \affaddr{INRIA}\\
+       \affaddr{ENS Lyon, 46 Allee d'Italie}\\
+       \affaddr{Lyon, France}\\
+       \email{christian.perez@inria.fr}
+% 2nd. author
+\alignauthor
+Helene Coullon\\
+       \affaddr{INRIA}\\
+       \affaddr{ENS Lyon, 46 Allee d'Italie}\\
+       \affaddr{Lyon, France}\\
+       \email{helene.coullon@inria.fr}
+}
+
+\maketitle
+
+%----------------------------------------
+\begin{abstract}
+
+\end{abstract}
+%----------------------------------------
+
+\keywords{Component models, domain specific languages, multi-stencil, numerical simulations} % NOT required for Proceedings
+
+%----------------------------------------
+\section{Introduction}
+\label{sect:intro}
+\input{introduction.tex}
+%----------------------------------------
+\section{Underlying concepts}
+\label{sect:concept}
+\input{concept.tex}
+%----------------------------------------
+\section{The Multi-Stencil Component Assembly Compiler}
+\label{sect:mscac}
+\input{mscac.tex}
+%----------------------------------------
+\section{MS Language and MSC compiler}
+\label{sect:msmsc}
+\input{ms_msc.tex}
+%----------------------------------------
+\section{Control components and component assembly}
+\label{sect:component}
+\input{component.tex}
+%----------------------------------------
+\section{Evaluation}
+\label{sect:eval}
+\input{evaluation.tex}
+%----------------------------------------
+\section{Related Work}
+\label{sect:related}
+\input{related.tex}
+%----------------------------------------
+\section{Conclusion}
+\label{sect:conclusion}
+\input{conclusion.tex}
+%----------------------------------------
+
+\bibliographystyle{abbrv}
+\bibliography{biblio}  
+
+\end{document}

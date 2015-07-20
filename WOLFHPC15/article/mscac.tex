@@ -1,0 +1,38 @@
+The MS language (MSL) is an agnostic descriptive language for multi-stencil simulations. Agnostic in our context means that without any knowledge on the mesh type and the neighborhood description of stencil computations, the language consists in data and computations descriptions. From this agnostic and descriptive language can be compiled the structure of the parallel simulation in two ways:
+\begin{itemize}
+\item data parallelism;
+\item hybrid (data and task) parallelism.
+\end{itemize}
+
+As illustrated in Figure~\ref{fig:mscac}, the MS language compiler, called MSCAC for \emph{Multi-Stencil Component Assembly Compiler}, is composed of two different part:
+ \begin{itemize}
+\item first, the computation compiler, called MSC, which is responsible for the extraction of the computations parallelization;
+\item second, the data compiler, called MSD, which handles a distributed data structure, data mapped onto it, and their relation with the computation part of the final program.
+\end{itemize}
+
+MSCAC produces from the MSL source file the structure of the parallel simulation as a component assembly. Thus, the coarse-grain parallelization of the simulation is produced. In this final component assembly, an additionnal work is asked to the user: write computation components, using interfaces of the distributed data structure choosen by MSD. Thus, this work is complementary to stencil compilers or to distributed data structure solutions. Actually, it produces a ready-to-fill parallel structure pattern of the simulation.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[remember picture,
+  inner/.style={rectangle,rounded corners=3pt,thick,inner sep=5pt},
+  outer/.style={rectangle,rounded corners=3pt,thick,inner sep=5pt}
+  ]
+  \node (MSL) {MS Language};
+  \node[outer,below=of MSL,draw=black] (MSCAC) {
+    \begin{tikzpicture}
+      \node [inner,draw=black,thick] (MSC)  {MSC};
+      \node [inner,right=of MSC,draw=black,thick,,fill=gray!30!white,dotted] (MSD)  {MSD};
+    \end{tikzpicture}
+  };
+  \node [below=of MSCAC] (CA) {Component Assembly};
+  \node [left=0.1 of MSCAC] (CAid) {MSCAC};
+  \draw[->] (MSL) -- (MSCAC);
+  \draw[->] (MSCAC) -- (CA);
+\end{tikzpicture}
+\caption{MS Language and MSCAC compiler}
+\label{fig:mscac}
+\end{center}
+\end{figure}
+
+This paper presents the MS language and the MSC part of the compiler. The evaluation part will shortly explain how the MSD part of the compiler has been acheived for this paper.

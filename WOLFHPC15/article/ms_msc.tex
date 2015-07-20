@@ -1,0 +1,152 @@
+%----------------------------------------
+\subsection{MS language}
+%----------------------------------------
+The MS language (MSL) is an agnostic descriptive language for multi-stencil simulations. Agnostic means that no knowledge on the mesh type and the neighborhood description of stencil computations are needed in the language. As the language consists in a description of the simulation, without any computation details and programming details, and as no computation is directly done from the language, this language is also called a descriptive language. It is composed of five description sections:
+\begin{enumerate}
+\item meshes description;
+\item domains description;
+\item data description;
+\item time loop description;
+\item computations description.
+\end{enumerate}
+
+This paper deals with the MSC compiler which only needs the three last enumerations above. For this reason we describe in the rest of this section MSL for data, time loop and computations descriptions.
+
+\paragraph{Data description} Data description starts with the tag $data:$. Each line after this tag represents a single data description. This description is composed of an identification name, and the domain identification name it is applied on.
+
+\begin{lstlisting}[basicstyle=\footnotesize,mathescape,frame=single,language=C++]
+data:
+  name_id,domain_id
+\end{lstlisting}
+
+\paragraph{Time description} The time of a numerical simulation consists in a set of iterations. The end of the simulation time can be controlled by a convergence function or by a manual configuration of the number of iteration. In this first version of MSL, the iteration number is handled.
+
+\begin{lstlisting}[basicstyle=\footnotesize,mathescape,frame=single,language=C++]
+time:nb_iteration
+\end{lstlisting}
+
+\paragraph{Computations description} The most important part of MSL is the description of the computations of the simulation. The language follows the definitions given in Section~\ref{sect:multistencil}. Thus, the description of a computation consists of a type of computation, an identification name of the computation, a set of identifiers for the data read by the computation, a single identifier for the data written by the computation. Moreover, if the type of computation is a stencil, a neighborhood identifier is needed.
+
+\begin{lstlisting}[basicstyle=\footnotesize,mathescape,frame=single,language=C++]
+computations:
+  type:name_id({read1_id,read2_id,...},
+ 	    written_id[,neighborhood_id])
+\end{lstlisting}
+
+%----------------------------------------
+\subsection{MSC compiler}
+%----------------------------------------
+The MSC compiler, which is a subpart of the overall compiler MSCAC, performs an algorithm composed of six main steps described bellow:
+
+\begin{enumerate}
+\item creation of $\Gamma$, the ordered list of computations, from the MSL input file;
+\item creation of $\Gamma_{data}$ to insert synchronizations in the ordered list of computations;
+\item creation of the dependency graph $\Gamma_{hybrid}$;
+\item transform $\Gamma_{hybrid}$ to a minimal series-parallel graph $\Gamma_{msp}$;
+\item creation of the series-parallel tree decomposition $\Gamma_{tsp}$;
+\item dump $\Gamma_{tsp}$ to a component assembly.
+\end{enumerate}
+
+\paragraph{Creation of the ordered list of computations} This step of the MSC compiler parse the MSL input file which describes the simulation. From the ordered lines of computations, it builds the ordered list of computations $\Gamma$ to perform in the simulation.
+
+\paragraph{Creation of the synchronized ordered list of computations} From the ordered list of computations $\Gamma$ it is possible to detect needed synchronizations if a \emph{data parallelization} \textbf{(PB: to explain !!!)} is performed on the simulation. A synchronization is needed each time a data read by a stencil computation has been written by a previous computation different from a boundary computation. Actually, as a stencil computation needs neighborhood values, in a domain decomposition values computed by different processors or cores are needed.
+
+\paragraph{Creation of the dependency graph} From the synchronized ordered list of computations $\Gamma_{data}$, a dependency graph can be build. A dependency exists between two computations (including synchronizations) if and only if a data read has been written by a previous computation in $\Gamma_{data}$. Nodes of the dependency graph are computations and synchronizations, while edges are dependencies between them. $\Gamma_{hybrid}$ is a directed acyclic graph (\emph{dag}) as it is build from an ordered list.
+
+\paragraph{Transformation to a minimal series-parallel graph} As it has been shown in~\cite{Valdes:1979:RSP:800135.804393}, the transitive reduction of a dag is a minimal series-parallel graph if and only if the forbidden \emph{N-shape} is not found in the graph. To transform $\Gamma_{hybrid}$ to the minimal series-parallel graph $\Gamma_{msp}$, a BFS algorithm is applied to build a complete bipartite between two levels of $\Gamma_{hybrid}$~\cite{Mitchell:2004:CMV:1082101.1082117}.
+
+\paragraph{Creation of a tree decomposition} As shown in different works~\cite{Valdes:1979:RSP:800135.804393,Schoenmakers95anew}, from a minimal series-parallel graph a tree decomposition can be built. A series-parallel tree decomposition consists in the decomposition of the graph as a set of \emph{sequences} and \emph{parallel} sections in a tree. 
+
+\paragraph{Dump to a component assembly} From the series-parallel tree decomposition $\Gamma_{tsp}$ can be built a program using any parallel language containing \emph{parallel sections} and \emph{sequences of instructions} such as OpenMP~\cite{660313}, HPF~\cite{219857}, UPC~\cite{El-Ghazawi:2006:UUP:1188455.1188483} etc. In this paper we study the dump of $\Gamma_{tsp}$ to a component assembly which needs the introduction of \emph{control components} described in the next section.
+
+For more details on MSC, a full description of the compilation is described in~\cite{}.
+
+%----------------------------------------
+\subsection{Example}
+%----------------------------------------
+In this Section we give an example of an input file written with MSL, the $\Gamma_{tsp}$ series-parallel tree decomposition computed and the final component dump.
+
+The input MSL file, shown in Figure~\ref{fig:msinput} is composed of nine computations and ten data.
+
+\begin{figure}[h!]
+\begin{lstlisting}[basicstyle=\footnotesize,mathescape,frame=single,language=C++]
+data:
+  a,d1
+  b,d1
+  c,d2
+  d,d2
+  e,d3
+  f,d1
+  g,d3
+  h,d2
+  i,d1
+  j,d2
+time:500
+computations:
+  local:c0({a},b)
+  stencil:c1({b},c,n1)
+  local:c2({c},d)
+  local:c3({c},e)
+  stencil:c4({d},f)
+  local:c5({e},g)
+  local:c6({f},h)
+  local:c7({g,h},i)
+  stencil:c8({i},j,n1)
+\end{lstlisting}
+\caption{Example of MSL input file}
+\label{fig:msinput}
+\end{figure}
+
+The first step of the compilation is to build the synchronized ordered list of computations $\Gamma_{data}$. In this example each stencil computation actually needs a synchronization. For example, the stencil computation $c_1$ read the data $b$ which has been written by the computation $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed to the sublist $[c_0,sync_1,c_1]$ in $\Gamma_{data}$. The new computation $sync_1$ read and write $b$. As a result a dependency is kept between $sync_1$, and $c_1$. The same is performed for the stencils $c_4$ and $c_8$.
+
+Once the synchronized list $\Gamma_{data}$ is obtained, the dependency graph $\Gamma_{hybrid}$ is built and illustrated in Figure~\ref{}. Each computation (and synchronization) is a node of the graph, while each edge represent a read/write data dependency between computations.
+
+After a set of transformation briefly explained in the previous Section, a series-parallel tree decomposition $\Gamma_{tsp}$ is obtained and illustrated in Figure~\ref{fig:canon}.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (s0) at (0,0) {$\mathcal{S}$};
+   \node[] (c0) at (-3,1) {$c_0$};
+   \node[] (star1) at (-2,1) {$sync_1$};
+   \node[] (c1) at (-1,1) {$c_1^*$};
+
+   \node[] (p0) at (0,1) {$\mathcal{P}$};
+   \node[] (s1) at (-1,2) {$\mathcal{S}$};
+   \node[] (p1) at (-2,3) {$\mathcal{P}$};
+   \node[] (c4) at (-1,3) {$c_4^*$};
+   \node[] (c6) at (-0,3) {$c_6$};
+   \node[] (c2) at (-2.5,4) {$c_2$};
+   \node[] (star4) at (-1.5,4) {$sync_4$};
+   \node[] (s2) at (1,2) {$\mathcal{S}$};
+   \node[] (c3) at (0.5,3) {$c_3$};
+   \node[] (c5) at (1.5,3) {$c_5$};
+
+   \node[] (c7) at (1,1) {$c_7$};
+   \node[] (star8) at (2,1) {$sync_8$};
+   \node[] (c8) at (3,1) {$c_8^*$};
+ 
+  \path[->]
+    (s0) edge node {} (c0)
+         edge node {} (star1)
+         edge node {} (c1)
+         edge node {} (p0)
+         edge node {} (c7)
+         edge node {} (star8)
+         edge node {} (c8)
+    (p0) edge node {} (s1)
+         edge node {} (s2)
+    (s1) edge node {} (p1)
+         edge node {} (c4)
+         edge node {} (c6)
+    (p1) edge node {} (c2)
+         edge node {} (star4)
+    (s2) edge node {} (c3)
+         edge node {} (c5);
+  \end{tikzpicture}
+\caption{$\Gamma_{tsp}$ of Figure~\ref{fig:msinput}.}
+\label{fig:canon}
+\end{center}
+\end{figure}
+
+
