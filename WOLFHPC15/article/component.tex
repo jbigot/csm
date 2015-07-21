@@ -11,7 +11,7 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ represents the control of 
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {$m$};
  
-  \path[->]
+  \path[-]
     (p) edge node {} (seq)
     (seq) edge node {} (u);
 \end{tikzpicture}
@@ -23,7 +23,7 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ represents the control of 
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {$m$};
  
-  \path[->]
+  \path[-]
     (p) edge node {} (seq)
     (seq) edge node {} (u);
 \end{tikzpicture}
@@ -35,7 +35,7 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ represents the control of 
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
  
-  \path[->]
+  \path[-]
     (p) edge node {} (sync)
     (sync) edge node {} (u);
 \end{tikzpicture}
@@ -49,7 +49,7 @@ In the computation part of the simulation a final component is needed, the compu
    \node[use] (u) at (1.5,0) {};
    \node[right=0.2 of u] (star) {*};
  
-  \path[->]
+  \path[-]
     (p) edge node {} (k)
     (k) edge node {} (u);
 \end{tikzpicture}
@@ -62,7 +62,7 @@ From $\Gamma_{tsp}$ and using the control components described above, a direct d
 
 As an example, from $\Gamma_{tsp}$ illustrated in Figure~\ref{fig:canon} a direct dump example is illustrated in Figure~\ref{fig:assembly}. In this Figure, the ports linked to data (ports of SYNC and K components) are represented but not their connections. Moreover, each computation component is an instance of the component K presented before but takes the identification name of the computation in the MSL file.
 
-\begin{figure*}[h!]
+\begin{figure*}
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    %seq0
@@ -127,7 +127,7 @@ As an example, from $\Gamma_{tsp}$ illustrated in Figure~\ref{fig:canon} a direc
    \node[use] (c8u) [right = 0.8cm of c8] {};
    \node[right=0.2 of c8u] (star) {*};
 
-   \path[->]
+   \path[-]
    %seq0
     (seq0) edge node {} (seq0u)
     (seq0p) edge node {} (seq0)

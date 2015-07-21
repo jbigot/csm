@@ -99,7 +99,42 @@ computations:
 
 The first step of the compilation is to build the synchronized ordered list of computations $\Gamma_{data}$. In this example each stencil computation actually needs a synchronization. For example, the stencil computation $c_1$ read the data $b$ which has been written by the computation $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed to the sublist $[c_0,sync_1,c_1]$ in $\Gamma_{data}$. The new computation $sync_1$ read and write $b$. As a result a dependency is kept between $sync_1$, and $c_1$. The same is performed for the stencils $c_4$ and $c_8$.
 
-Once the synchronized list $\Gamma_{data}$ is obtained, the dependency graph $\Gamma_{hybrid}$ is built and illustrated in Figure~\ref{}. Each computation (and synchronization) is a node of the graph, while each edge represent a read/write data dependency between computations.
+Once the synchronized list $\Gamma_{data}$ is obtained, the dependency graph $\Gamma_{hybrid}$ is built and illustrated in Figure~\ref{fig:hyb}. Each computation (and synchronization) is a node of the graph, while each edge represent a read/write data dependency between computations.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node (c0) at (0,0) {$c_0$};
+   \node[right=1 of c0] (sy1) {$sync_1$};
+   \node[right=1 of sy1] (c1) {$c_1$};
+   \node[above right=1 of c1] (c2) {$c_2$};
+   \node[below right=1 of c1] (c3) {$c_3$};
+   \node[right=1 of c2] (sy4) {$sync_4$};
+   \node[right=1 of c3] (c5) {$c_5$};
+   \node[right=1 of sy4] (c4) {$c_4$};
+   \node[right=1 of c4] (c6) {$c_6$};
+   \node[below right=1 of c6] (c7) {$c_7$};
+   \node[right=1 of c7] (sy8) {$sync_8$};
+   \node[right=1 of sy8] (c8) {$c_8$};
+ 
+  \path[->]
+    (c0) edge node {} (sy1)
+    (sy1) edge node {} (c1)
+    (c1)  edge node {} (c2)
+          edge node {} (c3)
+    (c2) edge node {} (sy4)
+    (sy4) edge node {} (c4)
+    (c4) edge node {} (c6)
+    (c3) edge node {} (c5)
+    (c5) edge node {} (c7)
+    (c6) edge node {} (c7)
+    (c7) edge node {} (sy8)
+    (sy8) edge node {} (c8);
+\end{tikzpicture}
+\caption{$\Gamma_{hybrid}$ of Figure~\ref{fig:msinput}}
+\label{fig:hyb}
+\end{center}
+\end{figure}
 
 After a set of transformation briefly explained in the previous Section, a series-parallel tree decomposition $\Gamma_{tsp}$ is obtained and illustrated in Figure~\ref{fig:canon}.
 
@@ -144,7 +179,7 @@ After a set of transformation briefly explained in the previous Section, a serie
     (s2) edge node {} (c3)
          edge node {} (c5);
   \end{tikzpicture}
-\caption{$\Gamma_{tsp}$ of Figure~\ref{fig:msinput}.}
+\caption{$\Gamma_{tsp}$ of Figure~\ref{fig:hyb}.}
 \label{fig:canon}
 \end{center}
 \end{figure}
