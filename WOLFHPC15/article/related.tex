@@ -6,6 +6,8 @@ Many solutions exists to ease parallel programming of stencil codes, as for exam
 
 However, a real case numerical simulation is not composed of a single stencil code as explained in Section~\ref{sect:multistencil}. A multi-stencil simulation computes more than one stencil computation, involving one or more stencil shapes, and additionnal local coputations. Solutions like Pochoir or PATUS handle the parallelization or the optimization of a single stencil code, considering that stencil codes represent the main computation time of numerical simulations. However, not taking into account the parallelization of the overall numerical simulation implies that those compilers are reduced to shared memory systems. Actually using a distributed memory system, the MPI (Message Passing Interface)~\cite{Graham2009MSE} library still have to be used by the user, as well as the distribution of the mesh onto the different distant processors.
 
+On the other hand, the work presented in this paper does not propose to optimize and parallelize a single stencil code for shared memory machines, GPGPUs or many-core architectures. The MS language and the MSC compiler produce a coarse-grain parallel structure of the overall simulation which could be combined to existing stencil compilers.
+
 %----------------------------------------
 \subsection{Component models and control}
 %----------------------------------------
