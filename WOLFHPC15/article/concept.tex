@@ -1,21 +1,23 @@
 %----------------------------------------
-\subsection{Multi-stencil programs}
-\label{sect:multistencil}
+\subsection{Stencil codes}
+\label{sect:stencil}
 %----------------------------------------
 To numerically solve a set of PDEs, iterative methods (finite difference, finite volume or finite element methods) are frequently used to approximate the solution through a discretized (step by step) phenomena. Thus, the continuous time and space domains are discretized so that a set of numerical computations are iteratively (time discretization) applied onto a mesh (space discretization). In other words, in a mesh-based numerical simulation, the PDEs are transformed to a set of numerical computations applied at each time step on all elements of the discretized space domain (the mesh). Among those numerical computations is found a set of numerical schemes, also called \textit{stencil computations}~\cite{spaaTangCKLL11}. 
 
-If $x$ represents an element of the mesh, if $N(x)$ is a neighborhood shape around the element $x$, and if $u_t(x)$ is the data (or quantity) to write. Moreover if $V_t(x)$ is the set of data to simulate such that $V_t(x) \cap u_t(x) = \emptyset$, a stencil computation is of the following form
-
-\begin{equation} 
-\{u_{t-1}(x), u_{t-1}(N(x)), V_t(x), V_t(N(x)\} \longmapsto u_{t}(x).
-\label{space}
-\end{equation}
+\begin{figure}[!h]\begin{center}
+  \resizebox{9cm}{!}{\includegraphics{./images/stencil.pdf}}
+  \caption{Example of a stencil computation.}
+  \label{fig:ex}
+\end{center}\end{figure}
 
 In other words, in a stencil computation the quantity written can be computed using the same quantity at a previous time iteration at $x$ and at $N(x)$. And, any other quantity can also be used in the computation at $x$ and $N(x)$.
 
+%----------------------------------------
+\subsection{Multi-stencil programs}
+\label{sect:multistencil}
+%----------------------------------------
 A real case numerical simulation is most of the time composed of a set of numerical schemes (stencils computations), with one or more stencil shape (neighboorhood shape), and onto one or more data. Moreover, a numerical simulation also performs additionnal auxiliary computations which do not involve neighborhood, called local computations. In this paper we target this kind of complex simulations with more than one stencil computation and also additionnal auxiliary computations, that we call \emph{multi-stencil programs}. The work presented produces a general parallelization structure of the overall simulation, while most stencil solutions produce optimized codes for a single stencil code~\cite{citeulike12258902, spaaTangCKLL11, Giles2011}. As it will be detailed in the related work, this work is complementary to most stencil compilers and implicit parallelism languages.
 
-\textbf{Do I need the following definitions?}
 \begin{mydef}
 A \textit{stencil computation} is defined as a quadruplet $s(R,w,\text{exp},\mathcal{N})$,
 \end{mydef}
@@ -24,6 +26,11 @@ where $R$ is the set of data read by the computation, $w$ is the data written by
 \begin{mydef}
 A local computation is a triplet $l(R,w,\text{exp})$, where $exp$ does not involve a neighborhood function $\mathcal{N}$.
 \end{mydef}
+
+A multi-stencil program in this work is defined as a sextuplet
+\begin{equation*} 
+\mathcal{MSP}(T,\mathcal{M},\mathcal{D}_m,\mathcal{D}_c,\Delta,\Gamma)
+\end{equation*}
 
 %----------------------------------------
 \subsection{Parallelization techniques}
