@@ -1,6 +1,8 @@
 \documentclass{acm_proc_article-sp}
 \usepackage{tikz}
 \usepackage{listings}
+\usepackage{url}
+\usepackage{cite}
 %----------TIKZ
 \usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
 
@@ -48,7 +50,8 @@
 
 \begin{document}
 
-\title{A component-based DSL for multi-stencil programs}
+\title{From DSL to HPC Component Models}
+\subtitle{A Multi-Stencil DSL case study}
 
 \numberofauthors{2} 
 \author{
@@ -87,7 +90,7 @@ Helene Coullon\\
 \label{sect:concept}
 \input{concept.tex}
 %----------------------------------------
-\section{The Multi-Stencil Component Assembly Compiler}
+\section{An overview of the solution}
 \label{sect:mscac}
 \input{mscac.tex}
 %----------------------------------------

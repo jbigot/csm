@@ -1,36 +1,95 @@
 %----------------------------------------
 \subsection{MS language}
 %----------------------------------------
-The MS language (MSL) is an agnostic descriptive language for multi-stencil simulations. Agnostic means that no knowledge on the mesh type and the neighborhood description of stencil computations are needed in the language. As the language consists in a description of the simulation, without any computation details and programming details, and as no computation is directly done from the language, this language is also called a descriptive language. It is composed of five description sections:
-\begin{enumerate}
-\item meshes description;
-\item domains description;
-\item data description;
-\item time loop description;
-\item computations description.
-\end{enumerate}
+The MS language (MSL) is an agnostic descriptive language for multi-stencil simulations. MSL follows the definition of a multi-stencil program~(\ref{eq:msp}), and of stencil and local computations~(\ref{eq:st}) and~(\ref{eq:loc}). Thus, it is composed of six sections: the mesh description; the mesh domains description; the computation domains description; the data description; the time loop description; and finally, the computations description.
 
-This paper deals with the MSC compiler which only needs the three last enumerations above. For this reason we describe in the rest of this section MSL for data, time loop and computations descriptions.
+The overall grammar of a MSL program is given in Figure~\ref{fig:grammar}, where the terminals $meshid$, $meshdom$, $compdomid$, $dataid$, $compid$ are string identifiers, and $num$ is an integer value. An example is then given to explain each section.
 
-\paragraph{Data description} Data description starts with the tag $data:$. Each line after this tag represents a single data description. This description is composed of an identification name, and the domain identification name it is applied on.
+\begin{figure}[h!]
+\begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
+program ::= "mesh:" meshid 
+            "mesh domains:" listmeshdom
+            "computation domains:" 
+                       listcompdom
+            "intersections:"
+                       listintersection
+            "data:" listdata
+            "time:" iteration
+            "computations:" listcomp
+listmeshdom ::= meshdom listmeshdom
+             |  meshdom
+listcompdom ::= compdom listcompdom
+             |  compdom
+compdom ::= compdomid "in" listmeshdom
+listintersection ::= inter listintersections
+                  |  inter
+inter ::= compdomid and compdomid
+listdata ::= data listdata
+          |  data
+data ::= dataid "," meshdom
+iteration ::= num
+listcomp ::= comp listcomp
+          |  comp
+comp ::= comptype ":" compid "=({" 
+            listdataid "}," dataid 
+            "," compdomid ")"
+listdataid ::= dataid listdataid
+            |  dataid
+comptype ::= "stencil"
+      |  "local"
+      |  "bound"
+\end{lstlisting}
+\caption{Grammar of the MS language}
+\label{fig:grammar}
+\end{figure}
 
-\begin{lstlisting}[basicstyle=\footnotesize,mathescape,frame=single,language=C++]
+\paragraph{Mesh and mesh domains} A mesh is defined by a string identifier. As already explain, this work is for now limited to a single mesh. Each mesh domain is also represented by a string identifier. For example
+\begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
+mesh: cart
+mesh domains: cell,edgex,edgey
+\end{lstlisting}
+
+\paragraph{Computation domains} A computation domain can be seen as a subpart of a meh domain which will be used during computation phase. For each computation domain is indicated the mesh domain identifier from which it is built. After definitions of computation domains, the intersections between those are given. For example
+\begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
+computation domains:
+  allcell in cell
+  alledgex in edgex
+  alledgey in edgey
+  partedgex in edgex
+interactions:
+  alledgex and partedgex
+\end{lstlisting}
+In this example, an entire computation domain is defined for each mesh domain, and additionnally a part of the mesh domain edgex is defined. As a result computation domains alledgex and partedgex intersect.
+
+\paragraph{Data and time} A data is a quantity to simulate and is mapped onto a mesh domain. The time section simply indicates a number of iterations to perform in the simulation. For example:
+\begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 data:
-  name_id,domain_id
+  a,cell
+  b,cell
+  c,edgex
+  d,edgex
+  e,edgey
+  f,cell
+  g,edgey
+  h,edgex
+  i,cell
+  j,edgex
+time:500
 \end{lstlisting}
 
-\paragraph{Time description} The time of a numerical simulation consists in a set of iterations. The end of the simulation time can be controlled by a convergence function or by a manual configuration of the number of iteration. In this first version of MSL, the iteration number is handled.
-
-\begin{lstlisting}[basicstyle=\footnotesize,mathescape,frame=single,language=C++]
-time:nb_iteration
-\end{lstlisting}
-
-\paragraph{Computations description} The most important part of MSL is the description of the computations of the simulation. The language follows the definitions given in Section~\ref{sect:multistencil}. Thus, the description of a computation consists of a type of computation, an identification name of the computation, a set of identifiers for the data read by the computation, a single identifier for the data written by the computation. Moreover, if the type of computation is a stencil, a neighborhood identifier is needed.
-
-\begin{lstlisting}[basicstyle=\footnotesize,mathescape,frame=single,language=C++]
+\paragraph{Computations description} The most important part of MSL is the description of the computations of the simulation. The language follows the definitions given in Section~\ref{sect:multistencil}, however as MSL is not made to express numerical computations, the element $exp$ of the definition is not given in the language. Moreover, an additionnal information is asked to the user, the type of computation. A computation can be \emph{stencil}, \emph{local} or \emph{bound}. \textbf{OU INTRODUIRE bound et refs?}
+Thus, the description of a computation consists of a type of computation, an identification name of the computation, a set of identifiers for the data read by the computation, a single identifier for the data written by the computation. Moreover, if the type of computation is a stencil, a neighborhood identifier is needed.
+\begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 computations:
-  type:name_id({read1_id,read2_id,...},
- 	    written_id[,neighborhood_id])
+  local:c0({a},b)
+  stencil:c1({b},c,n1)
+  local:c2({c},d)
+  local:c3({c},e)
+  stencil:c4({d},f)
+  local:c5({e},g)
+  local:c6({f},h)
+  local:c7({g,h},i)
+  stencil:c8({i},j,n1)
 \end{lstlisting}
 
 %----------------------------------------
@@ -40,9 +99,9 @@ The MSC compiler, which is a subpart of the overall compiler MSCAC, performs an 
 
 \begin{enumerate}
 \item creation of $\Gamma$, the ordered list of computations, from the MSL input file;
-\item creation of $\Gamma_{data}$ to insert synchronizations in the ordered list of computations;
+\item creation of $\Gamma_{data}$ the ordered list of computations including synchronizations;
 \item creation of the dependency graph $\Gamma_{hybrid}$;
-\item transform $\Gamma_{hybrid}$ to a minimal series-parallel graph $\Gamma_{msp}$;
+\item transformation of $\Gamma_{hybrid}$ to a minimal series-parallel graph $\Gamma_{msp}$;
 \item creation of the series-parallel tree decomposition $\Gamma_{tsp}$;
 \item dump $\Gamma_{tsp}$ to a component assembly.
 \end{enumerate}
