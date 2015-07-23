@@ -2,41 +2,58 @@
 \subsection{Stencil codes}
 \label{sect:stencil}
 %----------------------------------------
-To numerically solve a set of PDEs, iterative methods (finite difference, finite volume or finite element methods) are frequently used to approximate the solution through a discretized (step by step) phenomena. Thus, the continuous time and space domains are discretized so that a set of numerical computations are iteratively (time discretization) applied onto a mesh (space discretization). In other words, in a mesh-based numerical simulation, the PDEs are transformed to a set of numerical computations applied at each time step on all elements of the discretized space domain (the mesh). Among those numerical computations is found a set of numerical schemes, also called \textit{stencil computations}~\cite{spaaTangCKLL11}. 
+To numerically solve a set of PDEs, iterative methods (finite difference, finite volume, finite element methods etc.) are frequently used to approximate the solution through a discretized (step by step) phenomena. Thus, the continuous time and space domains are discretized so that a set of numerical computations are iteratively (time discretization) applied onto a mesh (space discretization). In other words, in a mesh-based numerical simulation, the PDEs are transformed to a set of numerical computations applied at each time step on elements of the discretized space domain (the mesh). Among those numerical computations is found a set of numerical schemes, also called \textit{stencil computations}~\cite{spaaTangCKLL11}. To ease programming of such stencil computations, and because of the relative simplicity of such a computation, many solutions (languages or libraries) propose an easy way to describe the stencil code, while producing transparently an optimized and parallelized stencil code. For example, Liszt~\cite{DeVito2011LDS} and OP2~\cite{Giles2011} are domain specific languages to define a stencil code on unstructured meshes, while Pochoir~\cite{spaaTangCKLL11} and PATUS~\cite{citeulike12258902} address structured meshes, proposing an optimized cache tiling technique in one case, and a separated parallelization strategy in the other case.
+
+Figure~\ref{fig:ex} gives two examples of stencil computations and introduce the different concepts used in this paper. First, a stencil code is based on a \emph{mesh} which is the discretization of the physical real domain. A mesh is a connected undirected graph without bridges (an edge is a bridge if its removal results in two disconnected graphs), where nodes and edges are linked to form cells (closure). For example, a structured mesh is illustrated in Figure~\ref{fig:ex}, each cell contains four nodes and four edges. Second, \emph{mesh domains} are subset elements of the mesh, such as for example the center of the cell, edges or nodes. In Figure~\ref{fig:ex} two mesh domains are used, the center of the cells and the edge on the horizontal axe (on the left and right of each cell). A \emph{data} is a quantity to simulate or a temporary data to perform computations. A data is mapped onto a given mesh domain. For example, in the figure, data $A$ and $B$ are mapped onto the center of cells, while $C$ is mapped onto the edges.
 
 \begin{figure}[!h]\begin{center}
-  \resizebox{9cm}{!}{\includegraphics{./images/stencil.pdf}}
-  \caption{Example of a stencil computation.}
+  \resizebox{7cm}{!}{\includegraphics{./images/stencil.pdf}}
+  \caption{Examples of a stencil computations}
   \label{fig:ex}
 \end{center}\end{figure}
 
-In other words, in a stencil computation the quantity written can be computed using the same quantity at a previous time iteration at $x$ and at $N(x)$. And, any other quantity can also be used in the computation at $x$ and $N(x)$.
+The first stencil computation of Figure~\ref{fig:ex} computes $B$ using $A$, while the second computes $B$ using $C$. Thus, a stencil computation is defined by a set of input data (in those examples only one input data), and a single output data, the result. The \emph{computation domain} is a subset of elements to compute on the output data. In other words a computation domain is a subset of a mesh domain. For example, in the first stencil, the computation of $B$ is performed on the plain elements, while dotted elements are not computed. On the other hand, on the second computation, the computation domain of $B$ is exactly equal to the cell mesh domain. The computation domain represents the set of elements on which the computation is performed, in other words, the space loop.
+
+Finally, a stencil computation is composed of a \emph{numerical expression} which indicates how to compute an element of the computation domain (on the output data), using elements of the set of input data. The numerical expression of a stencil computation has the particularity to use not only the element to compute but also a \emph{neighborhood} of this element, also called a \emph{stencil shape}. For example, the stencil shape of the first computation of Figure~\ref{fig:ex} contains direct neighbors on the right, left, top and bottom. Sometimes, the neighborhood shape can also access a different mesh domain, as for example in the second computation example. Actually, in this computation, the neighborhood contains edges on the left and on the right. As a result, we could imagine of example that the numerical expression of the first example is
+\begin{equation*} 
+B(x,y) = A(x+1,y)+A(x-1,y)+A(x,y+1)+A(x,y-1),
+\end{equation*}
+and that the numerical expression of the second example is
+\begin{equation*} 
+B(x,y) = B(x,y)+C(x1,y1)+C(x1+1,y1).
+\end{equation*}
+
+To conclude thise section, we define a stencil $s$ computation as the quintuplet
+\begin{equation*} 
+s(R,w,exp,\mathcal{N},d_c),
+\end{equation*}
+where $R$ is the set of input data, $w$ the output data, $exp$ the numerical expression of the stencil computation, which is applied on the computation domain $d_c$, using a stencil shape of neighboorhood $\mathcal{N}$.
 
 %----------------------------------------
 \subsection{Multi-stencil programs}
 \label{sect:multistencil}
 %----------------------------------------
-A real case numerical simulation is most of the time composed of a set of numerical schemes (stencils computations), with one or more stencil shape (neighboorhood shape), and onto one or more data. Moreover, a numerical simulation also performs additionnal auxiliary computations which do not involve neighborhood, called local computations. In this paper we target this kind of complex simulations with more than one stencil computation and also additionnal auxiliary computations, that we call \emph{multi-stencil programs}. The work presented produces a general parallelization structure of the overall simulation, while most stencil solutions produce optimized codes for a single stencil code~\cite{citeulike12258902, spaaTangCKLL11, Giles2011}. As it will be detailed in the related work, this work is complementary to most stencil compilers and implicit parallelism languages.
+If a stencil computation is well defined and a lot studied in the literrature, it is not the case for real case numerical simulations. In this paper, we define what we call a \emph{multi-stencil program}, which actually is a general numerical simulation. 
 
-\begin{mydef}
-A \textit{stencil computation} is defined as a quadruplet $s(R,w,\text{exp},\mathcal{N})$,
-\end{mydef}
-where $R$ is the set of data read by the computation, $w$ is the data written by the computation, \textit{exp} is the numerical expression to compute $w$, and $\mathcal{N}$ is a neighborhood shape of the stencil computation.
+A real case numerical simulation is most of the time not composed of a single stencil computation, but of a set of stencil computations, with one or more stencil shapes (neighboorhood), and onto one or more data. Moreover, a numerical simulation also performs additionnal auxiliary computations which do not involve neighborhood, called local computations. In this paper is targetted this general case of numerical simulations that we call \emph{multi-stencil programs}. The work presented produces a general parallelization structure of the overall simulation, while most stencil solutions produce optimized codes. As it will be detailed in the related work, this work is complementary to the optimization and parallelization of a single stencil computation.
 
-\begin{mydef}
-A local computation is a triplet $l(R,w,\text{exp})$, where $exp$ does not involve a neighborhood function $\mathcal{N}$.
-\end{mydef}
+An auxiliary computation is almost the same than a stencil computation, however its numerical expression does not involve a neighborhood, which makes this kind of computation purely local. A local computation $l$ is defined as the quadruplet
+\begin{equation*} 
+l(R,w,exp,d_c),
+\end{equation*}
+where $R$ is the set of input data, $w$ the output data, $exp$ the numerical expression of the stencil computation, which is applied on the computation domain $d_c$.
 
 A multi-stencil program in this work is defined as a sextuplet
 \begin{equation*} 
-\mathcal{MSP}(T,\mathcal{M},\mathcal{D}_m,\mathcal{D}_c,\Delta,\Gamma)
+\mathcal{MSP}(T,\mathcal{M},\mathcal{D}_m,\mathcal{D}_c,\Delta,\Gamma),
 \end{equation*}
+where $T$ is the set of time iteration to run the simulation, $\mathcal{M}$ is the mesh of the simulation, $\mathcal{D}_m$ is the set of mesh domains, $\mathcal{D}_c$ is the set of computation domains used into computations, $\Delta$ is the set of data, each one mapped onto a mesh domain, and finally $\Gamma$ is the set of computations. The set of computations $\Gamma$ is composed of an ordered list of stencil and local computations. One can notice that this work is limited to a single type of mesh in a given simulation.
 
 %----------------------------------------
 \subsection{Parallelization techniques}
 \label{sect:parallel}
 %----------------------------------------
-Three parallelization techniques are used in this paper and are described in this section, the data parallelism, the task parallelism, and the hybrid data and task parallelism.
+Three classical parallelization techniques are used in this paper and are described in this section, the data parallelism, the task parallelism, and the hybrid data and task parallelism.
 
 \paragraph{data parallelism} explain data decomposition and distribution, with a single program to apply on each processor
 
