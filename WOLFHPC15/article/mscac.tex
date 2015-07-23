@@ -1,16 +1,8 @@
-The MS language (MSL) is an agnostic descriptive language for multi-stencil simulations. Agnostic in our context means that without any knowledge on the mesh type and the neighborhood description of stencil computations, the language consists in data and computations descriptions. From this agnostic and descriptive language can be compiled the structure of the parallel simulation in two ways:
-\begin{itemize}
-\item data parallelism;
-\item hybrid (data and task) parallelism.
-\end{itemize}
+The solution presented in this paper is a domain specific language, to describe a multi-stencil program (a numerical simulation), and a compiler which transforms this description to a parallel component-based structure of the overall simulation.
 
-As illustrated in Figure~\ref{fig:mscac}, the MS language compiler, called MSCAC for \emph{Multi-Stencil Component Assembly Compiler}, is composed of two different part:
- \begin{itemize}
-\item first, the computation compiler, called MSC, which is responsible for the extraction of the computations parallelization;
-\item second, the data compiler, called MSD, which handles a distributed data structure, data mapped onto it, and their relation with the computation part of the final program.
-\end{itemize}
+The MS language (MSL) is an agnostic descriptive language for multi-stencil simulations. Agnostic means that the description of a numerical simulation, using MSL, does not need any knowledge on the mesh type, the stencil shape description, and the final implementation constraints. Descriptive, on the other hand, means that the terminal states of the language grammar are string identifiers and that the language does not handle description of numerical computations, but description of a multi-stencil simulation, in a coarse-grain fashion.
 
-MSCAC produces from the MSL source file the structure of the parallel simulation as a component assembly. Thus, the coarse-grain parallelization of the simulation is produced. In this final component assembly, an additionnal work is asked to the user: write computation components, using interfaces of the distributed data structure choosen by MSD. Thus, this work is complementary to stencil compilers or to distributed data structure solutions. Actually, it produces a ready-to-fill parallel structure pattern of the simulation.
+As illustrated in Figure~\ref{fig:mscac}, the MS language compiler, called MSCAC for \emph{Multi-Stencil Component Assembly Compiler}, is composed of two different parts. First, the computation compiler, called \emph{MSC}, is responsible for the computations parallelization and for its dump to a component assembly; second, the data compiler, called \emph{MSD}, handles a distributed data structure, data mapped onto it, and their relations with computations, as a final overall component assembly.
 
 \begin{figure}[h!]
 \begin{center}
@@ -35,4 +27,8 @@ MSCAC produces from the MSL source file the structure of the parallel simulation
 \end{center}
 \end{figure}
 
-This paper presents the MS language and the MSC part of the compiler. The evaluation part will shortly explain how the MSD part of the compiler has been acheived for this paper.
+This paper presents the MS language and the MSC part of the compiler. The MSC compiler produces a static scheduling of the set of computations, ready to dump to a parallel language, such as OpenMP~\cite{660313} or HPF~\cite{219857}, but also ready to dump to a component assembly which is the main contribution of this work.
+
+It has to be noticed that in this paper, the MSD compiler is a first adhoc version which works for a precise distributed data structure, the SkelGIS labrary~\cite{HeleneLS13,HeleneLS14,HeleneEuroPar14,CPE:CPE3494}. However, using the system of python string templates~\footnote{\url{https://docs.python.org/2/library/string.html}} to define the data component assembly, it is already possible to use another distributed data structure, as for example Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985}. This part of the compiler takes place in a larger research project to propose domain decomposition skeletons using component models.
+
+The overall compiler MSCAC produces a ready-to-fill component-based parallel structure of the simulation. In this final component assembly, it is needed to write computation components, using interfaces of the distributed data structure choosen by MSD. Thus, this work is complementary to stencil compilers or to distributed data structure solutions.
