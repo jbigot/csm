@@ -11,8 +11,8 @@ program ::= "mesh:" meshid
             "mesh domains:" listmeshdom
             "computation domains:" 
                        listcompdom
-            "no intersections:"
-                       listnointer
+            "independent:"
+                       listinde
             "data:" listdata
             "time:" iteration
             "computations:" listcomp
@@ -21,9 +21,9 @@ listmeshdom ::= meshdom listmeshdom
 listcompdom ::= compdom listcompdom
              |  compdom
 compdom ::= compdomid "in" listmeshdom
-listnointer ::= nointer listnointer
-                  |  nointer
-nointer ::= compdomid and compdomid
+listinde ::= inde listinde
+          |  inde
+inde ::= compdomid and compdomid
 listdata ::= data listdata
           |  data
 data ::= dataid "," meshdom
@@ -36,8 +36,8 @@ comp ::= dataid "=" compid "=({"
 listdataid ::= dataid listdataid
             |  dataid
 comptype ::= "stencil"
-      |  "local"
-      |  "bound"
+          |  "local"
+          |  "bound"
 \end{lstlisting}
 \caption{Grammar of the MS language}
 \label{fig:grammar}
@@ -57,7 +57,7 @@ computation domains:
   alledgey in edgey
   part1edgex in edgex
   part2edgex in edgex
-no intersections:
+independent:
   part1edgex and part2edgex
 \end{lstlisting}
 In this example, an entire computation domain is defined for each mesh domain, and additionnally two subpart of the mesh domain edgex are defined. It is then precised that part1edgex and part2edgex do not intersect.
