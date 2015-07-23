@@ -53,14 +53,15 @@ where $T$ is the set of time iteration to run the simulation, $\mathcal{M}$ is t
 \subsection{Parallelization techniques}
 \label{sect:parallel}
 %----------------------------------------
-Three classical parallelization techniques are used in this paper and are described in this section, the data parallelism, the task parallelism, and the hybrid data and task parallelism.
+Three classical parallelization techniques are used in this paper and are described in this section, the data parallelism, the task parallelism, and the hybrid data and task parallelism. Those parallelization techniques are independent from the actual parallel hardware used.
 
-\paragraph{data parallelism} explain data decomposition and distribution, with a single program to apply on each processor
+\paragraph{Data parallelism} The idea of this parallelization technique is to split, or partition, the data on which computations are applied among available processors (or cores). Each processor then applies the same progam or instruction onto its subpart of data. If a neighborhood information is needed from another processor communications or synchronizations are performed. 
 
-\paragraph{task parallelism} explain task dag
+In the domain of numerical simulations, this technique is most of the time called a domain decomposition. This parallelization technique produce efficient programs up to thousands processors or cores, but on certain conditions. First, each subpart of data has to be big enough to overlap communication time. Second, the partitioning of data has to be balanced among processors. Thus, if this parallelization technique is clearly adequate to structured meshes, easy to balance, it is not for unstructured meshes or irregular structure where the amount of work is not heterogenous.
 
-\paragraph{hybrid parallelism} explain the combination
+\paragraph{Task parallelism} Another well known parallelization technique is to identify in a program the different tasks and which one are independant and can be launched concurrently. Most of the time, such a prallelization technique create a dependency directed acyclic graph (dependency dag) from a set of ordered tasks. Dependencies are found from read/write information for each task. Actually, if a task $i$ write a data $a$ and if a task $j$ read $a$, then $i$ has to be finished before $j$ is performed. From a dependency graph too different solutions are available. First, a static schedule of tasks is built, which could be a good solution if the tasks are regular, or use a dynamic scheduler to dynamically decide at runtime which task is executed on which processor.
 
+\paragraph{Hybrid parallelism} Finally, it is also possible to combine both those parallelization techniques to get what is called an hybrid parallelization. The interest of an hybrid parallelization is to bring another source of parallelism in a program if limits of a given technique are reach.
 
 %----------------------------------------
 \subsection{Component models}
@@ -114,5 +115,5 @@ In the rest of this paper, when a required service of a \emph{use} (or \emph{use
 \end{center}
 \end{figure}
 
-With its minimal set of ports, $L^2C$ is a light component model which does not introduce overheads at runtime, and which results in a HPC-oriented component model. Another HPC-oriented component model is CCA~\cite{Armstrong:1999:TCC:822084.823232}, however the main difference between those component models is the way a dsitribution of component on distributed architectures is managed. Actually, in CCA, MPI~\cite{} (Message Passing Interfaces) have to be used and managed manually inside components, while $L^2C$ proposes a specific MPI port to link distant components and ease their communications. Moreover, by exposing MPI connections, $L^2C$ also exposes the parallel structure of a program inside an assembly, which increase separation of concerns and code reuse for parallel applications.
+With its minimal set of ports, $L^2C$ is a light component model which does not introduce overheads at runtime, and which results in a HPC-oriented component model. Another HPC-oriented component model is CCA~\cite{Armstrong:1999:TCC:822084.823232}, however the main difference between those component models is the way a dsitribution of component on distributed architectures is managed. Actually, in CCA, MPI~\cite{Graham2009MSE} (Message Passing Interfaces) have to be used and managed manually inside components, while $L^2C$ proposes a specific MPI port to link distant components and ease their communications. Moreover, by exposing MPI connections, $L^2C$ also exposes the parallel structure of a program inside an assembly, which increase separation of concerns and code reuse for parallel applications.
 
