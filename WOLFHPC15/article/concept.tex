@@ -65,11 +65,11 @@ Three classical parallelization techniques are used in this paper and are descri
 %----------------------------------------
 \subsection{Component models}
 %----------------------------------------
-Component model is an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228} which improves code re-use, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. Moreover, component models bring a separation of concerns in the application by a clear division of functionnalities in different components. In addition to this, recent work on component models have shown a simultaneous answer to performance, maintainability and portability of applications~\cite{l2c}, which makes this domain an interesting solution to bring maintainability and portability in HPC programming.
+Component model is an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228}, where functionnalities of an application are dispatched in different entities: components. Component models improves code re-use by a separation of concerns, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. In addition to this, recent work on component models have shown a simultaneous answer to performance, maintainability and portability of applications~\cite{l2c}, which makes this domain an interesting solution to bring maintainability and portability in HPC programming.
 
-Component-based software engineering~\cite{Szyperski:2002:CSB:515228} extends the concept of class by specifying in its interfaces not only the services it offers, or public methods, but also all its possible interactions with outer world, including the services it requires. As a result, each component is an independant entity composed of a set of services its provides, and a set of services it requires (and uses). 
+Many component models exist, each of them with its own specification and singularity, like CCM~\cite{corba:omg06} (CORBA Component Model), GCM~\cite{Baude} (Grid Component Model) or CCA~\cite{Armstrong:1999:TCC:822084.823232} (Common Component Architecture), for example. However, conepts of component, port, interface and assembly are most of the time found in component models. In the rest of this paper will be used concepts of the component model $L^2C$~\cite{l2c}. $L^2C$ is a minimalist HPC-oriented component model where a component extends the concept of class by specifying in its interfaces not only the services it offers, but also all its possible interactions with outer world, including the services it requires. As a result, each component is an independant entity composed of a set of services its provides, and a set of services it requires (and uses). 
 
-A \emph{port} is an entity embbedded in the component which makes possible an \emph{assembly} of components. An assembly of components (of instanciated components) is a way to actually connect components together and to produce a complete application, as a set of components and their interactions. A provided service inside a component is associated to a \emph{provide} port, while a required service is associated to a \emph{use} port. It is also possible to group more than one required service into a single port, as a list, called a \emph{use-multiple} port. As illustrated in Figures~\ref{fig:ports}, a provide port will be represented by a white circle, a use port by a black circle and a use-multiple port by a black circle with a white $m$ in it.
+A \emph{port} in $L^2C$ is an entity embbedded in the component which makes possible an \emph{assembly} of components. An assembly of components (of instanciated components) is a way to actually connect components together and to produce a complete application, as a set of components and their interactions. A provided service inside a component is associated to a \emph{provide} port, while a required service is associated to a \emph{use} port. It is also possible to group more than one required service into a single port, as a list, called a \emph{use-multiple} port. As illustrated in Figures~\ref{fig:ports}, a provide port will be represented by a white circle on the left of the component, a use port by a black circle and a use-multiple port by a black circle with a white $m$ in it, both on the right of the component.
 
 \begin{figure}[h!]
 \begin{center}
@@ -77,14 +77,14 @@ A \emph{port} is an entity embbedded in the component which makes possible an \e
    \node[component] (C) at (0,0) {$Comp_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
-   \node[use] (um) at (0,1) {$m$};
-   \node[provide,right=of u] (p1) {};
-   \node[component,right=of p1] (C1) {$Comp_1$};
+   \node[provide,right=1.5cm of u] (p1) {};
+   \node[component,right=1.5cm of p1] (C1) {$Comp_1$};
+   \node[use,right=1.5cm of C1] (um) {$m$};
  
   \path[-]
     (p) edge node {} (C)
-    (C) edge node {} (u)
-    	edge node {} (um)
+    (C.east) edge node {} (u)
+    (C1)	edge node {} (um)
     (p1) edge node {} (C1);
 \end{tikzpicture}
 \caption{Two components, one with a provide, use and use-multiple ports, the second with a single provide port}
@@ -92,7 +92,7 @@ A \emph{port} is an entity embbedded in the component which makes possible an \e
 \end{center}
 \end{figure}
 
-In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}.
+In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}. As the use port if on the right of its component, and the provide port on the left, in a component assembly, the component on the left uses the provide port of the right component.
 
 \begin{figure}[h!]
 \begin{center}
@@ -100,13 +100,13 @@ In the rest of this paper, when a required service of a \emph{use} (or \emph{use
    \node[component] (C) at (0,0) {$Comp_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
-   \node[use] (um) at (0,1) {$m$};
-   \node[component,right=of u] (C1) {$Comp_1$};
+   \node[component,right=1.5 of u] (C1) {$Comp_1$};
+   \node[use,right=1.5 of C1] (um) {$m$};
  
   \path[-]
     (p) edge node {} (C)
     (C) edge node {} (u)
-    	edge node {} (um)
+    (C1)	edge node {} (um)
     (u) edge node {} (C1);
 \end{tikzpicture}
 \caption{Component assembly of Figure~\ref{fig:ports}}
@@ -114,5 +114,5 @@ In the rest of this paper, when a required service of a \emph{use} (or \emph{use
 \end{center}
 \end{figure}
 
-Many component models exist, each of them with its own specifications and functionnalities, like CCM~\cite{corba:omg06} (CORBA Component Model), GCM~\cite{Baude} (Grid Component Model) or CCA~\cite{Armstrong:1999:TCC:822084.823232} (Common Component Architecture) for example. However, conepts of component, port, interface and assembly are common to many component models. The rest of this paper will only use those concepts to present the MS Language and its compiler whatever the component model is.
+With its minimal set of ports, $L^2C$ is a light component model which does not introduce overheads at runtime, and which results in a HPC-oriented component model. Another HPC-oriented component model is CCA~\cite{Armstrong:1999:TCC:822084.823232}, however the main difference between those component models is the way a dsitribution of component on distributed architectures is managed. Actually, in CCA, MPI~\cite{} (Message Passing Interfaces) have to be used and managed manually inside components, while $L^2C$ proposes a specific MPI port to link distant components and ease their communications. Moreover, by exposing MPI connections, $L^2C$ also exposes the parallel structure of a program inside an assembly, which increase separation of concerns and code reuse for parallel applications.
 
