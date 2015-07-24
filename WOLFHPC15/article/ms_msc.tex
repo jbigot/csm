@@ -30,14 +30,11 @@ data ::= dataid "," meshdom
 iteration ::= num
 listcomp ::= comp listcomp
           |  comp
-comp ::= dataid "=" compid "=({" 
-            listdataid "}," compdomid 
-            ["," neighborid] ")"
-listdataid ::= dataid listdataid
-            |  dataid
-comptype ::= "stencil"
-          |  "local"
-          |  "bound"
+comp ::= dataid "[" compdomid "]=" compid "(" 
+            listdataread ")"
+listdataread ::= dataread listdataread
+              |  dataread
+dataread ::= dataid "[" neighborid "]"
 \end{lstlisting}
 \caption{Grammar of the MS language}
 \label{fig:grammar}
@@ -78,19 +75,19 @@ data:
 time:500
 \end{lstlisting}
 
-\paragraph{Computations description} The most important part of MSL is the description of the computations of the simulation. The language follows the definitions given in Section~\ref{sect:multistencil}, however as MSL is not made to express numerical computations, the element $exp$ of the definition is not given in the language. Moreover, an additionnal information is asked to the user, the type of computation. A computation can be \emph{stencil}, \emph{local} and if a stencil is computed a neighborhood identifier is given.
-Thus, the description of a computation consists of a type of computation, an identification name of the computation, a set of identifiers for the data read by the computation, a single identifier for the data written by the computation. Moreover, if the type of computation is a stencil, a neighborhood identifier is needed.
+\paragraph{Computations description} The most important part of MSL is the description of the computations of the simulation. The language follows the definitions given in Section~\ref{sect:multistencil}, however as MSL is not made to express numerical computations, the element $exp$ of the definition is not given in the language. Moreover, to propose a syntax close to an imperative code, information are given in a different order.
+Thus, the description of a computation consists of the identifier of the data to compute, the computation domain (which is a subpart of the mesh domain of the data) on which it is computed into the brackets, an identification name of the computation, and a set of identifiers for the data read by the computation. For each data read by the computation brackets indicate the stencil shape identifier used on the data. If the computation is local brackets stay empty. In the example below, the data $b$ is computed on the computation domain $allcell$ by the computation $c_0$ which read data $a$ without neighborhood shape.
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 computations:
-  b=c0({a},allcell)
-  c=c1({b},alledgex,n1)
-  d=c2({c},alledgex)
-  e=c3({c},alledgey)
-  f=c4({d},allcell,n1)
-  g=c5({e},alledgey)
-  h=c6({f},alledgex)
-  i=c7({g,h},allcell)
-  j=c8({i},partedgex,n1)
+  b[allcell]=c0(a[])
+  c[alledgex]=c1(b[n1])
+  d[alledgex]=c2(c[])
+  e[alledgey]=c3(c[])
+  f[allcell]=c4(d[n1])
+  g[alledgey]=c5(e)
+  h[alledgex]=c6(f)
+  i[allcell]=c7(g[],h[])
+  j[partedgex]=c8(i[n1])
 \end{lstlisting}
 
 %----------------------------------------
