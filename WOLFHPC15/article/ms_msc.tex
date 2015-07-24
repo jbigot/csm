@@ -3,7 +3,7 @@
 %----------------------------------------
 The MS language (MSL) is an agnostic descriptive language for multi-stencil simulations. MSL follows the definition of a multi-stencil program~(\ref{eq:msp}), and of stencil and local computations~(\ref{eq:st}) and~(\ref{eq:loc}). Thus, it is composed of six sections: the mesh description; the mesh domains description; the computation domains description; the data description; the time loop description; and finally, the computations description.
 
-The overall grammar of a MSL program is given in Figure~\ref{fig:grammar}, where the terminals $meshid$, $meshdom$, $compdomid$, $dataid$, $compid$ are string identifiers, and $num$ is an integer value. An example is then given to explain each section.
+The overall grammar of a MSL program is given in Figure~\ref{fig:grammar}, where the terminals $meshid$, $meshdom$, $compdomid$, $dataid$, $compid$ ans $neighborid$ are string identifiers, and $num$ is an integer value. An example is then given to explain each section.
 
 \begin{figure}[h!]
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
@@ -40,13 +40,13 @@ dataread ::= dataid "[" neighborid "]"
 \label{fig:grammar}
 \end{figure}
 
-\paragraph{Mesh and mesh domains} A mesh is defined by a string identifier. As already explain, this work is for now limited to a single mesh. Each mesh domain is also represented by a string identifier. For example
+\paragraph{Mesh and mesh domains} A mesh is defined by a string identifier. As already explained, this work is for now limited to a single mesh. Each mesh domain is also represented by a string identifier. For example for a Cartesian mesh and three mesh domains we can define
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 mesh: cart
 mesh domains: cell,edgex,edgey
 \end{lstlisting}
 
-\paragraph{Computation domains} A computation domain can be seen as a subpart of a meh domain which will be used during computation phase. For each computation domain is indicated the mesh domain identifier from which it is built. By default two computation domains always intersect except when precise in the section \emph{no intersections}. For example
+\paragraph{Computation domains} A computation domain can be seen as a subpart of a meh domain which will be used during the computation phase. For each computation domain is indicated the mesh domain identifier from which it is built. By default two computation domains always intersect except when an independent relation is precised in the section \emph{independent} of the language. In the example below, an entire computation domain is defined for each mesh domain, and additionnally two subpart of the mesh domain edgex are defined. It is then precised that part1edgex and part2edgex do not intersect.
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 computation domains:
   allcell in cell
@@ -57,9 +57,8 @@ computation domains:
 independent:
   part1edgex and part2edgex
 \end{lstlisting}
-In this example, an entire computation domain is defined for each mesh domain, and additionnally two subpart of the mesh domain edgex are defined. It is then precised that part1edgex and part2edgex do not intersect.
 
-\paragraph{Data and time} A data is a quantity to simulate and is mapped onto a mesh domain. The time section simply indicates a number of iterations to perform in the simulation. For example:
+\paragraph{Data and time} A data is a quantity to simulate and is mapped onto a mesh domain. The time section simply indicates a number of iterations to perform in the simulation. For example we can define ten data and 500 iterations as below
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 data:
   a,cell
@@ -75,7 +74,7 @@ data:
 time:500
 \end{lstlisting}
 
-\paragraph{Computations description} The most important part of MSL is the description of the computations of the simulation. The language follows the definitions given in Section~\ref{sect:multistencil}, however as MSL is not made to express numerical computations, the element $exp$ of the definition is not given in the language. Moreover, to propose a syntax close to an imperative code, information are given in a different order.
+\paragraph{Computations description} The most important part of MSL is the description of the simulation computations. The language follows the three definitions given in Section~\ref{sect:multistencil}, however as MSL is not made to express numerical computations, the element $exp$ of definitions~\ref{eq:st} and~\ref{eq:loc} is not given in the language. Moreover, to propose a syntax close to an imperative code, information are given in a different order.
 Thus, the description of a computation consists of the identifier of the data to compute, the computation domain (which is a subpart of the mesh domain of the data) on which it is computed into the brackets, an identification name of the computation, and a set of identifiers for the data read by the computation. For each data read by the computation brackets indicate the stencil shape identifier used on the data. If the computation is local brackets stay empty. In the example below, the data $b$ is computed on the computation domain $allcell$ by the computation $c_0$ which read data $a$ without neighborhood shape.
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 computations:
@@ -106,11 +105,11 @@ The MSC compiler, which is a subpart of the overall compiler MSCAC, performs an 
 
 \paragraph{Creation of the ordered list of computations} This step of the MSC compiler parse the MSL input file which describes the simulation. From the ordered lines of computations, it builds the ordered list of computations $\Gamma$ to perform in the simulation. For example the ordered list of computation of the example above is $[c_0,c_1,c_2,c_3,c_4,c_5,c_6,c_7,c_8]$.
 
-\paragraph{Creation of the synchronized ordered list of computations} From the ordered list of computations $\Gamma$ it is possible to detect needed synchronizations if a \emph{data parallelization} is performed on the simulation. A synchronization is needed each time a data read by a stencil computation has been written by a previous computation and if the computation domains intersect. Actually, as a stencil computation needs neighborhood values, in a domain decomposition values computed by different processors or cores are needed.
+\paragraph{Creation of the synchronized ordered list of computations} COnsidering a data parallelization of the simulation, from the ordered list of computations $\Gamma$ can be detect needed synchronizations. A synchronization is needed each time a data read by a stencil computation has been written by a previous computation and if the computation domains intersect. Actually, as a stencil computation needs neighborhood values, values computed by different processors or cores are needed.
 
-For example, the stencil computation $c_1$ read the data $b$ which has been written by the computation $c_0$. Moreover the mesh domains are different which means that the computation domains intersect. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed to the sublist $[c_0,sync_1,c_1]$ in $\Gamma_{data}$. The new computation $sync_1$ read and write $b$. As a result a dependency is kept between $sync_1$, and $c_1$. The same is performed for the stencils $c_4$ and $c_8$.
+For example, the stencil computation $c_1$ read the data $b$ which has been written by the computation $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed to the sublist $[c_0,sync_1,c_1]$ in $\Gamma_{data}$. The new computation $sync_1$ read and write $b$. As a result a dependency is kept between $sync_1$, and $c_1$. The same is performed for the stencils $c_4$ and $c_8$.
 
-\paragraph{Creation of the dependency graph} From the synchronized ordered list of computations $\Gamma_{data}$, a dependency graph can be build. A dependency exists between two computations (including synchronizations) if and only if a data read has been written by a previous computation in $\Gamma_{data}$, and if the computation domains intersect. In other words, the only case where a data dependency exists but is not taking into account is when the computation domains do not intersect. Nodes of the dependency graph represent computations and synchronizations, while edges are dependencies between them. $\Gamma_{hybrid}$ is a directed acyclic graph (\emph{dag}) as it is build from an ordered list. For example, the dependency dag $\Gamma_{hybrid}$ of the example is illustrated in Figure~\ref{fig:hyb}.
+\paragraph{Creation of the dependency graph} From the synchronized ordered list of computations $\Gamma_{data}$, a dependency graph is built. A dependency exists between two computations (including synchronizations) if and only if a data read has been written by a previous computation in $\Gamma_{data}$, and if the computation domains intersect. In other words, the only case where a data dependency exists but is not taking into account is when the computation domains do not intersect. Nodes of the dependency graph represent computations and synchronizations, while edges are dependencies between them. $\Gamma_{hybrid}$ is a directed acyclic graph (\emph{dag}) as it is build from an ordered list. For example, the dependency dag $\Gamma_{hybrid}$ of the example is illustrated in Figure~\ref{fig:hyb}.
 
 \begin{figure}[h!]
 \begin{center}
@@ -148,7 +147,7 @@ For example, the stencil computation $c_1$ read the data $b$ which has been writ
 \end{figure}
 
 
-\paragraph{Transformation to a minimal series-parallel graph} As it has been shown in~\cite{Valdes:1979:RSP:800135.804393}, the transitive reduction of a dag is a minimal series-parallel graph if and only if the forbidden \emph{N-shape} is not found in the graph. To transform $\Gamma_{hybrid}$ to the minimal series-parallel graph $\Gamma_{msp}$, a breadth first search~\cite{} traversing algorithm is applied to build a complete bipartite graph between two levels of $\Gamma_{hybrid}$~\cite{Mitchell:2004:CMV:1082101.1082117}.
+\paragraph{Transformation to a minimal series-parallel graph} As it has been shown in~\cite{Valdes:1979:RSP:800135.804393}, the transitive reduction of a dag is a minimal series-parallel graph if and only if the forbidden \emph{N-shape} is not found in the graph. To transform $\Gamma_{hybrid}$ to the minimal series-parallel graph $\Gamma_{msp}$, a breadth first search traversing algorithm is applied to build a complete bipartite graph between two levels of $\Gamma_{hybrid}$~\cite{Mitchell:2004:CMV:1082101.1082117}.
 
 \paragraph{Creation of a tree decomposition} As shown in different works~\cite{Valdes:1979:RSP:800135.804393,Schoenmakers95anew}, from a minimal series-parallel graph a tree decomposition can be built. A series-parallel tree decomposition consists in the decomposition of the graph as a set of \emph{sequences} and \emph{parallel} sections in a tree. For example, the series-parallel tree decomposition $\Gamma_{tsp}$ of the example is illustrated in Figure~\ref{fig:canon}.
 
@@ -198,7 +197,7 @@ For example, the stencil computation $c_1$ read the data $b$ which has been writ
 \end{center}
 \end{figure}
 
-\paragraph{Dump to a component assembly} From the series-parallel tree decomposition $\Gamma_{tsp}$ can be built a program using any parallel language containing \emph{parallel sections} and \emph{sequences of instructions} such as OpenMP~\cite{660313}, HPF~\cite{219857}, UPC~\cite{El-Ghazawi:2006:UUP:1188455.1188483} etc. In this paper we study the dump of $\Gamma_{tsp}$ to a component assembly which needs the introduction of \emph{control components} described in the next section.
+\paragraph{Dump to a component assembly} Finally, from the series-parallel tree decomposition $\Gamma_{tsp}$ we could build a program using any parallel language containing \emph{parallel sections} and \emph{sequences of instructions} such as OpenMP~\cite{660313}, HPF~\cite{219857}, UPC~\cite{El-Ghazawi:2006:UUP:1188455.1188483} etc. In this paper we study the dump of $\Gamma_{tsp}$ to a component assembly which needs the introduction of \emph{control components}, described in the next section.
 
 For more details on MSC, a full description of the compilation is described in the research report~\cite{}.
 

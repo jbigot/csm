@@ -1,10 +1,10 @@
 %----------------------------------------
 \subsection{Control components}
 %----------------------------------------
-The series-parallel tree decomposition $\Gamma_{tsp}$ represents the control of the dependencies of the simulation. As a result to be able to dump it to a component assembly it is needed to introduce what can be called \emph{control components}. Those components can be used for any case of simulation which increases code reuse between simulations. A control component is composed of a single \emph{provide} port linked to a single execution method, most of the time called \emph{go}. We introduce three types of control components described bellow:
+The series-parallel tree decomposition $\Gamma_{tsp}$ represents the control of the dependencies of the simulation. As a result to be able to dump it to a component assembly it is needed to introduce what can be called \emph{control components}. Those components can be used for any case of simulation which increases code reuse between simulations. A control component is composed of a single \emph{provide} port linked to a single execution method, most of the time called the \emph{go} method. We introduce three types of control components described bellow:
 
 \begin{itemize}
-\item a sequence component, called SEQ, is the direct dump to a sequence node of $\Gamma_{tsp}$. The role of this component is to call an ordered list of other components. For this reason, it is composed of a \emph{use-multiple} port connected to the components to call as a sequence.
+\item a sequence component, called SEQ, is the direct dump to a sequence node of $\Gamma_{tsp}$. The role of this component is to call an ordered list of other components. For this reason, it is composed of an ordered \emph{use-multiple} port connected to the components to call as a sequence.
 
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[component] (seq) at (0,0) {$SEQ$};
@@ -41,7 +41,7 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ represents the control of 
 \end{tikzpicture}
 \end{itemize}
 
-In the computation part of the simulation a final component is needed, the computation component, denoted K. This type of component represent a single computation of the simulation, i.e. the computation of a single output data (written) using a set of input data (read). Using a \emph{use-multiple}, however, a list of component is used and the explicit identification of each used component is lost. If for SEQ or PAR, the identification of components is not usefull, it is usefull to manipulate data in a computation. For this reason a computation component has as much \emph{use} ports as input and output data to manipulate. We denote this in the bellow representation as a star $*$ on the use port.
+In the computation part of the simulation a final component is needed, the computation component, denoted K. This type of component represents a single computation of the simulation, i.e. the computation of a single output data (written) using a set of input data (read). Using a \emph{use-multiple}, however, a list of component is used and the explicit identification of each component to use is lost. If for SEQ or PAR, the identification of components is not usefull, it is usefull to manipulate data in a computation. For this reason a computation component has as much \emph{use} ports as input and output data to manipulate. We denote this in the bellow representation as a star on the use port.
 
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[component] (k) at (0,0) {$K$};
@@ -60,7 +60,7 @@ In the computation part of the simulation a final component is needed, the compu
 %----------------------------------------
 From $\Gamma_{tsp}$ and using the control components described above, a direct dump can be done to a component assembly for an hybrid (data and task) parallelization of a simulation. However, it is also possible to dump to a data parallelization only. In such a case the computation of $\Gamma_{data}$ is enough to generate the component assembly. Actually a single SEQ component is thus needed and this component is linked to all computations and synchronizations of $\Gamma_{data}$ directly.
 
-As an example, from $\Gamma_{tsp}$ illustrated in Figure~\ref{fig:canon} a direct dump example is illustrated in Figure~\ref{fig:assembly}. In this Figure, the ports linked to data (ports of SYNC and K components) are represented but not their connections. Moreover, each computation component is an instance of the component K presented before but takes the identification name of the computation in the MSL file.
+As an example, from $\Gamma_{tsp}$ illustrated in Figure~\ref{fig:canon} a direct dump example is illustrated in Figure~\ref{fig:assembly}. In this Figure, the ports linked to data (use and use-multiple ports of SYNC and K) are represented but are not connected. Moreover, each computation component is an instance of the component K presented before but takes the identification name of the computation in the MSL file.
 
 \begin{figure*}
 \begin{center}
