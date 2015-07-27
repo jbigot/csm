@@ -30,9 +30,9 @@ class CAC_Compiler:
 		self.metaFile = metafile
 		self.templateFile = open(tfile,'r')
 		self.dataTempFile = open(dfile,'r')
-		self.nb_proc = 2
-		self.dump_type = "hybrid"
-		#self.dump_type = "data_base"
+		self.nb_proc = 256
+		#self.dump_type = "hybrid"
+		self.dump_type = "data_base"
 	#-----------------------
 	
 	#-----------------------
@@ -810,17 +810,17 @@ class CAC_Compiler:
 			self.lad += "</process>\n"
 		
 		# for each data add all its instances on different processors in a communicator
-		if self.nb_proc > 1:
-			for d in self.data :
-				self.lad += "<communicator>"
-				for p in range(0,self.nb_proc):
-					self.lad += "<peer instance=\""+d[0]+"_"+str(p)+"\" property=\"comm\"/>"
-				self.lad += "</communicator>"
+		#if self.nb_proc > 1:
+		for d in self.data :
+			self.lad += "<communicator>"
+			for p in range(0,self.nb_proc):
+				self.lad += "<peer instance=\""+d[0]+"_"+str(p)+"\" property=\"comm\"/>"
+			self.lad += "</communicator>"
 			
 		self.lad += "</mpi>\n"
 		self.lad += "</lad>\n"
 		
-		ladFile = open("./outputs/lad"+str(self.nb_proc)+".lad", "w")
+		ladFile = open("./outputs/SW_10000_500_"+str(self.nb_proc)+".lad", "w")
 		ladFile.write(self.lad)
 		ladFile.close()
 	#-----------------------
@@ -876,7 +876,7 @@ class CAC_Compiler:
 		self.dico["cppref_computations"] = self.cppref_comp
 		#print self.dump_comp
 		#print self.cppref_comp
-		self.dico["iter"] = self.time
+		self.dico["iter"] = 500 #self.time
 		
 		# 3- dump all general template (linked to data and computations)
 		self.template = Template(self.templateFile.read())
@@ -928,17 +928,29 @@ class CAC_Compiler:
 	#-----------------------
 	def computationDumpDataBase(self):
 	#-----------------------
+		local_countSync = self.countSync
+		# creation of the sequence
 		self.dump_comp = "<instance id=\"Seq"+str(0)+"_$proc\" type=\"Sequence\">\n"
 		self.dump_comp += "<property id=\"Compute\">\n"
+		for comp in range(0,len(self.computations)):
+			if self.computations[comp][1]=="update":
+				self.dump_comp += "<cppref instance=\"Sync"+str(local_countSync)+"_$proc\" property=\"inGo\"/>\n"
+				local_countSync += 1
+			else:
+				name = self.computations[comp][0]
+				duplicate = int(math.fabs(self.duplicatesRef[name] - self.duplicates[name]))
+				self.dump_comp += "<cppref instance=\""+name+"_"+str(duplicate)+"_$proc\" property=\"inGo\"/>\n"
+				self.duplicatesRef[name] -= 1
+		self.dump_comp += "</property>\n"
+		self.dump_comp += "</instance>\n"
+		self.cppref_comp = "<cppref instance=\"Seq"+str(0)+"_$proc\" property=\"inGo\"/>\n"
+		# creation of computations and syncs
 		for comp in range(0,len(self.computations)):
 			if self.computations[comp][1]=="update":
 				self.dump_comp += self.makeSync(comp)
 				self.countSync += 1
 			else:
 				self.dump_comp += self.makeComputation(comp)
-		self.dump_comp += "</property>\n"
-		self.dump_comp += "</instance>\n"
-		self.cppref_comp = "<cppref instance=\"Seq"+str(0)+"_$proc\" property=\"inGo\"/>\n"
 	#-----------------------
 	
 	#-----------------------
