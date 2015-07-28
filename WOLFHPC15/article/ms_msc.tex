@@ -74,7 +74,7 @@ data:
 time:500
 \end{lstlisting}
 
-\paragraph{Computations description} The most important part of MSL is the description of the simulation computations. The language follows the three definitions given in Section~\ref{sect:multistencil}, however as MSL is not made to express numerical computations, the element $exp$ of definitions~\ref{eq:st} and~\ref{eq:loc} is not given in the language. Moreover, to propose a syntax close to an imperative code, information are given in a different order.
+\paragraph{Computations description} The most important part of MSL is the description of the simulation computations. The language follows the three definitions given in Section~\ref{sect:multistencil}. However as MSL is not made to express numerical computations, the term $exp$ of Definition~\ref{eq:st} and Definition~\ref{eq:loc} is not given in the language. Moreover, to propose a syntax close to an imperative code, information are given in a different order.
 Thus, the description of a computation consists of the identifier of the data to compute, the computation domain (which is a subpart of the mesh domain of the data) on which it is computed into the brackets, an identification name of the computation, and a set of identifiers for the data read by the computation. For each data read by the computation brackets indicate the stencil shape identifier used on the data. If the computation is local brackets stay empty. In the example below, the data $b$ is computed on the computation domain $allcell$ by the computation $c_0$ which read data $a$ without neighborhood shape.
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++]
 computations:
@@ -105,7 +105,7 @@ The MSC compiler, which is a subpart of the overall compiler MSCAC, performs an 
 
 \paragraph{Creation of the ordered list of computations} This step of the MSC compiler parse the MSL input file which describes the simulation. From the ordered lines of computations, it builds the ordered list of computations $\Gamma$ to perform in the simulation. For example the ordered list of computation of the example above is $[c_0,c_1,c_2,c_3,c_4,c_5,c_6,c_7,c_8]$.
 
-\paragraph{Creation of the synchronized ordered list of computations} COnsidering a data parallelization of the simulation, from the ordered list of computations $\Gamma$ can be detect needed synchronizations. A synchronization is needed each time a data read by a stencil computation has been written by a previous computation and if the computation domains intersect. Actually, as a stencil computation needs neighborhood values, values computed by different processors or cores are needed.
+\paragraph{Creation of the synchronized ordered list of computations} Considering a data parallelization of the simulation, from the ordered list of computations $\Gamma$ can be detect needed synchronizations. A synchronization is needed each time a data read by a stencil computation has been written by a previous computation and if the computation domains intersect. Actually, as a stencil computation needs neighborhood values, values computed by different processors or cores are needed.
 
 For example, the stencil computation $c_1$ read the data $b$ which has been written by the computation $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed to the sublist $[c_0,sync_1,c_1]$ in $\Gamma_{data}$. The new computation $sync_1$ read and write $b$. As a result a dependency is kept between $sync_1$, and $c_1$. The same is performed for the stencils $c_4$ and $c_8$.
 
