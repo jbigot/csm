@@ -29,6 +29,52 @@ As illustrated in Figure~\ref{fig:mscac}, the MS language compiler, called MSCAC
 
 This paper presents the MS language and the MSC part of the compiler. The MSC compiler produces a static scheduling of the set of computations, ready to dump to a parallel language, such as OpenMP~\cite{660313} or HPF~\cite{219857}, but also ready to dump to a component assembly which is the main contribution of this work.
 
+\begin{figure*}
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (D) at (0,0) {Driver};
+   \node[provide] (Dp) at (-1,0) {};
+   \node (Ds) at (-1.5,0) {start};
+   \node[use] (Du1) at (1,0.5) {};
+   \node[use] (Du2) at (1,-0.5) {};
+
+   \node[component,right=1cm of Du2] (DA) {DriverApp};
+   \node[use] (DAu1) at (3.5,0) {$m$};
+   \node[use] (DAu2) at (3.5,-1) {};
+
+   \node[component] (T) at (4.5,-1) {Time};
+   \node[use,right=1cm of T] (Tu) {};
+   \node[component,right=2cm of Tu] (C) {Computations};
+   \node[use,right=2cm of C] (Cu) {};
+   \node[below=0.2cm of Cu] (star) {$*$};
+
+   \node[component,right=8cm of DAu1] (Data) {Data};
+   \node[use,right=1cm of Data] (Datau) {};
+
+   \node[component,right=13cm of Du1] (DDS) {DDS};
+ 
+  \path[-]
+    (Dp) edge node {} (D)
+    (D.east) edge node {} (Du1)
+      edge node {} (Du2)
+    (Du1) edge node {} (DDS.west)
+    (Du2) edge node {} (DA)
+    (DA.east) edge node {} (DAu1)
+      edge node {} (DAu2)
+    (DAu1) edge node {} (Data.west)
+    (DAu2) edge node {} (T)
+    (T) edge node {} (Tu)
+    (Tu) edge node {} (C)
+    (C) edge node {} (Cu)
+    (Cu) edge node {} (Data.west)
+    (Data) edge node {} (Datau)
+    (Datau) edge node {} (DDS.west);
+\end{tikzpicture}
+\caption{Shape of the generated component assembly.}
+\label{fig:assembly}
+\end{center}
+\end{figure*}
+
 It has to be noticed that in this paper, the MSD compiler is a first adhoc version which works for a precise distributed data structure, the SkelGIS library~\cite{HeleneLS13,HeleneLS14,HeleneEuroPar14,CPE:CPE3494}. However, using the system of python string templates~\footnote{\url{https://docs.python.org/2/library/string.html}} to define the component assembly part which manages data, it is already possible to use another distributed data structure, as for example Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985}. This part of the compiler takes place in a larger research project to propose domain decomposition skeletons using component models.
 
 The overall compiler MSCAC produces a ready-to-fill component-based parallel structure of the simulation. In this final component assembly, it is needed to write computation components, using interfaces of the distributed data structure choosen by MSD. Thus, this work is complementary to stencil compilers or to distributed data structure solutions.
