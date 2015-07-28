@@ -1,5 +1,5 @@
 To numerically solve a set of PDEs, iterative methods (finite difference, finite volume or finite element methods) are frequently used to approximate the solution through a discretized (step by step) phenomena. Thus, the continuous time and space domains are discretized so that a set of numerical computations are iteratively (time discretization) applied onto a mesh (space discretization). In other words, the PDEs are transformed to a set of numerical computations applied at each time step on all elements of the discretized space domain. Among those numerical computations is found a set of numerical schemes, also called \textit{stencil computations}, and a set of auxiliary computations also needed to perform the simulation, and also called \emph{local computations}.
-In the following Section, formal definitions of a \textit{stencil program} and its computations are given. Then, the different parallelization techniques which can be applied on such program, are presented.
+This section gives formal definitions of a \textit{stencil program} and its computations. Then, the different parallelization techniques which can be applied on such program, are presented.
 
 %-------------------------------------
 \subsection{Time, mesh and data}
@@ -10,10 +10,11 @@ A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $
 \textit{A mesh is a connected undirected graph $\mathcal{M}=(V,E)$, where $V$ is the set of vertices and $E$ the set of edges. The set of edges $E$ of a mesh $\mathcal{M}=(V,E)$ does not contain bridges.}
 \end{mydef}
 
+\rmq{Pas très clair la suite; motivation? dom == some sub elements of M ?}
 \begin{mydef}
 $D_i$ is a set of elements of a mesh $\mathcal{M}=(V,E)$, constructed by a function $dom_i$ which defines a precise association between $V$ and $E$, $dom_i : V \times E \rightarrow D_i$.
 \end{mydef}
-For example, the set of cells $D_0$ in a Cartesian 2D mesh could be defined by exactly four vertices and four edges connected as a cycle. But we could also define another set of elements $D_1$ as the simple set of vertices $V$ etc.
+For example, the set of cells $D_0$ in a Cartesian 2D mesh could be defined by exactly four vertices and four edges connected as a cycle. But we could also define another set of elements $D_1$ as the simple set of vertices $V$, etc.
 
 A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) and hybrid. 
 

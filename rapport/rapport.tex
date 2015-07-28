@@ -27,6 +27,7 @@
 \usepackage{subfig}
 \usepackage{caption}
 \usepackage{cite}
+\usepackage{todonotes}
 %%\usepackage[frenchb]{babel} % optionnel
 \RRNo{7003}
 %% \RTNo{0703}
@@ -124,6 +125,8 @@ abstract }
 \usepackage{tikz}
 \usepackage[ruled,noend]{algorithm2e}
 \usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
+
+\newcommand{\rmq}[1]{\todo[inline,color=red!80]{#1}}
 
 \tikzset{
     use/.style={
