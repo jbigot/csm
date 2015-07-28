@@ -1,4 +1,58 @@
 %----------------------------------------
+\subsection{Component models}
+%----------------------------------------
+Component model is an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228}, where functionnalities of an application are dispatched in different entities called components. Component models improves code re-use by a separation of concerns, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. In addition to this, recent work on component models have shown a simultaneous answer to performance, maintainability and portability of applications~\cite{l2c}, which makes this domain an interesting solution to bring maintainability and portability in HPC programming.
+Many component models exist, each of them with its own specification and singularity, like CCM~\cite{corba:omg06} (CORBA Component Model), GCM~\cite{Baude} (Grid Component Model) or CCA~\cite{Armstrong:1999:TCC:822084.823232} (Common Component Architecture), for example. 
+
+In the rest of this paper will be used concepts of the component model $L^2C$~\cite{l2c}. $L^2C$ is a minimalist HPC-oriented component model where a component extends the concept of class by specifying in its interfaces not only the services it offers, but also all its possible interactions with outer world. As a result, each component is an independant entity composed of a set of services its provides, and a set of services it requires (and uses). 
+A \emph{port} in $L^2C$ is an entity embbedded in the component which makes possible an \emph{assembly} of components. An assembly of components is a way to actually connect components together and to produce a complete application, as a set of components and their interactions. A provided service inside a component is associated to a \emph{provide} port, while a required service is associated to a \emph{use} port. It is also possible to group more than one required service into a single port, as a list, called a \emph{use-multiple} port. As illustrated in Figures~\ref{fig:ports}, a provide port will be represented by a white circle on the left of the component, a use port by a black circle and a use-multiple port by a black circle with a white $m$ in it, both on the right of the component.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$Comp_0$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {};
+   \node[provide,right=1.5cm of u] (p1) {};
+   \node[component,right=1.5cm of p1] (C1) {$Comp_1$};
+   \node[use,right=1.5cm of C1] (um) {$m$};
+ 
+  \path[-]
+    (p) edge node {} (C)
+    (C.east) edge node {} (u)
+    (C1)  edge node {} (um)
+    (p1) edge node {} (C1);
+\end{tikzpicture}
+\caption{Two components, one with a provide, use and use-multiple ports, the second with a single provide port}
+\label{fig:ports}
+\end{center}
+\end{figure}
+
+In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}. As the use port is on the right of its component, and the provide port on the left, in a component assembly the component on the left uses the provide port of the component on the right.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$Comp_0$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {};
+   \node[component,right=1.5 of u] (C1) {$Comp_1$};
+   \node[use,right=1.5 of C1] (um) {$m$};
+ 
+  \path[-]
+    (p) edge node {} (C)
+    (C) edge node {} (u)
+    (C1)  edge node {} (um)
+    (u) edge node {} (C1);
+\end{tikzpicture}
+\caption{Component assembly of Figure~\ref{fig:ports}}
+\label{fig:assembly}
+\end{center}
+\end{figure}
+
+With its minimal set of ports, $L^2C$ is a light component model which does not introduce overheads at runtime, and which results in a HPC-oriented component model. Another HPC-oriented component model is CCA~\cite{Armstrong:1999:TCC:822084.823232}, however the main difference between those component models is the way a distribution of component on distributed architectures is managed. Actually, in CCA distant components (on different processors or machines) have to be managed manually inside components using MPI~\cite{Graham2009MSE} (Message Passing Interfaces), while $L^2C$ proposes a specific MPI port to link distant components and ease their communications. Moreover, by exposing MPI connections, $L^2C$ also exposes the parallel structure of a program inside the assembly, which increase separation of concerns and code reuse for parallel applications.
+
+%----------------------------------------
 \subsection{Control components}
 %----------------------------------------
 The series-parallel tree decomposition $\Gamma_{tsp}$ represents the control of the dependencies of the simulation. As a result to be able to dump it to a component assembly it is needed to introduce what can be called \emph{control components}. Those components can be used for any case of simulation which increases code reuse between simulations. A control component is composed of a single \emph{provide} port linked to a single execution method, most of the time called the \emph{go} method. We introduce three types of control components described bellow:
@@ -67,21 +121,21 @@ As an example, from $\Gamma_{tsp}$ illustrated in Figure~\ref{fig:canon} a direc
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    %seq0
    \node[component] (seq0) at (0,0) {$SEQ$};
-   \node[provide] (seq0p) [left = 1cm of seq0] {};
+   \node[provide] (seq0p) [left = 0.8cm of seq0] {};
    \node[use] (seq0u) [right = 1cm of seq0] {$m$};
    %c0
-   \node[component] (c0) [right = 2.5cm of seq0u] {$c_0$};
+   \node[component] (c0) [right = 2cm of seq0u] {$c_0$};
    \node[use] (c0u) [right = 0.8cm of c0] {};
    \node[right=0.2 of c0u] (star) {*};
    %sync0
    \node[component] (sync0) [below = 1cm of c0] {$SYNC$};
    \node[use] (sync0u) [right = 1cm of sync0] {$m$};
    %c1
-   \node[component] (c1) [below = 1cm of sync0] {$c_1^*$};
+   \node[component] (c1) [below = 0.8cm of sync0] {$c_1^*$};
    \node[use] (c1u) [right = 0.8cm of c1] {};
    \node[right=0.2 of c1u] (star) {*};
    %par0
-   \node[component] (par0) [below = 1cm of c1] {$PAR$};
+   \node[component] (par0) [below = 0.8cm of c1] {$PAR$};
    \node[use] (par0u) [right = 1cm of par0] {$m$};
   %seq1
    \node[component] (seq1) [right = 1cm of par0u] {$SEQ$};
@@ -94,36 +148,36 @@ As an example, from $\Gamma_{tsp}$ illustrated in Figure~\ref{fig:canon} a direc
    \node[use] (c2u) [right = 0.8cm of c2] {};
    \node[right=0.2 of c2u] (star) {*};
   %sync1
-   \node[component] (sync1) [below = 1cm of c2] {$SYNC$};
+   \node[component] (sync1) [below = 0.8cm of c2] {$SYNC$};
    \node[use] (sync1u) [right = 1cm of sync1] {$m$};
   %c4
-   \node[component] (c4) [below = 1cm of par1] {$c_4^*$};
+   \node[component] (c4) [below = 0.8cm of par1] {$c_4^*$};
    \node[use] (c4u) [right = 0.8cm of c4] {};
    \node[right=0.2 of c4u] (star) {*};
   %c6
-   \node[component] (c6) [below = 1cm of c4] {$c_6$};
+   \node[component] (c6) [below = 0.8cm of c4] {$c_6$};
    \node[use] (c6u) [right = 0.8cm of c6] {};
    \node[right=0.2 of c6u] (star) {*};
   %seq2
-   \node[component] (seq2) [below = 3cm of seq1] {$SEQ$};
+   \node[component] (seq2) [below = 2.5cm of seq1] {$SEQ$};
    \node[use] (seq2u) [right = 1cm of seq2] {$m$};
   %c3
    \node[component] (c3) [right = 1cm of seq2u] {$c_3$};
    \node[use] (c3u) [right = 0.8cm of c3] {};
    \node[right=0.2 of c3u] (star) {*};
   %c5
-   \node[component] (c5) [below = 1cm of c3] {$c_5$};
+   \node[component] (c5) [below = 0.8cm of c3] {$c_5$};
    \node[use] (c5u) [right = 0.8cm of c5] {};
    \node[right=0.2 of c5u] (star) {*};
   %c7
-   \node[component] (c7) [below = 1cm of par0] {$c_7$};
+   \node[component] (c7) [below = 0.8cm of par0] {$c_7$};
    \node[use] (c7u) [right = 0.8cm of c7] {};
    \node[right=0.2 of c7u] (star) {*};
   %sync2
-   \node[component] (sync2) [below = 1cm of c7] {$SYNC$};
+   \node[component] (sync2) [below = 0.8cm of c7] {$SYNC$};
    \node[use] (sync2u) [right = 1cm of sync2] {$m$};
   %c8
-   \node[component] (c8) [below = 1cm of sync2] {$c_8^*$};
+   \node[component] (c8) [below = 0.8cm of sync2] {$c_8^*$};
    \node[use] (c8u) [right = 0.8cm of c8] {};
    \node[right=0.2 of c8u] (star) {*};
 

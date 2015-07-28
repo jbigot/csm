@@ -52,71 +52,18 @@ A multi-stencil program in this work is defined as a sextuplet
 \end{equation}
 where $T$ is the set of time iteration to run the simulation, $\mathcal{M}$ is the mesh of the simulation, $\mathcal{D}_m$ is the set of mesh domains, $\mathcal{D}_c$ is the set of computation domains used into computations, $\Delta$ is the set of data, each one mapped onto a mesh domain, and finally $\Gamma$ is the set of computations. The set of computations $\Gamma$ is composed of an ordered list of stencil and local computations. One can notice that this work is limited to a single type of mesh in a given simulation.
 
+% !!!!!!!!!!!! a mettre en plus court autre part !!!!!!!!!!!!!!!
 %----------------------------------------
-\subsection{Parallelization techniques}
-\label{sect:parallel}
+% \subsection{Parallelization techniques}
+% \label{sect:parallel}
 %----------------------------------------
-Three classical parallelization techniques are used in this paper and are described in this section, the data parallelism, the task parallelism, and the hybrid data and task parallelism. Those parallelization techniques are independent from the actual parallel hardware used.
+% Three classical parallelization techniques are used in this paper and are described in this section, the data parallelism, the task parallelism, and the hybrid data and task parallelism. Those parallelization techniques are independent from the actual parallel hardware used.
 
-\paragraph{Data parallelism} The idea of this parallelization technique is to split, or partition, data on which computations are applied among available processors (or cores). Each processor then applies the same progam or instruction onto its subpart of data. Moreover, if a neighborhood information is needed from another processor communications or synchronizations are performed. 
+% \paragraph{Data parallelism} The idea of this parallelization technique is to split, or partition, data on which computations are applied among available processors (or cores). Each processor then applies the same progam or instruction onto its subpart of data. Moreover, if a neighborhood information is needed from another processor communications or synchronizations are performed. 
 
-In the domain of numerical simulations, this technique is most of the time called a domain decomposition. This parallelization technique produce efficient programs up to thousands processors or cores, but on certain conditions. First, each subpart of data has to be big enough to overlap communication time. Second, the partitioning of data has to be balanced among processors. Thus, if this parallelization technique is clearly adequate to structured meshes, easy to balance, it is not for unstructured meshes or irregular structures where the amount of work is not heterogenous.
+% In the domain of numerical simulations, this technique is most of the time called a domain decomposition. This parallelization technique produce efficient programs up to thousands processors or cores, but on certain conditions. First, each subpart of data has to be big enough to overlap communication time. Second, the partitioning of data has to be balanced among processors. Thus, if this parallelization technique is clearly adequate to structured meshes, easy to balance, it is not for unstructured meshes or irregular structures where the amount of work is not heterogenous.
 
-\paragraph{Task parallelism} Another well known parallelization technique is to identify in a program the different tasks and which one are independant and can be launched concurrently. Most of the time, such a prallelization technique create a dependency directed acyclic graph (dependency dag) from a set of ordered tasks. Dependencies are found from read/write information for each task. Actually, if a task $i$ write a data $a$ and if a task $j$ read $a$, then $i$ has to be finished before $j$ is performed. From a dependency graph two different solutions are available. First, a static schedule of tasks is built, which could be a good solution if the tasks are regular, or use a dynamic scheduler to dynamically decide at runtime which task is executed on which processor.
+% \paragraph{Task parallelism} Another well known parallelization technique is to identify in a program the different tasks and which one are independant and can be launched concurrently. Most of the time, such a prallelization technique create a dependency directed acyclic graph (dependency dag) from a set of ordered tasks. Dependencies are found from read/write information for each task. Actually, if a task $i$ write a data $a$ and if a task $j$ read $a$, then $i$ has to be finished before $j$ is performed. From a dependency graph two different solutions are available. First, a static schedule of tasks is built, which could be a good solution if the tasks are regular, or use a dynamic scheduler to dynamically decide at runtime which task is executed on which processor.
 
-\paragraph{Hybrid parallelism} Finally, it is also possible to combine both those parallelization techniques to get what is called an hybrid parallelization. The interest of an hybrid parallelization is to bring another source of parallelism if limits of a given technique are reach.
-
-%----------------------------------------
-\subsection{Component models}
-%----------------------------------------
-Component model is an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228}, where functionnalities of an application are dispatched in different entities called components. Component models improves code re-use by a separation of concerns, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. In addition to this, recent work on component models have shown a simultaneous answer to performance, maintainability and portability of applications~\cite{l2c}, which makes this domain an interesting solution to bring maintainability and portability in HPC programming.
-Many component models exist, each of them with its own specification and singularity, like CCM~\cite{corba:omg06} (CORBA Component Model), GCM~\cite{Baude} (Grid Component Model) or CCA~\cite{Armstrong:1999:TCC:822084.823232} (Common Component Architecture), for example. 
-
-In the rest of this paper will be used concepts of the component model $L^2C$~\cite{l2c}. $L^2C$ is a minimalist HPC-oriented component model where a component extends the concept of class by specifying in its interfaces not only the services it offers, but also all its possible interactions with outer world. As a result, each component is an independant entity composed of a set of services its provides, and a set of services it requires (and uses). 
-A \emph{port} in $L^2C$ is an entity embbedded in the component which makes possible an \emph{assembly} of components. An assembly of components is a way to actually connect components together and to produce a complete application, as a set of components and their interactions. A provided service inside a component is associated to a \emph{provide} port, while a required service is associated to a \emph{use} port. It is also possible to group more than one required service into a single port, as a list, called a \emph{use-multiple} port. As illustrated in Figures~\ref{fig:ports}, a provide port will be represented by a white circle on the left of the component, a use port by a black circle and a use-multiple port by a black circle with a white $m$ in it, both on the right of the component.
-
-\begin{figure}[h!]
-\begin{center}
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (C) at (0,0) {$Comp_0$};
-   \node[provide] (p) at (-1.5,0) {};
-   \node[use] (u) at (1.5,0) {};
-   \node[provide,right=1.5cm of u] (p1) {};
-   \node[component,right=1.5cm of p1] (C1) {$Comp_1$};
-   \node[use,right=1.5cm of C1] (um) {$m$};
- 
-  \path[-]
-    (p) edge node {} (C)
-    (C.east) edge node {} (u)
-    (C1)	edge node {} (um)
-    (p1) edge node {} (C1);
-\end{tikzpicture}
-\caption{Two components, one with a provide, use and use-multiple ports, the second with a single provide port}
-\label{fig:ports}
-\end{center}
-\end{figure}
-
-In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}. As the use port is on the right of its component, and the provide port on the left, in a component assembly the component on the left uses the provide port of the component on the right.
-
-\begin{figure}[h!]
-\begin{center}
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (C) at (0,0) {$Comp_0$};
-   \node[provide] (p) at (-1.5,0) {};
-   \node[use] (u) at (1.5,0) {};
-   \node[component,right=1.5 of u] (C1) {$Comp_1$};
-   \node[use,right=1.5 of C1] (um) {$m$};
- 
-  \path[-]
-    (p) edge node {} (C)
-    (C) edge node {} (u)
-    (C1)	edge node {} (um)
-    (u) edge node {} (C1);
-\end{tikzpicture}
-\caption{Component assembly of Figure~\ref{fig:ports}}
-\label{fig:assembly}
-\end{center}
-\end{figure}
-
-With its minimal set of ports, $L^2C$ is a light component model which does not introduce overheads at runtime, and which results in a HPC-oriented component model. Another HPC-oriented component model is CCA~\cite{Armstrong:1999:TCC:822084.823232}, however the main difference between those component models is the way a distribution of component on distributed architectures is managed. Actually, in CCA distant components (on different processors or machines) have to be managed manually inside components using MPI~\cite{Graham2009MSE} (Message Passing Interfaces), while $L^2C$ proposes a specific MPI port to link distant components and ease their communications. Moreover, by exposing MPI connections, $L^2C$ also exposes the parallel structure of a program inside the assembly, which increase separation of concerns and code reuse for parallel applications.
+% \paragraph{Hybrid parallelism} Finally, it is also possible to combine both those parallelization techniques to get what is called an hybrid parallelization. The interest of an hybrid parallelization is to bring another source of parallelism if limits of a given technique are reach.
 
