@@ -25,30 +25,6 @@
     dcomponent/.style={
     rectangle,rounded corners=3pt,dashed,draw=black
     },
-    smallcp/.style={
-    rectangle,rounded corners=3pt,draw=black,font=\tiny,
-    },
-    resource/.style={
-    rectangle,rounded corners=3pt, dashed,draw=black,font=\tiny,
-    },
-    connection/.style={
-    decoration={ markings,
-      mark=at position 1 with {\node[fill=black,draw=black,circle,inner sep=2pt](conn){};}
-      },
-    postaction={decorate}
-    },
-    bconnection/.style={
-    decoration={ markings,
-      mark=at position 1 with {\node[fill=black,draw=black,circle,inner sep=2pt](conn){};}
-      },
-    postaction={decorate}
-    },
-    mpiconn/.style={
-    decoration={ markings,
-      mark=at position 0.99 with {\node[fill=black,draw=black,rectangle,,inner sep=2pt](mpi){};}
-      },
-    postaction={decorate}
-    },
 }
 %-------------
 \newenvironment{mydef}[1][Definition]{\begin{trivlist}
