@@ -34,41 +34,55 @@ The first stencil computation in Figure~\ref{fig:ex1} computes $A$ using $B$, wh
 
 Finally, a stencil computation is composed of a \emph{numerical expression} which indicates how to compute an element of the computation domain (on the output data), using elements of the set of input data. The numerical expression of a stencil computation has the particularity to use not only the element to compute but also a \emph{neighborhood} of this element, also called a \emph{stencil shape}. For example, the stencil shape of the first computation in Figure~\ref{fig:ex1} contains direct neighbors on the right, left, top and bottom. Sometimes, the neighborhood shape can also access a different mesh domain, as for example in Figure~\ref{fig:ex2}. Actually, in this computation, the neighborhood contains edges on the left and on the right of the cell. As an example, the numerical expression of the first example could be
 \begin{equation*} 
-B(x,y) = A(x+1,y)+A(x-1,y)+A(x,y+1)+A(x,y-1),
+A(x,y) = B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1),
 \end{equation*}
 and the numerical expression of the second example could be
 \begin{equation*} 
-B(x,y) = B(x,y)+C(x1,y1)+C(x1+1,y1).
+A(x,y) = A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
-
-To conclude this section, we define a stencil computation $s$ as the quintuplet
-\begin{equation} 
-s(R,w,exp,\mathcal{N},d_c),
-\label{eq:st}
-\end{equation}
-where $R$ is the set of input data, $w$ the output data, $exp$ the numerical expression of the stencil computation, which is applied on the computation domain $d_c$, using a stencil shape $\mathcal{N}$.
 
 %----------------------------------------
 \subsection{Multi-stencil programs}
 \label{sect:multistencil}
 %----------------------------------------
-While stencil computations are well defined and a lot studied in the literrature, it is not the case for real case numerical simulations. In this paper, we define what we call a \emph{multi-stencil program}, which actually is a general numerical simulation. 
+A real case numerical simulation is most of the time composed of more than one stencil computation, with one or more stencil shapes, and onto one or more data, and of additionnal local computations. Let introduce formal definitions used in the rest of the paper.
 
-A real case numerical simulation is most of the time not composed of a single stencil computation, but of a set of stencil computations, with one or more stencil shapes (neighboorhood), and onto one or more data. Moreover, a numerical simulation also performs additionnal auxiliary computations which do not involve neighborhood, called local computations. This paper targets this general case of numerical simulations that we call \emph{multi-stencil programs}. The work presented produces a general parallelization structure of the overall simulation, while most stencil solutions produce optimized codes for a single stencil code. As it will be detailed in the related work, this work is complementary to the optimization and parallelization of a single stencil computation.
-
-An auxiliary computation is almost the same than a stencil computation, however its numerical expression does not involve a neighborhood, which makes this kind of computation purely local. A local computation $l$ is defined as the quadruplet
+For $\Delta$ the set of data of the simulation, a stencil computation $s$ is defined as the quintuplet
 \begin{equation} 
-l(R,w,exp,d_c),
+s(R,w,exp,d_c),
+\label{eq:st}
+\end{equation}
+where $R$ is a list of pair $(r,n)$ with $r \in \Delta$ is a data read by the computation, and $n$ is a stencil shape (a neighborhood). The data written by the computation is denoted $w \in \Delta$, $exp$ is the numerical expression of the stencil computation. Finally the numerical expression is applied on the computation domain $d_c$.
+
+For example, in the example of Figure~\ref{fig:ex1}, if we call the computation domain (plain lines) $dc1$ and the stencil shape $n1$, the stencil computation can be defined with
+\begin{equation*}
+R: {(B,n1)} \quad w: A \quad d_c: dc1
+\end{equation*}
+\begin{equation*}
+exp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
+\end{equation*}
+On the other hand, in the second example of Figure~\ref{fig:ex2}, if we call the computation domain $dc2$ and the stencil shape $n2$, the stencil computation can be defined as
+\begin{equation*}
+R: {(C,n2),(A,null)} \quad w: A \quad d_c: dc2
+\end{equation*}
+\begin{equation*}
+exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1)
+\end{equation*}
+One can notice that the input data $A$ is associated to the stencil shape $null$. This means that no stencil shape is applied on $A$, but only a local access.
+
+A local, or auxiliary, computation is almost the same than a stencil computation without neighborhood information in the numerical expression, which makes this kind of computation purely local. A local computation $l$ is defined as the quadruplet
+\begin{equation} 
+l(R_l,w,exp,d_c),
 \label{eq:loc}
 \end{equation}
-where $R$ is the set of input data, $w$ the output data, $exp$ the numerical expression of the stencil computation, which is applied on the computation domain $d_c$.
+where $R_l$ is the set of input data, and other parameters are the same than for a stencil computation.
 
 A multi-stencil program in this work is defined as a sextuplet
 \begin{equation} 
 \mathcal{MSP}(T,\mathcal{M},\mathcal{D}_m,\mathcal{D}_c,\Delta,\Gamma),
 \label{eq:msp}
 \end{equation}
-where $T$ is the set of time iteration to run the simulation, $\mathcal{M}$ is the mesh of the simulation, $\mathcal{D}_m$ is the set of mesh domains, $\mathcal{D}_c$ is the set of computation domains used into computations, $\Delta$ is the set of data, each one mapped onto a mesh domain, and finally $\Gamma$ is the set of computations. The set of computations $\Gamma$ is composed of an ordered list of stencil and local computations. One can notice that this work is limited to a single type of mesh in a given simulation.
+where $T$ is the set of time iteration to run the simulation, $\mathcal{M}$ is the mesh of the simulation, $\mathcal{D}_m$ is the set of mesh domains, $\mathcal{D}_c$ is the set of computation domains used into computations, $\Delta$ is the set of data of the simulation, each one mapped onto a mesh domain, and finally $\Gamma$ is the set of computations. The set of computations $\Gamma$ is composed of an ordered list of stencil and local computations. One can notice that this work is limited to a single type of mesh in a given simulation.
 
 % !!!!!!!!!!!! a mettre en plus court autre part !!!!!!!!!!!!!!!
 %----------------------------------------

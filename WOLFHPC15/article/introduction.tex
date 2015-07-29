@@ -6,3 +6,7 @@
 \item Contributions: agnostic coarse grain DSL for multi-stencil programs + DSL to components try
 \item Outline
 \end{itemize}
+
+While stencil computations are well defined and a lot studied in the literrature, it is not the case for real case numerical simulations. In this section are introduced  we define what we call a \emph{multi-stencil program}, which actually is a general numerical simulation. 
+
+A real case numerical simulation is most of the time not composed of a single stencil computation, but of a set of stencil computations, with one or more stencil shapes (neighboorhood), and onto one or more data. Moreover, a numerical simulation also performs additionnal auxiliary computations which do not involve neighborhood, called local computations. This paper targets this general case of numerical simulations that we call \emph{multi-stencil programs}. The work presented produces a general parallelization structure of the overall simulation, while most stencil solutions produce optimized codes for a single stencil code. As it will be detailed in the related work, this work is complementary to the optimization and parallelization of a single stencil computation.
