@@ -41,54 +41,107 @@ The back-end of the compiler is to build a parallel assembly of components, in o
 
 The final back-end component assembly is a ready-to-fill parallel structure where the user has to write computation codes described in the MSL description. To write those computations, interfaces of the choosen implementation have to be used. For example, the back-end evaluated in this paper uses the distributed data structure proposed in SkelGIS library~\cite{CPE:CPE3494}, however a work in progress replaces this DDS component by another one using Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985} data structure.
 
-
-% This paper presents the MS language and the MSC part of the compiler. The MSC compiler produces a static scheduling of the set of computations, ready to dump to a parallel language, such as OpenMP~\cite{660313} or HPF~\cite{219857}, but also ready to dump to a component assembly which is the main contribution of this work.
-
-\begin{figure*}
+\begin{figure}
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[component] (D) at (0,0) {$Driver$};
    \node[provide] (Dp) at (-1,0) {};
    \node (Ds) at (-1.5,0) {start};
-   \node[use] (Du1) at (1,0.5) {};
-   \node[use] (Du2) at (1,-0.5) {};
+   \node[use,right=1.5cm of D] (Du1) {};
+   \node[use,below=0.8cm of D] (Du2) {};
 
-   \node[component,right=1cm of Du2] (DA) {$DriverApp$};
-   \node[use] (DAu1) at (3.5,0) {$m$};
-   \node[use] (DAu2) at (3.5,-1) {};
+   \node[provide,below=0.15 of Du2] (DAp) {};
+   \node[component,below=0.8cm of DAp] (DA) {$DriverApp$};
+   \node[use,right=1.7cm of DA] (DAu1) {$m$};
+   \node[use,below=0.8cm of DA] (DAu2) {};
 
-   \node[component] (T) at (4.5,-1) {$Time$};
+   \node[provide,below=0.15 of DAu2] (Tp) {};
+   \node[component,below=0.8cm of Tp] (T) {$Time$};
    \node[use,right=1cm of T] (Tu) {};
-   \node[component,right=2cm of Tu] (C) {$Computations$};
-   \node[use,right=2cm of C] (Cu) {};
-   \node[below=0.2cm of Cu] (star) {$*$};
 
-   \node[component,right=8cm of DAu1] (Data) {$Data$};
-   \node[use,right=1cm of Data] (Datau) {};
+   \node[provide,right=0.15 of Tu] (Cp) {};
+   \node[component,right=2cm of Cp] (C) {$Computations$};
+   \node[use,above=0.8cm of C] (Cu) {};
+   \node[right=0.2cm of Cu] (star) {$*$};
 
-   \node[component,right=13cm of Du1] (DDS) {$DDS$};
+   \node[provide,right=0.2 of DAu1] (Datap1) {};
+   \node[provide,above=0.15 of Cu] (Datap2) {};
+   \node[component,above=0.8cm of Datap2] (Data) {$Data$};
+   \node[use,above=0.8cm of Data] (Datau) {};
+
+   \node[provide,right=0.15 of Du1] (DDSp1) {};
+   \node[provide,above=0.15 of Datau] (DDSp2) {};
+   \node[component,above=0.8cm of DDSp2] (DDS) {$DDS$};
  
   \path[-]
     (Dp) edge node {} (D)
-    (D.east) edge node {} (Du1)
-      edge node {} (Du2)
-    (Du1) edge node {} (DDS.west)
-    (Du2) edge node {} (DA)
-    (DA.east) edge node {} (DAu1)
-      edge node {} (DAu2)
-    (DAu1) edge node {} (Data.west)
-    (DAu2) edge node {} (T)
-    (T) edge node {} (Tu)
-    (Tu) edge node {} (C)
+    (D) edge node {} (Du1)
+        edge node {} (Du2)
+    (DDSp1) edge node {} (DDS)
+    (DA) edge node {} (DAu1)
+           edge node {} (DAu2)
+    (DAp) edge node {} (DA)
+    (Tp) edge node {} (T)
+    (T)  edge node {} (Tu)
+    (Cp) edge node {} (C)
     (C) edge node {} (Cu)
-    (Cu) edge node {} (Data.west)
+    (Datap2) edge node {} (Data)
+    (Datap1) edge node {} (Data)
     (Data) edge node {} (Datau)
-    (Datau) edge node {} (DDS.west);
+    (DDSp2) edge node {} (DDS);
 \end{tikzpicture}
 \caption{Shape of the generated component assembly.}
 \label{fig:assembly}
 \end{center}
-\end{figure*}
+\end{figure}
+
+% This paper presents the MS language and the MSC part of the compiler. The MSC compiler produces a static scheduling of the set of computations, ready to dump to a parallel language, such as OpenMP~\cite{660313} or HPF~\cite{219857}, but also ready to dump to a component assembly which is the main contribution of this work.
+
+% \begin{figure*}
+% \begin{center}
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%    \node[component] (D) at (0,0) {$Driver$};
+%    \node[provide] (Dp) at (-1,0) {};
+%    \node (Ds) at (-1.5,0) {start};
+%    \node[use] (Du1) at (1,0.5) {};
+%    \node[use] (Du2) at (1,-0.5) {};
+
+%    \node[component,right=1cm of Du2] (DA) {$DriverApp$};
+%    \node[use] (DAu1) at (3.5,0) {$m$};
+%    \node[use] (DAu2) at (3.5,-1) {};
+
+%    \node[component] (T) at (4.5,-1) {$Time$};
+%    \node[use,right=1cm of T] (Tu) {};
+%    \node[component,right=2cm of Tu] (C) {$Computations$};
+%    \node[use,right=2cm of C] (Cu) {};
+%    \node[below=0.2cm of Cu] (star) {$*$};
+
+%    \node[component,right=8cm of DAu1] (Data) {$Data$};
+%    \node[use,right=1cm of Data] (Datau) {};
+
+%    \node[component,right=13cm of Du1] (DDS) {$DDS$};
+ 
+%   \path[-]
+%     (Dp) edge node {} (D)
+%     (D.east) edge node {} (Du1)
+%       edge node {} (Du2)
+%     (Du1) edge node {} (DDS.west)
+%     (Du2) edge node {} (DA)
+%     (DA.east) edge node {} (DAu1)
+%       edge node {} (DAu2)
+%     (DAu1) edge node {} (Data.west)
+%     (DAu2) edge node {} (T)
+%     (T) edge node {} (Tu)
+%     (Tu) edge node {} (C)
+%     (C) edge node {} (Cu)
+%     (Cu) edge node {} (Data.west)
+%     (Data) edge node {} (Datau)
+%     (Datau) edge node {} (DDS.west);
+% \end{tikzpicture}
+% \caption{Shape of the generated component assembly.}
+% \label{fig:assembly}
+% \end{center}
+% \end{figure*}
 
 % It has to be noticed that in this paper, the MSD compiler is a first adhoc version which works for a precise distributed data structure, the SkelGIS library~\cite{HeleneLS13,HeleneLS14,HeleneEuroPar14,CPE:CPE3494}. However, using the system of python string templates~\footnote{\url{https://docs.python.org/2/library/string.html}} to define the component assembly part which manages data, it is already possible to use another distributed data structure, as for example Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985}. This part of the compiler takes place in a larger research project to propose domain decomposition skeletons using component models.
 
