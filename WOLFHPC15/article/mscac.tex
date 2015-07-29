@@ -58,20 +58,24 @@ The final back-end component assembly is a ready-to-fill parallel structure wher
    \node[provide,below=0.15 of DAu2] (Tp) {};
    \node[component,below=0.8cm of Tp] (T) {$Time$};
    \node[use,right=1cm of T] (Tu) {};
+   \node[left=0.8cm of T] (tt) {$T$};
 
    \node[provide,right=0.15 of Tu] (Cp) {};
    \node[component,right=2cm of Cp] (C) {$Computations$};
    \node[use,above=0.8cm of C] (Cu) {};
    \node[right=0.2cm of Cu] (star) {$*$};
+   \node[right=1.5cm of C] (gamma) {$\Gamma$};
 
    \node[provide,right=0.2 of DAu1] (Datap1) {};
    \node[provide,above=0.15 of Cu] (Datap2) {};
    \node[component,above=0.8cm of Datap2] (Data) {$Data$};
    \node[use,above=0.8cm of Data] (Datau) {};
+   \node[right=1cm of Data] (delta) {$\Delta,\mathcal{D}_c$};
 
    \node[provide,right=0.15 of Du1] (DDSp1) {};
    \node[provide,above=0.15 of Datau] (DDSp2) {};
    \node[component,above=0.8cm of DDSp2] (DDS) {$DDS$};
+   \node[right=1.2cm of DDS] (m) {$\mathcal{M},\mathcal{D}_m$};
  
   \path[-]
     (Dp) edge node {} (D)
