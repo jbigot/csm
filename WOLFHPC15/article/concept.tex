@@ -6,11 +6,29 @@ To numerically solve a set of PDEs, iterative methods (finite difference, finite
 
 Let introduce some concepts used in this paper. First, a stencil code is based on a \emph{mesh} which is the discretization of the physical real domain. A mesh is a connected undirected graph without bridges (an edge is a bridge if its removal results in two disconnected graphs), where nodes and edges are linked to form cells (closure). For example, a structured mesh is illustrated in Figure~\ref{fig:ex}, each cell contains four nodes and four edges. Second, \emph{mesh domains} are subset elements of the mesh, such as the center of cells, edges or nodes, for example. In Figure~\ref{fig:ex} two mesh domains are used, the center of the cells (in red) and the edge on the horizontal axe (in blue on the left and right of each cell). A \emph{data} is a quantity to simulate or a temporary data to perform computations. A data is mapped onto a given mesh domain. For example, in Figure~\ref{fig:ex}, data $A$ and $B$ are mapped onto the center of cells, while $C$ is mapped onto the edges.
 
-\begin{figure}[!h]\begin{center}
-  \resizebox{7cm}{!}{\includegraphics{./images/stencil.pdf}}
-  \caption{Examples of a stencil computations}
-  \label{fig:ex}
-\end{center}\end{figure}
+\begin{figure}
+\begin{center}
+\subfloat[Mesh and mesh domains\label{fig:mesh}]{
+\resizebox{7cm}{!}{\includegraphics{./images/mesh.pdf}}
+}
+\hspace{10pt}
+\subfloat[First stencil example\label{fig:ex1}]{
+\resizebox{5cm}{!}{\includegraphics{./images/stencil1.pdf}}
+}
+\hspace{10pt}
+\subfloat[Second stencil example\label{fig:ex2}]{
+\resizebox{5cm}{!}{\includegraphics{./images/stencil2.pdf}}
+}
+\end{center}
+\caption{Stencil examples}
+\label{fig:gspmsp}
+\end{figure}
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{7cm}{!}{\includegraphics{./images/stencil.pdf}}
+%   \caption{Examples of a stencil computations}
+%   \label{fig:ex}
+% \end{center}\end{figure}
 
 The first stencil computation in Figure~\ref{fig:ex} computes $B$ using $A$, while the second one computes $B$ using $C$. Thus, a stencil computation is defined by a set of input data (in those examples only one input data), and a single output data, the result. The \emph{computation domain} is a subset of elements to compute on the output data. In other words a computation domain is a subset of a mesh domain. For example, in the first stencil, the computation of $B$ is performed on plain elements, while dotted elements are not computed. On the other hand, on the second computation, the computation domain of $B$ is exactly equal to the cell mesh domain. The computation domain represents the set of elements on which the computation is performed, in other words, the space loop.
 

@@ -32,26 +32,26 @@ This paper presents the MS language and the MSC part of the compiler. The MSC co
 \begin{figure*}
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (D) at (0,0) {Driver};
+   \node[component] (D) at (0,0) {$Driver$};
    \node[provide] (Dp) at (-1,0) {};
    \node (Ds) at (-1.5,0) {start};
    \node[use] (Du1) at (1,0.5) {};
    \node[use] (Du2) at (1,-0.5) {};
 
-   \node[component,right=1cm of Du2] (DA) {DriverApp};
+   \node[component,right=1cm of Du2] (DA) {$DriverApp$};
    \node[use] (DAu1) at (3.5,0) {$m$};
    \node[use] (DAu2) at (3.5,-1) {};
 
-   \node[component] (T) at (4.5,-1) {Time};
+   \node[component] (T) at (4.5,-1) {$Time$};
    \node[use,right=1cm of T] (Tu) {};
-   \node[component,right=2cm of Tu] (C) {Computations};
+   \node[component,right=2cm of Tu] (C) {$Computations$};
    \node[use,right=2cm of C] (Cu) {};
    \node[below=0.2cm of Cu] (star) {$*$};
 
-   \node[component,right=8cm of DAu1] (Data) {Data};
+   \node[component,right=8cm of DAu1] (Data) {$Data$};
    \node[use,right=1cm of Data] (Datau) {};
 
-   \node[component,right=13cm of Du1] (DDS) {DDS};
+   \node[component,right=13cm of Du1] (DDS) {$DDS$};
  
   \path[-]
     (Dp) edge node {} (D)
