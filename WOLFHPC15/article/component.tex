@@ -1,42 +1,81 @@
 %----------------------------------------
-\subsection{Component models}
+\subsection{Overview}
 %----------------------------------------
-Component model is an interesting domain of software engineering~\cite{Szyperski:2002:CSB:515228}, where functionnalities of an application are dispatched in different entities called components. Component models improves code re-use by a separation of concerns, scalability and maintainability of applications~\cite{Szyperski:2002:CSB:515228,bigot:inria-00388508}. In addition to this, recent work on component models have shown a simultaneous answer to performance, maintainability and portability of applications~\cite{l2c}, which makes this domain an interesting solution to bring maintainability and portability in HPC programming.
-Many component models exist, each of them with its own specification and singularity, like CCM~\cite{corba:omg06} (CORBA Component Model), GCM~\cite{Baude} (Grid Component Model) or CCA~\cite{Armstrong:1999:TCC:822084.823232} (Common Component Architecture), for example. 
 
-In the rest of this paper will be used concepts of the component model $L^2C$~\cite{l2c}. $L^2C$ is a minimalist HPC-oriented component model where a component extends the concept of class by specifying in its interfaces not only the services it offers, but also all its possible interactions with outer world. As a result, each component is an independant entity composed of a set of services its provides, and a set of services it requires (and uses). 
-A \emph{port} in $L^2C$ is an entity embbedded in the component which makes possible an \emph{assembly} of components. An assembly of components is a way to actually connect components together and to produce a complete application, as a set of components and their interactions. A provided service inside a component is associated to a \emph{provide} port, while a required service is associated to a \emph{use} port. It is also possible to group more than one required service into a single port, as a list, called a \emph{use-multiple} port. As illustrated in Figures~\ref{fig:ports}, a provide port will be represented by a white circle on the left of the component, a use port by a black circle and a use-multiple port by a black circle with a white $m$ in it, both on the right of the component.
+This section describes both the projection of $\Gamma_{tsp}$ to
+components, and the remaining needed components to execute a
+multi-stencil application. But, first the section gives an overview of
+component models, and then it details \llc, the component model used in
+this work.
 
-\begin{figure}[h!]
-\begin{center}
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (C) at (0,0) {$Comp_0$};
+
+%----------------------------------------
+\subsection{Component Model Overview}
+%----------------------------------------
+Component model is an domain of software
+engineering~\cite{Szyperski:2002:CSB:515228}, which promotes code
+re-use and separations of concerns. An application is made by a set of
+component; a component being a kind of black box that interacts only
+through ports: ports specify the services provided and required.
+
+Component models are known to improved code re-use, separation of
+concerns, and maintainability of
+applications~\cite{Szyperski:2002:CSB:515228}. More recent works have
+also shown that component models can handled performance, scalability,
+and portability of applications~\cite{Bernholdt01052006,
+  bigot:inria-00388508, l2c}. Many component models exist, each of
+them with its own specifications and singularities. In distributed
+computing, well known models are CCM~\cite{corba:omg06} (CORBA
+Component Model), and GCM~\cite{Baude} (Grid Component Model); in HPC,
+there are CCA~\cite{Bernholdt01052006} (Common Component
+Architecture), and \llc~\cite{l2c} (Low Level Component), for example.
+
+%----------------------------------------
+\subsection{\llc}
+%----------------------------------------
+
+The remaining of this paper focuses on \llc, in particular for the
+experiments. Let describe it in more details.
+
+\llc is a minimalist \texttt{C++} based HPC component model where a
+component extends the concept of class by specifying in its interfaces
+the services that it offers ($provide$ ports) and that it needs,
+either a single service instance ($use$ ports), or multiple service
+instances ($use-multiple$ ports). Services are \texttt{C++}
+interfaces. \llc also offer $MPI$ ports that enable components to
+share a MPI communicators.
+%
+As illustrated in Figures~\ref{fig:ports}, a $provide$ port is
+represented by a white circle on the left of the component, a $use$
+port by a black circle, a $use-multiple$ port by a black circle with a
+white $m$ in it, both on the right of the component. MPI PORT!!!
+
+A classical \llc-based application is a static \emph{assembly} of
+components made of instances of component and connections between
+ports. Such an assembly is describe in LAD (\llc Assembly Descriptor),
+an XML dialect~\cite{l2c}.
+
+\begin{figure}[t]
+a)\hspace{2mm} \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$C_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
    \node[provide,right=1.5cm of u] (p1) {};
-   \node[component,right=1.5cm of p1] (C1) {$Comp_1$};
+   \node[component,right=1.5cm of p1] (C1) {$C_1$};
    \node[use,right=1.5cm of C1] (um) {$m$};
  
   \path[-]
-    (p) edge node {} (C)
-    (C.east) edge node {} (u)
-    (C1)  edge node {} (um)
-    (p1) edge node {} (C1);
+    (p) edge node {$p$} (C)
+    (C.east) edge node {$u$} (u)
+    (C1)  edge node {$u'$} (um)
+    (p1) edge node {$p'$} (C1);
 \end{tikzpicture}
-\caption{Two components, one with a provide, use and use-multiple ports, the second with a single provide port}
-\label{fig:ports}
-\end{center}
-\end{figure}
-
-In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}. As the use port is on the right of its component, and the provide port on the left, in a component assembly the component on the left uses the provide port of the component on the right.
-
-\begin{figure}[h!]
-\begin{center}
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (C) at (0,0) {$Comp_0$};
+\\\\
+b)\hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$C_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
-   \node[component,right=1.5 of u] (C1) {$Comp_1$};
+   \node[component,right=1.5 of u] (C1) {$C_1$};
    \node[use,right=1.5 of C1] (um) {$m$};
  
   \path[-]
@@ -45,12 +84,14 @@ In the rest of this paper, when a required service of a \emph{use} (or \emph{use
     (C1)  edge node {} (um)
     (u) edge node {} (C1);
 \end{tikzpicture}
-\caption{Component assembly of Figure~\ref{fig:ports}}
-\label{fig:assembly}
-\end{center}
+\\\\
+c) MPI!!!
+\\\\
+\caption{a) Component $C_0$ has a provide port ($p$) and a use port ($u$); Component $C_1$ has also a provide port ($p'$) but a use multiple port ($u'$). b) When a use port is connected to a provide port, only the use port is shown and by convention it has to be the left component.}
+\label{fig:ports}
 \end{figure}
 
-With its minimal set of ports, $L^2C$ is a light component model which does not introduce overheads at runtime, and which results in a HPC-oriented component model. Another HPC-oriented component model is CCA~\cite{Armstrong:1999:TCC:822084.823232}, however the main difference between those component models is the way a distribution of component on distributed architectures is managed. Actually, in CCA distant components (on different processors or machines) have to be managed manually inside components using MPI~\cite{Graham2009MSE} (Message Passing Interfaces), while $L^2C$ proposes a specific MPI port to link distant components and ease their communications. Moreover, by exposing MPI connections, $L^2C$ also exposes the parallel structure of a program inside the assembly, which increase separation of concerns and code reuse for parallel applications.
+%% In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}. As the use port is on the right of its component, and the provide port on the left, in a component assembly the component on the left uses the provide port of the component on the right.
 
 %----------------------------------------
 \subsection{Control components}
