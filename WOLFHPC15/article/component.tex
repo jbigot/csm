@@ -85,7 +85,17 @@ b)\hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, aut
     (u) edge node {} (C1);
 \end{tikzpicture}
 \\\\
-c) MPI!!!
+c) \hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$C_0$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[mpi] (u) at (1.5,0) {};
+   \node[component,right=1.5 of u] (C1) {$C_1$};
+ 
+  \path[-]
+    (p) edge node {} (C)
+    (C) edge node {} (u)
+    (u) edge node {} (C1);
+\end{tikzpicture}
 \\\\
 \caption{a) Component $C_0$ has a provide port ($p$) and a use port ($u$); Component $C_1$ has also a provide port ($p'$) but a use multiple port ($u'$). b) When a use port is connected to a provide port, only the use port is shown and by convention it has to be the left component.}
 \label{fig:ports}
