@@ -98,7 +98,7 @@ The creation of $\Gamma$ is directly given from the parser. Actually, the list o
 From the ordered list of computations $\Gamma$ can be automatically detected the needed synchronizations. A synchronization is needed each time a data read by a stencil computation has been written by a previous computation. In such a case, a computation is added before the stencil computation. This \emph{synchronization computation} read the data to synchronize, and write the same data. The computation domain of such a synchronization computation is the mesh entity on which the data is declared. As a result $\Gamma$ is transformed to a synchronized ordered list of computations $\Gamma_{data}$.
 For example, in Figure~\ref{fig:mslex}, the stencil computation $c_1$ read the data $b$ which has been written by the computation $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed to the sublist $[c_0,sync_1,c_1]$ in $\Gamma_{data}$. The new computation $sync_1$ read and write $b$ and is applied on the computation domain of $c_1$. As a result, a dependency is kept between $c_0$ and $sync_1$ and between $sync_1$, and $c_1$. The same is performed for the stencils $c_4$ and $c_8$. Thus $\Gamma_{data} = [c_0,sync_1,c_1,c_2,c_3,sync_4,c_4,c_5,c_6,c_7,sync_8,c_8]$.
 
-\paragraph{Creation of the dependency graph} From the synchronized ordered list of computations $\Gamma_{data}$, a dependency graph is built. A dependency exists between two computations (including synchronizations) if and only if a data read has been written by a previous computation in $\Gamma_{data}$, and if the computation domains intersect. In other words, the only case where a data dependency exists but is not taking into account is when the computation domains do not intersect. Nodes of the dependency graph represent computations of $\Gamma_{data}$, while edges are dependencies between them. The dependency graph $\Gamma_{hybrid}$ is a directed acyclic graph (\emph{dag}). For example, the dependency dag $\Gamma_{hybrid}$ of the example of Figure~\ref{fig:mslex} is illustrated in Figure~\ref{fig:hyb}.
+\paragraph{Creation of the dependency graph} From the synchronized ordered list of computations $\Gamma_{data}$, a dependency graph is built. A dependency exists between two computations (including synchronizations) if and only if a data read has been written by a previous computation in $\Gamma_{data}$, and if the computation domains intersect. In other words, the only case where a data dependency exists but is not taken into account is when the computation domains do not intersect. Nodes of the dependency graph represent computations of $\Gamma_{data}$, while edges are dependencies between them. The dependency graph $\Gamma_{hybrid}$ is a directed acyclic graph (\emph{dag}). For example, the dependency dag $\Gamma_{hybrid}$ of the example of Figure~\ref{fig:mslex} is illustrated in Figure~\ref{fig:hyb}.
 
 \begin{figure}[h!]
 \begin{center}
@@ -130,7 +130,7 @@ For example, in Figure~\ref{fig:mslex}, the stencil computation $c_1$ read the d
     (c7) edge node {} (sy8)
     (sy8) edge node {} (c8);
 \end{tikzpicture}
-\caption{$\Gamma_{hybrid}$ of Figure~\ref{fig:hyb}}
+\caption{$\Gamma_{hybrid}$ of the example of Figure~\ref{fig:mslex}}
 \label{fig:hyb}
 \end{center}
 \end{figure}
@@ -180,7 +180,7 @@ For example, in Figure~\ref{fig:mslex}, the stencil computation $c_1$ read the d
     (s2) edge node {} (c3)
          edge node {} (c5);
   \end{tikzpicture}
-\caption{$\Gamma_{tsp}$ of Figure~\ref{fig:hyb}.}
+\caption{$\Gamma_{tsp}$ of Figure~\ref{fig:hyb}. Nodes $S$ represent sequences, nodes $P$ represent parallel sections.}
 \label{fig:tsp}
 \end{center}
 \end{figure}
