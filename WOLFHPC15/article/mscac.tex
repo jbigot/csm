@@ -1,6 +1,7 @@
-The solution proposed in this paper contains a domain specific language to describe a multi-stencil program, i.e. an overall numerical simulation, and a compiler which successively parses the front-end language, transforms the internal representation, and finally dumps the representation to a back-end code. This back-end code is component based.
+The solution proposed in this paper contains a domain specific language to describe a multi-stencil program, \ie an overall numerical simulation, and a compiler which successively parses the front-end language, transforms the internal representation, and finally dumps the representation to a component-based back-end code.
 
-The proposed DSL, named MSL (\emph{Multi-Stencil Language}), is an agnostic descriptive language for multi-stencil simulations. Agnostic means that the description of a numerical simulation does not depend on implementation choices as, for example, the type of mesh (structured, unstructured), or its associated interfaces (how to define a stencil shape, etc.). Descriptive, on the other hand, means that the terminal states of the language grammar are (string) identifiers. As a result, MSL is not made to handle the expression of numerical computations, but only the description of a multi-stencil simulation, in a coarse-grain fashion. Numerical computations are encapsulated in specific components that users have to develop. In a MSL description, six main sections are defined, as the six tuples of the definition of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\mathcal{D}_m,\mathcal{D}_c,\Delta,\Gamma)$ (\cf Equation~\ref{eq:msp}).
+The proposed DSL, named MSL (\emph{Multi-Stencil Language}), is an agnostic descriptive language for multi-stencil simulations. Agnostic means that the description of a numerical simulation does not depend on implementation choices as, for example, the type of mesh (structured, unstructured), or its associated interfaces (how to define a stencil shape, etc.). Descriptive, on the other hand, means that the terminal states of the language grammar are (string) identifiers. As a result, MSL is not made to handle the expression of numerical computations, but only the description of a multi-stencil simulation, in a coarse-grain fashion. %Numerical computations are encapsulated in specific components that users have to develop. 
+In a MSL description, six main sections are defined, as the six tuples of the definition of a multi-stencil program of Equation~\ref{eq:msp}.
 
 \begin{figure}[t]
 \begin{center}
@@ -8,7 +9,7 @@ The proposed DSL, named MSL (\emph{Multi-Stencil Language}), is an agnostic desc
   inner/.style={rectangle,rounded corners=3pt,thick,inner sep=5pt},
   outer/.style={rectangle,rounded corners=3pt,thick,inner sep=5pt}
   ]
-  \node (MSL) {MS Language};
+  \node (MSL) {MSL};
   \node[outer,below=0.5 of MSL,draw=black] (MSCAC) {
     \begin{tikzpicture}
       \node [inner,draw=black,thick] (pars)  {Parser};
@@ -19,7 +20,7 @@ The proposed DSL, named MSL (\emph{Multi-Stencil Language}), is an agnostic desc
       \draw[->] (MSC) -- (Dump);
     \end{tikzpicture}
   };
-  \node [below=0.5 of MSCAC] (CA) {Component Assembly};
+  \node [below=0.5 of MSCAC] (CA) {Component-based runtime};
   \node [rotate=90,above left=0.5 of MSC] (CAid) {MSCAC};
   \draw[->] (MSL) -- (pars.north);
   \draw[->] (Dump.south) -- (CA);
@@ -36,11 +37,11 @@ As illustrated in Figure~\ref{fig:mscac}, the compiler, named MSCAC for \emph{Mu
 %In this paper are presented the language MSL, the MSC compilation phase, and the dump compilation phase. 
 The parallelization techniques handled by MSC are \emph{data parallelism}, where data are splitted among processors or cores while applying a single program everywhere, and \emph{task parallelism} where the program is transformed into a dependency graph of tasks. From a dependency graph, different strategies can be used to schedule tasks, in other words to control their execution in a valid order. The MSC compiler presented in this paper handles the transformation of the dependency graph to a static scheduling.
 
-The final phase of compilation, the dump, uses the static schedule of the tasks, created from $\Gamma$, and additionnal information on $T$, $\mathcal{M}$, $\Delta$, $\mathcal{D}_m$ and $\mathcal{D}_c$, given by the \emph{parser}, to produce a back-end solution which represents the parallel pattern or skeleton of the overall simulation. We could have propose a dump to OpenMP~\cite{660313}, however this paper presents a first contribution to dump a DSL to a component-based runtime. Component models, where a component represents a clear and independent functionnality of the application, have first been proposed in software engineering and have proved many times good properties for code re-use, separation of concerns, maintainability and productivity of codes. Those properties, on the other hand, are recurrent stated problems of parallel applications.
+The final phase of compilation, the dump, uses the static schedule of the tasks, created from $\Gamma$, and additionnal information on $T$, $\mathcal{M}$, $\Delta$, $\mathcal{E}$ and $\mathcal{D}$, given by the \emph{parser}, to produce a back-end solution which represents the parallel pattern or skeleton of the overall simulation. We could have propose a dump to OpenMP~\cite{660313}, however this paper presents a first contribution to dump a DSL to a component-based runtime. Component models, where a component represents a clear and independent functionnality of the application, have first been proposed in software engineering and have proved many times good properties for code re-use, separation of concerns, maintainability and productivity of codes. Those properties, on the other hand, are recurrent stated problems of parallel applications.
 
-The back-end of the compiler builds a component assembly, that can be divided in two parts: the components implementing the actual computation and the static schedule, and the components needed needed to manage it, \ie the runtime support. A general view of this assembly is proposed in Figure~\ref{fig:assembly}; it is explained in details in Section~\ref{sect:component}. As illustrated in the figure, each component is linked to one or more tuple of the multi-stencil program definition: \emph{DDS} component represents $\mathcal{M}$ and $\mathcal{D}_m$; \emph{Data} component represents $\Delta$ and $\mathcal{D}_c$; \emph{Time} component represents $T$, and \emph{Computations} component (which is generated by MSC) represents $\Gamma$.
+The back-end of the compiler builds a component assembly, that can be divided in two parts: the components implementing the actual computation and the static schedule, and the components needed to manage it, \ie the runtime support. A general view of this assembly is proposed in Figure~\ref{fig:assembly}; it is explained in details in Section~\ref{sect:component}. As illustrated in the figure, each component is linked to one or more tuple of the multi-stencil program definition: \emph{DDS} component represents $\mathcal{M}$ and $\mathcal{E}$; \emph{Data} component represents $\Delta$ and $\mathcal{D}$; \emph{Time} component represents $T$, and \emph{Computations} component (which is generated by MSC) represents $\Gamma$.
 
-The final back-end component assembly is a ready-to-fill parallel structure where the user has to write computation codes described in the MSL description. To write those computations, interfaces of the choosen implementation have to be used. For example, the back-end evaluated in this paper uses the distributed data structure proposed in SkelGIS library~\cite{CPE:CPE3494}. A work in progress replaces this DDS component by another one making using of Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985}.
+The final back-end component assembly is a ready-to-fill parallel structure where the user has to write computation codes described in the MSL description. To write those computations, interfaces of the choosen implementation have to be used. For example, the back-end evaluated in this paper uses the distributed data structure proposed in SkelGIS library~\cite{CPE:CPE3494}. A work in progress replaces this DDS component by another one making use of Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985}.
 
 \begin{figure}[t]
 \begin{center}
@@ -71,12 +72,12 @@ The final back-end component assembly is a ready-to-fill parallel structure wher
    \node[provide,above=0.15 of Cu] (Datap2) {};
    \node[component,above=0.8cm of Datap2] (Data) {$Data$};
    \node[use,above=0.8cm of Data] (Datau) {};
-   \node[right=1cm of Data] (delta) {$\Delta,\mathcal{D}_c$};
+   \node[right=1cm of Data] (delta) {$\Delta,\mathcal{D}$};
 
    \node[provide,right=0.15 of Du1] (DDSp1) {};
    \node[provide,above=0.15 of Datau] (DDSp2) {};
    \node[component,above=0.8cm of DDSp2] (DDS) {$DDS$};
-   \node[right=1.2cm of DDS] (m) {$\mathcal{M},\mathcal{D}_m$};
+   \node[right=1.2cm of DDS] (m) {$\mathcal{M},\mathcal{E}$};
  
   \path[-]
     (Dp) edge node {} (D)
