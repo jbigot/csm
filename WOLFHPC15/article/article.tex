@@ -6,6 +6,8 @@
 \usepackage{subfig}
 \usepackage{amsmath}
 \usepackage{xspace}
+\usepackage{todonotes}
+
 %----------TIKZ
 \usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
 
@@ -29,6 +31,8 @@
 %-------------
 \newenvironment{mydef}[1][Definition]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\fix}[1]{\todo[inline,color=red!80]{#1}}
 
 \newcommand{\llc}{L\textsuperscript{2}C\xspace}
 
