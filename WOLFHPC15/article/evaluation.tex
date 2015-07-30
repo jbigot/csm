@@ -1,6 +1,6 @@
 Navier-Stokes equations is a well known set of PDEs in fluid dynamics to simulate a flow evolution in time. At the University of Orl\'eans, France, the MAPMO laboratory works on a software, called FullSWOF~\footnote{\url{http://www.univ-orleans.fr/mapmo/soft/FullSWOF/}}, which handles simulations of geophysical flows, for example rivers, channels, dambreak problems, ocean currents, estuarine systems, etc. This software solves the Shallow water equations obtained from the three dimensional incompressible Navier-Stokes equations, by averaging on the vertical direction (see e.g.~\cite{Ferrari2004}). Those equations are solved using a two-dimensional Cartesian discretization of the space domain, and a finite volume numerical methods more described in~\cite{HeleneLS13}.
 
-The MSL program of FullSWOF contains three mesh entities, seven computation domains, fourty-eight data and ninty-eight computations composed of thirty-two stencil computations and sixty-six local computations.
+The MSL program of FullSWOF contains three mesh entities, seven computation domains, fourty-eight data and ninty-eight computations composed of thirty-two stencil kernels and sixty-six local computations.
 
 The series-parallel tree decomposition extracted by the MSC transformation is composed of seventeen sequences and eighteen parallel sections. In Figure~\ref{fig:freq} represents the level of parallelism, \ie the number of tasks which can be executed concurrently, and gives the number of time the level is observed in the final tree.
 
