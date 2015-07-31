@@ -33,7 +33,7 @@ A \emph{mesh} is the discretization of a physical domain. It is a connected undi
 %   \label{fig:ex}
 % \end{center}\end{figure}
 
-A \emph{stencil kernel} computes the value of one data or a subpart of it (its \emph{computation domain}) using a numerical expression taking as input on one or more other data.
+A \emph{stencil kernel} computes the value of one data or a subpart of it (its \emph{computation domain}) using a \emph{numerical expression} taking as input on one or more other data.
 For example, the stencil kernel illustrated in Figure~\ref{fig:ex1} computes $A$ using $B$, while the one in Figure~\ref{fig:ex2} computes $A$ using $C$. Thus, a stencil kernel is defined by a set of input data (in those examples only one input data), and a single output data, the result. 
 The computation domain is a subset of the mesh entities on which the output data is mapped. For example, in the first stencil, the computation of $A$ is performed on plain elements, while dotted elements are not computed. On the other hand, on the second computation, the computation domain of $A$ contains all the mesh entities on which it is mapped. This computation domain defines the elements aver which the space loop iterates.
 
@@ -49,6 +49,9 @@ A(x,y) = A(x,y)+C(x1,y1)+C(x1+1,y1).
 As can be seen from these definitions, stencil kernels implementations share many properties from an algorithmic point of view that can be used to apply well known optimization and parallelization strategies.
 Many solutions (languages or libraries) thus propose to ease their programming by producing optimized and parallelized code from a simple description of the local computation to apply on each element.
 For example, Liszt~\cite{DeVito2011LDS} and OP2~\cite{Giles2011} are domain specific languages to define a stencil code on unstructured meshes, while Pochoir~\cite{spaaTangCKLL11} and PATUS~\cite{citeulike12258902} address structured meshes, respectively proposing an optimized cache tiling technique, and a separation of concerns between parallelization strategies and computation descriptions.
+
+To resume, concepts used in this paper to define a stencil kernel are \emph{mesh}, \emph{mesh entity}, \emph{data}, \emph{computation domain}, \emph{numerical expression} and \emph{stencil shape}. 
+If stencil kernels have been studied a lot, the formalization of real overall mesh-based numerical simulations is a rather new contribution. Actually, paying attention to complex numerical simulations, it appears that most of them are composed of more than one stencil kernel, with one or more stencil shapes and of additional local computations. For example, we would like to formalize and parallelize a numerical simulation which chains stencil kernels of Figures~\ref{fig:ex1} and~\ref{fig:ex2}. The next section formalizes concepts of \emph{stencil kernel}, \emph{local computation} and what we call a \emph{multi-stencil program}.
 
 %----------------------------------------
 \subsection{A Multi-Stencil Formlization}
