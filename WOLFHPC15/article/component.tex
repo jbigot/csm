@@ -110,7 +110,7 @@ c) \hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, au
 \subsection{MSCAC Runtime Overview}
 %----------------------------------------
 
-Figure~\ref{fig:assembly} has presented an overview of the component
+Figure~\ref{fig:mscac:assembly} has presented an overview of the component
 assembly that is executed. As discusses in Section~\ref{sect:mscac},
 there are different types of components. Components~\texttt{Driver},
 \texttt{DriverApp}, and \texttt{Time} are always present; they do not
@@ -240,7 +240,7 @@ assembly. Actually a single SEQ component is thus needed and this
 component is linked to all computations and synchronizations of
 $\Gamma_{data}$ directly.
 
-Figure~\ref{fig:assembly} displays the assembly part corresponding to
+Figure~\ref{fig:tsp:assembly} displays the assembly part corresponding to
 $\Gamma_{tsp}$ of Figure~\ref{fig:tsp}. In this figure, the ports
 linked to data (use and use-multiple ports of SYNC and K) are
 represented but are not connected. Moreover, each computation
@@ -367,7 +367,7 @@ the identification name of the computation in the MSL file.
    ;
 \end{tikzpicture}
 \caption{Component assembly representing the computation part generated from $\Gamma_{tsp}$ of Figure~\ref{fig:tsp}.}
-\label{fig:assembly}
+\label{fig:tsp:assembly}
 \end{center}
 \end{figure*}
 
