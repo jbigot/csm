@@ -41,16 +41,16 @@ dataread ::= dataid "[" neighborid "]"
 As mentionned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description, as the six tuples of the formal definition of a multi-stencil program: the mesh description; the mesh entities description; the computation domains description and their dependencies; the data description; the time loop description; and finally, the computations description. Figure~\ref{fig:grammar} shows the grammar of MSL. Lines 1 to 9 define what is a MSL program with the different parts memntionned above. The remaining of this section describes those different parts of a MSL program and presents an example.
 We can note that, as MSL is a descriptive language, almost all terminals $meshid$, $meshdom$, $compdomid$, $dataid$, $compid$ and $neighborid$, are string identifiers. Only $num$ is an integer terminal.
 
-\subsubsection*{Mesh and mesh entities}
+\subsubsection*{Mesh and Mesh Entities}
 As illustrated in the first line of the grammar in Figure~\ref{fig:grammar}, a mesh is directly defined by a string identifier. Then, mesh entities are described as a list of identifiers (lines 2, 10 and 11 in Figure~\ref{fig:grammar}). In the example given in Figure~\ref{fig:mslex} a Cartesian mesh, called $cart$, and three mesh entities, called $cell$, $edgex$ and $edgey$, are defined.
 
-\subsubsection*{Computation domains and their dependencies}
+\subsubsection*{Computation Domains and Their Dependencies}
 A computation domain can be seen as a subpart of a mesh entity which will be used during one or more computation. For each computation domain, the mesh entity from which it is built is indicated (lines 3-4 and 12-14 in Figure~\ref{fig:grammar}). By default two computation domains always intersect except when an independency relation is mentionned in the section \emph{independent} of the language (lines 5-6 and 15-17 in Figure~\ref{fig:grammar}). In the example of Figure~\ref{fig:mslex}, on lines 4 to 6, a whole computation domain is defined for each mesh entity, called $allcell$, $alledgex$ and $alledgey$, and on lines 7 and 8 two subparts of the mesh entity $edgex$ are also defined, called $part1edgex$ and $part2edgex$. Finally, line 10 means that $part1edgex$ and $part2edgex$ do not intersect.
 
-\subsubsection*{Data and time}
+\subsubsection*{Data and Time}
 A data is a quantity to simulate and is mapped onto a mesh entity, as illustrated in lines 7 and 18-20 of Figure~\ref{fig:grammar}. The $time$ section simply indicates a number of iterations to perform in the simulation. In the example of Figure~\ref{fig:mslex} are defined ten data and 500 iterations (lines 11-22). An extension could be to support a convergence criterion.
 
-\subsubsection*{Computations description}
+\subsubsection*{Computation Description}
 Finally, the language follows the two definitions of a stencil kernel and a local computation given in Section~\ref{sect:multistencil}. However, as MSL does not handle numerical expressions, the term $exp$ of Equations~\ref{eq:st} and~\ref{eq:loc} is not used in the language. The exact code of the computation as to be writtenin into the final ready-to-fill parallel pattern of the simulation, using external languages or interfaces (\cf Section~\ref{sect:component}). Moreover, to propose an intuitive syntax, information are given in a different order than in formal definitions.
 Thus, the description of a computation, as indicated in lines 24 and 25 of Figure~\ref{fig:grammar}, consists in first the identifier of the data to compute ($w$ in the formal description), in brackets the identifier of the computation domain on which the computation is applied ($d$ in the formal definition), an identifier for the computation kernel, and the set of identifiers for the data read by the computation, with parenthesis. For each data read by the computation brackets indicate the stencil shape identifier used on the data ($R$ in the formal definition of a stencil). If the computation is local no brackets appear ($R_l$ in the formal definition). In the example of Figure~\ref{fig:mslex}, nine computations are described. For example, on line 24, the data $b$ is computed on the computation domain $allcell$ by the computation $c_0$ which read data $a$ without neighborhood shape.
 
@@ -94,9 +94,9 @@ computations:
 \end{figure}
 
 %----------------------------------------
-\subsection{MSC transformation}
+\subsection{MSC Parallelization}
 %----------------------------------------
-The MSC transformation, which is a subpart of the overall compiler MSCAC, makes use of the ordered list of computations $\Gamma$, which can directly be extracted from the parser, to build a parallel representation of the computations of the overall multi-stencil program. This transformation phase of the compilation is divided in five different steps; it transforms $\Gamma$ to a series-parallel tree decomposition~\cite{Valdes:1979:RSP:800135.804393}. This transformation phase handles data parallelism through the first step, and task parallelism through the three next steps. This section gives an overview of the four steps of the MSC transformation; the detailed formalism and the associated algorithms of those steps are described in the research report~\cite{????}.
+The MSC parallelization, which is a subpart of the overall compiler MSCAC, makes use of the ordered list of computations $\Gamma$, which can directly be extracted from the parser, to build a parallel representation of the computations of the overall multi-stencil program. This transformation phase of the compilation is divided in five different steps; it transforms $\Gamma$ to a series-parallel tree decomposition~\cite{Valdes:1979:RSP:800135.804393}. This transformation phase handles data parallelism through the first step, and task parallelism through the three next steps. This section gives an overview of the four steps of the MSC transformation; the detailed formalism and the associated algorithms of those steps are described in the research report~\cite{????}.
 
 \subsubsection*{The Ordered List of Computations: $\Gamma$}
 $\Gamma$ is directly obtained from the parser. Actually, the list of computations in the MSL program is already ordered: $\Gamma$ is a direct map of this list. In the example of Figure~\ref{fig:mslex}, $\Gamma = [c_0,c_1,c_2,c_3,c_4,c_5,c_6,c_7,c_8]$.
