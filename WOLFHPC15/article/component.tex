@@ -1,23 +1,20 @@
 %----------------------------------------
-\subsection{Overview}
+%\subsection{Overview}
 %----------------------------------------
-
 This section describes both the projection of $\Gamma_{tsp}$ to
 components, and the remaining needed components to execute a
-multi-stencil application. But, first the section gives an overview of
-component models, and it details \llc, the component model used in
-this work.
+multi-stencil application. Before those details the section gives an overview of
+component models, and introduce the concepts of the Low Level Component Model \llc, which is used in this paper.
 
 
 %----------------------------------------
 \subsection{Component Model Overview}
 %----------------------------------------
-Component model is an domain of software
+Component model is a domain of software
 engineering~\cite{Szyperski:2002:CSB:515228}, which promotes code
 re-use, separations of concerns, and thus maintainability. An
-application is made by a set of component; a component being a kind of
-black box that interacts only through ports: ports specify the
-services provided and required.
+application is made of a set of components; a component being a kind of
+black box representing an independent functionnality of the application, and which interacts only through its ports. A port specifies the services provided and required by the component.
 %
 With respect to high performance computing, some works have also shown
 that component models can achieve the needed level of performance, and
@@ -32,7 +29,7 @@ CCA~\cite{Bernholdt01052006} (Common Component Architecture), and
 \llc~\cite{l2c} (Low Level Component), for example.
 %
 As this work makes use of \llc, in particular for the experiments, let
-describe it in more details.
+introduce concepts of this component model with more details.
 
 %----------------------------------------
 \subsection{\llc}
@@ -43,14 +40,14 @@ where a component extends the concept of class by specifying in its
 interfaces the services that it offers ($provide$ ports) and that it
 needs, either a single service instance ($use$ ports), or multiple
 service instances ($use-multiple$ ports). Services are \texttt{C++}
-interfaces. \llc also offer $MPI$ ports that enable components to
+interfaces. \llc also offers $MPI$ ports that enable components to
 share MPI communicators. Components can also have attribute ports to
 be configured.
 %
 As illustrated in Figures~\ref{fig:ports}, a $provide$ port is
-represented with a white circle on the left of the component, a $use$
+represented with a white circle, a $use$
 port with a black circle, a $use-multiple$ port by a black circle with
-a white $m$ in it, both on the right of the component. MPI port are
+a white $m$ in it. MPI port are
 connected with a black rectangle.
 
 A classical \llc-based application is a static \emph{assembly} of
@@ -59,7 +56,9 @@ component ports. Such an assembly is described in LAD, an XML
 dialect~\cite{l2c}.
 
 \begin{figure}[t]
-a)\hspace{2mm} \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+\begin{center}
+\subfloat[][\label{fig:2comp}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[component] (C) at (0,0) {$C_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
@@ -73,12 +72,13 @@ a)\hspace{2mm} \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, au
     (C1)  edge node {$v$} (um)
     (p1) edge node {$q$} (C1);
 \end{tikzpicture}
-\\\\
-b)\hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (C) at (0,0) {$C_0$};
+}
+\subfloat[][\label{fig:ass}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$c_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
-   \node[component,right=1.5 of u] (C1) {$C_1$};
+   \node[component,right=1.5 of u] (C1) {$c_1$};
    \node[use,right=1.5 of C1] (um) {$m$};
  
   \path[-]
@@ -87,20 +87,21 @@ b)\hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, aut
     (C1)  edge node {$v$} (um)
     (u) edge node {$q$} (C1);
 \end{tikzpicture}
-\\\\
-c) \hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (C) at (0,0) {$C_2$};
+}
+\subfloat[][\label{fig:mpi}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$c_2$};
    \node[provide] (p) at (-1.5,0) {};
    \node[mpi] (u) at (1.5,0) {};
-   \node[component,right=1.5 of u] (C1) {$C_3$};
+   \node[component,right=1.5 of u] (C1) {$c_3$};
  
   \path[-]
     (p) edge node {$r$} (C)
     (C) edge node {$m_1$} (u)
     (u) edge node {$m_2$} (C1);
 \end{tikzpicture}
-\\\\
-\caption{Example components and ports representation. a) Component $C_0$ has a provide port ($p$) and a use port ($u$); Component $C_1$ has also a provide port ($p'$) but a use multiple port ($u'$). b) A use port is connected to a (compatible) provide port. c) Component $C_2$ and $C_3$ shares an MPI communicator.}
+}
+\caption{Example of components and their ports representation. a) Component $c_0$ has a provide port ($p$) and a use port ($u$); Component $c_1$ has also a provide port ($q$) but also a use multiple port ($v$). b) A use port is connected to a (compatible) provide port. c) Component $c_2$ and $c_3$ shares an MPI communicator.}
 \label{fig:ports}
 \end{figure}
 
@@ -110,14 +111,12 @@ c) \hspace{2mm}\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, au
 \subsection{MSCAC Runtime Overview}
 %----------------------------------------
 
-Figure~\ref{fig:mscac:assembly} has presented an overview of the component
+Figure~\ref{fig:mscac:assembly} gives an overview of the back-end component
 assembly that is executed. As discusses in Section~\ref{sect:mscac},
 there are different types of components. Components~\texttt{Driver},
-\texttt{DriverApp}, and \texttt{Time} are always present; they do not
-depend on the input but for the configuration of an attribute port of
-Component~\texttt{Time} with the number of iterations. There is also a
-single Component~\texttt{DDS} as in the current version only one mesh
-type is supported. All these components are provided with the
+\texttt{DriverApp}, and \texttt{Time} are always instanciated in the final component assembly; the input MSL file is not used by them except the component \texttt{Time} which uses the terminal \texttt{iteration} of the grammar. There is also a
+single Component~\texttt{DDS} (the current version handles a single mesh
+type). All these components are provided with the
 compiler; dumping this part of the assembly is straightforward.
 
 While Component~\texttt{DDS} is managing the structure of the mesh,
@@ -126,13 +125,13 @@ each data of the simulation is handled by a component of type
 many instances of such component as needed, from the \texttt{data}
 section of an MSL program.
 
-The last part of the assembly is the computations. It contains actual
-computations in kernel components, denoted K, that have to be provided
+The last part of the assembly is the computation part. Each computation kernel is embedded in a kernel component, denoted K, which have to be written by the user and provided
 to the compiler. A kernel component encapsulates a computations. To
-access data, they are connected by the compiler to the adequate
-\texttt{Data} components; their data ports name must respect the names
+access data, a kernel component is connected, by the compiler, to the adequate
+\texttt{Data} components such that their ports name respect the names
 given in the \texttt{data} section of MSL. We denote the fact that they may have
-several use port by adding a star on the use port:
+several use port by adding a star on the use port, as illustrated in Figure~\ref{fig:k}.
+\begin{figure}
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[component] (k) at (0,0) {$K$};
@@ -145,6 +144,9 @@ several use port by adding a star on the use port:
     (k) edge node {} (u);
 \end{tikzpicture}
 \end{center}
+\caption{Kernel component.}
+\label{fig:k}
+\end{figure}
   
 %% In the computation part of the simulation a final component is needed,
 %% the computation component, denoted K. This type of component
@@ -158,15 +160,13 @@ several use port by adding a star on the use port:
 %% and output data to manipulate. We denote this in the bellow
 %% representation as a star on the use port.
 
-
-
-The computation part of the assembly also contains the static schedule
-of the computations, \ie $\Gamma_{tsp}$. This is achieved by using
-three specific components for managing the $P$, $S$, and $sync$
+The rest of the computation part of the assembly contains the static parallel schedule
+computed by MSC, \ie $\Gamma_{tsp}$. This is achieved through the use of
+three specific components which manage the $P$, $S$, and $sync$
 operations of $\Gamma_{tsp}$ as explained hereafter.
 
 %----------------------------------------
-\subsection{Control components}
+\subsection{Control Components}
 %----------------------------------------
 The series-parallel tree decomposition $\Gamma_{tsp}$ represents the
 control of the dependencies of the simulation. As a result to be able
@@ -176,7 +176,7 @@ any case of simulation which increases code reuse between
 simulations. A control component is composed of a single
 \emph{provide} port linked to a single execution method, most of the
 time called the \emph{go} method. We introduce three types of control
-components, whole graphical representation is given in Figure~\ref{fig:ctrlcomponents}.
+components represented in Figure~\ref{fig:ctrlcomponents}.
 
 \begin{figure}[t]
 \begin{tikzpicture}[shorten >=1pt, node distance=1cm, on grid, auto]
@@ -223,28 +223,30 @@ c) Comp. SYNC
 
 \item[Parallel component (PAR)] It is the direct representation of a parallel node of $\Gamma_{tsp}$. The role of this component is to call simultaneously a set of other components. It offers a \emph{use-multiple} port to be connected to the components to call in parallel.
   
-\item[Synchronization component (SYNC)]. It is the direct representation to an update leaf of $\Gamma_{tsp}$. The role of this component is to call the synchronization of a given data. It offers an \emph{use} port to be connected to the data to update.
+\item[Synchronization component (SYNC)]. It is the direct representation to an update leaf of $\Gamma_{tsp}$. The role of this component is to call the synchronization of a given data. It offers a \emph{use} port to be connected to the data to update.
 
 \end{description}
 
 
 %----------------------------------------
-\subsection{Dump to a component assembly}
+\subsection{Dump To Component Assembly}
 %----------------------------------------
 From $\Gamma_{tsp}$ and using the control components described above,
 a direct dump can be done to a component assembly for an hybrid (data
-and task) parallelization of a simulation. However, it is also
+and task) parallelization of a simulation. 
+\fix{HC: ce qui suit est a changer avec la fusion du code de plusieurs composants}
+However, it is also
 possible to dump to a data parallelization only. In such a case the
-computation of $\Gamma_{data}$ is enough to generate the component
+computation of $\Gamma_{sync}$ is enough to generate the component
 assembly. Actually a single SEQ component is thus needed and this
 component is linked to all computations and synchronizations of
-$\Gamma_{data}$ directly.
+$\Gamma_{sync}$ directly.
 
 Figure~\ref{fig:tsp:assembly} displays the assembly part corresponding to
 $\Gamma_{tsp}$ of Figure~\ref{fig:tsp}. In this figure, the ports
 linked to data (use and use-multiple ports of SYNC and K) are
 represented but are not connected. Moreover, each computation
-component is an instance of the component K presented before but takes
+component is an instance of the component K presented before but using
 the identification name of the computation in the MSL file.
 
 \begin{figure*}[t]

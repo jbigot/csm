@@ -1,13 +1,13 @@
 %----------------------------------------
-\subsection{Stencil codes}
+\subsection{Stencil Kernels}
 \label{sect:stencil}
 %----------------------------------------
 To numerically solve a set of PDEs, iterative methods (finite difference, finite volume, finite element methods etc.) are frequently used to approximate the solution through a discretized (step by step) process. Thus, the continuous time and space domains are discretized so that a set of numerical computations are iteratively (time discretization) applied onto a mesh (space discretization). In other words, in a mesh-based numerical simulation, the PDEs are transformed to a set of numerical computations applied at each time step on elements of the discretized space domain (the mesh).
-This paper focuses on one specific category of such numerical schemes based on \textit{stencil kernels}~\cite{spaaTangCKLL11}.
-This section introduces some definitions related to those.
+This paper focuses on one specific category of such numerical schemes based on \textit{stencil kernels}~\cite{spaaTangCKLL11}, also called in applied mathematics explicit numerical schemes.
+This section introduces some definitions related to stencil kernels.
 
-A \emph{mesh} is the discretization of a physical domain. It is a connected undirected graph without bridges (an edge is a bridge if its removal results in two disconnected graphs), where nodes and edges are linked to form cells (closure). An example of structured mesh is illustrated in Figure~\ref{fig:mesh}. Each cell contains four nodes and four edges. \emph{Mesh entities} are elements of the mesh, such as the center of cells, edges or nodes. In Figure~\ref{fig:mesh}, two mesh entities are illustrated, the center of the cells (named \texttt{Cells}, in red) and edges on the horizontal axis (named \texttt{Edgex}, in blue on left and right of each cell). A \emph{data} is a simulated quantity on which computations are performed. Each data is mapped onto mesh entities. For example, in Figure~\ref{fig:ex1}, data $A$ and $B$ are mapped onto the center of cells, while, in Figure~\ref{fig:ex2}, $C$ is mapped onto the edges.
-\todo[inline]{JB: structured/unstructured pas defini, pas de notion de coordonees des elements du maillage dans l'espace reel?}
+A \emph{mesh} is the discretization of a physical domain. It is a connected undirected graph without bridges (an edge is a bridge if its removal results in two disconnected graphs), where nodes and edges are linked to form cells (closure). Most of the time, nodes of a mesh are linked to coordinates in the real space domain. An example of structured mesh is illustrated in Figure~\ref{fig:mesh}. Each cell contains four nodes and four edges. \emph{Mesh entities} are elements of the mesh, such as the center of cells, edges or nodes. In Figure~\ref{fig:mesh}, two mesh entities are illustrated, the center of the cells (named \texttt{Cells}, in red) and edges on the horizontal axis (named \texttt{Edgex}, in blue on left and right of each cell). A \emph{data} is a simulated quantity on which computations are performed. Each data is mapped onto mesh entities. For example, in Figure~\ref{fig:ex1}, data $A$ and $B$ are mapped onto the center of cells, while, in Figure~\ref{fig:ex2}, $C$ is mapped onto the edges.
+%\todo[inline]{JB: structured/unstructured pas defini, pas de notion de coordonees des elements du maillage dans l'espace reel?}
 
 
 \begin{figure}
@@ -34,12 +34,12 @@ A \emph{mesh} is the discretization of a physical domain. It is a connected undi
 %   \label{fig:ex}
 % \end{center}\end{figure}
 
-A \emph{stencil kernel} computes the value of one data or a subpart of it (the kernel \emph{computation domain}) using a \emph{numerical expression} taking as input on one or more data.
+A \emph{stencil kernel} computes the value of one data or a subpart of it (the kernel \emph{computation domain}) using a \emph{numerical expression} which takes as input one or more data.
 For example, the stencil kernel illustrated in Figure~\ref{fig:ex1} computes $A$ using $B$, while the one in Figure~\ref{fig:ex2} computes $A$ using $C$. Thus, a stencil kernel is defined by its numerical expression, a set of input data (only one in the examples), and its unique output data, the result. 
-The computation domain is a subset of the mesh entities on which the output data is mapped. For example, in the first stencil, the computation of $A$ is performed on plain elements, while dotted elements are not computed. On the other hand, on the second computation, the computation domain of $A$ contains all the mesh entities on which it is mapped. This computation domain defines the elements over which the space loop iterates.
+The \emph{computation domain} is a subset of the mesh entities on which the output data is mapped. For example, in the first stencil, the computation of $A$ is performed on elements represented with full lines, while dotted elements are not computed. On the other hand, on the second computation, the computation domain of $A$ contains all the mesh entities on which it is mapped. This computation domain defines the elements over which the space loop iterates.
 
-The numerical expression of a stencil kernel has the particularity to compute each element of the result independently using only elements of the inputs whose coordinates are close to that of the result element.
-The elements accessed form a \emph{neighborhood} of the output element coordinate known as the \emph{stencil shape}. For example, the stencil shape of the first computation in Figure~\ref{fig:ex1} contains direct neighbors on the right, left, top and bottom. Sometimes, the neighborhood can also access different mesh entities, as for example in Figure~\ref{fig:ex2}. Actually, in this computation, the neighborhood contains edges on the left and on the right of a cell. As an example, the numerical expression of the first example could be:
+The numerical expression of a stencil kernel has the particularity to compute each element of the result independently using some elements of the inputs in a given neighborhood.
+Accessed elements form a \emph{neighborhood} of the output known as the \emph{stencil shape}. For example, the stencil shape of the first computation in Figure~\ref{fig:ex1} contains direct neighbors on the right, left, top and bottom. Sometimes, the neighborhood can also access different mesh entities, as for example in Figure~\ref{fig:ex2}. Actually, in this computation, the neighborhood contains edges on the left and on the right of a cell. As an example, the numerical expression of the first example could be:
 \begin{equation*} 
 A(x,y) = B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1),
 \end{equation*}
@@ -48,12 +48,12 @@ and the numerical expression of the second kernel could be:
 A(x,y) = A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
 
-As can be seen from these definitions, stencil kernels implementations share many properties from an algorithmic point of view that can be used to apply well known optimization and parallelization strategies.
+As it can be seen from those definitions, stencil kernels implementations share many properties from an algorithmic point of view that can be used to apply well known optimization and parallelization strategies.
 Many solutions (languages or libraries) thus propose to ease their programming by producing optimized and parallelized code from a simple description of the local computation to apply on each element.
 For example, Liszt~\cite{DeVito2011LDS} and OP2~\cite{Giles2011} are domain specific languages to define a stencil code on unstructured meshes, while Pochoir~\cite{spaaTangCKLL11} and PATUS~\cite{citeulike12258902} address structured meshes, respectively proposing an optimized cache tiling technique, and a separation of concerns between parallelization strategies and computation descriptions.
-\todo[inline]{JB: a virer?}
+\todo[inline]{JB et HC: etat de l'art a mettre ailleurs ?}
 
-To resume, concepts used in this paper to define a stencil kernel are \emph{mesh}, \emph{mesh entities}, \emph{data}, \emph{computation domain}, \emph{numerical expression} and \emph{stencil shape}. 
+%To resume, concepts used in this paper to define a stencil kernel are \emph{mesh}, \emph{mesh entities}, \emph{data}, \emph{computation domain}, \emph{numerical expression} and \emph{stencil shape}. 
 If stencil kernels have been studied a lot, the formalization of real overall mesh-based numerical simulations is a rather new contribution. Actually, paying attention to complex numerical simulations, it appears that most of them are composed of more than one stencil kernel, with one or more stencil shapes and of additional local computations. For example, we would like to formalize and parallelize a numerical simulation which chains stencil kernels of Figures~\ref{fig:ex1} and~\ref{fig:ex2}. The next section formalizes concepts of \emph{stencil kernel}, \emph{local computation} and what we call a \emph{multi-stencil program}.
 
 %----------------------------------------
