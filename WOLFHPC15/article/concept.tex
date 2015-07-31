@@ -60,36 +60,39 @@ If stencil kernels have been studied a lot, the formalization of real overall me
 \subsection{A Multi-Stencil Formalization}
 \label{sect:multistencil}
 %----------------------------------------
-Let introduce some formal definitions used in the rest of the paper.
-For $\Delta$ the set of data of the simulation, a stencil kernel $s$ is defined as the quintuplet
+This section introduces some formal definitions used in the rest of the paper.
+Let $\Delta$ be the set of data of the simulation
+A stencil kernel $s$ is defined as the quintuplet
 \begin{equation} 
 s(R,w,exp,d),
 \label{eq:st}
 \end{equation}
-where $R$ is a set of pair $(r,n)$, with $r \in \Delta$ is a data read by the computation, and $n$ is a stencil shape (a neighborhood) applied on $r$. The data written by the kernel is denoted $w \in \Delta$, $exp$ is the numerical expression of the stencil kernel. Finally the numerical expression is applied on the computation domain $d$.
+where $R$ is a set of pairs $(r,n)$, with $r \in \Delta$ a data read by the computation, and $n$ the stencil shape (neighborhood) used to access $r$. The data written by the kernel is denoted $w \in \Delta$. $exp$ is the numerical expression of the stencil kernel. Finally the numerical expression is applied on the computation domain $d$.
 
-For example, in Figure~\ref{fig:ex1}, assuming the computation domain (full lines) is $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined with:
+For example, in Figure~\ref{fig:ex1}, assuming the computation domain (full lines) is $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
 \begin{equation*}
-R: {(B,n1)} \quad w: A \quad d: dc1
+R: \{(B,n1)\} \quad w: A \quad d: dc1
 \end{equation*}
 \begin{equation*}
 exp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
 \end{equation*}
-On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel can be defined with:
+On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel can be defined as:
 \begin{equation*}
-R: {(C,n2),(A,null)} \quad w: A \quad d: dc2
+R: \{(C,n2),(A,local)\} \quad w: A \quad d: dc2
 \end{equation*}
 \begin{equation*}
 exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1)
 \end{equation*}
-One can notice that the input data $A$ is associated to the stencil shape $null$. This means that no stencil shape is applied on $A$, but only local accesses.
+One can notice that the input data $A$ is associated to the stencil shape $local$. This means that the stencil shape applied on $A$ is limited to the element with the exact same coordinate as the result element.
 
-A local, or auxiliary, computation is a particular case of stencil kernel without neighborhood information in the numerical expression, which makes this kind of computation purely local. A local computation $l$ is defined as the quadruplet:
+The specificities of kernels whose stencil shapes are all local makes it possible to apply specific optimizations.
+We therefore provide a specific definition in this case.
+A local (or auxiliary) kernel $l$ is defined as the quadruplet:
 \begin{equation} 
 l(R_l,w,exp,d),
 \label{eq:loc}
 \end{equation}
-where $R_l$ is the set of input data, and other parameters are the same than for a stencil computation.
+where $R_l$ is the set of input data, and other parameters are the same as for normal stencil kernels.
 
 A multi-stencil program in this work is defined as a sextuplet:
 \begin{equation} 
