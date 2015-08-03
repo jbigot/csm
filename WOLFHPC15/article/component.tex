@@ -1,59 +1,49 @@
 %----------------------------------------
 %\subsection{Overview}
 %----------------------------------------
-This section describes both the projection of $\Gamma_{tsp}$ to
-components, and the remaining needed components to execute a
-multi-stencil application. Before those details the section gives an overview of
-component models, and introduce the concepts of the Low Level Component Model \llc, which is used in this paper.
+This section describes the projection of a MSP program to components, including the components used to implement the static scheduling of $\Gamma_{tsp}$.
+Before those details the section gives an overview of component models, and introduce the Low Level Components (\llc), the model used in this paper.
 
 
 %----------------------------------------
-\subsection{Component Model Overview}
+\subsection{Component-Based Software Engineering}
 %----------------------------------------
-Component model is a domain of software
-engineering~\cite{Szyperski:2002:CSB:515228}, which promotes code
-re-use, separations of concerns, and thus maintainability. An
-application is made of a set of components; a component being a kind of
-black box representing an independent functionnality of the application, and which interacts only through its ports. A port specifies the services provided and required by the component.
-%
+Component-based software engineering (CBSE) is a domain of software engineering~\cite{Szyperski:2002:CSB:515228} which promotes code
+re-use, separations of concerns, and thus maintainability.
+An application is made of a set of component instances.
+A component is a black box that implements an independent functionality of the application, and which interacts with its environment only through well defined interfaces: its ports.
+A port can for example specify services provided or required by the component.
 With respect to high performance computing, some works have also shown
 that component models can achieve the needed level of performance, and
 scalability while also helping in application
 portability~\cite{Bernholdt01052006, bigot:inria-00388508, UCHPC2015}
 
-Many component models exist, each of them with its own specifications
-and singularities. In distributed computing, well known component
-models are CCM~\cite{corba:omg06} (CORBA Component Model), and
-GCM~\cite{Baude} (Grid Component Model); in HPC, there are
-CCA~\cite{Bernholdt01052006} (Common Component Architecture), and
-\llc~\cite{l2c} (Low Level Component), for example.
-%
-As this work makes use of \llc, in particular for the experiments, let
-introduce concepts of this component model with more details.
+Many component models exist, each of them with its own specificities.
+Well known component models include for example the CORBA Component Model (CCM)~\cite{corba:omg06}, and the Grid Component Model (GCM)~\cite{Baude} in distributed computing, the Common Component Architecture (CCA)~\cite{Bernholdt01052006}, and Low Level Components (\llc)~\cite{l2c} in HPC.
+This work makes use of \llc for the experiments.
+Let us therefore introduce the concepts of this model in more details.
 
 %----------------------------------------
 \subsection{\llc}
 %----------------------------------------
 
 \llc is a minimalist \texttt{C++} based HPC-oriented component model
-where a component extends the concept of class by specifying in its
-interfaces the services that it offers ($provide$ ports) and that it
-needs, either a single service instance ($use$ ports), or multiple
-service instances ($use-multiple$ ports). Services are \texttt{C++}
-interfaces. \llc also offers $MPI$ ports that enable components to
-share MPI communicators. Components can also have attribute ports to
-be configured.
+where a component extends the concept of class.
+The services offered by the components are specified trough $provide$ ports,
+those used either by $use$ ports for a single service instance,
+or $use-multiple$ ports for multiple service instances.
+Services are specified as \texttt{C++} interfaces.
+\llc also offers $MPI$ ports that enable components to share MPI communicators.
+Components can also have attribute ports to be configured.
 %
 As illustrated in Figures~\ref{fig:ports}, a $provide$ port is
-represented with a white circle, a $use$
+represented by a white circle, a $use$
 port with a black circle, a $use-multiple$ port by a black circle with
 a white $m$ in it. MPI port are
 connected with a black rectangle.
 
-A classical \llc-based application is a static \emph{assembly} of
-components made of instances of components and of connections between
-component ports. Such an assembly is described in LAD, an XML
-dialect~\cite{l2c}.
+A \llc-based application is a static \emph{assembly} of components instances and connections between their ports.
+Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
 
 \begin{figure}[t]
 \begin{center}
