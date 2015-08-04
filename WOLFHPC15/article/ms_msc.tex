@@ -38,31 +38,35 @@ dataread ::= dataid "[" neighborid "]"
 \label{fig:grammar}
 \end{figure}
 
-As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six tuples of the formal definition of a multi-stencil program: \textbf{1.}\,the mesh description, \textbf{2.}\,the mesh entities description, \textbf{3.}\,the computation domains description and their dependencies, \textbf{5.}\,the data description, \textbf{5.}\,the time loop description, and finally \textbf{6.} the computations description.
+As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six elements of the formal definition; they describe: \textbf{1.}\,the mesh, \textbf{2.}\,the mesh entities, \textbf{3.}\,the computation domains with their inter-dependencies, \textbf{4.}\,the data, \textbf{5.}\,the time iterations, and finally \textbf{6.} the computations.
 Figure~\ref{fig:grammar} shows the grammar of MSL. Lines 1 to 9 define what is a MSL program with the different parts mentioned above. The remaining of this section describes those different parts of a MSL program and presents an example.
 We can note that, as MSL is a descriptive language, almost all terminals \texttt{meshid}, \texttt{meshdom}, \texttt{compdomid}, \texttt{dataid}, \texttt{compid} and \texttt{neighborid}, are string identifiers. Only \texttt{num} is an integer terminal.
 
 \subsubsection*{Mesh and Mesh Entities}
-As illustrated in the first line of the grammar in Figure~\ref{fig:grammar}, a mesh is simply defined by a string identifier. Then, mesh entities are described as a list of identifiers (lines 2, 10 and 11 in Figure~\ref{fig:grammar}). Figure~\ref{fig:mslex} presents an example defining a Cartesian mesh, called \texttt{cart}, and three mesh entities, called \texttt{cell}, \texttt{edgex} and \texttt{edgey}.
+As illustrated in the first line of the grammar in Figure~\ref{fig:grammar}, a mesh is simply defined by a string identifier.
+Kind of mesh entities are described as a list of identifiers (lines 2, 10 and 11 in Figure~\ref{fig:grammar}).
+Figure~\ref{fig:mslex} presents an example of a mesh named \texttt{cart} used to represent a Cartesian mesh, and three kind of mesh entities: \texttt{cell}, \texttt{edgex}, and \texttt{edgey}.
 
 \subsubsection*{Computation Domains and Their Dependencies}
-A computation domain can be seen as a subpart of entities of a mesh which will be used during one or more computation. For each computation domain, the mesh entity from which it is built is indicated (lines 3-4 and 12-14 in Figure~\ref{fig:grammar}). By default two computation domains always intersect except when an independence relation is mentioned in the section \emph{independent} of the language (lines 5-6 and 15-17 in Figure~\ref{fig:grammar}).
-In the lines 4 to 6 of Figure~\ref{fig:mslex}, computation domains are defined for each mesh entity, called \texttt{allcell}, \texttt{alledgex} and \texttt{alledgey}; they represent the whole domain.
-On lines 7 and 8 two other subparts of the mesh entity \texttt{edgex} are defined, called \texttt{part1edgex} and \texttt{part2edgex}; they represent the boundaries of the domain.
-On line 10 the independence relation between \texttt{part1edgex} and \texttt{part2edgex} is specified since they do not intersect.
+A computation domain is a subset of a given kind of entities from a mesh used during one or more computations.
+For each computation domain, the kind of mesh entities on which it is mapped is specified (lines 3-4 and 12-14 on Figure~\ref{fig:grammar}).
+By default two computation domains of the same entities are handled as intersecting except when an explicit independence relation is mentioned in the \emph{independent} section of the language (lines 5-6 and 15-17 in Figure~\ref{fig:grammar}).
+On lines 4 to 6 of Figure~\ref{fig:mslex}, computation domains are defined for each kind of mesh entities: \texttt{allcell}, \texttt{alledgex} and \texttt{alledgey}; they are used to represent the whole domain.
+On lines 7 and 8 two other domains of \texttt{edgex} are defined: \texttt{part1edgex} and \texttt{part2edgex}; they are used to represent the boundaries of the domain.
+On line 10 the independence relation between \texttt{part1edgex} and \texttt{part2edgex} is specified.
 
 \subsubsection*{Data and Time}
-A data is a quantity to simulate. It is mapped on mesh entities, as illustrated in lines 7 and 18-20 of Figure~\ref{fig:grammar}. The \texttt{time} section simply indicates a number of iterations to perform in the simulation. In the example of Figure~\ref{fig:mslex} ten data identifiers are defined and 500 iterations (lines 11-22). %An extension could be to support a convergence criterion.
+A data element is a quantity to simulate. It is mapped on a given kind of mesh entities, as illustrated in lines 7 and 18-20 of Figure~\ref{fig:grammar}. The \texttt{time} section simply indicates a number of iterations to perform in the simulation. In the example of Figure~\ref{fig:mslex} ten data elements are defined and 500 iterations (lines 11-22). %An extension could be to support a convergence criterion.
 
 
 \subsubsection*{Computation Description}
 The last part of the language contains the specifications of stencil kernels and local computations as defined in Section~\ref{sect:multistencil}.
 This description does not contain a direct expression of the numerical expressions.
 Instead, the term $exp$ of Equations~\ref{eq:st} and~\ref{eq:loc} simply corresponds to an identifier that references an implementation in an external language  (\cf Section~\ref{sect:component}).
-The specification starts by the identifier of the data to compute ($w$ in the formal description) with the computation domain between brackets ($d$ in the formal definition).
-Then, after the equal sign is specified the kernel identifier.
-Finally, between the parenthesis is the list of identifiers of data read by the computation with their stencil shape between brackets ($R$ in the formal definition).
-If the computation is local, no brackets appear ($R_l$ in the formal definition). In the example of Figure~\ref{fig:mslex}, nine computations are described. On line 24, the data \texttt{b} is computed on the computation domain \texttt{allcell} by the computation \texttt{c\_0} which read data \texttt{a} without neighborhood shape.
+The specification starts by the identifier of the computed data element ($w$ in the formal description) with the computation domain between brackets ($d$).
+Then, after the equal sign, the kernel identifier ($exp$) is specified.
+Finally, between the parenthesis is the list of identifiers of the data elements read by the computation with their stencil shape between brackets ($R$).
+If the computation is local, no brackets appear ($R_l$). In the example of Figure~\ref{fig:mslex}, nine computations are described. On line 24, the data element \texttt{b} is computed on the domain \texttt{allcell} by the kernel \texttt{c\_0} which read data \texttt{a} without neighborhood shape.
 
 \begin{figure}[t]
 \begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++,numbers=left]
@@ -109,8 +113,8 @@ computations:
 The MSC parallelization is a subpart of the overall compiler MSCAC.
 It makes use of the ordered list of computations $\Gamma$, which can directly be extracted from the parser, to build a parallel representation of the computations of the overall multi-stencil program.
 This parallelization phase is divided in five different steps to transform $\Gamma$ to a series-parallel tree decomposition~\cite{Valdes:1979:RSP:800135.804393}.
-Data parallelism is handled in the first two step, and task parallelism in the following three steps. This section gives an overview of the five steps of the MSC transformation.
-The detailed formalism of these steps and the associated algorithms are described in a research report~\cite{????}.
+Data parallelism is handled in the first two steps, and task parallelism in the following three steps.
+This section gives an overview of these five steps , but they are more formally defined with their associated algorithms in a research report~\cite{????}.
 
 \subsubsection*{The Ordered List of Computations: $\Gamma$}
 $\Gamma$ is directly obtained from the parser. Actually, the list of computations in the MSL program is already ordered: $\Gamma$ is a direct map of this list. In the example of Figure~\ref{fig:mslex}, $\Gamma = [c_0,c_1,c_2,c_3,c_4,c_5,c_6,c_7,c_8]$.
@@ -120,11 +124,15 @@ In a data parallelization, data is split among processors and the same program i
 This does however require additional synchronizations between processors.
 For example, as a stencil kernel accesses neighbor values, values computed by another processor are needed and must be synchronized. 
 The required synchronizations can be automatically computed from the ordered list of computations $\Gamma$.
-A synchronization is needed each time a data read by a stencil computation has been written by a previous computation. In such a case, a computation is added before the stencil computation. This \emph{synchronization computation} reads the data to synchronize, and write the same data. The computation domain of such a synchronization computation is the mesh entity on which the data is declared. As a result $\Gamma$ is transformed to a synchronized ordered list of computations $\Gamma_{sync}$.
-For example, in Figure~\ref{fig:mslex}, the stencil computation $c_1$ read the data $b$ which has been written by the computation $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed to the sublist $[c_0,sync_1,c_1]$ in $\Gamma_{sync}$. The new computation $sync_1$ read and write $b$ and is applied on the computation domain of $c_1$. As a result, a dependency is kept between $c_0$ and $sync_1$ and between $sync_1$, and $c_1$. The same transformation is performed for all stencils: $c_4$ and $c_8$. Thus, $\Gamma_{sync} = [c_0,sync_1,c_1,c_2,c_3,sync_4,c_4,c_5,c_6,c_7,sync_8,c_8]$.
+A synchronization is needed each time a data read by a stencil computation has been written by a previous computation. In such a case, a computation is added before the stencil computation. This \emph{synchronization computation} reads the data to synchronize, and write the same data. The computation domain of such a synchronization computation encompasses the whole mesh entities on which the data is declared. As a result $\Gamma$ is transformed to a synchronized ordered list of computations $\Gamma_{sync}$.
+For example, in Figure~\ref{fig:mslex}, the stencil computation $c_1$ reads the data element $b$ which has been written by $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed into $[c_0,sync_1,c_1]$ in $\Gamma_{sync}$. The new computation $sync_1$ reads and writes $b$ and is applied on the computation domain of $c_1$. As a result, a dependency is kept between $c_0$ and $sync_1$ and between $sync_1$, and $c_1$. The same transformation is performed for all stencils: $c_4$ and $c_8$. Thus, $\Gamma_{sync} = [c_0,sync_1,c_1,c_2,c_3,sync_4,c_4,c_5,c_6,c_7,sync_8,c_8]$.
+\todo[inline]{JB: "is applied on the computation domain of $c_1$" vraiment, c'est pas ce que tu dis juste avant ...}
 
 \subsubsection*{The Dependency Graph: $\Gamma_{dep}$}
-From the synchronized ordered list of computations $\Gamma_{sync}$, a dependency graph $\Gamma_{dep}$ is built. A dependency exists between two computations (including synchronizations) if and only if a data read has been written by a previous computation in $\Gamma_{sync}$, and if the computation domains intersect. In other words, the only case where the same data is manipulated by distinct kernels without inducing a dependency is when the computation domains do not intersect. Nodes of the dependency graph represent computations of $\Gamma_{sync}$, while edges are dependencies between them. The dependency graph $\Gamma_{dep}$ is a directed acyclic graph (\emph{DAG}). For example, the dependency DAG $\Gamma_{dep}$ of the example of Figure~\ref{fig:mslex} is presented in Figure~\ref{fig:hyb}.
+From the synchronized ordered list of computations $\Gamma_{sync}$, a dependency graph $\Gamma_{dep}$ is built.
+A dependency exists from computation $a$ to $b$ (including synchronizations) if and only if a data element read by $b$ has been written by $a$ in $\Gamma_{sync}$ with intersecting domains.
+%In other words, the only case where the same data is manipulated by distinct kernels without inducing a dependency is when the computation domains do not intersect.
+Nodes of the dependency graph represent computations of $\Gamma_{sync}$, while edges are dependencies between them. The dependency graph $\Gamma_{dep}$ is a directed acyclic graph (\emph{DAG}). For example, the dependency DAG $\Gamma_{dep}$ of the example of Figure~\ref{fig:mslex} is presented in Figure~\ref{fig:hyb}.
 
 \begin{figure}[t]
 \begin{center}
@@ -163,6 +171,8 @@ From the synchronized ordered list of computations $\Gamma_{sync}$, a dependency
 
 \subsubsection*{The Minimal Series-Parallel Graph: $\Gamma_{msp}$}
 Once a dependency graph is built, many solutions can be used to build a parallel application, as for example dynamic schedulers~\cite{Augonnet2011,Gautier:2013:XRS:2510661.2511383}. In this work a static scheduling of the dependency graph is built. To do so the dependency graph is transformed to a minimal series-parallel graph~\cite{Valdes:1979:RSP:800135.804393}. As it has been shown in~\cite{Valdes:1979:RSP:800135.804393}, the transitive reduction of a DAG is a minimal series-parallel graph if and only if a forbidden shape, called \emph{N-shape} illustrated in Figure~\ref{fig:n}, is not found in the DAG. Thus, to transform $\Gamma_{dep}$ to the minimal series-parallel graph $\Gamma_{msp}$, an algorithm~\cite{Mitchell:2004:CMV:1082101.1082117} is applied to remove all \emph{N-shapes} by an over-constraint, as illustrated in Figure~\ref{fig:over}.
+
+\todo[inline]{JB: dans le DAG il y a une dependance de c2 a sync4, le graphe serie parallele les execute en parallele ...}
 
 \begin{figure}[h!]
 \begin{center}
