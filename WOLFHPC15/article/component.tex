@@ -299,20 +299,17 @@ the identification name of the computation in the MSL file.
    \node[component] (par0) [below = 0.8cm of c1] {$PAR$};
    \node[use] (par0u) [right = 1cm of par0] {$m$};
   %seq1
-   \node[component] (seq1) [right = 1cm of par0u] {$SEQ$};
+   \node[component] (seq1) [right = 1cm of sync0u] {$SEQ$};
    \node[use] (seq1u) [right = 1cm of seq1] {$m$};
-   %par1
-   \node[component] (par1) [right = 1cm of seq1u] {$PAR$};
-   \node[use] (par1u) [right = 1cm of par1] {$m$};
   %c2
-   \node[component] (c2) [right = 1cm of par1u] {$K(c_2)$};
+   \node[component] (c2) [right = 4cm of c0] {$K(c_2)$};
    \node[use] (c2u) [right = 0.8cm of c2] {};
    \node[right=0.2 of c2u] (star) {*};
   %sync1
    \node[component] (sync1) [below = 0.8cm of c2] {$SYNC$};
    \node[use] (sync1u) [right = 1cm of sync1] {$m$};
   %c4
-   \node[component] (c4) [below = 0.8cm of par1] {$K(c_4^*)$};
+   \node[component] (c4) [below = 0.8cm of sync1] {$K(c_4^*)$};
    \node[use] (c4u) [right = 0.8cm of c4] {};
    \node[right=0.2 of c4u] (star) {*};
   %c6
@@ -320,7 +317,7 @@ the identification name of the computation in the MSL file.
    \node[use] (c6u) [right = 0.8cm of c6] {};
    \node[right=0.2 of c6u] (star) {*};
   %seq2
-   \node[component] (seq2) [below = 2.5cm of seq1] {$SEQ$};
+   \node[component] (seq2) [below = 3.2cm of seq1] {$SEQ$};
    \node[use] (seq2u) [right = 1cm of seq2] {$m$};
   %c3
    \node[component] (c3) [right = 1cm of seq2u] {$K(c_3)$};
@@ -359,16 +356,13 @@ the identification name of the computation in the MSL file.
     (seq0u) edge node {} (par0.west)
     (par0) edge node {} (par0u)
   %seq1
-    (par0u) edge node {} (seq1)
+    (par0u) edge node {} (seq1.west)
     (seq1) edge node {} (seq1u)
-  %par1
-    (seq1u) edge node {} (par1.west)
-    (par1) edge node {} (par1u)
   %c2
-    (par1u) edge node {} (c2)
+    (seq1u) edge node {} (c2.west)
     (c2) edge node {} (c2u)
   %sync0
-    (par1u) edge node {} (sync1.west)
+    (seq1u) edge node {} (sync1.west)
     (sync1) edge node {} (sync1u)
   %c4
     (seq1u) edge node {} (c4.west)
@@ -396,6 +390,7 @@ the identification name of the computation in the MSL file.
     (c8) edge node {} (c8u)
    ;
 \end{tikzpicture}
+\vspace*{.5em}
 \caption{Component assembly representing the computation part generated from $\Gamma_{tsp}$ of Figure~\ref{fig:tsp}.}
 \label{fig:tsp:assembly}
 \end{center}
