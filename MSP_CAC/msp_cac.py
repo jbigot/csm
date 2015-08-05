@@ -15,6 +15,7 @@ from xml import *
 from cac_parser import *
 from cac_drawer import *
 from networkx.algorithms import bipartite
+from datetime import datetime
 
 #===============================================================
 # Class compiler
@@ -30,16 +31,21 @@ class CAC_Compiler:
 		self.metaFile = metafile
 		self.templateFile = open(tfile,'r')
 		self.dataTempFile = open(dfile,'r')
-		self.nb_proc = 256
+		self.nb_proc = 1
 		#self.dump_type = "hybrid"
-		self.dump_type = "data_base"
+		#self.dump_type = "data_base"
+		self.dump_type = "data_fusion"
 	#-----------------------
 	
 	#-----------------------
 	def compile(self):
 	#-----------------------
 		# from msp file to series-parallel tree decomposition
+		#tstart = datetime.now()
+		#print tstart
 		self.msp_to_tsp()
+		#tend = datetime.now()
+		#print tend
 		# from TSP to l2C component assembly
 		self.dump()
 	#-----------------------
@@ -50,7 +56,7 @@ class CAC_Compiler:
 		# parse the input file
 		print "Read msp file"
 		self.read_dsl()
-		# compute gamma data : do not separate updates
+		#compute gamma data : do not separate updates
 		print "Compute Gamma data"
 		self.gamma_data_seq()
 		# compute gamma data : separate updates
@@ -170,7 +176,7 @@ class CAC_Compiler:
 					name_wu = "wu_"+self.computations[current][0]+"_"+str(counter)
 					temp = set()
 					temp.add(up)
-					self.computations.insert(current,Computation("upd_"+self.computations[current][0]+"_"+str(counter),"update",temp,name_wu,""))
+					self.computations.insert(current,Computation("upd_"+self.computations[current][0]+"_"+str(counter),"update",temp,name_wu,"",self.computations[current][5]))
 					toadd.add(name_wu)
 					counter = counter+1
 					current = current+1
@@ -216,7 +222,7 @@ class CAC_Compiler:
 						toupdate.add(self.computations[j][3])
 			if len(toupdate)>0:
 				name_wu = "wu_"+self.computations[current][0]
-				self.computations.insert(current,Computation("upd_"+self.computations[current][0],"update",toupdate,name_wu,""))
+				self.computations.insert(current,Computation("upd_"+self.computations[current][0],"update",toupdate,name_wu,"",self.computations[current][5]))
 				current = current+1
 				self.computations[current][2].append(name_wu)
 			if len(tolink)>0:
@@ -820,7 +826,7 @@ class CAC_Compiler:
 		self.lad += "</mpi>\n"
 		self.lad += "</lad>\n"
 		
-		ladFile = open("./outputs/SW_10000_500_"+str(self.nb_proc)+".lad", "w")
+		ladFile = open("./outputs/SW_5000_500_"+str(self.nb_proc)+".lad", "w")
 		ladFile.write(self.lad)
 		ladFile.close()
 	#-----------------------
@@ -871,6 +877,20 @@ class CAC_Compiler:
 			self.computationDump(labels,self.root)
 		elif self.dump_type=="data_base":
 			self.computationDumpDataBase()
+		elif self.dump_type=="data_fusion":
+			labels = nx.get_node_attributes(self.canonic,'label')
+			self.newComputations = []
+			self.computationDataFusion(labels,self.root)
+			self.newComputations2 = []
+			self.lastFusion()
+			print "["
+			for item in self.newComputations2:
+				print "["
+				for c in item:
+					print self.computations[c][0]
+				print "]"
+			print "]"
+			#self.computationDumpDataFusion()
 		
 		self.dico["computations"] = self.dump_comp
 		self.dico["cppref_computations"] = self.cppref_comp
@@ -951,6 +971,242 @@ class CAC_Compiler:
 				self.countSync += 1
 			else:
 				self.dump_comp += self.makeComputation(comp)
+	#-----------------------
+	
+	######################### WARNING
+	# APPROXIMATIVE SOLUTION
+	# for the 4 following functions
+	#-----------------------
+	def computationDataFusion(self,labels,node):
+	#-----------------------
+		if labels[node]=='S':
+			print "Sequence"
+			successors = self.canonic.successors(node)
+			self.orderSuccessors(successors)
+			# move through children, by pairs
+			for child1, child2 in zip(successors, successors[1:]):
+				if labels[child1]!='P' and labels[child2]!='P':
+					self.compFusion(child1,child2)
+				elif labels[child1]=='P' and labels[child2]!='P':
+					self.computationDataFusion(labels,child1)
+					found = False
+					for item in self.newComputations:
+						if child2 in item:
+							found = True
+					if not found:
+						self.newComputations.append([child2])
+				elif labels[child1]!='P' and labels[child2]=='P':
+					found = False
+					for item in self.newComputations:
+						if child1 in item:
+							found = True
+					if not found:
+						self.newComputations.append([child1])
+					self.computationDataFusion(labels,child2)
+				elif labels[child1]=='P' and labels[child2]=='P':
+					self.computationDataFusion(labels,child1)
+					self.computationDataFusion(labels,child2)
+					
+		if labels[node]=='P':
+			successors = self.canonic.successors(node)
+			self.orderSuccessors(successors)
+			for index,current in enumerate(successors):
+				if labels[current]=='S':
+					self.computationDataFusion(labels,current)
+				else:
+					for other in successors[index+1:]:
+						if labels[other]!='S':
+							self.compFusion(current,other)
+						elif labels[other]=='S':
+							self.computationDataFusion(labels,other)
+	
+	#-----------------------
+	def compFusion(self,first,second):
+	#-----------------------
+		print first,second
+		print self.computations[first],self.computations[second]
+		if self.computations[first][5]==self.computations[second][5] and self.computations[first][1]!="update" and self.computations[second][1]!="update" :
+			if len(self.newComputations)>0:
+				# take the last item of self.newComputations
+				found = -1
+				for index,item in enumerate(self.newComputations):
+					if first in item:
+						found = index
+				if (found>=0) and (second not in self.newComputations[found]):
+					self.newComputations[found].append(second)
+				# else add a new item with an array containing first and second
+				elif found==-1:
+					self.newComputations.append([first,second])
+			else:
+				self.newComputations.append([first,second])
+		else:
+			if len(self.newComputations)>0:
+				# take the last item of self.newComputations
+				#last_item = self.newComputations[len(self.newComputations)-1]
+				found = False
+				for item in self.newComputations:
+					if first in item:
+						found = True
+				# if it contains first, add second into it
+				if not found:
+					self.newComputations.append([first])
+				found = -1
+				for item in self.newComputations:
+					if second in item:
+						found = True
+				if not found:
+					self.newComputations.append([second])
+			# add an array with first in self.newComputations
+			else:
+				self.newComputations.append([first])
+				self.newComputations.append([second])
+			
+		print self.newComputations
+		return second
+	
+	#-----------------------
+	def lastFusion(self):
+	#-----------------------
+		for comp1, comp2 in zip(self.newComputations, self.newComputations[1:]):
+			if self.compFusionBasic(comp1[len(comp1)-1],comp2[0]):
+				if comp1[0] not in self.newComputations2[len(self.newComputations2)-1]:
+					self.newComputations2.append(comp1)
+				for item in comp2:
+					self.newComputations2[len(self.newComputations2)-1].append(item)
+			else:
+				if len(self.newComputations2)==0 or (comp1[0] not in self.newComputations2[len(self.newComputations2)-1]):
+					self.newComputations2.append(comp1)
+					self.newComputations2.append(comp2)
+			
+	#-----------------------
+	def compFusionBasic(self,first,second):
+	#-----------------------
+		if self.computations[first][5]==self.computations[second][5] and self.computations[first][1]!="update" and self.computations[second][1]!="update" :
+			return True
+		else:
+			return False
+	#########################
+
+	#-----------------------
+	# def computationDataFusion(self,labels,first,second):
+	# #-----------------------
+	# 	if (labels[first]=='S' or labels[second]=='S'):
+	# 		# do nothing with 'S'
+	# 		if labels[first]=='S':
+	# 			successors = self.canonic.successors(first)
+	# 			self.orderSuccessors(successors)
+	# 			# move through children, by pairs
+	# 			for child1, child2 in zip(successors, successors[1:]):
+	# 				# recursive call
+	# 				newFirst = self.computationDataFusion(labels,child1,child2)
+	# 			# take the last newFirst to replace the 'S', recursive call
+	# 			return self.computationDataFusion(labels,newFirst,second)
+	# 		else:
+	# 			successors = self.canonic.successors(second)
+	# 			self.orderSuccessors(successors)
+	# 			# move through children, by pairs
+	# 			for child1, child2 in zip(successors, successors[1:]):
+	# 				# recursive call
+	# 				newSecond = self.computationDataFusion(labels,child1,child2)
+	# 			# take the last newFirst to replace the 'S', recursive call
+	# 			return self.computationDataFusion(labels,first,newSecond)
+	# 		
+	# 	elif labels[first]=='P' or labels[second]=='P':
+	# 		# do nothing with 'P'
+	# 		# try to combine a child with all other children
+	# 		if labels[first]=='P':
+	# 			successors = self.canonic.successors(first)
+	# 			self.orderSuccessors(successors)
+	# 			for index,current in enumerate(successors):
+	# 				for other in successors[index+1:]:
+	# 					# recursive call
+	# 					newFirst = self.computationDataFusion(labels,current,other)
+	# 			return self.computationDataFusion(labels,newFirst,second)
+	# 		else:
+	# 			successors = self.canonic.successors(second)
+	# 			self.orderSuccessors(successors)
+	# 			for index,current in enumerate(successors):
+	# 				for other in successors[index+1:]:
+	# 					# recursive call
+	# 					newSecond = self.computationDataFusion(labels,current,other)
+	# 			return self.computationDataFusion(labels,first,newSecond)
+	# 			
+	# 	else :
+	# 		# compare domains
+	# 		print first,second
+	# 		print self.computations[first],self.computations[second]
+	# 		if self.computations[first][5]==self.computations[second][5] and self.computations[first][1]!="update" and self.computations[second][1]!="update" :
+	# 			if len(self.newComputations)>0:
+	# 				# take the last item of self.newComputations
+	# 				found = -1
+	# 				for index,item in enumerate(self.newComputations):
+	# 					if first in item:
+	# 						found = index
+	# 				#last_item = self.newComputations[len(self.newComputations)-1]
+	# 				# if it contains first, add second into it
+	# 				#if first in last_item and second not in last_item:
+	# 				print found
+	# 				print self.newComputations[found]
+	# 				print second not in self.newComputations[found]
+	# 				if (found>=0) and (second not in self.newComputations[found]):
+	# 					self.newComputations[found].append(second)
+	# 					print "append second to existing array"
+	# 				# else add a new item with an array containing first and second
+	# 				elif found==-1:
+	# 					self.newComputations.append([first,second])
+	# 					print "append fusion array"
+	# 			else:
+	# 				self.newComputations.append([first,second])
+	# 				print "append fusion array"
+	# 		else:
+	# 			if len(self.newComputations)>0:
+	# 				# take the last item of self.newComputations
+	# 				#last_item = self.newComputations[len(self.newComputations)-1]
+	# 				found = -1
+	# 				for index,item in enumerate(self.newComputations):
+	# 					if first in item:
+	# 						found = index
+	# 				# if it contains first, add second into it
+	# 				if found==-1:
+	# 					self.newComputations.append([first])
+	# 					print "append first"
+	# 				else:
+	# 					print "add nothing"
+	# 			# add an array with first in self.newComputations
+	# 			else:
+	# 				self.newComputations.append([first])
+	# 				print "append first"
+	# 			
+	# 		print self.newComputations
+	# 		return second
+	#-----------------------
+	#-----------------------
+	# def computationDumpDataFusion(self):
+	# #-----------------------
+	# 	local_countSync = self.countSync
+	# 	# creation of the sequence
+	# 	self.dump_comp = "<instance id=\"Seq"+str(0)+"_$proc\" type=\"Sequence\">\n"
+	# 	self.dump_comp += "<property id=\"Compute\">\n"
+	# 	for comp in range(0,len(self.computations)):
+	# 		if self.computations[comp][1]=="update":
+	# 			self.dump_comp += "<cppref instance=\"Sync"+str(local_countSync)+"_$proc\" property=\"inGo\"/>\n"
+	# 			local_countSync += 1
+	# 		else:
+	# 			name = self.computations[comp][0]
+	# 			duplicate = int(math.fabs(self.duplicatesRef[name] - self.duplicates[name]))
+	# 			self.dump_comp += "<cppref instance=\""+name+"_"+str(duplicate)+"_$proc\" property=\"inGo\"/>\n"
+	# 			self.duplicatesRef[name] -= 1
+	# 	self.dump_comp += "</property>\n"
+	# 	self.dump_comp += "</instance>\n"
+	# 	self.cppref_comp = "<cppref instance=\"Seq"+str(0)+"_$proc\" property=\"inGo\"/>\n"
+	# 	# creation of computations and syncs
+	# 	for comp in range(0,len(self.computations)):
+	# 		if self.computations[comp][1]=="update":
+	# 			self.dump_comp += self.makeSync(comp)
+	# 			self.countSync += 1
+	# 		else:
+	# 			self.dump_comp += self.makeComputation(comp)
+	# #-----------------------
 	#-----------------------
 	
 	#-----------------------
