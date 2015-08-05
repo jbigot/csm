@@ -80,18 +80,21 @@ def parse(pfile,mesh,data,time,computations,duplicate):
 		cid = tmp2[0].strip(' ')
 		tmp3 = tmp2[1].split('}')
 		if ctype!="stencil" :
-			cw = tmp3[1].strip(',').strip('\n').strip(' ').strip(')')
+			tmp33 = tmp3[1].split(',')
+			cw = tmp33[1].strip(' ')
 			cn = ""
+			cd = tmp33[2].strip('\n').strip(' ').strip(')')
 		else :
 			tmp33 = tmp3[1].split(',')
 			cw = tmp33[1].strip(' ')
-			cn = tmp33[2].strip(',').strip('\n').strip(' ').strip(')')
+			cn = tmp33[2].strip(' ')
+			cd = tmp33[3].strip(',').strip('\n').strip(' ').strip(')')
 		tmp4 = tmp3[0].strip('{').strip(' ').split(',')
 		cr = list()
 		for el in tmp4:
 			cr.append(el)
 		# create the computation
-		computations.append(Computation(cid,ctype,cr,cw,cn))
+		computations.append(Computation(cid,ctype,cr,cw,cn,cd))
 		# incremente the number of instances needed for the name of the computation
 		if cid in duplicate.keys():
 			duplicate[cid] += 1

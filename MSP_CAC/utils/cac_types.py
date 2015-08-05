@@ -12,5 +12,5 @@ import os
 sys.path.append(os.path.dirname("./utils/"))
 from cac_import import *
 
-Computation = namedtuple("Computation", "id type R w N")
+Computation = namedtuple("Computation", "id type R w N d")
 Data = namedtuple("Data", "id domain")
