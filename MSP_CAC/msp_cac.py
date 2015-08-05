@@ -128,6 +128,7 @@ class CAC_Compiler:
 		#time
 		self.time = 0
 		self.duplicates = {}
+		self.duplicatesFus = {}
 		
 		#see parser.py for more details
 		parse(self.MSPfile,self.mesh,self.data,self.time,self.computations,self.duplicates)
@@ -876,21 +877,21 @@ class CAC_Compiler:
 			self.countP = 0
 			self.computationDump(labels,self.root)
 		elif self.dump_type=="data_base":
-			self.computationDumpDataBase()
+			self.computationDumpDataBase(self.computations)
 		elif self.dump_type=="data_fusion":
 			labels = nx.get_node_attributes(self.canonic,'label')
 			self.newComputations = []
 			self.computationDataFusion(labels,self.root)
 			self.newComputations2 = []
 			self.lastFusion()
-			print "["
-			for item in self.newComputations2:
-				print "["
-				for c in item:
-					print self.computations[c][0]
-				print "]"
-			print "]"
-			#self.computationDumpDataFusion()
+			# print "["
+			# for item in self.newComputations2:
+			# 	print "["
+			# 	for c in item:
+			# 		print self.computations[c][0]
+			# 	print "]"
+			# print "]"
+			self.computationDumpDataFusion()
 		
 		self.dico["computations"] = self.dump_comp
 		self.dico["cppref_computations"] = self.cppref_comp
@@ -946,31 +947,41 @@ class CAC_Compiler:
 	#-----------------------
 	
 	#-----------------------
-	def computationDumpDataBase(self):
+	def computationDumpDataBase(self,listComp):
 	#-----------------------
 		local_countSync = self.countSync
 		# creation of the sequence
 		self.dump_comp = "<instance id=\"Seq"+str(0)+"_$proc\" type=\"Sequence\">\n"
 		self.dump_comp += "<property id=\"Compute\">\n"
-		for comp in range(0,len(self.computations)):
-			if self.computations[comp][1]=="update":
+		for comp in range(0,len(listComp)):
+			if listComp[comp][1]=="update":
 				self.dump_comp += "<cppref instance=\"Sync"+str(local_countSync)+"_$proc\" property=\"inGo\"/>\n"
 				local_countSync += 1
 			else:
-				name = self.computations[comp][0]
-				duplicate = int(math.fabs(self.duplicatesRef[name] - self.duplicates[name]))
+				name = listComp[comp][0]
+				
+				if self.dump_type=="data_fusion":
+					duplicate = int(math.fabs(self.duplicatesRefFus[name] - self.duplicatesFus[name]))
+				else:
+					duplicate = int(math.fabs(self.duplicatesRef[name] - self.duplicates[name]))
+					
 				self.dump_comp += "<cppref instance=\""+name+"_"+str(duplicate)+"_$proc\" property=\"inGo\"/>\n"
-				self.duplicatesRef[name] -= 1
+				
+				if self.dump_type=="data_fusion":
+					self.duplicatesRefFus[name] -= 1
+				else:
+					self.duplicatesRef[name] -= 1
+					
 		self.dump_comp += "</property>\n"
 		self.dump_comp += "</instance>\n"
 		self.cppref_comp = "<cppref instance=\"Seq"+str(0)+"_$proc\" property=\"inGo\"/>\n"
 		# creation of computations and syncs
-		for comp in range(0,len(self.computations)):
-			if self.computations[comp][1]=="update":
+		for comp in range(0,len(listComp)):
+			if listComp[comp][1]=="update":
 				self.dump_comp += self.makeSync(comp)
 				self.countSync += 1
 			else:
-				self.dump_comp += self.makeComputation(comp)
+				self.dump_comp += self.makeComputation(comp,listComp)
 	#-----------------------
 	
 	######################### WARNING
@@ -980,7 +991,6 @@ class CAC_Compiler:
 	def computationDataFusion(self,labels,node):
 	#-----------------------
 		if labels[node]=='S':
-			print "Sequence"
 			successors = self.canonic.successors(node)
 			self.orderSuccessors(successors)
 			# move through children, by pairs
@@ -1023,8 +1033,8 @@ class CAC_Compiler:
 	#-----------------------
 	def compFusion(self,first,second):
 	#-----------------------
-		print first,second
-		print self.computations[first],self.computations[second]
+		#print first,second
+		#print self.computations[first],self.computations[second]
 		if self.computations[first][5]==self.computations[second][5] and self.computations[first][1]!="update" and self.computations[second][1]!="update" :
 			if len(self.newComputations)>0:
 				# take the last item of self.newComputations
@@ -1061,7 +1071,7 @@ class CAC_Compiler:
 				self.newComputations.append([first])
 				self.newComputations.append([second])
 			
-		print self.newComputations
+		#print self.newComputations
 		return second
 	
 	#-----------------------
@@ -1086,6 +1096,42 @@ class CAC_Compiler:
 		else:
 			return False
 	#########################
+	
+	#-----------------------
+	def computationDumpDataFusion(self):
+	#-----------------------
+		#build the new list of computations
+		newList = []
+		for l in self.newComputations2:
+			name=""
+			typ=self.computations[l[0]][1]
+			read=()
+			write=()
+			neigh=self.computations[l[0]][4]
+			domain=self.computations[l[0]][5]
+			for item in l:
+				if name=="":
+					name = str(self.computations[item][0])
+				else:
+					name = name + "_" + str(self.computations[item][0])
+				read=read+tuple(self.computations[item][2])
+				lw = list(write)
+				lw.append(self.computations[item][3])
+				write = tuple(lw)
+			comp = Computation(name,typ,list(read),list(write),neigh,domain)
+			print comp
+			newList.append(comp)
+			
+			if name in self.duplicatesFus.keys():
+				self.duplicatesFus[name] += 1
+			else :
+				self.duplicatesFus[name] = 1
+				
+		#call to computationDumpDataBase
+		self.duplicatesRefFus = copy.deepcopy(self.duplicatesFus)
+		self.duplicatesNewFus = copy.deepcopy(self.duplicatesFus)
+		self.computationDumpDataBase(newList)
+	#-----------------------
 
 	#-----------------------
 	# def computationDataFusion(self,labels,first,second):
@@ -1303,25 +1349,35 @@ class CAC_Compiler:
 	#-----------------------
 	# Create a computation component instance in the lad
 	#-----------------------
-	def makeComputation(self,node):
+	def makeComputation(self,node,listComp):
 	#-----------------------
-		name = self.computations[node][0]
-		duplicate = int(math.fabs((self.duplicatesNew[name]) - self.duplicates[name]))
+		name = listComp[node][0]
+		
+		if self.dump_type=="data_fusion":
+			duplicate = int(math.fabs((self.duplicatesNewFus[name]) - self.duplicatesFus[name]))
+		else:
+			duplicate = int(math.fabs((self.duplicatesNew[name]) - self.duplicates[name]))
+			
 		# the instance with the name the duplication id and the proc
 		# the type with K+name
 		out = "<instance id=\""+name+"_"+str(duplicate)+"_$proc\" type=\"K"+name+"\">\n"
-		self.duplicatesNew[name] -= 1
+		
+		if self.dump_type=="data_fusion":
+			self.duplicatesNewFus[name] -= 1
+		else:
+			self.duplicatesNew[name] -= 1
+			
 		#data read and written
 		if name in self.saveProperty :
-			read2 = self.computations[self.saveProperty[name]][2]
-			written2 = self.computations[self.saveProperty[name]][3]
+			read2 = listComp[self.saveProperty[name]][2]
+			written2 = listComp[self.saveProperty[name]][3]
 		else:
-			read2 = self.computations[node][2]
-			written2 = self.computations[node][3]
+			read2 = listComp[node][2]
+			written2 = listComp[node][3]
 			self.saveProperty[name] = node
 			
-		read = self.computations[node][2]
-		written = self.computations[node][3]
+		read = listComp[node][2]
+		written = listComp[node][3]
 		for d,d2 in zip(read,read2):
 			# fake link to the update
 			if d.find("wu_") < 0 :
@@ -1330,10 +1386,14 @@ class CAC_Compiler:
 		# 	# fake link to the update
 		# 	if d.find("wu_") < 0 :
 		# 		out += "<property id=\""+d+"\"><cppref instance=\""+d+"_$proc\" property=\"services\"/></property>"
-		# 
-		if written not in read :
-			out += "<property id=\""+written2+"\"><cppref instance=\""+written+"_$proc\" property=\"services\"/></property>"
-			#out += "<property id=\""+written+"\"><cppref instance=\""+written+"_$proc\" property=\"services\"/></property>"
+		#
+		if self.dump_type=="data_base":
+			if written not in read :
+				out += "<property id=\""+written2+"\"><cppref instance=\""+written+"_$proc\" property=\"services\"/></property>"
+		elif self.dump_type=="data_fusion":
+			for dw,dw2 in zip(written,written2):
+				if dw not in read :
+					out += "<property id=\""+dw2+"\"><cppref instance=\""+dw+"_$proc\" property=\"services\"/></property>"
 		out += "</instance>\n"
 		return out
 	#-----------------------
