@@ -109,15 +109,11 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
    \node[provide] (Dp) at (-1,0) {};
    \node (Ds) at (-1.5,0) {start};
    \node[use,right=1.5cm of D] (Du1) {};
-   \node[use,below=0.8cm of D] (Du2) {};
+   \node[use,below=1.75cm of D] (Du2) {};
+   \node[use,right=1.7cm of Du2] (Du3) {$m$};
 
-   \node[provide,below=0.15 of Du2] (DAp) {};
-   \node[component,below=0.8cm of DAp] (DA) {$DriverApp$};
-   \node[use,right=1.7cm of DA] (DAu1) {$m$};
-   \node[use,below=0.8cm of DA] (DAu2) {};
-
-   \node[provide,below=0.15 of DAu2] (Tp) {};
-   \node[component,below=0.8cm of Tp] (T) {$Time$};
+   \node[provide,below=0.15 of Du2] (Tp) {};
+   \node[component,below=1.6cm of Tp] (T) {$Time$};
    \node[use,right=1cm of T] (Tu) {};
    \node[left=0.8cm of T] (tt) {$T$};
 
@@ -127,7 +123,7 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
    \node[right=0.2cm of Cu] (star) {$*$};
    \node[right=1.5cm of C] (gamma) {$\Gamma$};
 
-   \node[provide,right=0.2 of DAu1] (Datap1) {};
+   \node[provide,right=0.2 of Du3] (Datap1) {};
    \node[provide,above=0.15 of Cu] (Datap2) {};
    \node[component,above=0.8cm of Datap2] (Data) {$Data$};
    \node[use,above=0.8cm of Data] (Datau) {};
@@ -142,10 +138,8 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
     (Dp) edge node {} (D)
     (D) edge node {} (Du1)
         edge node {} (Du2)
+        edge node {} (Du3)
     (DDSp1) edge node {} (DDS)
-    (DA) edge node {} (DAu1)
-           edge node {} (DAu2)
-    (DAp) edge node {} (DA)
     (Tp) edge node {} (T)
     (T)  edge node {} (Tu)
     (Cp) edge node {} (C)
@@ -163,7 +157,7 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
 
 As described in Section~\ref{sect:mscac}, the compiler generates five independent parts in a component assembly in addition to a static part.
 This is represented on Figure~\ref{fig:mscac:assembly} where each rounded box represents one or more component instances.
-\texttt{Driver} \& \texttt{DriverApp} are static and drive the whole application.
+\texttt{Driver} is static and drives the whole application.
 The four other parts are generated based on the content of sections of the MSL program: \texttt{Computations} from $\Gamma$ (with code provided by the user), \emph{DDS} from $\mathcal{M}$ and $\mathcal{E}$, \emph{Data} from $\Delta$ and $\mathcal{D}$, and \emph{Time} from $T$.
 
 \texttt{DDS} manages the structure of the mesh, a single instance is generated as MSL only supports a single mesh for now.
