@@ -12,14 +12,14 @@ Component-based software engineering (CBSE) is a domain of software engineering~
 re-use, separations of concerns, and thus maintainability.
 An application is made of a set of component instances.
 A component is a black box that implements an independent functionality of the application, and which interacts with its environment only through well defined interfaces: its ports.
-A port can for example specify services provided or required by the component.
+A port can, for example, specify services provided or required by the component.
 With respect to high performance computing, some works have also shown
 that component models can achieve the needed level of performance, and
 scalability while also helping in application
 portability~\cite{Bernholdt01052006, bigot:inria-00388508, UCHPC2015}
 
 Many component models exist, each of them with its own specificities.
-Well known component models include for example the CORBA Component Model (CCM)~\cite{corba:omg06}, and the Grid Component Model (GCM)~\cite{Baude} in distributed computing, the Common Component Architecture (CCA)~\cite{Bernholdt01052006}, and Low Level Components (\llc)~\cite{l2c} in HPC.
+Well known component models include, for example, the CORBA Component Model (CCM)~\cite{corba:omg06}, and the Grid Component Model (GCM)~\cite{Baude} for distributed computing, while the Common Component Architecture (CCA)~\cite{Bernholdt01052006}, and Low Level Components (\llc)~\cite{l2c} are HPC-oriented.
 This work makes use of \llc for the experiments.
 Let us therefore introduce the concepts of this model in more details.
 
@@ -43,7 +43,6 @@ a white $m$ in it. MPI port are
 connected with a black rectangle.
 A \llc-based application is a static \emph{assembly} of components instances and connections between their ports.
 Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
-\todo[inline]{JB: chez moi la figure\,\ref{fig:ports} deborde...}
 
 \begin{figure}[t]
 \begin{center}
@@ -63,21 +62,24 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
     (p1) edge node {$q$} (C1);
 \end{tikzpicture}
 }
+\\
 \subfloat[][\label{fig:ass}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[component] (C) at (0,0) {$c_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
-   \node[component,right=1.5 of u] (C1) {$c_1$};
+   \node[provide,right=0.15 of u] (p2) {};
+   \node[component,right=1.5 of p2] (C1) {$c_1$};
    \node[use,right=1.5 of C1] (um) {$m$};
  
   \path[-]
     (p) edge node {$p$} (C)
     (C) edge node {$u$} (u)
     (C1)  edge node {$v$} (um)
-    (u) edge node {$q$} (C1);
+    (p2) edge node {$q$} (C1);
 \end{tikzpicture}
 }
+\\
 \subfloat[][\label{fig:mpi}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[component] (C) at (0,0) {$c_2$};
@@ -128,6 +130,7 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
    \node[component,above=0.8cm of Datap2] (Data) {$Data$};
    \node[use,above=0.8cm of Data] (Datau) {};
    \node[right=1cm of Data] (delta) {$\Delta,\mathcal{D}$};
+   \node[mpi,above right=1cm of Data] (mpidata) {};
 
    \node[provide,right=0.15 of Du1] (DDSp1) {};
    \node[provide,above=0.15 of Datau] (DDSp2) {};
@@ -147,6 +150,7 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
     (Datap2) edge node {} (Data)
     (Datap1) edge node {} (Data)
     (Data) edge node {} (Datau)
+          edge node {} (mpidata)
     (DDSp2) edge node {} (DDS);
 \end{tikzpicture}
 \vspace*{.5em}
@@ -155,7 +159,7 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
 \end{center}
 \end{figure}
 
-As described in Section~\ref{sect:mscac}, the compiler generates five independent parts in a component assembly in addition to a static part.
+As described in Section~\ref{sect:mscac}, the compiler generates four independent parts in a component assembly in addition to a static part.
 This is represented on Figure~\ref{fig:mscac:assembly} where each rounded box represents one or more component instances.
 \texttt{Driver} is static and drives the whole application.
 The four other parts are generated based on the content of sections of the MSL program: \texttt{Computations} from $\Gamma$ (with code provided by the user), \emph{DDS} from $\mathcal{M}$ and $\mathcal{E}$, \emph{Data} from $\Delta$ and $\mathcal{D}$, and \emph{Time} from $T$.
@@ -163,11 +167,11 @@ The four other parts are generated based on the content of sections of the MSL p
 \texttt{DDS} manages the structure of the mesh, a single instance is generated as MSL only supports a single mesh for now.
 The back-end presented in this paper uses the distributed data structure proposed in SkelGIS library~\cite{CPE:CPE3494}.
 \texttt{DDS} is used by \texttt{Data} containing one component instance for each data element in the MSL program.
-\texttt{Time} is parametrized by the the \texttt{iteration} value from MSL and calls the \texttt{Scheduling} part as many times as required.
+\texttt{Time} is parametrized by the the \texttt{iteration} value from MSL and calls the \texttt{Computations} part as many times as required.
 
-\texttt{Computations} contains the static scheduling computed by MSC, \ie $\Gamma_{tsp}$.
-The series-parallel tree is encoded using three specific components which manage the $P$, $S$, and $sync$ operations of $\Gamma_{tsp}$ as explained hereafter.
-At the leafs of the tree, the components instances make call either to \texttt{Data} for synchronization of user-provided components for the computations.
+\texttt{Computations} contains the static scheduling computed by MSC, \ie $\Gamma_{tsp}$, or the data parallel transformation $\Gamma_{data}$.
+Both transformations $\Gamma_{tsp}$ and $\Gamma_{data}$ are encoded using three specific components which manage the $P$, $S$, and $sync$ operations as explained hereafter.
+At the leaves of the tree, the computation components instances ($K$), provided by the user, are connected to \texttt{Data}.
 As presented on Figure~\ref{fig:k}, these components provide a single port used to launch the computation and expose one use port for each data element manipulated in the computation.
 We denote the fact that they may have several use port by adding a star on the use port.
 Each of these use ports is connected to the matching component instance in \texttt{Data}.
@@ -176,8 +180,8 @@ We denote this kind of component K.
 As a result of this approach, each part of the generated code is rather independent.
 Changing the main loop to use a convergence criteria rather than a fixed number of iterations would only require changing the \texttt{Time} component.
 Similarly, changing the approach used for scheduling would only impact the code generated in \texttt{Computations}.
-The technology used for data parallelism can also be changed by replacing the \texttt{DDS} and \texttt{Data} components; as a matter of fact work is in progress to propose an alternative based on Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985} instead of SkelGIS.
-In this case however, the \texttt{Computations} part might have to be altered to match the new interface of \texttt{Data}, but this is the only impact.
+The technology used for data parallelism can also be changed by replacing the \texttt{DDS} and \texttt{Data} components; as a matter of fact a work in progress proposes an alternative based on Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985} instead of SkelGIS.
+In this case however, the kernel components of the \texttt{Computations} part, provided by the user, might have to be written with interfaces of the alternative distributed data structure.
 
 \begin{figure}
 \begin{center}
@@ -197,11 +201,11 @@ In this case however, the \texttt{Computations} part might have to be altered to
 \end{figure}
   
 %----------------------------------------
-\subsection{Control Components}
+\subsection{Control Components and Dump}
 %----------------------------------------
-The series-parallel tree decomposition $\Gamma_{tsp}$ represents the static scheduling of the simulation.
-It is dumped to components by generating an assembly that exactly matches the tree.
-We introduce what we call \emph{control components} to represent the nodes of the tree.
+The series-parallel tree decomposition $\Gamma_{tsp}$ represents a static scheduling of the simulation.
+It is dumped to components by generating an assembly that exactly matches the tree, as well as for $\Gamma_{data}$.
+We introduce what we call \emph{control components} to represent all nodes of $\Gamma_{tsp}$ or $\Gamma_{data}$.
 These components can be used for any simulation, which increases code reuse between simulations.
 A control component exposes a single \emph{provide} port containing a single method, typically a control-only method without any parameter.
 We introduce three control components represented in Figure~\ref{fig:ctrlcomponents}.
@@ -257,18 +261,17 @@ c) Comp. SYNC
 
 
 %----------------------------------------
-\subsection{Dump To Component Assembly}
+%\subsection{Dump To Component Assembly}
 %----------------------------------------
-From $\Gamma_{tsp}$ and using the control components described above,
-a direct dump can be done to a component assembly for an hybrid (data
-and task) parallelization of a simulation. 
-\fix{HC: ce qui suit est a changer avec la fusion du code de plusieurs composants}
-However, it is also
-possible to dump to a data parallelization only. In such a case the
-computation of $\Gamma_{sync}$ is enough to generate the component
-assembly. Actually a single SEQ component is thus needed and this
-component is linked to all computations and synchronizations of
-$\Gamma_{sync}$ directly.
+Then from $\Gamma_{tsp}$ or $\Gamma_{data}$, and using the control components described above,
+a direct dump can be done to a component assembly for a data or hybrid (data
+and task) parallelization of a simulation.
+%However, it is also
+%possible to dump to a data parallelization only. In such a case the
+%computation of $\Gamma_{sync}$ is enough to generate the component
+%assembly. Actually a single SEQ component is thus needed and this
+%component is linked to all computations and synchronizations of
+%$\Gamma_{sync}$ directly.
 
 Figure~\ref{fig:tsp:assembly} displays the assembly part corresponding to
 $\Gamma_{tsp}$ of Figure~\ref{fig:tsp}. In this figure, the ports

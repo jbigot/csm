@@ -2,7 +2,7 @@ Navier-Stokes equations is a well known set of PDEs in fluid dynamics to simulat
 
 The MSL program of FullSWOF contains three mesh entities, seven computation domains, fourty-eight data and ninty-eight computations composed of thirty-two stencil kernels and sixty-six local computations.
 
-The series-parallel tree decomposition extracted by the MSC transformation is composed of seventeen sequences and eighteen parallel sections. In Figure~\ref{fig:freq} represents the level of parallelism, \ie the number of tasks which can be executed concurrently, and gives the number of time the level is observed in the final tree.
+The series-parallel tree decomposition extracted by the MSC transformation is composed of seventeen sequences and eighteen parallel sections. Figure~\ref{fig:freq} represents for a given level of parallelism, \ie the number of tasks which can be executed concurrently, the number of time this level is observed in the final component assembly. One can notive that the level of task parallelism extracted from the Shallow water equations is limited by at the two sequential parts of the application (level 1). However, as a level of sixteen parallel tasks is reach too times, but also five times for the level six, sequential restrictions could be amortize. Moreover, as the level of parallelism in the application is heterogenous, the choice of the number of threads to launch for task parallelism is difficult.
 
 \begin{figure}[!h]
  \begin{center}
@@ -11,12 +11,12 @@ The series-parallel tree decomposition extracted by the MSC transformation is co
    \hline
    frequence & 2 & 1 & 3 & 5 & 3 & 1 & 1 & 2\\
  \end{tabular}
-\caption{Parallelism level (number of parallel tasks) and the number of times this level appear.}
+\caption{Parallelism level (number of parallel tasks) and the number of times this level appears.}
 \label{fig:freq}
  \end{center}
 \end{figure}
 
-Figure~\ref{fig:exectime} illustrates the execution time for each step of the MSC transformation for all overall execution time of ten seconds. Execution times have been computed on a laptop with a bi-core Intel Core i5 1,4 GHz, and 8Gb LPDDR3. 
+Figure~\ref{fig:exectime} illustrates the execution time for each step of the MSC transformation for an overall execution time of ten seconds. Execution times have been computed on a laptop with a bi-core Intel Core i5 1,4 GHz, and 8Gb LPDDR3. 
 
 \begin{figure}[!h]
  \begin{center}
@@ -32,9 +32,7 @@ Figure~\ref{fig:exectime} illustrates the execution time for each step of the MS
  \end{center}
 \end{figure}
 
-\fix{HC 2 all : Je ne sais pas si ce qui suit a sa place dans cet article.}
-
-One can notice that the transformation of $\Gamma_{dep}$ to a minimal series-parallel graph is the longest step of MSC, because of the removal of the forbidden shapes in the graph. Actually, the number of forbidden shapes removed in $\Gamma_{dep}$ is not counted, because the algorithm use a general solution instead of finding each forbidden shape, but it seems that many of them appeared. The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections.
+One can notice that the transformation of $\Gamma_{dep}$ to a minimal series-parallel graph is the longest step of MSC, because of the removal of the forbidden shapes in the graph. Actually, the number of forbidden shapes removed in $\Gamma_{dep}$ is not counted, because the algorithm uses a general solution instead of finding each forbidden shape, but it seems that many of them appeared. The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections.
 The fact that many \emph{N-shape} are removed in $\Gamma_{dep}$ shows that the creation of a static shedule of tasks may not be the best solution for complex simulations. Actually, if a \emph{N-shape} cannot be represented by sequences and parallel sections, this shape can perfectly be handled by a dynamic scheduler or by the direct static representation of $\Gamma_{dep}$ where tasks wait for their input before starting.
 
 
