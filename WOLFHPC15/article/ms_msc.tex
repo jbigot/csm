@@ -2,8 +2,7 @@
 \subsection{Multi Stencil Language}
 %----------------------------------------
 
-\begin{figure}[t]
-\begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++,numbers=left]
+\begin{filecontents*}{grammar.txt}
 program ::= "mesh:" meshid 
             "mesh entities:" listmeshent
             "computation domains:" 
@@ -33,43 +32,9 @@ listdataread ::= dataread listdataread
               |  dataread
 dataread ::= dataid "[" neighborid "]"
           |  dataid
-\end{lstlisting}
-\caption{Grammar of the Multi-Stencil Language}
-\label{fig:grammar}
-\end{figure}
+\end{filecontents*}
 
-As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six elements of the formal definition; they describe: \textbf{1.}\,the mesh, \textbf{2.}\,the mesh entities, \textbf{3.}\,the computation domains with their inter-dependencies, \textbf{4.}\,the data, \textbf{5.}\,the time iterations, and finally \textbf{6.} the computations.
-Figure~\ref{fig:grammar} shows the grammar of MSL. Lines 1 to 9 define what is a MSL program with the different parts mentioned above. The remaining of this section describes those different parts of a MSL program and presents an example.
-One can notice that almost all terminals \texttt{meshid}, \texttt{meshdom}, \texttt{compdomid}, \texttt{dataid}, \texttt{compid} and \texttt{neighborid}, are string identifiers. Only \texttt{num} is an integer terminal.
-
-\subsubsection*{Mesh and Mesh Entities}
-As illustrated in the first line of the grammar in Figure~\ref{fig:grammar}, a mesh is simply defined by a string identifier.
-The different kind of mesh entities are described as a list of identifiers (lines 2, 10 and 11 in Figure~\ref{fig:grammar}).
-Figure~\ref{fig:mslex} presents an example of a mesh named \texttt{cart} used to represent a Cartesian mesh, and three kind of mesh entities: \texttt{cell}, \texttt{edgex}, and \texttt{edgey}.
-
-\subsubsection*{Computation Domains and Their Dependencies}
-A computation domain is a subset of a given kind of mesh entities, used during one or more computations.
-For each computation domain, the kind of mesh entities on which it is mapped is specified (lines 3-4 and 12-14 on Figure~\ref{fig:grammar}).
-By default, two computation domains of the same entities are handled as intersecting except when an explicit independence relation is mentioned in the \emph{independent} section of the language (lines 5-6 and 15-17 in Figure~\ref{fig:grammar}).
-On lines 4 to 6 of Figure~\ref{fig:mslex}, computation domains are defined for each kind of mesh entities: \texttt{allcell}, \texttt{alledgex} and \texttt{alledgey}; they are used to represent the whole domain.
-On lines 7 and 8 two other domains of \texttt{edgex} are defined: \texttt{part1edgex} and \texttt{part2edgex}; they are used to represent the boundaries of the domain.
-On line 10 the independence relation between \texttt{part1edgex} and \texttt{part2edgex} is specified.
-
-\subsubsection*{Data and Time}
-A data element is a quantity to simulate. It is mapped on a given kind of mesh entities, as illustrated in lines 7 and 18-20 of Figure~\ref{fig:grammar}. The \texttt{time} section simply indicates a number of iterations to perform in the simulation. In the example of Figure~\ref{fig:mslex} ten data elements are defined and 500 iterations (lines 11-22). %An extension could be to support a convergence criterion.
-
-
-\subsubsection*{Computation Description}
-The last part of the language contains the specifications of stencil and local kernels as defined in Section~\ref{sect:multistencil}.
-This description does not contain a direct expression of the numerical expressions $exp$.
-Instead, the term $exp$ of Equations~\ref{eq:st} and~\ref{eq:loc} simply corresponds to an identifier that references an implementation in an external language  (\cf Section~\ref{sect:component}).
-The specification starts by the identifier of the computed data element ($w$ in the formal description) with the computation domain between brackets ($d$).
-Then, after the equal sign, the kernel identifier ($exp$) is specified.
-Finally, between the parenthesis is the list of identifiers of the data elements read by the computation with their stencil shape between brackets ($R$).
-If the computation is local, no brackets appear ($R_l$). In the example of Figure~\ref{fig:mslex}, nine computations are described. On line 24, the data element \texttt{b} is computed on the domain \texttt{allcell} by the kernel expression \texttt{c\_0} which read data \texttt{a} without neighborhood shape.
-
-\begin{figure}[t]
-\begin{lstlisting}[basicstyle=\small,mathescape,frame=single,language=C++,numbers=left]
+\begin{filecontents*}{example.txt}
 mesh: cart
 mesh domains: cell,edgex,edgey
 computation domains:
@@ -102,10 +67,47 @@ computations:
   h[alledgex]=c6(f)
   i[allcell]=c7(g,h)
   j[partedgex]=c8(i[n1])
-\end{lstlisting}
-\caption{Example of a MSL program}
-\label{fig:mslex}
-\end{figure}
+\end{filecontents*}
+
+\begin{figure*}[t]
+\subfloat[\label{fig:grammar}]
+{\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.45\textwidth]{grammar.txt}}
+%\hfill
+\hspace{1.5cm}
+\subfloat[\label{fig:mslex}]
+{\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.45\textwidth]{example.txt}}
+\caption{(a) Grammar of the Multi-Stencil Language, (b) Example of a MSL program}
+\end{figure*}
+
+As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six elements of the formal definition; they describe: \textbf{1.}\,the mesh, \textbf{2.}\,the mesh entities, \textbf{3.}\,the computation domains with their inter-dependencies, \textbf{4.}\,the data, \textbf{5.}\,the time iterations, and finally \textbf{6.} the computations.
+Figure~\ref{fig:grammar} shows the grammar of MSL. Lines 1 to 9 define what is a MSL program with the different parts mentioned above. The remaining of this section describes those different parts of a MSL program and presents an example.
+One can notice that almost all terminals \texttt{meshid}, \texttt{meshdom}, \texttt{compdomid}, \texttt{dataid}, \texttt{compid} and \texttt{neighborid}, are string identifiers. Only \texttt{num} is an integer terminal.
+
+\subsubsection*{Mesh and Mesh Entities}
+As illustrated in the first line of the grammar in Figure~\ref{fig:grammar}, a mesh is simply defined by a string identifier.
+The different kind of mesh entities are described as a list of identifiers (lines 2, 10 and 11 in Figure~\ref{fig:grammar}).
+Figure~\ref{fig:mslex} presents an example of a mesh named \texttt{cart} used to represent a Cartesian mesh, and three kind of mesh entities: \texttt{cell}, \texttt{edgex}, and \texttt{edgey}.
+
+\subsubsection*{Computation Domains and Their Dependencies}
+A computation domain is a subset of a given kind of mesh entities, used during one or more computations.
+For each computation domain, the kind of mesh entities on which it is mapped is specified (lines 3-4 and 12-14 on Figure~\ref{fig:grammar}).
+By default, two computation domains of the same entities are handled as intersecting except when an explicit independence relation is mentioned in the \emph{independent} section of the language (lines 5-6 and 15-17 in Figure~\ref{fig:grammar}).
+On lines 4 to 6 of Figure~\ref{fig:mslex}, computation domains are defined for each kind of mesh entities: \texttt{allcell}, \texttt{alledgex} and \texttt{alledgey}; they are used to represent the whole domain.
+On lines 7 and 8 two other domains of \texttt{edgex} are defined: \texttt{part1edgex} and \texttt{part2edgex}; they are used to represent the boundaries of the domain.
+On line 10 the independence relation between \texttt{part1edgex} and \texttt{part2edgex} is specified.
+
+\subsubsection*{Data and Time}
+A data element is a quantity to simulate. It is mapped on a given kind of mesh entities, as illustrated in lines 7 and 18-20 of Figure~\ref{fig:grammar}. The \texttt{time} section simply indicates a number of iterations to perform in the simulation. In the example of Figure~\ref{fig:mslex} ten data elements are defined and 500 iterations (lines 11-22). %An extension could be to support a convergence criterion.
+
+
+\subsubsection*{Computation Description}
+The last part of the language contains the specifications of stencil and local kernels as defined in Section~\ref{sect:multistencil}.
+This description does not contain a direct expression of the numerical expressions $exp$.
+Instead, the term $exp$ of Equations~\ref{eq:st} and~\ref{eq:loc} simply corresponds to an identifier that references an implementation in an external language  (\cf Section~\ref{sect:component}).
+The specification starts by the identifier of the computed data element ($w$ in the formal description) with the computation domain between brackets ($d$).
+Then, after the equal sign, the kernel identifier ($exp$) is specified.
+Finally, between the parenthesis is the list of identifiers of the data elements read by the computation with their stencil shape between brackets ($R$).
+If the computation is local, no brackets appear ($R_l$). In the example of Figure~\ref{fig:mslex}, nine computations are described. On line 24, the data element \texttt{b} is computed on the domain \texttt{allcell} by the kernel expression \texttt{c\_0} which read data \texttt{a} without neighborhood shape.
 
 %----------------------------------------
 \subsection{MSC Parallelization}
