@@ -4,43 +4,54 @@ This section gives formal definitions of a \textit{stencil program} and its comp
 %-------------------------------------
 \subsection{Time, mesh and data}
 
-A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $\Omega$ of a set of PDEs and is defined as followed. 
+A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $\Omega$ of a set of PDEs and is defined as follows. 
 
 \begin{mydef}
-\textit{A mesh is a connected undirected graph $\mathcal{M}=(V,E)$, where $V$ is the set of vertices and $E$ the set of edges. The set of edges $E$ of a mesh $\mathcal{M}=(V,E)$ does not contain bridges.}
+\textit{A mesh is a connected undirected graph $\mathcal{M}=(V,E)$, where $V\in \Omega$ is the set of vertices and $E\in V^2$ the set of edges. The set of edges $E$ of a mesh $\mathcal{M}=(V,E)$ does not contain bridges.}
 \end{mydef}
-
-\rmq{Pas très clair la suite; motivation? dom == some sub elements of M ?}
-\begin{mydef}
-$D_i$ is a set of elements of a mesh $\mathcal{M}=(V,E)$, constructed by a function $dom_i$ which defines a precise association between $V$ and $E$, $dom_i : V \times E \rightarrow D_i$.
-\end{mydef}
-For example, the set of cells $D_0$ in a Cartesian 2D mesh could be defined by exactly four vertices and four edges connected as a cycle. But we could also define another set of elements $D_1$ as the simple set of vertices $V$, etc.
-
-A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) and hybrid. 
-
 \begin{figure}[!h]\begin{center}
   \resizebox{8cm}{!}{\includegraphics{./images/maillages.pdf}}
   \caption{From left to right, Cartesian, curvilinear and unstructured meshes.}
   \label{fig:mesh}
 \end{center}\end{figure}
+A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) and hybrid. 
 
+%\rmq{Pas très clair la suite; motivation? dom == some sub elements of M ?}
+For simulations, data is discretized based on the mesh; but for a given mesh, there are various ways of mapping the data depending on the mesh entities on which the data is mapped.
 \begin{mydef}
-The discretization of the continuous time domain $\mathcal{T}$ is denoted $T$ such that $\forall\mbox{ }t_i\mbox{, }t_{i+1} \in T\mbox{, }\exists\mbox{ }\Delta t \in \mathbb{R}$\mbox{, }$t_{i+1} = t_i + \Delta t$. Thus, $T$ is responsible for the iteration time steps of the numerical simulation. 
+\todo{JB: vraiment, ta def dit que pour chaque couple (noeud, arete), tu associes un element de $D_i$ ...}
+$D_i$ is a set of elements of a mesh $\mathcal{M}=(V,E)$, constructed by a function $dom_i$ which defines a precise association between $V$ and $E$, $dom_i : V \times E \rightarrow D_i$.
 \end{mydef}
 
-In a numerical simulation a set of data, or quantities, are applied onto the mesh and represent the set of values to compute, or to use, for computation.
-
 \begin{mydef}
-The set of data applied on the mesh is denoted by $\Delta$, such that $\delta \in \Delta$ is a function which associates each element $d \in D_i$ (the domain it is applied on) to a value $v \in V$, $\delta : D_i \rightarrow V$. In the rest of this paper, the domain of a data $\delta$ can be given by the function $domain(\delta)=D_i$.
+\todo{JB: def alternative}
+An entity $d$ of a mesh $\mathcal{M}=(V,E)$ is a subset of the mesh elements: $d\subset (V\cup E)$.
+A kind of mesh entities $D$ is a set of entities: $D\subset \mathcal{P}(V\cup E)$
 \end{mydef}
-One can notice that in applied mathematics, the signature of $\delta$ would be $\delta : D_i \times T \rightarrow V$, however when programming a numerical simulation it is not wise to store all values of each time iteration.
+For example, in a 2D Cartesian mesh a first kind of entities are the cells ($D_0$), they can be defined as all sets containing exactly four vertices and four edges connected as a cycle. Another kind of entities are the vertices ($D_1$) that can be defined as all singletons formed of a single vertex each.
+
+This covers the space discretization, however another dimension manipulated in simulations that has to be discretized is the time dimension.
+\begin{mydef}
+The discretization of the continuous time domain $\mathcal{T}$ is denoted $T$ such that $\forall\mbox{ }t_i\mbox{, }t_{i+1} \in T\mbox{, }\exists\mbox{ }\Delta t \in \mathbb{R}$\mbox{, }$t_{i+1} = t_i + \Delta t$.
+\end{mydef}
+$T$ is responsible for the iteration time steps of the numerical simulation. 
+
+In a numerical simulation a set of data elements, or quantities, are applied onto the mesh and represent the set of values to compute, or to use, for computation.
+\begin{mydef}
+A quantity is a function $\delta_t: D_{\delta t} \mapsto V_{\delta t}$ which associates each entity of its definition domain $d\in D_{\delta t}$ to a value $v\in V_{\delta t}$ where $V_{\delta t}$ is the data type, typically $\mathbb{R}$ or $\mathbb{C}$.
+The set of quantities applied on the mesh is denoted $\Delta$.
+In the rest of this paper, the entities on which a quantity $\delta_t$ is mapped is denoted $dom(\delta_t)=D_{\delta t}$.
+\end{mydef}
+Another approach closer to that taken in applied mathematics would have been to define $\delta$ functions over $D \times T$; however the approach chosen in this paper where a distinct function is defined for each time-step better matches the implementation of numerical simulations where the outer loop iterates over time and where only a few time-steps of quantity values are stored.
 
 %-----------------------
 \subsection{Computations}
 
 \begin{mydef}
-A numerical expression $\text{exp}$ is a function which represents how to compute a value for an element $d \in domain(w)=D_i$, using the set $R \subset \Delta$ of input data (read data), $\text{exp} : R \times D_i \rightarrow w \times D_i$.
+A numerical expression $\text{exp}_{wt}: dom(w_t)\times R\mapsto V_{wt}$ is a function that computes the value of a quantity $w_t(d)$ (write quantity) for a given entity $d \in dom(w_t)=D$, using the set of its input data $R=\{\delta 1_{t-1}, \delta 2_{t-1}, ...\} \subset \Delta$ (read quantities). It is defined as $\text{exp}_{wt}(d,r) \rightarrow w_t(d)$.
 \end{mydef}
+
+%JB: fin de relecture
 
 \begin{mydef}
 A computation $c$ of a numerical simulation is defined as $c(R,w,\text{exp})$, where $R \subset \Delta, w \in \Delta$ and $\text{exp}$ a numerical expression. %$D$ is one of the subsets $D_i \subset \mathcal{M}$, such that $w : D \rightarrow V$.
@@ -68,7 +79,7 @@ A \textit{stencil computation} is defined as a quadruplet $s(R,w,\text{exp},\mat
 \end{mydef}
 In a stencil computation $s$, $\forall d \in D$, the stencil numerical expression $\text{exp}$ is applied such that $w(d) = \text{exp}(R(d),R(\mathcal{N}(d))$. In this work, a stencil computation $s(R,w,\text{exp},\mathcal{N})$ always verifies $R \cap \{w\} = \emptyset$, otherwize an implicit numerical scheme has to be solve which is over the scope of this paper. As a result, the ordered list $\Gamma$ of a multi-stencil program can be composed of a set of stencil computations applied on one or more stencil shapes.
 
-Figure~\ref{fig:ex} gives an example of a stencil computation $s(R,w,\text{exp},\mathcal{N})$, where $\mathcal{M}(V,E)$ is a two dimensional Cartesian mesh. A single domain $D=domain(w)$ is defined in this example and is composed of cells formed by a cycle of four vertices $v \in V$ and four edges $e \in E$. Furthermore, in this example $R=\{A\}$, $w=B$, and for $(x,y) \in D$ the neighborhood function is 
+Figure~\ref{fig:ex} gives an example of a stencil computation $s(R,w,\text{exp},\mathcal{N})$, where $\mathcal{M}(V,E)$ is a two dimensional Cartesian mesh. A single domain $D=dom(w)$ is defined in this example and is composed of cells formed by a cycle of four vertices $v \in V$ and four edges $e \in E$. Furthermore, in this example $R=\{A\}$, $w=B$, and for $(x,y) \in D$ the neighborhood function is 
 \begin{equation*}
 \mathcal{N} : (x,y) \rightarrow \{(x,y+1),(x,y-1),(x+1,y),(x-1,y)\}.
 \end{equation*}
