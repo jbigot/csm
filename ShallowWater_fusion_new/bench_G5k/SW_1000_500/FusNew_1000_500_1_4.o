@@ -1,0 +1,12 @@
+[edel-24.grenoble.grid5000.fr:01126] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_mtl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+[edel-24.grenoble.grid5000.fr:01126] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_btl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+[edel-24.grenoble.grid5000.fr:01127] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_mtl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+[edel-24.grenoble.grid5000.fr:01127] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_btl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+[edel-24.grenoble.grid5000.fr:01128] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_mtl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+[edel-24.grenoble.grid5000.fr:01129] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_mtl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+[edel-24.grenoble.grid5000.fr:01128] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_btl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+[edel-24.grenoble.grid5000.fr:01129] mca: base: component_find: unable to open /usr/lib/openmpi/lib/openmpi/mca_btl_mx: perhaps a missing symbol, or compiled for a different version of Open MPI? (ignored)
+ Time TOTAL CALCULATION : 82.8981
+ Time TOTAL CALCULATION : 82.8987
+ Time TOTAL CALCULATION : 82.9094
+ Time TOTAL CALCULATION : 82.9121

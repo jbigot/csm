@@ -1,0 +1,5 @@
+//#implements=Klimvl
+LCMP(Klimvl)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Datah, v);
+LEND

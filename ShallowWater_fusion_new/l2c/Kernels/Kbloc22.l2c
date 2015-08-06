@@ -1,0 +1,17 @@
+//#implements=Kbloc22
+LCMP(Kbloc22)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Datah, u);
+  L_CPP_USE(Datah, v);
+  L_CPP_USE(Datah, q1);
+  L_CPP_USE(Datah, h1g);
+  L_CPP_USE(Datah, h1d);
+  L_CPP_USE(Datah, h1l);
+  L_CPP_USE(Datah, h1r);
+  L_CPP_USE(Datah, delzc1);
+  L_CPP_USE(Datah, f2);
+  L_CPP_USE(Datah, g2);
+  L_CPP_USE(Datah, mcf);
+  L_CPP_USE(Datah, qs1);
+  L_CPP_USE(Datah, hs);
+LEND

@@ -1,0 +1,7 @@
+//#implements=Kdelzf
+LCMP(Kdelzf)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Datah, z1l);
+  L_CPP_USE(Datah, z1r);
+  L_CPP_USE(Datah, delz1);
+LEND
