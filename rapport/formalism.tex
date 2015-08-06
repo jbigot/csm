@@ -49,18 +49,21 @@ Another approach closer to that taken in applied mathematics would have been to 
 
 \begin{mydef}
 A numerical expression $\text{exp}_{wt}: dom(w_t)\times R\mapsto V_{wt}$ is a function that computes the value of a quantity $w_t(d)$ (write quantity) for a given entity $d \in dom(w_t)=D$, using the set of its input data $R=\{\delta 1_{t-1}, \delta 2_{t-1}, ...\} \subset \Delta$ (read quantities). It is defined as $\text{exp}_{wt}(d,r) \rightarrow w_t(d)$.
+\todo{JB: tu n'introduis pas la notion de stencil ici?}
 \end{mydef}
-
-%JB: fin de relecture
 
 \begin{mydef}
 A computation $c$ of a numerical simulation is defined as $c(R,w,\text{exp})$, where $R \subset \Delta, w \in \Delta$ and $\text{exp}$ a numerical expression. %$D$ is one of the subsets $D_i \subset \mathcal{M}$, such that $w : D \rightarrow V$.
 \end{mydef}
-It has to be noticed that at each time iteration, all the elements of a mesh are computed. However, it happens that computations of the mesh elements are splitted in different domains, as for example the computation of the physical border. In this case additional $D_i$ can be specified for the mesh $\mathcal{M}$.
+It has to be noticed that at each time iteration, all the values of a quantity are computed. However, it happens that computations of the quantity is split in different domains, as for example the computation of the physical border. In this case additional $D_i$ can be specified for the mesh $\mathcal{M}$.
+\todo{JB: je comprends pas vraiment...}
 
 \begin{mydef}
 The set of $n$ ordered computations of a numerical simulation is denoted $\Gamma = [c_i]_{0 \leq i \leq n-1}$, such that $\forall c_i,c_j \in \Gamma$, if $i \leq j$, then $c_i$ is computed before $c_j$, and $c_j$ can be computed only when $c_i$ is finished.
+\todo{JB: je dirais que $c_j$ peut etre calculé quand $c_j$ l'est, j'eleverais le "only", c'est justement parce qu'il n'y a pas le only que tu peux faire du task parallelism}
 \end{mydef}
+
+%JB: fin de relecture
 
 \begin{mydef}
 A \textit{multi-stencil program} is defined by the quadruplet $\mathcal{MSP}(T,\mathcal{M},\Delta,\Gamma)$.
