@@ -10,22 +10,22 @@ A MSL description is made of six main sections that match the six tuples element
   outer/.style={rectangle,rounded corners=3pt,thick,inner sep=5pt}
   ]
   \node (MSL) {MSL};
-  \node[outer,below=0.5 of MSL,draw=black] (MSCAC) {
+  \node[outer,right=0.5cm of MSL,draw=black] (MSCAC) {
     \begin{tikzpicture}
       \node [inner,draw=black,thick] (pars)  {Parser};
-      \node [inner,draw=black,thick,below=0.5cm of pars] (MSC)  {MSC};
-      \node [inner,below=0.5cm of MSC,draw=black,thick] (Dump)  {Dump};
+      \node [inner,draw=black,thick,right=0.5cm of pars] (MSC)  {MSC};
+      \node [inner,right=0.5cm of MSC,draw=black,thick] (Dump)  {Dump};
 
       \draw[->] (pars) -- (MSC);
       \draw[->] (MSC) -- (Dump);
     \end{tikzpicture}
   };
-  \node [below=0.5 of MSCAC] (CA) {Component-based runtime};
-  \node [rotate=90,above left=0.5 of MSC] (CAid) {MSCAC};
-  \draw[->] (MSL) -- (pars.north);
-  \draw[->] (Dump.south) -- (CA);
+  \node [right=0.5cm of MSCAC] (CA) {CBR};
+  \node [above =0.2cm of MSCAC] (CAid) {MSCAC};
+  \draw[->] (MSL) -- (pars.west);
+  \draw[->] (Dump.east) -- (CA);
 \end{tikzpicture}
-\caption{The three phases of the MSCAC compiler.}
+\caption{The three phases of the MSCAC compiler. First the parser of the MSL description, second the MSC parallelization, third the dump to the Component-Based Runtime (CBR).}
 \label{fig:mscac}
 \end{center}
 \end{figure}

@@ -48,11 +48,11 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
 \begin{center}
 \subfloat[][\label{fig:2comp}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component] (C) at (0,0) {$C_0$};
+   \node[component] (C) at (0,0) {$c_0$};
    \node[provide] (p) at (-1.5,0) {};
    \node[use] (u) at (1.5,0) {};
    \node[provide,right=1.5cm of u] (p1) {};
-   \node[component,right=1.5cm of p1] (C1) {$C_1$};
+   \node[component,right=1.5cm of p1] (C1) {$c_1$};
    \node[use,right=1.5cm of C1] (um) {$m$};
  
   \path[-]
@@ -88,9 +88,9 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
    \node[component,right=1.5 of u] (C1) {$c_3$};
  
   \path[-]
-    (p) edge node {$r$} (C)
-    (C) edge node {$m_1$} (u)
-    (u) edge node {$m_2$} (C1);
+    (p) edge node {} (C)
+    (C) edge node {} (u)
+    (u) edge node {} (C1);
 \end{tikzpicture}
 }
 \caption{Example of components and their ports representation. a) Component $c_0$ has a provide port ($p$) and a use port ($u$); Component $c_1$ has also a provide port ($q$) but also a use multiple port ($v$). b) A use port is connected to a (compatible) provide port. c) Component $c_2$ and $c_3$ shares an MPI communicator.}
