@@ -2,7 +2,7 @@ Navier-Stokes equations is a well known set of PDEs in fluid dynamics to simulat
 
 \subsubsection*{Compiler Evaluation}
 
-The series-parallel tree decomposition extracted by the MSC transformation is composed of seventeen sequences and eighteen parallel sections. Figure~\ref{fig:freq} represents for a given level of parallelism, \ie the number of tasks which can be executed concurrently, the number of time this level is observed in the final component assembly. One can notive that the level of task parallelism extracted from the Shallow water equations is limited by at the two sequential parts of the application (level 1). However, as a level of sixteen parallel tasks is reach too times, but also five times for the level six, sequential restrictions could be amortize. Moreover, as the level of parallelism in the application is heterogenous, the choice of the number of threads to launch for task parallelism is difficult.
+The series-parallel tree decomposition $\Gamma_{tsp}$ of this simulation, extracted by the MSC transformation, is composed of seventeen sequence nodes and eighteen parallel nodes. Figure~\ref{fig:freq} represents for a given level of parallelism, \ie the number of tasks to perform concurrently, the number of time this level is observed in the final component assembly. One can notice that the level of task parallelism extracted from the Shallow water equations is limited by two sequential parts in the application (level 1). As a level of sixteen parallel tasks is reached too times, and also five times for the level six, sequential restrictions could be amortized. However, it is rather clear that the task parallelization technique should be used to improve the data parallelism when reaching at its limits, but not to directly get performance. Moreover, as the level of parallelism in the application is heterogenous, the number of threads to launch for task parallelism, and the number of cores to keep for data parallelism is difficult to choose.
 
 \begin{figure}[!h]
  \begin{center}
@@ -16,7 +16,6 @@ The series-parallel tree decomposition extracted by the MSC transformation is co
  \end{center}
 \end{figure}
 
-Figure~\ref{fig:exectime} illustrates the execution time for each step of the MSC transformation for an overall execution time of ten seconds. Execution times have been computed on a laptop with a bi-core Intel Core i5 1,4 GHz, and 8Gb LPDDR3. 
 \begin{figure}[!h]
  \begin{center}
  \begin{tabular}{c|c|c|c|c|}
@@ -30,20 +29,23 @@ Figure~\ref{fig:exectime} illustrates the execution time for each step of the MS
 \label{fig:exectime}
  \end{center}
 \end{figure}
-One can notice that the transformation of $\Gamma_{dep}$ to a minimal series-parallel graph is the longest step of MSC, because of the removal of the forbidden shapes in the graph. Actually, the number of forbidden shapes removed in $\Gamma_{dep}$ is not counted, because the algorithm uses a general solution instead of finding each forbidden shape, but it seems that many of them appeared. The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections.
-The fact that many \emph{N-shape} are removed in $\Gamma_{dep}$ shows that the creation of a static shedule of tasks may not be the best solution for complex simulations. Actually, if a \emph{N-shape} cannot be represented by sequences and parallel sections, this shape can perfectly be handled by a dynamic scheduler or by the direct static representation of $\Gamma_{dep}$ where tasks wait for their input before starting.
+
+Figure~\ref{fig:exectime} illustrates the execution time for each step of the MSC transformation for an overall execution time of ten seconds. Execution times have been computed on a laptop with a bi-core Intel Core i5 1,4 GHz, and 8Gb DDR3. 
+One can notice that the transformation of $\Gamma_{dep}$ to a minimal series-parallel graph is the longest step of MSC, because of the removal of the forbidden shapes in the graph. Actually, the number of forbidden shapes removed in $\Gamma_{dep}$ is not counted by the algorithm, which applies a general solution (instead of finding each forbidden shape), but it seems that many of them appear. The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections.
+The fact that many \emph{N-shape} are removed in $\Gamma_{dep}$ shows that the creation of a static shedule of tasks may not be the best solution for complex simulations. Actually, a \emph{N-shape} could perfectly be handled by a dynamic scheduler for example. It has to be added, however, that the computation of $\Gamma_{tsp}$ is still interesting to detect how space loops can be fusionned in $\Gamma_{data}$.
 
 \subsubsection*{Preliminary Performances}
-To evaluate if performances of the overall automatic parallelization are promising we have proceeded as follows. Our current implementation of the MSCAC compiler generates a back-end code using the SkelGIS library. For this reason, our evaluation compare the shallow water equations first parallelized with a pure SkelGIS code (data structures, applicators and interfaces of SkelGIS~\cite{CPE:CPE3494}), and second parallelized with MSL (which uses the SkelGIS data structure). As the SkelGIS library has proved its scalability on the Shallow water equations compared to an MPI parallelization, the evaluation is relevant to evaluate scalability of MSL. 
+To evaluate performance of the generated component-based parallel structure, we have proceeded as follows. Our current implementation of the MSCAC compiler generates a back-end code using the SkelGIS library. For this reason, our evaluation compare the shallow water equations first parallelized with a pure SkelGIS code (data structures, applicators and interfaces of SkelGIS~\cite{CPE:CPE3494}), and second parallelized with MSL (which uses the SkelGIS data structure). As the SkelGIS library has proved its scalability on the Shallow water equations compared to an MPI parallelization, this performance evaluation should be relevant. 
 Moreover, as SkelGIS library handles data parallelization for distributed memory architectures, we have limited for now our evaluations to the fusionned data parallelization of MSCAC (dumped from $\Gamma_{data}$). 
 
-\fix{HC : preciser la machine}
+Evaluations have been performed on TGCC Curie \emph{thin nodes}. Each node is equiped with an Intel E5-2680 (Sandy-Bridge EP) processor containing 16 cores, 64GB of memory, and is linked to an Infiniband network. 
+\fix{HC: what are the experiments presented ? Size of the mesh, number of time iterations}
 
-Evaluations have been performed on ... . Figure~\ref{fig:times} shows the execution times in seconds as a function of the number of cores. Figure~\ref{fig:speedup} illustrates a speedup comparison, using the minimum sequential reference time (which is the MSL sequential time). Finally, Figure~\ref{fig:log2} illustrates the logarithmic scale of execution times as a function of the logarithmic scale of the number of cores.
+Figure~\ref{fig:times} shows the execution times in seconds as a function of the number of cores. Figure~\ref{fig:speedup} illustrates a speedup comparison, using the minimum sequential reference time (which is the MSL sequential time). Finally, Figure~\ref{fig:log2} illustrates the logarithmic scale of execution times as a function of the logarithmic scale of the number of cores.
 \begin{figure}[!h]
  \begin{center}
  \begin{tabular}{c|c|c|c|c|c|c}
-   cores & 8 & 16 & 32 & 64 & 128 & 256\\
+   Cores & 8 & 16 & 32 & 64 & 128 & 256\\
    \hline
    MSL & 998.10 & 544.86 & 285.73 & 139.8 & 76.45 & 48.05\\
    \hline
@@ -67,4 +69,6 @@ Evaluations have been performed on ... . Figure~\ref{fig:times} shows the execut
 \label{fig:perfs}
 \end{figure*}
 
-One can notive that execution times using MSL, which itself uses the SkelGIS distributed data structures, is improved compared to a pure SkelGIS parallelization. Moreover, the scalability stays close to the scalability of SkelGIS even if the makespan is improved.
+One can notice that execution times using MSL, which itself uses the SkelGIS distributed data structures, are improved compared to a pure SkelGIS parallelization. Moreover, the scalability stays close to the scalability of SkelGIS. Thus, using a component-based runtime, performance of the back-end code is still HPC-oriented and does not introduce overheads.
+
+\fix{more figures, more conclusions}
