@@ -14,69 +14,75 @@ int main(int argc, char** argv)
 {
   INITSKELGIS;
 
-  int64_t gW = 5000;
-  int64_t gH = 5000;
+  int64_t gW = 100;
+  int64_t gH = 100;
+
+  int16_t border2 = 2;
+  int16_t noborder = 0;
+  int16_t cell = 1;
+  int16_t edgex = 2;
+  int16_t edgey = 3;
 
   //mesh
   Structure * str = new Structure(gW,gH);
 
   //data
-  Data * h = new Data(2,1,0.0,str);
-  Data * u = new Data(2,1,0.0,str);
-  Data * v = new Data(2,1,0.0,str);
-  Data * z = new Data(2,1,0.0,str);
-  Data * hs = new Data(2,1,0.0,str);
-  Data * us = new Data(2,1,0.0,str);
-  Data * vs = new Data(2,1,0.0,str);
-  Data * hsa = new Data(2,1,0.0,str);
-  Data * usa = new Data(2,1,0.0,str);
-  Data * vsa = new Data(2,1,0.0,str);
-  Data * q1 = new Data(0,1,0.0,str);
-  Data * q2 = new Data(0,1,0.0,str);
-  Data * qs1 = new Data(0,1,0.0,str);
-  Data * qs2 = new Data(0,1,0.0,str);
-  Data * f1 = new Data(0,2,0.0,str);
-  Data * f2 = new Data(0,2,0.0,str);
-  Data * f3 = new Data(0,2,0.0,str);
-  Data * g1 = new Data(0,3,0.0,str);
-  Data * g2 = new Data(0,3,0.0,str);
-  Data * g3 = new Data(0,3,0.0,str);
-  Data * h1d = new Data(0,2,0.0,str);
-  Data * h1g = new Data(0,2,0.0,str);
-  Data * h1l = new Data(0,2,0.0,str);
-  Data * h1r = new Data(0,2,0.0,str);
-  Data * h2d = new Data(0,3,0.0,str);
-  Data * h2g = new Data(0,3,0.0,str);
-  Data * h2l = new Data(0,3,0.0,str);
-  Data * h2r = new Data(0,3,0.0,str);
-  Data * delz1 = new Data(0,2,0.0,str);
-  Data * delz2 = new Data(0,3,0.0,str);
-  Data * delzc1 = new Data(0,1,0.0,str);
-  Data * delzc2 = new Data(0,1,0.0,str);
-  Data * qsa1 = new Data(0,1,0.0,str);
-  Data * qsa2 = new Data(0,1,0.0,str);
-  Data * u1l = new Data(0,2,0.0,str);
-  Data * u1r = new Data(0,2,0.0,str);
-  Data * u2l = new Data(0,3,0.0,str);
-  Data * u2r = new Data(0,3,0.0,str);
-  Data * v1l = new Data(0,2,0.0,str);
-  Data * v1r = new Data(0,2,0.0,str);
-  Data * v2l = new Data(0,3,0.0,str);
-  Data * v2r = new Data(0,3,0.0,str);
-  Data * z1l = new Data(0,2,0.0,str);
-  Data * z1r = new Data(0,2,0.0,str);
-  Data * z2l = new Data(0,3,0.0,str);
-  Data * z2r = new Data(0,3,0.0,str);
-  Data * Rain = new Data(0,1,0.0,str);
-  Data * rainm = new Data(0,1,0.0,str);
-  Data * mcf = new Data(0,1,0.0,str);
+  Data * h = new Data(border2,cell,1.0,str);
+  Data * u = new Data(border2,cell,1.0,str);
+  Data * v = new Data(border2,cell,1.0,str);
+  Data * z = new Data(border2,cell,1.0,str);
+  Data * hs = new Data(border2,cell,1.0,str);
+  Data * us = new Data(border2,cell,1.0,str);
+  Data * vs = new Data(border2,cell,1.0,str);
+  Data * hsa = new Data(border2,cell,1.0,str);
+  Data * usa = new Data(border2,cell,1.0,str);
+  Data * vsa = new Data(border2,cell,1.0,str);
+  Data * q1 = new Data(noborder,cell,1.0,str);
+  Data * q2 = new Data(noborder,cell,1.0,str);
+  Data * qs1 = new Data(noborder,cell,1.0,str);
+  Data * qs2 = new Data(noborder,cell,1.0,str);
+  Data * f1 = new Data(noborder,edgex,0.0,str);
+  Data * f2 = new Data(noborder,edgex,0.0,str);
+  Data * f3 = new Data(noborder,edgex,0.0,str);
+  Data * g1 = new Data(noborder,edgey,0.0,str);
+  Data * g2 = new Data(noborder,edgey,0.0,str);
+  Data * g3 = new Data(noborder,edgey,0.0,str);
+  Data * h1d = new Data(noborder,edgex,0.0,str);
+  Data * h1g = new Data(noborder,edgex,0.0,str);
+  Data * h1l = new Data(noborder,edgex,0.0,str);
+  Data * h1r = new Data(noborder,edgex,0.0,str);
+  Data * h2d = new Data(noborder,edgey,0.0,str);
+  Data * h2g = new Data(noborder,edgey,0.0,str);
+  Data * h2l = new Data(noborder,edgey,0.0,str);
+  Data * h2r = new Data(noborder,edgey,0.0,str);
+  Data * delz1 = new Data(noborder,edgex,0.0,str);
+  Data * delz2 = new Data(noborder,edgey,0.0,str);
+  Data * delzc1 = new Data(noborder,cell,0.0,str);
+  Data * delzc2 = new Data(noborder,cell,0.0,str);
+  Data * qsa1 = new Data(noborder,cell,0.0,str);
+  Data * qsa2 = new Data(noborder,cell,0.0,str);
+  Data * u1l = new Data(noborder,edgex,0.0,str);
+  Data * u1r = new Data(noborder,edgex,0.0,str);
+  Data * u2l = new Data(noborder,edgey,0.0,str);
+  Data * u2r = new Data(noborder,edgey,0.0,str);
+  Data * v1l = new Data(noborder,edgex,0.0,str);
+  Data * v1r = new Data(noborder,edgex,0.0,str);
+  Data * v2l = new Data(noborder,edgey,0.0,str);
+  Data * v2r = new Data(noborder,edgey,0.0,str);
+  Data * z1l = new Data(noborder,edgex,0.0,str);
+  Data * z1r = new Data(noborder,edgex,0.0,str);
+  Data * z2l = new Data(noborder,edgey,0.0,str);
+  Data * z2r = new Data(noborder,edgey,0.0,str);
+  Data * Rain = new Data(noborder,cell,0.0,str);
+  Data * rainm = new Data(noborder,cell,0.0,str);
+  Data * mcf = new Data(noborder,cell,0.0,str);
 
   //-----Time calculation
   Chronometer chrono;
   chrono.start();
   //-----
 
-  for(int i=0;i<500;i++)
+  for(int i=0;i<10;i++)
   {
     std::vector<Data *> inputs;
     std::vector<Data *> outputs;
@@ -215,6 +221,8 @@ int main(int argc, char** argv)
 
       ApplyList::apply(boundary_f,inputs,outputs);
 
+      inputs.clear();
+      outputs.clear();
       inputs.push_back(hs);
       inputs.push_back(us);
       inputs.push_back(vs);
@@ -351,6 +359,58 @@ int main(int argc, char** argv)
   st<<" Time TOTAL CALCULATION : "<<chrono.dureeCalcule()<<" ";
   Mpi_::printScreen(st.str());
   //-----
+
+  delete h;
+  delete u;
+  delete v;
+  delete z;
+  delete hs;
+  delete us;
+  delete vs;
+  delete hsa;
+  delete usa;
+  delete vsa;
+  delete q1;
+  delete q2;
+  delete qs1;
+  delete qs2;
+  delete f1;
+  delete f2;
+  delete f3;
+  delete g1;
+  delete g2;
+  delete g3;
+  delete h1d;
+  delete h1g;
+  delete h1l;
+  delete h1r;
+  delete h2d;
+  delete h2g;
+  delete h2l;
+  delete h2r;
+  delete delz1;
+  delete delz2;
+  delete delzc1;
+  delete delzc2;
+  delete qsa1;
+  delete qsa2;
+  delete u1l;
+  delete u1r;
+  delete u2l;
+  delete u2r;
+  delete v1l;
+  delete v1r;
+  delete v2l;
+  delete v2r;
+  delete z1l;
+  delete z1r;
+  delete z2l;
+  delete z2r;
+  delete Rain;
+  delete rainm;
+  delete mcf;
+
+  delete str;
 
   ENDSKELGIS;
 }
