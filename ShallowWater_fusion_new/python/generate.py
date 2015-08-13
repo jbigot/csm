@@ -4,7 +4,7 @@ sys.path.append(os.path.dirname("./utils/"))
 import copy
 from string import Template
 
-nb_proc = 4096
+nb_proc = 64
 size_x=5000
 size_y=5000
 iteration=500
@@ -25,12 +25,14 @@ for p in range(0,nb_proc):
     ladTxt += tempProc.substitute(proc=p,sizex=size_x,sizey=size_y,iter=iteration,nbp=nb_proc)
     ladTxt += "</process>\n"
     
+#ladTxt += "<communicator>"
 for line in tempCommF :
     ladTxt += "<communicator>"
     lineComm = Template(line)
     for p in range(0,nb_proc):
         ladTxt += lineComm.substitute(proc=p)
     ladTxt += "</communicator>"
+#ladTxt += "</communicator>"
 
 ladTxt += "</mpi>\n"
 ladTxt += "</lad>\n"

@@ -44,11 +44,11 @@ It generates a program in the back-end language which embeds the parallel patter
 Various models could be used as back-end, such as OpenMP~\cite{660313} for example, however this paper adopts a novel approach where the dump targets a component-based runtime.
 This approach makes it possible to leverage good properties of software component models such as increased code re-use, eased separation of concerns, and increased maintainability and productivity.
 % JB: la phrase en dessous est pas tres heureuse ...
-Those properties counter some known limitations of DSLs. % JB: was "parallel applications".
+These properties counter some known limitations of DSLs. % JB: was "parallel applications".
 %where a component represents a clear and independent functionality of the application, have first been proposed in software engineering and have proved many times good properties for 
 
 Thanks to the software components based approach, the generated code is made of four independent parts that loosely match the elements of the multi-stencil program definition.
-These are the components implementing: \textbf{a)} the computations scheduling ($\Gamma$), \textbf{b)} the data structures ($\mathcal{M}$ and $\mathcal{E}$), \textbf{c)} data of the simulation ($\Delta$ and $\mathcal{D}$), and \textbf{d)} the time loop ($T$). The actual implementation of the numerical expressions are provided by the user and used in the computations scheduling.
+Those are the components implementing: \textbf{a)} the computations scheduling ($\Gamma$), \textbf{b)} the data structures ($\mathcal{M}$ and $\mathcal{E}$), \textbf{c)} data of the simulation ($\Delta$ and $\mathcal{D}$), and \textbf{d)} the time loop ($T$). The actual implementation of the numerical expressions are provided by the user and used in the computations scheduling.
 This component-based parallel structure enables to change the technology used for each part while limiting the impact on the other parts, as further discussed in Section~\ref{sect:component}.
 
 % This paper presents the MS language and the MSC part of the compiler. The MSC compiler produces a static scheduling of the set of computations, ready to dump to a parallel language, such as OpenMP~\cite{660313} or HPF~\cite{219857}, but also ready to dump to a component assembly which is the main contribution of this work.
