@@ -48,7 +48,7 @@ and the numerical expression of the second kernel could be:
 A(x,y) = A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
 
-As it can be seen from those definitions, stencil kernels implementations share many properties from an algorithmic point of view that can be used to apply well known optimization and parallelization strategies.
+As it can be seen from these definitions, stencil kernels implementations share many properties from an algorithmic point of view that can be used to apply well known optimization and parallelization strategies.
 Many solutions (languages or frameworks) thus propose to ease their programming by producing optimized and parallelized code from a simple description of the local computation to apply on each element.
 These are further discussed in Sections~\ref{sect:related}.
 
@@ -91,7 +91,7 @@ A local (or auxiliary) kernel $l$ is defined as the quadruplet:
 l(R_l,w,exp,d),
 \label{eq:loc}
 \end{equation}
-where $R_l$ is the set of input data, and other parameters are the same as for normal stencil kernels.
+where $R_l$ is the set of input data locally accessed, and other parameters are the same as for normal stencil kernels.
 
 A multi-stencil program in this work is defined as a sextuplet:
 \begin{equation} 

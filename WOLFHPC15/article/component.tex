@@ -1,7 +1,7 @@
 %----------------------------------------
 %\subsection{Overview}
 %----------------------------------------
-This section describes the projection of a MSP program to components, including the components used to implement the static scheduling of $\Gamma_{tsp}$.
+This section describes the projection of a MSP program to a component-based runtime, including the components used to implement the static scheduling of $\Gamma_{tsp}$.
 Before those details, the section gives an overview of component models, and especially the Low Level Components (\llc) used in this paper.
 
 
@@ -101,7 +101,7 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
 %% In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}. As the use port is on the right of its component, and the provide port on the left, in a component assembly the component on the left uses the provide port of the component on the right.
 
 %----------------------------------------
-\subsection{MSCAC Runtime Overview}
+\subsection{Runtime Overview}
 %----------------------------------------
 
 \begin{figure}[t]
@@ -161,7 +161,7 @@ Such an assembly is described in LAD, an XML dialect~\cite{l2c}.
 \end{figure}
 
 As described in Section~\ref{sect:mscac}, the compiler generates four independent parts in a component assembly in addition to a static part.
-This is represented on Figure~\ref{fig:mscac:assembly} where each rounded box represents one or more component instances, respectively drawn with simple lines or double lines. For example in the figure, the component \texttt{Data} is instanciated more than once.
+This is represented on Figure~\ref{fig:mscac:assembly} where each rounded box represents one component instance, drawn with simple lines, or more, drawn with double lines. For example, the component \texttt{Data} is instanciated more than once.
 \texttt{Driver} is static and drives the whole application.
 The four other parts are generated based on the content of the different sections of the MSL program: \texttt{Computations}, from the parallelization of $\Gamma$ (done by MSC as explained in Section~\ref{sect:msc}), \emph{DDS} from $\mathcal{M}$ and $\mathcal{E}$, \emph{Data} from $\Delta$ and $\mathcal{D}$, and \emph{Time} from $T$.
 
@@ -169,14 +169,14 @@ The four other parts are generated based on the content of the different section
 
 \texttt{DDS} manages the structure and the partitioning of the mesh, a single instance is generated as MSL only supports a single mesh for now.
 The back-end presented in this paper uses the distributed data structure proposed in SkelGIS library~\cite{CPE:CPE3494}.
-\texttt{DDS} is used by \texttt{Data}, which represents one component instance for each data element in the MSL program.
+\texttt{DDS} is used by \texttt{Data}, for which one instance represents one data element in the MSL program.
 \texttt{Time} is parametrized by the the \texttt{iteration} value from MSL and uses the \texttt{Computations} component as many times as required.
 
 \texttt{Computations} contains the static scheduling $\Gamma_{tsp}$, or the data parallel transformation $\Gamma_{data}$, both computed by MSC.
-Both transformations, $\Gamma_{tsp}$ and $\Gamma_{data}$, are encoded using three specific components,detailed in Section~\ref{sect:control}, which manage the $P$, $S$, and $sync$ operations.
+Both transformations, $\Gamma_{tsp}$ and $\Gamma_{data}$, are encoded using three specific components, detailed in Section~\ref{sect:control}, which manage the $P$, $S$, and $sync$ operations.
 At the leaves of $\Gamma_{tsp}$ and $\Gamma_{data}$, the computation components instances (denoted $K$), provided by the user, are connected to \texttt{Data}.
-As presented on Figure~\ref{fig:k}, these $K$ components provide a single port used to launch the computation and expose one use port for each data element manipulated in the computation.
-We denote the fact that they may have several use port by adding a star on the use port to \texttt{Data}.
+As presented on Figure~\ref{fig:k}, a $K$ component provides a single port used to launch the computation and exposes one use port for each data element manipulated in the computation.
+We denote the fact that it may have several use port by adding a star on the use port to \texttt{Data}.
 
 \begin{figure}
 \begin{center}
@@ -198,7 +198,7 @@ We denote the fact that they may have several use port by adding a star on the u
 Moreover, to finalize the data parallelization of the back-end component-based runtime, which is partially managed by \texttt{DDS} for the partitioning, and $sync$ operations in \texttt{Computations}, we have chosen to duplicate the component assembly of Figure~\ref{fig:mscac:assembly} on available processors (or cores), connecting them by MPI ports between their \texttt{Data}.
 
 As a result of this approach, each part of the generated code is rather independent.
-Changing the main loop to use a convergence criteria rather than a fixed number of iterations would only require changing the \texttt{Time} component.
+Changing the main time loop to use a convergence criteria rather than a fixed number of iterations would only require changing the \texttt{Time} component.
 Similarly, changing the approach used for scheduling would only impact the code generated in \texttt{Computations}.
 The technology used for data parallelism can also be changed by replacing the \texttt{DDS} and \texttt{Data} components; and by using the adequate interfaces in $K$. As a matter of fact, a work in progress proposes an alternative based on Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985} instead of SkelGIS.
   
@@ -257,7 +257,7 @@ c) Comp. SYNC
 
 \item[Parallel component (PAR)] It is the direct representation of a parallel node of $\Gamma_{tsp}$ (not $\Gamma_{data}$). This component simultaneously calls a set of other components. It exposes a \emph{use-multiple} port to be connected to the components to call in parallel.
   
-\item[Synchronization component (SYNC)]. It is the direct representation to an update leaf of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component calls the synchronization of a given data. It exposes a \emph{use} port to be connected to the data to update.
+\item[Synchronization component (SYNC)] It is the direct representation to an update leaf of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component calls the synchronization of a given data. It exposes a \emph{use} port to be connected to the data to update.
 \end{description}
 
 Then from $\Gamma_{tsp}$ or $\Gamma_{data}$, and using the control components described above,
@@ -269,7 +269,7 @@ linked to data (use and use-multiple ports of SYNC and K) are
 represented but are not connected. Moreover, each computation
 component is an instance of a specific K component using
 the identification name of the computation in the MSL file.
-Thus, this figure represents what the component \texttt{Computations} of Figure~\ref{fig:mscac:assembly} contains.
+Thus, this figure represents what the component \texttt{Computations} of Figure~\ref{fig:mscac:assembly} contains if an hybrid parallelization is performed. On the other hand, if a data parallelization is performed, a single $SEQ$ component is used by \texttt{Time}, which itself uses in the appropriate order the computation kernels and synchronizations. Among those kernels, a single one \emph{fusionned} represents $c_3$ and $c_5$.
 
 \begin{figure*}[t]
 \begin{center}
