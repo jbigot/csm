@@ -6,10 +6,12 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ of this simulation, extrac
 
 \begin{figure}[!h]
  \begin{center}
- \begin{tabular}{c|c|c|c|c|c|c|c|c|}
+ \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+    \hline 
    level & 1 & 2 & 3 & 4 & 6 & 10 & 12 & 16\\
    \hline
    frequence & 2 & 1 & 3 & 5 & 3 & 1 & 1 & 2\\
+   \hline
  \end{tabular}
 \caption{Parallelism level (number of parallel tasks) and the number of times this level appears.}
 \label{fig:freq}
@@ -18,12 +20,14 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ of this simulation, extrac
 
 \begin{figure}[!h]
  \begin{center}
- \begin{tabular}{c|c|c|c|c|}
+ \begin{tabular}{|c|c|c|c|c|}
+  \hline
    step & $\Gamma_{sync}$ & $\Gamma_{dep}$ & $\Gamma_{msp}$ & $\Gamma_{tsp}$\\
    \hline
    time (ms) & 2 & 530 & 8297 & 1133\\
    \hline
    \% & 0.02 & 5.3 & 83.3 & 11.37\\
+   \hline
  \end{tabular}
 \caption{Execution times of the MSC transformation steps}
 \label{fig:exectime}
@@ -35,82 +39,60 @@ One can notice that the transformation of $\Gamma_{dep}$ to a minimal series-par
 Thus, the fact that many \emph{N-shape} are removed in $\Gamma_{dep}$ shows that the creation of a static shedule of tasks may not be the best solution for complex simulations. It has to be notice, however, that the all computation of $\Gamma_{tsp}$ is still usefull to detect how space loops can be fusionned in $\Gamma_{data}$.
 
 \subsubsection*{Preliminary Performances}
-To evaluate performance of the generated component-based parallel structure, we have proceeded as follows. Our current implementation of the MSCAC compiler generates a back-end code using the SkelGIS library. For this reason, our evaluation compare the shallow water equations first parallelized with a pure SkelGIS code (data structures, applicators and interfaces of SkelGIS~\cite{CPE:CPE3494}), and second parallelized with MSL (which uses the SkelGIS data structure). As the SkelGIS library has proved its scalability on the Shallow water equations compared to an MPI parallelization, this performance evaluation should be relevant. 
-Moreover, as SkelGIS library handles data parallelization for distributed memory architectures, we have limited for now our evaluations to the fusionned data parallelization of MSCAC (dumped from $\Gamma_{data}$). 
+To evaluate performance of the generated component-based parallel structure, we have proceeded as follows. Our current implementation of the MSCAC compiler generates a back-end code using the SkelGIS distributed data structure. For this reason, our evaluation compare the shallow water equations first parallelized with a pure SkelGIS code (data structures, applicators and interfaces of SkelGIS~\cite{CPE:CPE3494}), and second parallelized with MSL (which uses the SkelGIS data structure). Moreover, as SkelGIS library handles data parallelization for distributed memory architectures, we have limited for now our evaluations to the fusionned data parallelization of MSCAC (dumped from $\Gamma_{data}$). 
 
-Evaluations have been performed on two clusters of \emph{Grid'5000}~\footnote{\url{https://www.grid5000.fr/mediawiki/index.php/Grid5000:Home}}. Figure~\ref{tab:hard} shows hardware configuration of tohse clusters. On the cluster \emph{Edel} (Grenoble site) have been performed three different experiments, each one described with the size of the Cartesian mesh, and the number of time iterations, as follows: (1) $5k \times 5k$, $500$ iterations; (2) $10k \times 10k$, $500$ iterations; (3) $10k \times 10k$, $2k$ iterations. On the cluster \emph{Paravence} (Rennes sites), the two last experiments have been performed.
+Evaluations have been performed on the cluster \emph{Edel} of \emph{Grid'5000}~\footnote{\url{https://www.grid5000.fr/mediawiki/index.php/Grid5000:Home}}. Figure~\ref{tab:hard} shows hardware configuration of this cluster. On \emph{Edel} have been performed three different experiments, each one described with the size of the Cartesian mesh and the number of time iterations, as follows: (1) $5k \times 5k$, $500$ iterations; (2) $10k \times 10k$, $500$ iterations; (3) $10k \times 10k$, $2k$ iterations.
 
 \begin{figure}[!h]
 \begin{center}
  \begin{tabular}{|c|c|c|}
-\hline
-    Cluster & \textbf{Edel} & \textbf{Paravance}\\
-     \hline         
-    Proc. & 2 Intel Xeon E5520 & 2 Intel Xeon E52630v3\\
-    & (2.27 GHz) & (2.4 GHz)\\
-    Cores/n & 8 & 8\\
-    Mem./n & 24 GB & 128 GB\\
-    Compiler & OpenMPI & OpenMPI\\
-    Network & InfiniBand 40G & 10 Gigabit Ethernet\\
-\hline
+    \hline
+    Cluster & \textbf{Edel}\\
+    \hline         
+    Processor & 2 Intel Xeon E5520\\
+    & (2.27 GHz)\\
+    Cores/node & 8 \\
+    Memory/node & 24 GB \\
+    Compiler & OpenMPI [-O3] \\
+    Network & InfiniBand 40G\\
+    \hline
  \end{tabular}
-   \caption{\label{tab:grappe}Hardware of clusters used in the experiments.}
+   \caption{\label{tab:hard}Hardware of clusters used in the experiments.}
  \end{center}
 \end{figure}
 
-%Figure~\ref{fig:times} shows the execution times in seconds as a function of the number of cores. 
-Figure~\ref{fig:speedup} illustrates a speedup comparison, using the minimum sequential reference time (which is the MSL sequential time). Finally, Figure~\ref{fig:log2} illustrates the logarithmic scale of execution times as a function of the logarithmic scale of the number of cores.
-% \begin{figure}[!h]
-%  \begin{center}
-%  \begin{tabular}{c|c|c|c|c|c|c}
-%    Cores & 8 & 16 & 32 & 64 & 128 & 256\\
-%    \hline
-%    MSL & 998.10 & 544.86 & 285.73 & 139.8 & 76.45 & 48.05\\
-%    \hline
-%    SkelGIS & 1324.9 & 638.5 & 371.62 & 197.32 & 117.05 & 64.96\\
-%  \end{tabular}
-% \caption{Execution times for the shallow water equations using MSL and SkelGIS (in seconds).}
-% \label{fig:times}
-%  \end{center}
-% \end{figure}
+Figure~\ref{fig:perfs} shows results on the three different experiments. On the first line are represented, for each experiment, the number of iteration computed per second for a given number of cores. On the second line are represented, for each experiment, the execution time  for a given number of cores, using a logarithmic scale.
+
 \begin{figure*}
 \begin{center}
-\subfloat[Edel\label{fig:speedup1}]{
-\resizebox{4cm}{!}{\includegraphics{./images/itpersec_5K_500.pdf}}
+\subfloat[$5k \times 5k$ mesh, $500$ iterations\label{fig:speedup1}]{
+\resizebox{5.5cm}{!}{\includegraphics{./images/itpersec_5K_500.pdf}}
 }
 \hspace{5pt}
-\subfloat[Edel\label{fig:log21}]{
-\resizebox{4cm}{!}{\includegraphics{./images/logtimes_5K_500.pdf}}
+\subfloat[$10k \times 10k$ mesh, $500$ iterations\label{fig:speedup2}]{
+\resizebox{5.5cm}{!}{\includegraphics{./images/itpersec_10K_500.pdf}}
 }
 \hspace{5pt}
-\subfloat[Paravance\label{fig:speedup2}]{
-\resizebox{4cm}{!}{\includegraphics{./images/itpersec_5K_500.pdf}}
-}
-\hspace{5pt}
-\subfloat[Paravance\label{fig:log22}]{
-\resizebox{4cm}{!}{\includegraphics{./images/logtimes_5K_500.pdf}}
+\subfloat[$10k \times 10k$ mesh, $2k$ iterations\label{fig:speedup3}]{
+\resizebox{5.5cm}{!}{\includegraphics{./images/itpersec_10K_500.pdf}}
 }
 
-\subfloat[Edel\label{fig:speedup3}]{
-\resizebox{4cm}{!}{\includegraphics{./images/itpersec_10K_500.pdf}}
+\subfloat[$5k \times 5k$ mesh, $500$ iterations\label{fig:log21}]{
+\resizebox{5.5cm}{!}{\includegraphics{./images/logtimes_5K_500.pdf}}
 }
 \hspace{5pt}
-\subfloat[Edel\label{fig:log23}]{
-\resizebox{4cm}{!}{\includegraphics{./images/logtimes_10K_500.pdf}}
+\subfloat[$10k \times 10k$ mesh, $500$ iterations\label{fig:log22}]{
+\resizebox{5.5cm}{!}{\includegraphics{./images/logtimes_10K_500.pdf}}
 }
 \hspace{5pt}
-\subfloat[Paravance\label{fig:speedup4}]{
-\resizebox{4cm}{!}{\includegraphics{./images/itpersec_10K_500.pdf}}
-}
-\hspace{5pt}
-\subfloat[Paravance\label{fig:log24}]{
-\resizebox{4cm}{!}{\includegraphics{./images/logtimes_10K_500.pdf}}
+\subfloat[$10k \times 10k$ mesh, $2k$ iterations\label{fig:log23}]{
+\resizebox{5.5cm}{!}{\includegraphics{./images/logtimes_10K_500.pdf}}
 }
 \end{center}
-\caption{(a) Speedup comparison, and (b) logarithmic execution times, both for the Shallow water equations, using pure SkelGIS and MSL with the SkelGIS data structure.}
+\caption{The first line represents, for each experiment, the number of iteration computed per second for a given number of cores. The second line represents, for each experiment, the execution time for a given number of cores, using a logarithmic scale.}
 \label{fig:perfs}
 \end{figure*}
 
-One can notice that execution times using MSL, which itself uses the SkelGIS distributed data structures, are improved compared to a pure SkelGIS parallelization. Moreover, the scalability stays close to the scalability of SkelGIS. Thus, using a component-based runtime, performance of the back-end code is still HPC-oriented and does not introduce overheads.
+One can notice that, for the three different experiments, the execution times of MSL, which itself uses the SkelGIS distributed data structure, are improved compared to a pure SkelGIS parallelization. This result can be explained by the automatic generation of the parallel component-based runtime. Actually, writing a pure SkelGIS code, communications between processes are hidden from the user through specific interfaces called \emph{applicators}~\cite{CPE:CPE3494}. Using MSL, on the other hand, communications are directly managed by $SYNC$ components, which are automatically placed in the component-based runtime by MSCAC. Thus, no overheads are introduced to hide communications.
 
-\fix{more figures, more conclusions}
+In addition to this, the scalability slope shown by the number of iterations per second is close to SkelGIS. This is an important result as the execution time of MSL is at the same time improved compared to SkelGIS. Actually, the less the execution time is, the less the scalability capacity is. Thus, these results show that using a component-based runtime does not damage performance of the back-end code. Finally, we notice that SkelGIS has proved its scalability on the Shallow water equations compared to an MPI parallelization~\cite{CPE:CPE3494}, which makes these performance results relevant. 
