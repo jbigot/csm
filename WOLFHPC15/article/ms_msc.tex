@@ -1,6 +1,3 @@
-%----------------------------------------
-\subsection{Multi Stencil Language}
-%----------------------------------------
 
 \begin{filecontents*}{grammar.txt}
 program ::= "mesh:" meshid 
@@ -26,8 +23,8 @@ data ::= dataid "," meshent
 iteration ::= num
 listcomp ::= comp listcomp
           |  comp
-comp ::= dataid "[" compdomid "]=" compid "(" 
-            listdataread ")"
+comp ::= dataid "[" compdomid "]=" compid
+            "(" listdataread ")"
 listdataread ::= dataread listdataread
               |  dataread
 dataread ::= dataid "[" neighborid "]"
@@ -69,24 +66,39 @@ computations:
   j[partedgex]=c8(i[n1])
 \end{filecontents*}
 
-\begin{figure*}[t]
-\subfloat[\label{fig:grammar}]
-{\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.45\textwidth]{grammar.txt}}
-%\hfill
-\hspace{1.5cm}
-\subfloat[\label{fig:mslex}]
-{\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.45\textwidth]{example.txt}}
-\caption{(a) Grammar of the Multi-Stencil Language, (b) Example of a MSL program}
-\end{figure*}
+\begin{figure}[t]
+  \hspace{5mm}
+  \begin{minipage}[t]{.49\textwidth}
+    %  \subfloat[\label{fig:grammar}]
+    {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=.87\textwidth]{grammar.txt}}   
+    \caption{Grammar of the Multi-Stencil Language. \label{fig:grammar}}
+  \end{minipage}
+\end{figure}
 
-As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six elements of the formal definition; they describe: \textbf{1.}\,the mesh, \textbf{2.}\,the mesh entities, \textbf{3.}\,the computation domains with their inter-dependencies, \textbf{4.}\,the data, \textbf{5.}\,the time iterations, and finally \textbf{6.} the computations.
+\begin{figure}[t]
+\hspace{5mm}
+  \begin{minipage}[t]{.49\textwidth}
+    %\subfloat[\label{fig:mslex}]
+    {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.87\textwidth]{example.txt}}
+    \caption{Example of a MSL program. \label{fig:mslex}}
+      \end{minipage}
+\end{figure}
+
+%----------------------------------------
+\section{Language and Parallelization}
+\label{sect:msmsc}
+%----------------------------------------
+\subsection{Multi Stencil Language}
+%----------------------------------------
+
+As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six elements of the formal definition; they describe: \textbf{1)}\,the mesh, \textbf{2)}\,the mesh entities, \textbf{3)}\,the computation domains with their inter-dependencies, \textbf{4)}\,the data, \textbf{5)}\,the time iterations, and finally \textbf{6)} the computations.
 Figure~\ref{fig:grammar} shows the grammar of MSL. Lines 1 to 9 define what is a MSL program with the different parts mentioned above. The remaining of this section describes these different parts of a MSL program and presents an example.
 One can notice that terminals are the string identifiers \texttt{meshid}, \texttt{meshdom}, \texttt{compdomid}, \texttt{dataid}, \texttt{compid} and \texttt{neighborid}. The terminal \texttt{num} is an integer terminal.
 
 \subsubsection*{Mesh and Mesh Entities}
 As illustrated in the first line of the grammar in Figure~\ref{fig:grammar}, a mesh is simply defined by a string identifier.
-The different kind of mesh entities are described as a list of identifiers (lines 2, 10 and 11 in Figure~\ref{fig:grammar}).
-Figure~\ref{fig:mslex} presents an example of a mesh named \texttt{cart} used to represent a Cartesian mesh, and three kind of mesh entities: \texttt{cell}, \texttt{edgex}, and \texttt{edgey}.
+The different kind of mesh entities are described as a list of identifiers (Lines 2, 10 and 11 in Figure~\ref{fig:grammar}).
+Figure~\ref{fig:mslex} gives an example of a mesh named \texttt{cart} used to represent a Cartesian mesh, and three kinds of mesh entities: \texttt{cell}, \texttt{edgex}, and \texttt{edgey}.
 
 \subsubsection*{Computation Domains and Their Dependencies}
 A computation domain is a subset of a given kind of mesh entities, used for at least one computation.
