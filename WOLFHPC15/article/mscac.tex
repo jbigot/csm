@@ -29,7 +29,7 @@ A MSL description is made of six main sections that match the six tuples element
 \end{center}
 \end{figure}
 
-As illustrated in Figure~\ref{fig:mscac}, the compiler, named MSCAC for \emph{Multi-Stencil Component Assembly Compiler}, is composed of three different phases. The first phase \emph{parses} the MSL description into an intermediate representation (IR). The second phase called MSC transforms the computation part ($\Gamma$) of the IR in order to automatically introduce parallelism in the overall numerical simulation.
+As illustrated in Figure~\ref{fig:mscac}, the compiler, named MSCAC for \emph{Multi-Stencil Component Assembly Compiler}, is composed of three different phases. The first phase \emph{parses} the MSL description into an intermediate representation (IR). The second phase called MSC transforms the computation part ($\Gamma$) of the IR into a series-parallel tree decomposition~\cite{Valdes:1979:RSP:800135.804393} to introduce parallelism in the overall numerical simulation.
 Finally, the third phase dumps the IR to an actual implementation of the parallel pattern of the simulation.
 
 % As illustrated in Figure~\ref{fig:mscac}, the MS language compiler, called MSCAC for \emph{Multi-Stencil Component Assembly Compiler}, is composed of two different parts. First, the computation compiler, called \emph{MSC}, is responsible for the parallelization of computations and for its dump to a component assembly; second, the data compiler, called \emph{MSD}, handles a distributed data structure, data mapped onto it, and their relations with computations, as a final overall component assembly.
