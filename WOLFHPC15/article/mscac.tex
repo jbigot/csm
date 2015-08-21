@@ -1,6 +1,6 @@
-The solution proposed in this paper is based on \textbf{a)} a domain specific language to describe a multi-stencil program, \ie a complete numerical simulation, and \textbf{b)} a compiler which successively parses the language, applies transformations for automatic parallelization, and finally dumps the representation to a component-based runtime.
+The solution proposed in this paper is based on both a domain specific language to describe a multi-stencil program, \ie a complete numerical simulation, and on a compiler which parses the language, applies transformations for automatic parallelization, and dumps the representation to a component-based runtime.
 
-The proposed DSL, named MSL (\emph{Multi-Stencil Language}), is an agnostic descriptive language for multi-stencil simulations. Agnostic means that the description of a numerical simulation does not depend on implementation choices as, for example, the type of mesh (structured, unstructured), or its associated interfaces (how to define a stencil shape, etc.). Descriptive, on the other hand, means that MSL is not made to handle the expression of numerical computations, but only the description of a multi-stencil simulation, in a coarse-grain fashion. %Numerical computations are encapsulated in specific components that users have to develop. 
+The proposed DSL, named MSL (\emph{Multi-Stencil Language}), is an agnostic descriptive language for multi-stencil simulations. Agnostic means that the description of a numerical simulation does not depend on implementation choices as, for example, the type of mesh (structured or unstructured), or its associated interfaces (how to define a stencil shape, etc.). Descriptive, on the other hand, means that MSL is not made to handle the expression of numerical computations, but only the description of a multi-stencil simulation, in a coarse-grain fashion. %Numerical computations are encapsulated in specific components that users have to develop. 
 A MSL description is made of six main sections that match the six tuples elements of the definition of a multi-stencil program of Equation~\ref{eq:msp}.
 
 \begin{figure}[t]
@@ -25,8 +25,7 @@ A MSL description is made of six main sections that match the six tuples element
   \draw[->] (MSL) -- (pars.west);
   \draw[->] (Dump.east) -- (CA);
 \end{tikzpicture}
-\caption{The three phases of the MSCAC compiler. First the parser of the MSL description, second the MSC parallelization, third the dump to the Component-Based Runtime (CBR).}
-\label{fig:mscac}
+\caption{The three phases of the MSCAC compiler: \emph{i)} the parser of the MSL description; \emph{ii)} the MSC parallelization; \emph{iii)} the dump to the Component-Based Runtime (CBR).\label{fig:mscac}}
 \end{center}
 \end{figure}
 
@@ -37,19 +36,19 @@ Finally, the third phase dumps the IR to an actual implementation of the paralle
 
 %In this paper are presented the language MSL, the MSC compilation phase, and the dump compilation phase. 
 The parallelization techniques handled by MSC are \emph{data parallelism}, where data is split among processors or cores while applying the same computation on every piece of data, and \emph{task parallelism} where the program is transformed into a graph of tasks with dependencies.
-Different strategies can be used to schedule the tasks of this graph; in other words to plan their execution in a valid order. The MSC compiler presented in this paper handles the transformation of the dependency graph to a static scheduling.
+Different strategies can be used to schedule the tasks of this graph, \ie to plan their execution in a valid order. The MSC compiler presented in this paper handles the transformation of the dependency graph to a static scheduling.
 
 The final phase of compilation, the dump, uses the static scheduling of the tasks, created from $\Gamma$, and additional information on $T$, $\mathcal{M}$, $\Delta$, $\mathcal{E}$ and $\mathcal{D}$.
 It generates a program in the back-end language which embeds the parallel pattern or skeleton of the overall simulation.
-Various models could be used as back-end, such as OpenMP~\cite{660313} for example, however this paper adopts a novel approach where the dump targets a component-based runtime.
+Various models could be used as back-end, such as OpenMP~\cite{660313} for example. However this paper adopts a novel approach where the dump targets a component-based runtime.
 This approach makes it possible to leverage good properties of software component models such as increased code re-use, eased separation of concerns, and increased maintainability and productivity.
 % JB: la phrase en dessous est pas tres heureuse ...
 These properties counter some known limitations of DSLs. % JB: was "parallel applications".
 %where a component represents a clear and independent functionality of the application, have first been proposed in software engineering and have proved many times good properties for 
 
 Thanks to the software components based approach, the generated code is made of four independent parts that loosely match the elements of the multi-stencil program definition.
-Those are the components implementing: \textbf{a)} the computations scheduling ($\Gamma$), \textbf{b)} the data structures ($\mathcal{M}$ and $\mathcal{E}$), \textbf{c)} data of the simulation ($\Delta$ and $\mathcal{D}$), and \textbf{d)} the time loop ($T$). The actual implementation of the numerical expressions are provided by the user and used in the computations scheduling.
-This component-based parallel structure enables to change the technology used for each part while limiting the impact on the other parts, as further discussed in Section~\ref{sect:component}.
+Those are the components implementing: \emph{a)} the computations scheduling ($\Gamma$), \textbf{b)} the data structures ($\mathcal{M}$ and $\mathcal{E}$), \textbf{c)} data of the simulation ($\Delta$ and $\mathcal{D}$), and \textbf{d)} the time loop ($T$). The actual implementation of the numerical expressions are provided by the user and used in the computations scheduling.
+This component-based parallel structure enables to change the technology used for each part while limiting the impact on the other parts, as discussed in Section~\ref{sect:component}.
 
 % This paper presents the MS language and the MSC part of the compiler. The MSC compiler produces a static scheduling of the set of computations, ready to dump to a parallel language, such as OpenMP~\cite{660313} or HPF~\cite{219857}, but also ready to dump to a component assembly which is the main contribution of this work.
 
