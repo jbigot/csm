@@ -12,19 +12,19 @@ A \emph{mesh} is the discretization of a physical domain. It is a connected undi
 
 \begin{figure}
 \begin{center}
-\subfloat[Mesh and mesh domains\label{fig:mesh}]{
+\subfloat[Mesh and mesh domains.\label{fig:mesh}]{
 \resizebox{7cm}{!}{\includegraphics{./images/mesh.pdf}}
 }
 \hspace{10pt}
-\subfloat[First stencil example\label{fig:ex1}]{
+\subfloat[4-neighborhood stencil.\label{fig:ex1}]{
 \resizebox{5cm}{!}{\includegraphics{./images/stencil1.pdf}}
 }
 \hspace{10pt}
-\subfloat[Second stencil example\label{fig:ex2}]{
+\subfloat[2-neighborhood 2-entity stencil.\label{fig:ex2}]{
 \resizebox{5cm}{!}{\includegraphics{./images/stencil2.pdf}}
 }
 \end{center}
-\caption{(a) a Cartesian mesh and two kind of mesh entities, (b) an example of stencil kernel on cells, (c) an example of stencil kernel on different entities of the mesh.}
+\caption{(a) a Cartesian mesh and two kind of mesh entities, (b) an example of stencil kernel on cells, (c) an example of stencil kernel on two different entities of the mesh.}
 \label{fig:gspmsp}
 \end{figure}
 
@@ -53,7 +53,7 @@ Many solutions (languages or frameworks) thus propose to ease their programming 
 These are further discussed in Sections~\ref{sect:related}.
 
 %To resume, concepts used in this paper to define a stencil kernel are \emph{mesh}, \emph{mesh entities}, \emph{data}, \emph{computation domain}, \emph{numerical expression} and \emph{stencil shape}. 
-If stencil kernels have been studied a lot, the formalization of real overall mesh-based numerical simulations is a rather new contribution. Actually, paying attention to complex numerical simulations, it appears that most of them are composed of more than one stencil kernel, with one or more stencil shapes and of additional local computations. For example, we would like to formalize and parallelize a numerical simulation which chains stencil kernels of Figures~\ref{fig:ex1} and~\ref{fig:ex2}. The next section formalizes concepts of \emph{stencil kernel}, \emph{local kernel} and \emph{multi-stencil program}.
+If stencil kernels have been studied a lot, the formalization of real overall mesh-based numerical simulations is a rather new contribution. Actually, paying attention to complex numerical simulations, it appears that most of them are composed of more than one stencil kernel, with one or more stencil shapes and of additional local computations. For example, how to formalize and parallelize a numerical simulation which chains the stencil kernels of Figures~\ref{fig:ex1} and~\ref{fig:ex2}. The next section formalizes concepts of \emph{stencil kernel}, \emph{local kernel} and \emph{multi-stencil program}.
 
 %----------------------------------------
 \subsection{A Multi-Stencil Formalization}
@@ -61,7 +61,7 @@ If stencil kernels have been studied a lot, the formalization of real overall me
 %----------------------------------------
 This section introduces some formal definitions used in the rest of the paper.
 Let $\Delta$ be the set of data of the simulation
-A stencil kernel $s$ is defined as the quintuplet
+A stencil kernel $s$ is defined as the quintuplet:
 \begin{equation} 
 s(R,w,exp,d),
 \label{eq:st}
@@ -70,17 +70,17 @@ where $R$ is a set of pairs $(r,n)$, with $r \in \Delta$ a data read by the comp
 
 For example, in Figure~\ref{fig:ex1}, assuming the computation domain (full lines) is $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
 \begin{equation*}
-R: \{(B,n1)\} \quad w: A \quad d: dc1
+R: \{(B,n1)\}, \quad w: A, \quad d: dc1,
 \end{equation*}
 \begin{equation*}
 exp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
 \end{equation*}
-On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel can be defined as:
+On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel is defined as:
 \begin{equation*}
-R: \{(C,n2),(A,local)\} \quad w: A \quad d: dc2
+R: \{(C,n2),(A,local)\}, \quad w: A, \quad d: dc2,
 \end{equation*}
 \begin{equation*}
-exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1)
+exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
 One can notice that the input data $A$ is associated to the stencil shape $local$. This means that the stencil shape applied on $A$ is limited to the element with the exact same coordinate as the result element.
 
@@ -93,7 +93,7 @@ l(R_l,w,exp,d),
 \end{equation}
 where $R_l$ is the set of input data locally accessed, and other parameters are the same as for normal stencil kernels.
 
-A multi-stencil program in this work is defined as a sextuplet:
+We define a multi-stencil program as a sextuplet:
 \begin{equation} 
 \mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta,\Gamma),
 \label{eq:msp}
