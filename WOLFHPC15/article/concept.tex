@@ -53,7 +53,7 @@ Many solutions (languages or frameworks) thus propose to ease their programming 
 These are further discussed in Sections~\ref{sect:related}.
 
 %To resume, concepts used in this paper to define a stencil kernel are \emph{mesh}, \emph{mesh entities}, \emph{data}, \emph{computation domain}, \emph{numerical expression} and \emph{stencil shape}. 
-While stencil kernels have been studied a lot, the formalization of real overall mesh-based numerical simulations is a rather new contribution. Actually, paying attention to complex numerical simulations, it appears that most of them are composed of more than one stencil kernel, with one or more stencil shapes and of additional local computations. For example, how to formalize and parallelize a numerical simulation which chains the stencil kernels of Figures~\ref{fig:ex1} and~\ref{fig:ex2}. The next section formalizes concepts of \emph{stencil kernel}, \emph{local kernel} and \emph{multi-stencil program}.
+While stencil kernels have been studied a lot, the formalization of real overall mesh-based numerical simulations is poorly studied and not exactly for the same kind of appication~\cite{Ragan-Kelley:2013:HLC:2491956.2462176}. Actually, paying attention to complex numerical simulations, it appears that most of them are composed of more than one stencil kernel, with one or more stencil shapes and of additional local computations. For example, we would like to formalize and parallelize a numerical simulation which chains the stencil kernels of Figures~\ref{fig:ex1} and~\ref{fig:ex2}. The next section formalizes concepts of \emph{stencil kernel}, \emph{local kernel} and \emph{multi-stencil program}.
 
 %----------------------------------------
 \subsection{A Multi-Stencil Formalization}
@@ -99,7 +99,7 @@ We define a multi-stencil program as a sextuplet:
 \label{eq:msp}
 \end{equation}
 where $T$ is the set of time iteration to run the simulation, $\mathcal{M}$ is the mesh of the simulation, $\mathcal{E}$ is the set of mesh entities, $\mathcal{D}$ is the set of computation domains used for computations, $\Delta$ is the set of data of the simulation, each one mapped onto a mesh entity, and finally $\Gamma$ is the set of computations. The set of computations $\Gamma$ is an ordered list of stencil and local kernels.
-One can notice that this work, for now, is limited to a single type of mesh in a given simulation.
+One can notice that this work, for now, is limited to a single mesh type for a given simulation.
 
 % !!!!!!!!!!!! a mettre en plus court autre part !!!!!!!!!!!!!!!
 %----------------------------------------

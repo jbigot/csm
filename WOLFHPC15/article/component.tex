@@ -211,13 +211,19 @@ A control component exposes a single \emph{provide} port containing a \emph{cont
 Three control components have been needed: SEQ, PAR, and SYNC. They are represented in Figure~\ref{fig:ctrlcomponents}.
 
 
-\begin{description}
-\item[Sequence component (SEQ)] It is the direct representation of a sequence node of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component sequentially calls an ordered list of other components. It exposes an ordered \emph{use-multiple} port to be connected to the components to call in sequence.
+% \begin{description}
+% \item[Sequence component (SEQ)] It is the direct representation of a sequence node of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component sequentially calls an ordered list of other components. It exposes an ordered \emph{use-multiple} port to be connected to the components to call in sequence.
 
-\item[Parallel component (PAR)] It is the direct representation of a parallel node of $\Gamma_{tsp}$ (not $\Gamma_{data}$). This component simultaneously calls a set of other components. It exposes a \emph{use-multiple} port to be connected to the components to call in parallel.
+% \item[Parallel component (PAR)] It is the direct representation of a parallel node of $\Gamma_{tsp}$ (not $\Gamma_{data}$). This component simultaneously calls a set of other components. It exposes a \emph{use-multiple} port to be connected to the components to call in parallel.
   
-\item[Synchronization component (SYNC)] It is the direct representation to an update leaf of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component calls the synchronization of a given data. It exposes a \emph{use} port to be connected to the data to be updated.
-\end{description}
+% \item[Synchronization component (SYNC)] It is the direct representation to an update leaf of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component calls the synchronization of a given data. It exposes a \emph{use} port to be connected to the data to be updated.
+% \end{description}
+
+\textbf{Sequence component (SEQ).} It is the direct representation of a sequence node of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component sequentially calls an ordered list of other components. It exposes an ordered \emph{use-multiple} port to be connected to the components to call in sequence.
+
+\textbf{Parallel component (PAR).} It is the direct representation of a parallel node of $\Gamma_{tsp}$ (not $\Gamma_{data}$). This component simultaneously calls a set of other components. It exposes a \emph{use-multiple} port to be connected to the components to call in parallel.
+
+\textbf{Synchronization component (SYNC).} It is the direct representation to an update leaf of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component calls the synchronization of a given data. It exposes a \emph{use} port to be connected to the data to be updated.
 
 Then, from $\Gamma_{tsp}$ or $\Gamma_{data}$, and using the control components described above,
 a direct dump can be done to a component assembly for a data or hybrid (data

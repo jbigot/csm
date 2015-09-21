@@ -105,7 +105,7 @@ A computation domain is a subset of a given kind of mesh entities, used for at l
 For each computation domain, the kind of mesh entities on which it is mapped is specified (lines 3-4 and 12-14 on Figure~\ref{fig:grammar}).
 By default, two computation domains of the same entities are handled as intersecting except when an explicit independence relation is mentioned in the \emph{independent} section of the language (lines 5-6 and 15-17 in Figure~\ref{fig:grammar}).
 On lines 4 to 6 of Figure~\ref{fig:mslex}, computation domains are defined for each kind of mesh entities: \texttt{allcell}, \texttt{alledgex} and \texttt{alledgey}; they are used to represent the whole domain.
-On lines 7 and 8, two other domains of \texttt{edgex} are defined: \texttt{part1edgex} and \texttt{part2edgex}; they are used to represent the boundaries of the domain.
+On lines 7 and 8, two other domains of \texttt{edgex} are defined: \texttt{part1edgex} and \texttt{part2edgex}; they could be used to represent the boundaries of the domain, for example, or any other sub-part of the whole domain. It is the user's responsability to define the needed domains for his simulation.
 On line 10 the independence relation between \texttt{part1edgex} and \texttt{part2edgex} is specified.
 
 \subsubsection*{Data and Time}
