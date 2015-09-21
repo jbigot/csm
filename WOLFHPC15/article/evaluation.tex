@@ -10,7 +10,7 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ of this simulation, extrac
     \hline 
    Level & 1 & 2 & 3 & 4 & 6 & 10 & 12 & 16\\
    \hline
-   Frequence & 2 & 1 & 3 & 5 & 3 & 1 & 1 & 2\\
+   Frequency & 2 & 1 & 3 & 5 & 3 & 1 & 1 & 2\\
    \hline
  \end{tabular}
 \caption{Parallelism level (number of parallel tasks) and the number of times this level appears.}
@@ -96,4 +96,4 @@ Figure~\ref{fig:perfs} reports the results of the three experiments. The first r
 
 One can notice that, for the three different experiments, execution times of MSL, which itself uses the SkelGIS distributed data structure, are improved compared to a pure SkelGIS parallelization. This result can be explained by the automatic generation of the parallel component-based runtime. Actually, in a pure SkelGIS code, communications between processes are hidden from the user through specific interfaces called \emph{applicators}~\cite{CPE:CPE3494}. Using MSL, on the other hand, communications are directly managed by $SYNC$ components, which are automatically placed in the component-based runtime by MSCAC. Thus, no overhead is introduced to hide communications.
 
-In addition to this, the scalability slope, shown by the number of iterations per second, is close to SkelGIS. This is an important result as the execution time of MSL is at the same time improved compared to SkelGIS. Actually, the less the execution time is, the less the scalability capacity is. Thus, these results confirm the result of~\cite{l2c} that using a component-based runtime does not damage performance of the back-end code. Finally, we notice that SkelGIS has proved its scalability on the Shallow water equations compared to an MPI parallelization~\cite{CPE:CPE3494}, that makes out performance results relevant. 
+In addition to this, the scalability slope, shown by the number of iterations per second, is close to SkelGIS. This is an important result as the execution time of MSL is at the same time improved compared to SkelGIS. Actually, the less the execution time is, the less the scalability capacity is. Thus, these results confirm the result of~\cite{l2c} that using a component-based runtime does not damage performance of the back-end code. Finally, we notice that SkelGIS has proved its scalability on the Shallow water equations compared to an MPI parallelization~\cite{CPE:CPE3494}, that makes our performance results relevant. 
