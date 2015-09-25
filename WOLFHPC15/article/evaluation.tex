@@ -36,7 +36,7 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ of this simulation, extrac
 
 Figure~\ref{fig:exectime} illustrates the execution time for each step of the MSC transformation for an overall execution time of ten seconds. Execution times have been computed on a laptop with a bi-core Intel Core i5 1.4~GHz, and 8~GB of DDR3. 
 One can notice that the transformation of $\Gamma_{dep}$ to a minimal series-parallel graph is the longest step of MSC, because of the removal of the forbidden N-shapes in the graph. %Actually, the number of forbidden shapes removed in $\Gamma_{dep}$ is not counted by the algorithm, which applies a general solution (instead of finding each forbidden shape), but it seems that many of them appear.
-The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections. However, a \emph{N-shape} could perfectly be handled by a dynamic scheduler, for example.
+%The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections. However, a \emph{N-shape} could perfectly be handled by a dynamic scheduler, for example.
 Thus, the fact that many \emph{N-shape} are removed in $\Gamma_{dep}$ shows that the creation of a static schedule of tasks may not be the best solution for complex simulations. It has to be noticed, however, that the all computation of $\Gamma_{tsp}$ is still usefull to detect how space loops can be merged in $\Gamma_{data}$.
 
 %\pagebreak
