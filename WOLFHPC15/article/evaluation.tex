@@ -36,13 +36,16 @@ The series-parallel tree decomposition $\Gamma_{tsp}$ of this simulation, extrac
 
 Figure~\ref{fig:exectime} illustrates the execution time for each step of the MSC transformation for an overall execution time of ten seconds. Execution times have been computed on a laptop with a bi-core Intel Core i5 1.4~GHz, and 8~GB of DDR3. 
 One can notice that the transformation of $\Gamma_{dep}$ to a minimal series-parallel graph is the longest step of MSC, because of the removal of the forbidden N-shapes in the graph. %Actually, the number of forbidden shapes removed in $\Gamma_{dep}$ is not counted by the algorithm, which applies a general solution (instead of finding each forbidden shape), but it seems that many of them appear.
-%The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections. However, a \emph{N-shape} could perfectly be handled by a dynamic scheduler, for example.
-Thus, the fact that many \emph{N-shape} are removed in $\Gamma_{dep}$ shows that the creation of a static shedule of tasks may not be the best solution for complex simulations. It has to be noticed, however, that the all computation of $\Gamma_{tsp}$ is still usefull to detect how space loops can be merged in $\Gamma_{data}$.
+The \emph{N-shape}, represented in Figure~\ref{fig:n} is forbidden in a minimal series-parallel graph as it is not possible to exactly express it using sequences and parallel sections. However, a \emph{N-shape} could perfectly be handled by a dynamic scheduler, for example.
+Thus, the fact that many \emph{N-shape} are removed in $\Gamma_{dep}$ shows that the creation of a static schedule of tasks may not be the best solution for complex simulations. It has to be noticed, however, that the all computation of $\Gamma_{tsp}$ is still usefull to detect how space loops can be merged in $\Gamma_{data}$.
 
+%\pagebreak
 \subsection{Preliminary Performance Evaluation}
 To evaluate performance of the generated component-based parallel structure, we have proceeded as follows. Our current implementation of the MSCAC compiler generates a back-end code using the SkelGIS distributed data structure as an underlying library. For this reason, our evaluation compare the shallow water equations first parallelized with a pure SkelGIS code (data structures, applicators and interfaces of SkelGIS~\cite{CPE:CPE3494}), and second parallelized with MSL (which uses the SkelGIS data structure only). Moreover, as SkelGIS library handles data parallelization for distributed memory architectures, we have limited for now our evaluations to the merged data parallelization of MSCAC (dumped from $\Gamma_{data}$). 
 
-Evaluations have been performed on the cluster \emph{Edel} of \emph{Grid'5000}\footnote{\url{https://www.grid5000.fr/}} for which each node is equiped with two 8-cores Intel Xeon E5520, 24GB of memory, and is interconnected with an Infiniband 40G network. %Figure~\ref{tab:hard} displays the features of this cluster. 
+Evaluations have been performed on the cluster \emph{Edel} of \emph{Grid'5000}\footnote{\url{https://www.grid5000.fr/}} 
+for which each node is equiped with two 8-cores Intel Xeon E5520, 24GB of memory, and is interconnected with an Infiniband 40G network. 
+%Figure~\ref{tab:hard} displays the features of this cluster. 
 On \emph{Edel}, three different experiments have been performed that differ in the size of the Cartesian mesh and the number of time iterations: (1) $5,000 \times 5,000$, $500$ iterations; (2) $10,000 \times 10,000$, $500$ iterations; (3) $10,000 \times 10,000$, $2,000$ iterations.
 % \begin{figure}[!h]
 % \begin{center}

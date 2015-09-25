@@ -1,4 +1,7 @@
-\documentclass{acm_proc_article-sp}
+%Final version paper (with copyright)
+\documentclass{sig-alternate}
+%submission latex template (without copyright)
+%\documentclass{acm_proc_article-sp}
 \usepackage{tikz}
 \usepackage{listings}
 \usepackage{url}
@@ -42,7 +45,15 @@
 
 \begin{document}
 
+% --- Author Metadata here ---
+\conferenceinfo{WOLFHPC2015}{November 15-20 2015, Austin, TX, USA}
+\copyrightetc{Copyright is held by the owner/author(s). Publication rights licensed to ACM.\\\the\acmcopyr}
+\crdata{ACM 978-1-4503-4016-8/15/11\ ...\$15.00.\\
+DOI: http://dx.doi.org/10.1145/2830018.2830020}
+% --- End of Author Metadata ---
+
 \title{From DSL to HPC Component-Based Runtime:\\ A Multi-Stencil DSL Case Study}
+%\subtitle{[Extended Abstract]
 
 \numberofauthors{3} 
 \author{
@@ -71,7 +82,6 @@ Christian P\'erez\\
 }
 
 \maketitle
-
 %----------------------------------------
 \begin{abstract}
   High performance architectures evolve continuously to be more powerful. Such architectures also usually become more difficult to use efficiently. As a scientist is not a low level and high performance programming expert, Domain Specific Languages (DSLs) are a promising solution to automatically and efficiently write high performance codes. However, if DSLs ease programming for scientists, maintainability and portability issues are transferred from scientists to DSL designers. This paper deals with an approach to improve maintainability and programming productivity of DSLs through the generation of a component-based parallel runtime. To study it, the paper presents a  DSL for \emph{multi-stencil} programs, that is evaluated on a real-case of shallow water equations.
@@ -114,13 +124,15 @@ Christian P\'erez\\
 
 \section{Acknowledgments}
 
+This work has partially been supported by the PIA ELCI project of the French FSN.
 Experiments presented in this paper were carried out using the
 Grid'5000 testbed, supported by a scientific interest group hosted by
 Inria and including CNRS, RENATER and several Universities as well as
 other organizations (see \url{https://www.grid5000.fr}).
 
-\small
+%\footnotesize
+%\small
 \bibliographystyle{abbrv}
-\bibliography{biblio}  
+\bibliography{biblio}
 
 \end{document}
