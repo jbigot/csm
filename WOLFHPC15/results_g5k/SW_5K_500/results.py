@@ -3,6 +3,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
+from matplotlib import rc
+matplotlib.rc('pdf', fonttype=42)
+
 cores = [8,16,32,64,128,256]
 timesMSL = [998.1,544.87,285.73,139.8,76.45,48.05]
 timesSK = [1324.9,638.5,371.62,197.32,117.047,64.96]
