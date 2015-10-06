@@ -15,24 +15,26 @@ public:
 
   ControllerPHBD(skelgis::DMatrix_impl<T,R,true> * d):data(d)
   {
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
   ~ControllerPHBD(){}
 
   void init(skelgis::DMatrix_impl<T,R,true> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}
@@ -55,24 +57,26 @@ public:
 
   ControllerPHBD(skelgis::DMatrix_impl<T,0,true> * d):data(d)
   {
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
   ~ControllerPHBD(){}
 
   void init(skelgis::DMatrix_impl<T,0,true> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}
@@ -95,24 +99,26 @@ public:
 
   ControllerPHBD(skelgis::DMatrix_impl<T,R,false> * d):data(d)
   {
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
   ~ControllerPHBD(){}
 
   void init(skelgis::DMatrix_impl<T,R,false> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}
@@ -135,24 +141,26 @@ public:
 
   ControllerPHBD(skelgis::DMatrix_impl<T,0,false> * d):data(d)
   {
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
   ~ControllerPHBD(){}
 
   void init(skelgis::DMatrix_impl<T,0,false> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     tab = data->getData();
     swphb = data->getStartWPHBD();
     wphb = data->getWidthPHBD();
     shphb = data->getStartHPHBD();
     hphb = data->getHeightPHBD();
+    w = data->getWidthLoc()+2*data->getBorder();
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}

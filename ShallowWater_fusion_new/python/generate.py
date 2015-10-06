@@ -4,17 +4,17 @@ sys.path.append(os.path.dirname("./utils/"))
 import copy
 from string import Template
 
-nb_proc = 64
+nb_proc = 256
 size_x=5000
 size_y=5000
-iteration=10
+iteration=500
 
 tempProcF = open("template_process.xml",'r')
 tempCommF = open("template_comm.xml",'r')
 
 tempProc = Template(tempProcF.read())
 
-ladFile = open("./outputs/FusNew_"+str(size_x)+"_"+str(iteration)+"_"+str(nb_proc)+".lad", "w")
+ladFile = open("./outputs/FusSK_"+str(size_x)+"_"+str(iteration)+"_"+str(nb_proc)+".lad", "w")
 ladTxt=""
 ladTxt = "<?xml version='1.0'?>\n"
 ladTxt += "<lad xmlns=\"http://www.inria.fr/avalon/lad\"> <!-- lad file of the first version of the heat equation -->\n"

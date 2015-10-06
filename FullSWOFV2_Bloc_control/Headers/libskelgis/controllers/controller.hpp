@@ -15,22 +15,24 @@ public:
 
   Controller(skelgis::DMatrix_impl<T,R,true> * d):data(d)
   {
-    w = data->getWidth();
+    //w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
   ~Controller(){}
 
   void init(skelgis::DMatrix_impl<T,R,true> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}
@@ -51,22 +53,24 @@ public:
 
   Controller(skelgis::DMatrix_impl<T,0,true> * d):data(d)
   {
-    w = data->getWidth();
+    //w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
   ~Controller(){}
 
   void init(skelgis::DMatrix_impl<T,0,true> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}
@@ -87,22 +91,24 @@ public:
 
   Controller(skelgis::DMatrix_impl<T,R,false> * d):data(d)
   {
-    w = data->getWidth();
+    //w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
   ~Controller(){}
 
   void init(skelgis::DMatrix_impl<T,R,false> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}
@@ -123,22 +129,23 @@ public:
 
   Controller(skelgis::DMatrix_impl<T,0,false> * d):data(d)
   {
-    w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
   ~Controller(){}
 
   void init(skelgis::DMatrix_impl<T,0,false> * d)
   {
     data = d;
-    w = data->getWidth();
+    //w = data->getWidth();
     wl = data->getWidthLoc();
     hl = data->getHeightLoc();
     tab = data->getData();
     border = data->getBorder();
+    w = wl+2*border;
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}
