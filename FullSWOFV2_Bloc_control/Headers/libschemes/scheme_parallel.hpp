@@ -327,33 +327,45 @@ BEGINApplyListBlock(boundary_f,inputs,SCALAR,0,outputs,SCALAR,2)
        }                                                                                                                                                                                           
       }
 
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+  ControllerPHBL<double,2,false> chl(he.getDMatrix());
+  ControllerPHBL<double,2,false> cul(ve1.getDMatrix());
+  ControllerPHBL<double,2,false> cvl(ve2.getDMatrix());
+
+    for(int64_t yy = chl.startHeight(); yy<chl.height();yy++)                                                                                                               
       {
-       for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+       for(int64_t xx = chl.startWidth();xx<chl.width(); xx++)
        {
-        ch(xx,yy) = ch(xx+1,yy);
-        cu(xx,yy) = -cu(xx+1,yy);
-        cv(xx,yy) = cv(xx+1,yy);
+        chl(xx,yy) = chl(xx+1,yy);
+        cul(xx,yy) = -cul(xx+1,yy);
+        cvl(xx,yy) = cvl(xx+1,yy);
        }                                                                                                                                                                                           
       }
 
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+  ControllerPHBR<double,2,false> chr(he.getDMatrix());
+  ControllerPHBR<double,2,false> cur(ve1.getDMatrix());
+  ControllerPHBR<double,2,false> cvr(ve2.getDMatrix());
+
+    for(int64_t yy = chr.startHeight(); yy<chr.height();yy++)                                                                                                               
       {
-       for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+       for(int64_t xx = chr.startWidth();xx<chr.width(); xx++)
        {
-        ch(xx,yy) = ch(xx-1,yy);
-        cu(xx,yy) = -cu(xx-1,yy);
-        cv(xx,yy) = cv(xx-1,yy);
+        chr(xx,yy) = chr(xx-1,yy);
+        cur(xx,yy) = -cur(xx-1,yy);
+        cvr(xx,yy) = cvr(xx-1,yy);
        }                                                                                                                                                                                           
       }
 
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+  ControllerPHBU<double,2,false> chu(he.getDMatrix());
+  ControllerPHBU<double,2,false> cuu(ve1.getDMatrix());
+  ControllerPHBU<double,2,false> cvu(ve2.getDMatrix());
+
+    for(int64_t yy = chu.startHeight(); yy<chu.height();yy++)                                                                                                               
       {
-       for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+       for(int64_t xx = chu.startWidth();xx<chu.width(); xx++)
        {
-        ch(xx,yy) = ch(xx,yy+1);
-        cu(xx,yy) = -cu(xx,yy+1);
-        cv(xx,yy) = cv(xx,yy+1);
+        chu(xx,yy) = chu(xx,yy+1);
+        cuu(xx,yy) = -cuu(xx,yy+1);
+        cvu(xx,yy) = cvu(xx,yy+1);
        }                                                                                                                                                                                           
        }
 

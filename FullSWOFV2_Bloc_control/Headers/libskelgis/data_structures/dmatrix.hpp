@@ -99,7 +99,7 @@ namespace skelgis{
     //! destructor of the distributed matrix
     /*!  */
     //-------------------------------------------------------------------------------
-    ~DMatrix(){if(NULL!=m) delete m;}
+    ~DMatrix(){}
     //-------------------------------------------------------------------------------
     //! to get the value of the matrix at the iterator it (alternative to [it])
     /*!
@@ -726,7 +726,7 @@ namespace skelgis{
     //! destructor of the distributed matrix
     /*!  */
     //-------------------------------------------------------------------------------
-    ~DMatrix(){if(NULL!=m) delete m;}
+    ~DMatrix(){}
     //-------------------------------------------------------------------------------
 
     //! to get the value of the matrix at the iterator it (alternative to [it])
@@ -984,7 +984,7 @@ namespace skelgis{
     //! destructor of the distributed matrix
     /*!  */
     //-------------------------------------------------------------------------------
-    ~DMatrix(){if(NULL!=m) delete m;}
+    ~DMatrix(){}
     //-------------------------------------------------------------------------------
     //! to get the value of the matrix at the iterator it (alternative to [it])
     /*!
@@ -1611,7 +1611,7 @@ namespace skelgis{
     //! destructor of the distributed matrix
     /*!  */
     //-------------------------------------------------------------------------------
-    ~DMatrix(){if(NULL!=m) delete m;}
+    ~DMatrix(){}
     //-------------------------------------------------------------------------------
 
     //! to get the value of the matrix at the iterator it (alternative to [it])

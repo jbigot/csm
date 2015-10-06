@@ -46,7 +46,7 @@ ifeq ($(DEBUG),yes)
 	CPPFLAGS  := -O0 -ansi -pedantic -g  -Wall -Wextra
 	LDFLAGS	:=
 else
-	CPPFLAGS  := -O3 
+	CPPFLAGS  := -O3
 	LDFLAGS	:=
 endif
 ROOT = ../..

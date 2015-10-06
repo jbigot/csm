@@ -444,4 +444,4 @@ int parameters::get_output() const {
     return output_format;
 }
 
-parameters::~parameters() {if(NULL!=singleton) delete singleton;}
+parameters::~parameters() {}
