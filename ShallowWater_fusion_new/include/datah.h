@@ -7,8 +7,8 @@ class Datah
 {
  public:
   virtual void update (int tagdata) = 0;
-  virtual void start_comm() = 0;
-  virtual void end_comm() = 0;
+  //virtual void start_comm() = 0;
+  //virtual void end_comm() = 0;
   virtual inline int16_t getBorder() = 0;
   virtual void setMiddle(double val) =0;
   virtual inline double* getData() = 0;

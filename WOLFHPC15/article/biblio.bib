@@ -1,8 +1,26 @@
 %----------------------------------
 % STENCILS COMPILERS
 %----------------------------------
+@inproceedings{Ragan-Kelley:2013:HLC:2491956.2462176,
+ author = {Ragan-Kelley, J. and Barnes, C. and Adams, A. and Paris, S. and Durand, F. and Amarasinghe, S.},
+ title = {Halide: A Language and Compiler for Optimizing Parallelism, Locality, and Recomputation in Image Processing Pipelines},
+ booktitle = {Proceedings of the 34th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+ series = {PLDI '13},
+ year = {2013},
+ isbn = {978-1-4503-2014-6},
+ location = {Seattle, Washington, USA},
+ pages = {519--530},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2491956.2462176},
+ doi = {10.1145/2491956.2462176},
+ acmid = {2462176},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {autotuning, compiler, domain specific language, gpu, image processing, locality, optimization, parallelism, redundant computation, vectorization},
+}
+
 @inproceedings{spaaTangCKLL11,
-  author = {Tang, Yuan and Chowdhury, Rezaul Alam and Kuszmaul, Bradley C. and Luk, Chi-Keung and Leiserson, Charles E.},
+  author = {Tang, Y. and Chowdhury, R.A. and Kuszmaul, B.C. and Luk, C-K and Leiserson, C.E.},
   booktitle = {{SPAA}},
   editor = {Fortnow, Lance and Vadhan, Salil P.},
   ee = {http://doi.acm.org/10.1145/1989493.1989508},
@@ -52,7 +70,7 @@
  keywords = {CFD, CUDA, GPU, OP2, OpenMP, performance, unstructured mesh applications},
 }
 @inproceedings{DeVito2011LDS,
- author = {DeVito, \& Al}},
+ author = {DeVito, Z. and Joubert, N. and Palacios, F. and Oakley, S. and Medina, M. and Barrientos, M. and Elsen, E. and Ham, F. and Aiken, A. and Duraisamy, K. and Darve, E. and Alonso, J. and Hanrahan, P.},
  series = {SC '11},
  year = {2011},
  isbn = {978-1-4503-0771-0},
@@ -69,7 +87,7 @@
 }
 
 @inproceedings{Schmitt:2014:EDL:2691166.2691171,
- author = {Schmitt, Christian and Kuckuk, Sebastian and Hannig, Frank and K\"{o}stler, Harald and Teich, J\"{u}rgen},
+ author = {Schmitt, C. and Kuckuk, S. and Hannig, F. and K\"{o}stler, H. and Teich, J.},
  title = {ExaSlang: A Domain-specific Language for Highly Scalable Multigrid Solvers},
  booktitle = {Proceedings of the Fourth International Workshop on Domain-Specific Languages and High-Level Frameworks for High Performance Computing},
  series = {WOLFHPC '14},
@@ -85,7 +103,7 @@
  address = {Piscataway, NJ, USA},
 } 
 @inproceedings{Reguly:2014:ODS:2691166.2691173,
- author = {Reguly, Istv\'{a}n Z. and Mudalige, Gihan R. and Giles, Michael B. and Curran, Dan and McIntosh-Smith, Simon},
+ author = {Reguly, I.Z. and Mudalige, G.R. and Giles, M.B. and Curran, D. and McIntosh-Smith, S.},
  title = {The OPS Domain Specific Abstraction for Multi-block Structured Grid Computations},
  booktitle = {Proceedings of the Fourth International Workshop on Domain-Specific Languages and High-Level Frameworks for High Performance Computing},
  series = {WOLFHPC '14},
@@ -120,7 +138,7 @@ doi={10.1109/99.660313},
 ISSN={1070-9924},}
 
 @inproceedings{El-Ghazawi:2006:UUP:1188455.1188483,
- author = {El-Ghazawi, Tarek and Smith, Lauren},
+ author = {El-Ghazawi, T. and Smith, L.},
  title = {UPC: Unified Parallel C},
  booktitle = {Proceedings of the 2006 ACM/IEEE Conference on Supercomputing},
  series = {SC '06},
@@ -151,7 +169,7 @@ ISSN={1063-6552},}
 
 %MPI
 @inproceedings{Graham2009MSE,
- author = {Graham, Richard L.},
+ author = {Graham, R.L.},
  title = {{The MPI 2.2 Standard and the Emerging MPI 3 Standard}},
  booktitle = {Proceedings of the 16th European PVM/MPI Users' Group Meeting on Recent Advances in Parallel Virtual Machine and Message Passing Interface},
  year = {2009},
@@ -170,7 +188,7 @@ ISSN={1063-6552},}
 % SERIES-PARALLEL
 %----------------------------------
 @inproceedings{Valdes:1979:RSP:800135.804393,
- author = {Valdes, Jacobo and Tarjan, Robert E. and Lawler, Eugene L.},
+ author = {Valdes, J. and Tarjan, R.E. and Lawler, E.L.},
  title = {The Recognition of Series Parallel Digraphs},
  booktitle = {Proceedings of the Eleventh Annual ACM Symposium on Theory of Computing},
  series = {STOC '79},
@@ -195,9 +213,10 @@ ISSN={1063-6552},}
 @inproceedings{Mitchell:2004:CMV:1082101.1082117,
  author = {Mitchell, Margaret},
  title = {Creating Minimal Vertex Series Parallel Graphs from Directed Acyclic Graphs},
- booktitle = {Proceedings of the 2004 Australasian Symposium on Information Visualisation - Volume 35},
+ booktitle = {Proc. of the 2004 Australasian Symposium on Information Visualisation},
  series = {APVis '04},
  year = {2004},
+ volume = {35},
  isbn = {1-920682-17-1},
  location = {Christchurch, New Zealand},
  pages = {133--139},
@@ -205,7 +224,7 @@ ISSN={1063-6552},}
  url = {http://dl.acm.org/citation.cfm?id=1082101.1082117},
  acmid = {1082117},
  publisher = {Australian Computer Society, Inc.},
- address = {Darlinghurst, Australia, Australia},
+ address = {Darlinghurst, Australia},
  keywords = {directed acyclic graph, graph decomposition, minimal vertex series parallel, parallelism, preservation of partial order},
 } 
 
@@ -226,17 +245,9 @@ title={A low level component model easing performance portability of HPC applica
 url={http://dx.doi.org/10.1007/s00607-013-0368-3},
 publisher={Springer Vienna},
 keywords={HPC; Component models; Performance portability; Curie supercomputer; Grid’5000; 68N99; 68W10; 68M99},
-author={Bigot, Julien and Hou, Zhengxiong and P\'erez, Christian and Pichon, Vincent},
+author={Bigot, J. and Hou, Z. and P\'erez, C. and Pichon, V.},
 pages={1115-1130},
 language={English}
-}
-
-@ARTICLE{Allan04acomponent,
-    author = {Benjamin A. Allan and Al},
-    title = {A Component Architecture for High-Performance Scientific Computing},
-    journal = {Intl. J. High-Performance Computing Applications},
-    year = {2004},
-    volume = {20}
 }
 
 @incollection{bigot:inria-00388508,
@@ -245,7 +256,7 @@ isbn={978-3-642-04210-2},
 booktitle={Formal Foundations of Reuse and Domain Engineering},
 volume={5791},
 series={Lecture Notes in Computer Science},
-editor={Edwards, StephenH. and Kulczycki, Gregory},
+editor={Edwards, S.H. and Kulczycki, G.},
 doi={10.1007/978-3-642-04211-9_3},
 title={Increasing Reuse in Component Models through Genericity},
 url={http://dx.doi.org/10.1007/978-3-642-04211-9_3},
@@ -268,7 +279,7 @@ language={English}
 @techreport{corba:omg06,
   abstract = {The CORBA Component Model Specification},
   added-at = {2007-04-15T04:57:28.000+0200},
-  author = {Group, Object Management},
+  author = {{Object Management Group}},
   biburl = {http://www.bibsonomy.org/bibtex/28da2c472a3b60a7d1d107106d7bfeebc/piveta},
   comment = {The CORBA Component Model Specification},
   description = {Teste},
@@ -298,22 +309,24 @@ title={GCM: a grid extension to Fractal for autonomous distributed components},
 url={http://dx.doi.org/10.1007/s12243-008-0068-8},
 publisher={Springer-Verlag},
 keywords={Distributed components; Autonomous components; Adaptable components; Collective communications; Grid component model},
-author={Baude, Françoise and Caromel, Denis and Dalmasso, Cédric and Danelutto, Marco and Getov, Vladimir and Henrio, Ludovic and Pérez, Christian},
+author={Baude, F. and Caromel, D. and Dalmasso, Cé. and Danelutto, M. and Getov, V. and Henrio, L. and P\'erez, C.},
 pages={5-24},
 language={English}
 }
 
 @article{Bernholdt01052006,
-author = {Bernholdt, David E. and Al}, 
-title = {A Component Architecture for High-Performance Scientific Computing},
-volume = {20}, 
-number = {2}, 
-pages = {163-202}, 
-year = {2006}, 
-doi = {10.1177/1094342006064488}, 
+  title = {A Component Architecture for High-Performance Scientific Computing},
+  commented-author = {Allan, B.A. and Armstrong, R. and Bernholdt, D.E. and Bertrand, F. and Chiu, K. and Dahlgren, T.L. and Damevski, K. and Elwasif, W.R. and Epperly, T.G.W. and Govindaraju, M. and Katz, D.S. and Kohl, J.A. and Krishnan, M. and Kumfert, G. and Larson, J.W. and Lefantzi, S. and Lewis, M.J. and Malony, A.D. and McInnes, L.C. and Nieplocha, J. and Norris, B. and Parker, S.G. and Ray, J. and Shende, S. and Windus, T.L. and Zhou, S.},
+  author = {B. A. Allan and others},
+  publisher = {Sage Publications, Inc.},
+  address = {Thousand Oaks, CA, USA},
+  pages = {163--202},
+  year = 2006,
+  journal = {International Journal of High Performance Computing Applications},
+  number = 2,
+  volume = 20,
+  doi = {10.1177/1094342006064488},
 URL = {http://hpc.sagepub.com/content/20/2/163.abstract}, 
-eprint = {http://hpc.sagepub.com/content/20/2/163.full.pdf+html}, 
-journal = {International Journal of High Performance Computing Applications} 
 }
 
 @proceedings{DBLP:confeuropar2008,
@@ -332,7 +345,7 @@ journal = {International Journal of High Performance Computing Applications}
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }
 @INPROCEEDINGS{He12component-baseddesign,
-    author = {Nannan He and Daniel Kroening and Thomas Wahl and Kung-kiu Lau and Faris Taweel and Cuong M. Tran and Sanjiv S. Sharma},
+    author = {He, N. and Kroening, D. and Wahl, T. and Lau, K-K. and Taweel, F. and Tran, C.M. and Sharma, S.S.},
     title = {Component-based design and verification in X-MAN},
     booktitle = {In Proc. of Embedded Realtime Soft. and Syst},
     year = {2012}
@@ -344,7 +357,7 @@ journal = {International Journal of High Performance Computing Applications}
 %----------------------------------
 @article{CPE:CPE3494,
   TITLE = {{The SIPSim implicit parallelism model and the SkelGIS library}},
-  AUTHOR = {H. Coullon and S. Limet},
+  AUTHOR = {Coullon, H. and Limet, S.},
   URL = {https://hal.archives-ouvertes.fr/hal-01149418},
   JOURNAL = {{Concurrency and Computation: Practice and Experience}},
   PUBLISHER = {{John Wiley and Sons}},
@@ -358,7 +371,7 @@ journal = {International Journal of High Performance Computing Applications}
 
 %Global Arrays
 @article{Nieplocha:2006:AAP:1125980.1125985,
- author = {Nieplocha, Jarek and Palmer, Bruce and Tipparaju, Vinod and Krishnan, Manojkumar and Trease, Harold and Apr\`{a}, Edoardo},
+ author = {Nieplocha, J. and Palmer, B. and Tipparaju, V. and Krishnan, M. and Trease, H. and Apr\`{a}, E.},
  title = {Advances, Applications and Performance of the Global Arrays Shared Memory Programming Toolkit},
  journal = {Int. J. High Perform. Comput. Appl.},
  issue_date = {May       2006},
@@ -379,7 +392,7 @@ journal = {International Journal of High Performance Computing Applications}
 
 %PETSc
 @InProceedings{petsc-efficient,
-            Author = "Satish Balay and William D. Gropp and Lois Curfman McInnes and Barry F.  Smith",
+            Author = {Balay, S. and Gropp, W.D. and McInnes, L.C. and Smith, B.F.},
             Title = {{Efficient Management of Parallelism in Object Oriented Numerical Software Libraries}},
             Booktitle = {{Modern Software Tools in Scientific Computing}},
             Editor = "E. Arge and A. M. Bruaset and H. P. Langtangen",
@@ -391,13 +404,13 @@ journal = {International Journal of High Performance Computing Applications}
 @techreport{Trilinos-Overview,
 title = {{An Overview of Trilinos}},
 author = "Michael Heroux and Al ",
-institution = "Sandia National Laboratories",
+institution = "Sandia National Lab.",
 number = "SAND2003-2927",
 year = 2003}
 
 % DSL for DSL
 @inproceedings{Fernandez:2014:DFL:2691166.2691168,
- author = {Fern\'{a}ndez, Alejandro and Beltran, Vicen\c{c} and Mateo, Sergi and Patejko, Tomasz and Ayguad{\'e}, Eduard},
+ author = {Fern\'{a}ndez, A. and Beltran, V. and Mateo, S. and Patejko, T. and Ayguad{\'e}, E.},
  title = {A Data Flow Language to Develop High Performance Computing DSLs},
  booktitle = {Proceedings of the Fourth International Workshop on Domain-Specific Languages and High-Level Frameworks for High Performance Computing},
  series = {WOLFHPC '14},
@@ -416,7 +429,7 @@ year = 2003}
 
 %XKaapi
 @inproceedings{Gautier:2013:XRS:2510661.2511383,
- author = {Gautier, Thierry and Lima, Joao V. F. and Maillard, Nicolas and Raffin, Bruno},
+ author = {Gautier, T. and Lima, J.V.F. and Maillard, N. and Raffin, B.},
  title = {XKaapi: A Runtime System for Data-Flow Task Programming on Heterogeneous Architectures},
  booktitle = {Proceedings of the 2013 IEEE 27th International Symposium on Parallel and Distributed Processing},
  series = {IPDPS '13},
@@ -434,7 +447,7 @@ year = 2003}
 % starPU
 @article{Augonnet2011,
     title = {{StarPU: a unified platform for task scheduling on heterogeneous multicore architectures}},
-    author = {Augonnet, C{\'e}dric and Thibault, Samuel and Namyst, Raymond and Wacrenier, Pierre-Andr{\'e}},
+    author = {Augonnet, C. and Thibault, S. and Namyst, R. and Wacrenier, P-A.},
     journal = {{Concurrency and Computation: Practice and Experience}},
     volume = {23},
     number = {2},
@@ -443,7 +456,7 @@ year = 2003}
 }
 % navier-stokes
 @ARTICLE{Ferrari2004,
-  author = {S. Ferrari and F. Saleri},
+  author = {Ferrari, S. and Saleri, F.},
   title = {A new two-dimensional shallow water model including pressure effects
   and slow varying bottom topography},
   journal = {M2AN Math. Model. Numer. Anal.},
@@ -456,7 +469,7 @@ year = 2003}
 }
 
 @InProceedings{UCHPC2015,
-  author = 	 {J\'er\^ome Richard and Vincent  Lanore and Christian P\'erez},
+  author = 	 {Richard, J. and Lanore, V. and P\'erez, C.},
   title = 	 {Towards Application Variability Handling with Component Models: 3D-FFT Use Case Study},
   OPTcrossref =  {},
   OPTkey = 	 {},
@@ -468,7 +481,7 @@ year = 2003}
   OPTnumber = 	 {},
   OPTseries = 	 {},
   OPTpages = 	 {},
-  month =	 {aug},
+  month =	 aug,
   address =	 {Vienna, Austria},
   OPTorganization = {},
   OPTpublisher = {},

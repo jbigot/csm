@@ -1,6 +1,3 @@
-%----------------------------------------
-\subsection{Multi Stencil Language}
-%----------------------------------------
 
 \begin{filecontents*}{grammar.txt}
 program ::= "mesh:" meshid 
@@ -26,8 +23,8 @@ data ::= dataid "," meshent
 iteration ::= num
 listcomp ::= comp listcomp
           |  comp
-comp ::= dataid "[" compdomid "]=" compid "(" 
-            listdataread ")"
+comp ::= dataid "[" compdomid "]=" compid
+            "(" listdataread ")"
 listdataread ::= dataread listdataread
               |  dataread
 dataread ::= dataid "[" neighborid "]"
@@ -36,7 +33,7 @@ dataread ::= dataid "[" neighborid "]"
 
 \begin{filecontents*}{example.txt}
 mesh: cart
-mesh domains: cell,edgex,edgey
+mesh entities: cell,edgex,edgey
 computation domains:
   allcell in cell
   alledgex in edgex
@@ -69,31 +66,46 @@ computations:
   j[partedgex]=c8(i[n1])
 \end{filecontents*}
 
-\begin{figure*}[t]
-\subfloat[\label{fig:grammar}]
-{\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.45\textwidth]{grammar.txt}}
-%\hfill
-\hspace{1.5cm}
-\subfloat[\label{fig:mslex}]
-{\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.45\textwidth]{example.txt}}
-\caption{(a) Grammar of the Multi-Stencil Language, (b) Example of a MSL program}
-\end{figure*}
+\begin{figure}[t]
+  \hspace{5mm}
+  \begin{minipage}[t]{.49\textwidth}
+    %  \subfloat[\label{fig:grammar}]
+    {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=.87\textwidth]{grammar.txt}}   
+    \caption{Grammar of the Multi-Stencil Language. \label{fig:grammar}}
+  \end{minipage}
+\end{figure}
 
-As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six elements of the formal definition; they describe: \textbf{1.}\,the mesh, \textbf{2.}\,the mesh entities, \textbf{3.}\,the computation domains with their inter-dependencies, \textbf{4.}\,the data, \textbf{5.}\,the time iterations, and finally \textbf{6.} the computations.
-Figure~\ref{fig:grammar} shows the grammar of MSL. Lines 1 to 9 define what is a MSL program with the different parts mentioned above. The remaining of this section describes those different parts of a MSL program and presents an example.
-One can notice that almost all terminals \texttt{meshid}, \texttt{meshdom}, \texttt{compdomid}, \texttt{dataid}, \texttt{compid} and \texttt{neighborid}, are string identifiers. Only \texttt{num} is an integer terminal.
+\begin{figure}[t]
+\hspace{5mm}
+  \begin{minipage}[t]{.49\textwidth}
+    %\subfloat[\label{fig:mslex}]
+    {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=0.87\textwidth]{example.txt}}
+    \caption{Example of a MSL program. \label{fig:mslex}}
+      \end{minipage}
+\end{figure}
+
+%----------------------------------------
+\section{Language and Parallelization}
+\label{sect:msmsc}
+%----------------------------------------
+\subsection{Multi Stencil Language}
+%----------------------------------------
+
+As mentioned in the previous section, the Multi Stencil Language (MSL) is an agnostic descriptive language for multi-stencil simulations. Six main sections are required in a MSL description that match the six elements of the formal definition; they describe: \textbf{1)}\,the mesh, \textbf{2)}\,the mesh entities, \textbf{3)}\,the computation domains with their inter-dependencies, \textbf{4)}\,the data, \textbf{5)}\,the time iterations, and finally \textbf{6)} the computations.
+Figure~\ref{fig:grammar} shows the grammar of MSL. Lines 1 to 9 define what is a MSL program with the different parts mentioned above. The remaining of this section describes these different parts of a MSL program and presents an example.
+One can notice that terminals are the string identifiers \texttt{meshid}, \texttt{meshdom}, \texttt{compdomid}, \texttt{dataid}, \texttt{compid} and \texttt{neighborid}. The terminal \texttt{num} is an integer terminal.
 
 \subsubsection*{Mesh and Mesh Entities}
 As illustrated in the first line of the grammar in Figure~\ref{fig:grammar}, a mesh is simply defined by a string identifier.
-The different kind of mesh entities are described as a list of identifiers (lines 2, 10 and 11 in Figure~\ref{fig:grammar}).
-Figure~\ref{fig:mslex} presents an example of a mesh named \texttt{cart} used to represent a Cartesian mesh, and three kind of mesh entities: \texttt{cell}, \texttt{edgex}, and \texttt{edgey}.
+The different kind of mesh entities are described as a list of identifiers (Lines 2, 10 and 11 in Figure~\ref{fig:grammar}).
+Figure~\ref{fig:mslex} gives an example of a mesh named \texttt{cart} used to represent a Cartesian mesh, and three kinds of mesh entities: \texttt{cell}, \texttt{edgex}, and \texttt{edgey}.
 
 \subsubsection*{Computation Domains and Their Dependencies}
-A computation domain is a subset of a given kind of mesh entities, used during one or more computations.
+A computation domain is a subset of a given kind of mesh entities, used for at least one computation.
 For each computation domain, the kind of mesh entities on which it is mapped is specified (lines 3-4 and 12-14 on Figure~\ref{fig:grammar}).
 By default, two computation domains of the same entities are handled as intersecting except when an explicit independence relation is mentioned in the \emph{independent} section of the language (lines 5-6 and 15-17 in Figure~\ref{fig:grammar}).
 On lines 4 to 6 of Figure~\ref{fig:mslex}, computation domains are defined for each kind of mesh entities: \texttt{allcell}, \texttt{alledgex} and \texttt{alledgey}; they are used to represent the whole domain.
-On lines 7 and 8 two other domains of \texttt{edgex} are defined: \texttt{part1edgex} and \texttt{part2edgex}; they are used to represent the boundaries of the domain.
+On lines 7 and 8, two other domains of \texttt{edgex} are defined: \texttt{part1edgex} and \texttt{part2edgex}; they could be used to represent the boundaries of the domain, for example, or any other sub-part of the whole domain. It is the user's responsability to define the needed domains for his simulation.
 On line 10 the independence relation between \texttt{part1edgex} and \texttt{part2edgex} is specified.
 
 \subsubsection*{Data and Time}
@@ -103,11 +115,11 @@ A data element is a quantity to simulate. It is mapped on a given kind of mesh e
 \subsubsection*{Computation Description}
 The last part of the language contains the specifications of stencil and local kernels as defined in Section~\ref{sect:multistencil}.
 This description does not contain a direct expression of the numerical expressions $exp$.
-Instead, the term $exp$ of Equations~\ref{eq:st} and~\ref{eq:loc} simply corresponds to an identifier that references an implementation in an external language  (\cf Section~\ref{sect:component}).
-The specification starts by the identifier of the computed data element ($w$ in the formal description) with the computation domain between brackets ($d$).
+Instead, the term $exp$ of Equations~\ref{eq:st} and~\ref{eq:loc} corresponds to an identifier that references an implementation in an external language  (\cf Section~\ref{sect:component}).
+The description starts by the identifier of the computed data element ($w$ in the formal description) with the computation domain between brackets ($d$).
 Then, after the equal sign, the kernel identifier ($exp$) is specified.
 Finally, between the parenthesis is the list of identifiers of the data elements read by the computation with their stencil shape between brackets ($R$).
-If the computation is local, no brackets appear ($R_l$). In the example of Figure~\ref{fig:mslex}, nine computations are described. On line 24, the data element \texttt{b} is computed on the domain \texttt{allcell} by the kernel expression \texttt{c\_0} which read data \texttt{a} without neighborhood shape.
+If the computation is local, no brackets appear ($R_l$). In the example of Figure~\ref{fig:mslex}, nine computations are described. On line 24, the data element \texttt{b} is computed on the domain \texttt{allcell} by the kernel expression \texttt{c\_0} which reads data \texttt{a} without any neighborhood shape.
 
 %----------------------------------------
 \subsection{MSC Parallelization}
@@ -115,24 +127,23 @@ If the computation is local, no brackets appear ($R_l$). In the example of Figur
 %----------------------------------------
 The MSC parallelization is a subpart of the overall compiler MSCAC.
 It makes use of the ordered list of computations $\Gamma$, which can directly be extracted from the parser, to build a parallel representation of the computations of the overall multi-stencil program.
-This parallelization phase is divided in five different steps to transform $\Gamma$ to a series-parallel tree decomposition~\cite{Valdes:1979:RSP:800135.804393}.
-%Data parallelism is handled in the first two steps, and task parallelism in the following three steps.
-This section gives an overview of these five steps , but they are more formally defined with their associated algorithms in a research report~\cite{????}.
+This parallelization phase is divided in five different steps to transform $\Gamma$ to a series-parallel tree decomposition~\cite{Valdes:1979:RSP:800135.804393}. This sections describes these steps.
+%This section gives an overview of these five steps , but they are more formally defined with their associated algorithms in a research report~\cite{????}.
 
 \subsubsection*{The Ordered List of Computations: $\Gamma$}
 $\Gamma$ is directly obtained from the parser. Actually, the list of computations in the MSL program is already ordered: $\Gamma$ is a direct map of this list. In the example of Figure~\ref{fig:mslex}, $\Gamma = [c_0,c_1,c_2,c_3,c_4,c_5,c_6,c_7,c_8]$.
 
 \subsubsection*{The Synchronized Ordered List of Computations: $\Gamma_{sync}$}
-In a data parallelization, data is split among processors and the same program is applied on each sub-part of the data.
+Data parallelization splits data among processors and the same program is applied on each sub-part of the data.
 However, this parallelization technique requires additional synchronizations between processors.
 %For example, as a stencil kernel accesses neighbor values, values computed by another processor are needed and must be synchronized. 
 The required synchronizations can be automatically computed from the ordered list of computations $\Gamma$.
 A synchronization is needed each time a data read by a stencil computation has been written by a previous computation. In such a case, a computation is added before the stencil computation. This \emph{synchronization computation} reads the data to synchronize, and write the same data. The computation domain of such a synchronization computation encompasses the whole mesh entities on which the data is declared. As a result, $\Gamma$ is transformed to a synchronized ordered list of computations $\Gamma_{sync}$.
-For example, in Figure~\ref{fig:mslex}, the stencil computation $c_1$ reads the data element $b$ which has been written by $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed into $[c_0,sync_1,c_1]$ in $\Gamma_{sync}$. The new computation $sync_1$ reads and writes $b$ and is applied on \texttt{edgex}. As a result, a dependency is kept between $c_0$ and $sync_1$ and between $sync_1$, and $c_1$. The same transformation is performed for all stencils: $c_4$ and $c_8$. Thus, $\Gamma_{sync} = [c_0,sync_1,c_1,c_2,c_3,sync_4,c_4,c_5,c_6,c_7,sync_8,c_8]$.
+For example, in Figure~\ref{fig:mslex}, the stencil computation $c_1$ reads the data element $b$ which has been written by $c_0$. For this reason the sublist $[c_0,c_1]$ of $\Gamma$ is transformed into $[c_0,sync_1,c_1]$ in $\Gamma_{sync}$. The new computation $sync_1$ reads and writes $b$ and is applied on \texttt{edgex}. As a result, a dependency is kept between $c_0$ and $sync_1$ and between $sync_1$, and $c_1$. The same transformation is performed for the two other stencils: $c_4$ and $c_8$. Thus, for the example of Figure~\ref{fig:mslex}, $\Gamma_{sync} = [c_0,sync_1,c_1,c_2,c_3,sync_4,c_4,c_5,c_6,c_7,sync_8,c_8]$.
 
 \subsubsection*{The Dependency Graph: $\Gamma_{dep}$}
 From the synchronized ordered list of computations $\Gamma_{sync}$, a dependency graph $\Gamma_{dep}$ is built.
-A dependency exists from computation $a$ to $b$ (including synchronizations) if and only if a data element read by $b$ has been written by $a$ in $\Gamma_{sync}$ with intersecting domains.
+A dependency exists between computations $a$ and $b$ (including synchronizations) if and only if a data element read by $b$ has been written by $a$ in $\Gamma_{sync}$ with intersecting domains.
 %In other words, the only case where the same data is manipulated by distinct kernels without inducing a dependency is when the computation domains do not intersect.
 Nodes of the dependency graph represent computations of $\Gamma_{sync}$, while edges are dependencies between them. The dependency graph $\Gamma_{dep}$ is a directed acyclic graph (\emph{DAG}). For example, the dependency DAG $\Gamma_{dep}$ of the example of Figure~\ref{fig:mslex} is presented in Figure~\ref{fig:hyb}.
 
@@ -166,17 +177,17 @@ Nodes of the dependency graph represent computations of $\Gamma_{sync}$, while e
     (c7) edge node {} (sy8)
     (sy8) edge node {} (c8);
 \end{tikzpicture}
-\caption{$\Gamma_{hybrid}$ of the example of Figure~\ref{fig:mslex}}
+\caption{$\Gamma_{hybrid}$ of the example of Figure~\ref{fig:mslex}.}
 \label{fig:hyb}
 \end{center}
 \end{figure}
 
 \subsubsection*{The Minimal Series-Parallel Graph: $\Gamma_{msp}$}
-Once a dependency graph is built, many solutions can be used to build a parallel application, as for example dynamic schedulers~\cite{Augonnet2011,Gautier:2013:XRS:2510661.2511383}. In this work a static scheduling of the dependency graph is built. To do so the dependency graph is transformed to a minimal series-parallel graph~\cite{Valdes:1979:RSP:800135.804393}. As it has been shown in~\cite{Valdes:1979:RSP:800135.804393}, the transitive reduction of a DAG is a minimal series-parallel graph if and only if a forbidden shape, called \emph{N-shape} and illustrated in Figure~\ref{fig:n}, is not found in the DAG. Thus, to transform $\Gamma_{dep}$ to the minimal series-parallel graph $\Gamma_{msp}$, an algorithm~\cite{Mitchell:2004:CMV:1082101.1082117} is applied to remove all \emph{N-shapes} by an over-constraint, as illustrated in Figure~\ref{fig:over}.
+Once a dependency graph is built, many solutions can be used to build a parallel application, as for example dynamic schedulers~\cite{Augonnet2011,Gautier:2013:XRS:2510661.2511383}. In this work a static scheduling of the dependency graph is built. To do so the dependency graph is transformed to a minimal series-parallel graph~\cite{Valdes:1979:RSP:800135.804393}. As it has been shown in~\cite{Valdes:1979:RSP:800135.804393}, the transitive reduction of a DAG is a minimal series-parallel graph if and only if the \emph{forbidden} shape called \emph{N-shape}, illustrated in Figure~\ref{fig:n}, is not found in the DAG. Thus, to transform $\Gamma_{dep}$ to the minimal series-parallel graph $\Gamma_{msp}$, an algorithm is applied to remove all \emph{N-shapes} by an over-constraint~\cite{Mitchell:2004:CMV:1082101.1082117}, as illustrated in Figure~\ref{fig:over}.
 
 \begin{figure}[h!]
 \begin{center}
-\subfloat[][The forbidden $N$ shape.\label{fig:n}]{
+\subfloat[][The forbidden $N$ shape.\\\label{fig:n}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[] (a) at (0,0) {$c_0$};
    \node[] (b) at (2,0) {$c_1$};
@@ -214,7 +225,7 @@ Once a dependency graph is built, many solutions can be used to build a parallel
 \end{figure}
 
 \subsubsection*{The Tree Decomposition: $\Gamma_{tsp}$}
-Many works~\cite{Valdes:1979:RSP:800135.804393,Schoenmakers95anew} explains how to build a series-parallel tree decomposition from a minimal series-parallel graph. A series-parallel tree decomposition consists in the decomposition of the minimal series-parallel graph as a tree representing a set of \emph{sequences}, indicated by a $S$ node, and \emph{parallel} sections, indicated as a $P$ node. For example, the series-parallel tree decomposition $\Gamma_{tsp}$ of Figure~\ref{fig:hyb} is illustrated in Figure~\ref{fig:tsp}.
+Many works~\cite{Valdes:1979:RSP:800135.804393,Schoenmakers95anew} explains how to build a series-parallel tree decomposition from a minimal series-parallel graph. This transformation decomposes the minimal series-parallel graph as a tree where internal nodes are \emph{sequences}, indicated by a $S$ node, and \emph{parallel} sections, indicated as a $P$ node, while leaves of the tree are the nodes of $\Gamma_{msp}$. For example, the series-parallel tree decomposition $\Gamma_{tsp}$ of Figure~\ref{fig:hyb} is illustrated in Figure~\ref{fig:tsp}.
 
 \begin{figure}[t]
 \begin{center}
@@ -264,7 +275,7 @@ Many works~\cite{Valdes:1979:RSP:800135.804393,Schoenmakers95anew} explains how 
 \end{figure}
 
 \subsubsection*{Data parallelism optimizations: $\Gamma_{data}$}
-The series-parallel tree decomposition $\Gamma_{tsp}$ is used to build the hybrid parallelization of the simulation, but it can also be used to optimize the data parallelization only. In fact, creating a data parallelization of the simulation, it first seems natural to create the parallel structure directly from $\Gamma_{sync}$, as the program is parallelized from data decomposition and applying the same sequential tasks on each processor. However, as a computation kernel writes a single data $w$ (to finely manage dependencies between tasks), using $\Gamma_{sync}$ the same computation domain might be iterated more than once, while some numerical expressions could be computed inside a joint space loop. For this reason, an optimized and \emph{fusionned} ordered list of computation $\Gamma_{data}$ is built from $\Gamma_{tsp}$. Actually, in $\Gamma_{tsp}$, computations of a parallel subtree with a same computation domain can be computed in the same space loop, in any order. Moreover, in $\Gamma_{tsp}$, two consecutive computations of a sequence subtree with a same computation domain can be computed in the same space loop, keeping the computation order of the sequence.
+The series-parallel tree decomposition $\Gamma_{tsp}$ is used to build the hybrid parallelization of the simulation, but it can also be used to optimize the data parallelization. In fact, it first seems natural to create the data parallel structure directly from $\Gamma_{sync}$, as the program is parallelized from data decomposition and applying the same sequential tasks on each processor. However, as a computation kernel writes a single data $w$ (to finely manage dependencies between tasks), the same computation domain might be iterated more than once, while some numerical expressions could be computed inside a joint space loop. For this reason, an optimized and \emph{merged} ordered list of computation $\Gamma_{data}$ is built from $\Gamma_{tsp}$. Actually, in $\Gamma_{tsp}$, computations of a parallel subtree with a same computation domain can be computed in the same space loop, in any order. Moreover, in $\Gamma_{tsp}$, two consecutive computations of a sequence subtree with a same computation domain can be computed in the same space loop, if the computation order of the sequence is kept. For example, from $\Gamma_{tsp}$ of Figure~\ref{fig:tsp}, as kernels $c_3$ and $c_5$ are executed inside a parallel section, and as their computation domains are the same (\texttt{alledgey}), a single component $K$ can be written peforming both computations in the same domain loop.
 
 % \paragraph{Dump to a component assembly} Finally, from the series-parallel tree decomposition $\Gamma_{tsp}$ we could build a program using any parallel language containing \emph{parallel sections} and \emph{sequences of instructions} such as OpenMP~\cite{660313}, HPF~\cite{219857}, UPC~\cite{El-Ghazawi:2006:UUP:1188455.1188483} etc. In this paper we study the dump of $\Gamma_{tsp}$ to a component assembly which needs the introduction of \emph{control components}, described in the next section.
 

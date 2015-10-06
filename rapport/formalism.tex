@@ -17,18 +17,18 @@ A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $
 A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) and hybrid. 
 
 %\rmq{Pas très clair la suite; motivation? dom == some sub elements of M ?}
-For simulations, data is discretized based on the mesh; but for a given mesh, there are various ways of mapping the data depending on the mesh entities on which the data is mapped.
-\begin{mydef}
-\todo{JB: vraiment, ta def dit que pour chaque couple (noeud, arete), tu associes un element de $D_i$ ...}
-$D_i$ is a set of elements of a mesh $\mathcal{M}=(V,E)$, constructed by a function $dom_i$ which defines a precise association between $V$ and $E$, $dom_i : V \times E \rightarrow D_i$.
-\end{mydef}
+For simulations, data is discretized based on the mesh; but for a given mesh, there are various ways of mapping the data depending on the mesh entities on which the data is applied.
+% \begin{mydef}
+% \todo{JB: vraiment, ta def dit que pour chaque couple (noeud, arete), tu associes un element de $D_i$ ...}
+% $D_i$ is a set of elements of a mesh $\mathcal{M}=(V,E)$, constructed by a function $dom_i$ which defines a precise association between $V$ and $E$, $dom_i : V \times E \rightarrow D_i$.
+% \end{mydef}
 
 \begin{mydef}
-\todo{JB: def alternative}
-An entity $d$ of a mesh $\mathcal{M}=(V,E)$ is a subset of the mesh elements: $d\subset (V\cup E)$.
-A kind of mesh entities $D$ is a set of entities: $D\subset \mathcal{P}(V\cup E)$
+%\todo{JB: def alternative}
+An entity $e$ of a mesh $\mathcal{M}=(V,E)$ is a subset of the mesh elements: $e\subset (V\cup E)$.
+A kind of mesh entities $E$ is a set of entities: $E\subset \mathcal{P}(V\cup E)$
 \end{mydef}
-For example, in a 2D Cartesian mesh a first kind of entities are the cells ($D_0$), they can be defined as all sets containing exactly four vertices and four edges connected as a cycle. Another kind of entities are the vertices ($D_1$) that can be defined as all singletons formed of a single vertex each.
+For example, in a 2D Cartesian mesh a first kind of entities are the cells ($D_0$), they can be defined as all sets containing exactly four vertices and four edges connected as a cycle. Another kind of entities are the vertices ($D_1$) that can be defined as all singletons formed of a single vertex.
 
 This covers the space discretization, however another dimension manipulated in simulations that has to be discretized is the time dimension.
 \begin{mydef}
@@ -38,35 +38,35 @@ $T$ is responsible for the iteration time steps of the numerical simulation.
 
 In a numerical simulation a set of data elements, or quantities, are applied onto the mesh and represent the set of values to compute, or to use, for computation.
 \begin{mydef}
-A quantity is a function $\delta_t: D_{\delta t} \mapsto V_{\delta t}$ which associates each entity of its definition domain $d\in D_{\delta t}$ to a value $v\in V_{\delta t}$ where $V_{\delta t}$ is the data type, typically $\mathbb{R}$ or $\mathbb{C}$.
+A quantity is a function $\delta: E_{\delta} \mapsto V_{\delta}$ which associates each entity of its definition domain $e\in E_{\delta}$ to a value $v\in V_{\delta}$ where $V_{\delta}$ is the data type, typically $\mathbb{R}$ or $\mathbb{C}$.
 The set of quantities applied on the mesh is denoted $\Delta$.
-In the rest of this paper, the entities on which a quantity $\delta_t$ is mapped is denoted $dom(\delta_t)=D_{\delta t}$.
+In the rest of this paper, the entities on which a quantity $\delta$ is mapped is denoted $entity(\delta)=E_{\delta}$.
 \end{mydef}
-Another approach closer to that taken in applied mathematics would have been to define $\delta$ functions over $D \times T$; however the approach chosen in this paper where a distinct function is defined for each time-step better matches the implementation of numerical simulations where the outer loop iterates over time and where only a few time-steps of quantity values are stored.
+Another approach closer to that taken in applied mathematics would have been to define $\delta$ functions over $E_{\delta} \times T$; however the approach chosen in this paper where a distinct function is defined for each time-step better matches the implementation of numerical simulations where the outer loop iterates over time and where only a few time-steps of quantity values are stored.
 
 %-----------------------
 \subsection{Computations}
 
 \begin{mydef}
-A numerical expression $\text{exp}_{wt}: dom(w_t)\times R\mapsto V_{wt}$ is a function that computes the value of a quantity $w_t(d)$ (write quantity) for a given entity $d \in dom(w_t)=D$, using the set of its input data $R=\{\delta 1_{t-1}, \delta 2_{t-1}, ...\} \subset \Delta$ (read quantities). It is defined as $\text{exp}_{wt}(d,r) \rightarrow w_t(d)$.
+A numerical expression $\text{exp}_{w}: entity(w)\times R\mapsto V_{w}$ is a function that computes the value of a quantity $w(e)$ (written quantity) for a given entity $e \in entity(w)=E$, using the set of its input data $R=\{e_{1}, e_{2}, ...\} \subset \Delta$ (read quantities). It is defined as $\text{exp}_{w}(e,r) \rightarrow w(e)$.
 \todo{JB: tu n'introduis pas la notion de stencil ici?}
 \end{mydef}
 
 \begin{mydef}
-A computation $c$ of a numerical simulation is defined as $c(R,w,\text{exp})$, where $R \subset \Delta, w \in \Delta$ and $\text{exp}$ a numerical expression. %$D$ is one of the subsets $D_i \subset \mathcal{M}$, such that $w : D \rightarrow V$.
+A computation kernel $k$ of a numerical simulation is defined as $k(R,w,\text{exp})$, where $R \subset \Delta, w \in \Delta$ and $\text{exp}$ a numerical expression. %$D$ is one of the subsets $D_i \subset \mathcal{M}$, such that $w : D \rightarrow V$.
 \end{mydef}
-It has to be noticed that at each time iteration, all the values of a quantity are computed. However, it happens that computations of the quantity is split in different domains, as for example the computation of the physical border. In this case additional $D_i$ can be specified for the mesh $\mathcal{M}$.
-\todo{JB: je comprends pas vraiment...}
+% It has to be noticed that at each time iteration, all the values of a quantity are computed. However, it happens that computations of the quantity is split in different domains, as for example the computation of the physical border. In this case additional $D_i$ can be specified for the mesh $\mathcal{M}$.
+% \todo{JB: je comprends pas vraiment...}
 
 \begin{mydef}
-The set of $n$ ordered computations of a numerical simulation is denoted $\Gamma = [c_i]_{0 \leq i \leq n-1}$, such that $\forall c_i,c_j \in \Gamma$, if $i \leq j$, then $c_i$ is computed before $c_j$, and $c_j$ can be computed only when $c_i$ is finished.
-\todo{JB: je dirais que $c_j$ peut etre calculé quand $c_j$ l'est, j'eleverais le "only", c'est justement parce qu'il n'y a pas le only que tu peux faire du task parallelism}
+The set of $n$ ordered computations of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i \leq j$, then $k_i$ is computed before $k_j$, and $k_j$ can be computed when $k_i$ is finished.
+%\todo{JB: je dirais que $c_j$ peut etre calculé quand $c_j$ l'est, j'eleverais le "only", c'est justement parce qu'il n'y a pas le only que tu peux faire du task parallelism}
 \end{mydef}
 
 %JB: fin de relecture
 
 \begin{mydef}
-A \textit{multi-stencil program} is defined by the quadruplet $\mathcal{MSP}(T,\mathcal{M},\Delta,\Gamma)$.
+A \textit{multi-stencil program} is defined by the sextuplet $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta,\Gamma)$.
 \end{mydef}
 %If the number of computations in $\Gamma$ is $card(\Gamma)=n$, such that $\bigcup_{i=0}^{n-1}c_i = \Gamma$, then $\bigcup_{i=0}^{m-1}R_i \cup w_i \subseteq \Delta$.
 
