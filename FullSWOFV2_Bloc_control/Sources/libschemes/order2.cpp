@@ -65,7 +65,7 @@ void order2::calcul() {
     chrono.start();
 
     //while (T > tps) {
-    while(tps<10){
+    while(tps<100){
         // save the data in huv_movie.dat
       //if (n % nsave == 0) {
       //out->write(h,u,v,z,tps);
