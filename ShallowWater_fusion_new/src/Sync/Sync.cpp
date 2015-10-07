@@ -23,7 +23,8 @@ public:
     //cout<<"====START Sync===="<<endl;
     //cout<<"updates "<<n<<endl;
     for(int i=0;i<data.size();i++)
-      data[i]->update(i+1);
+      //data[i]->update(i+1);
+      data[i]->update();
   }
 
   void dataCompute(Datah * port)

@@ -94,12 +94,12 @@ public:
   //! update interface
   /*! */
   //-------------------------------------------------------------------------------
-  inline void update (int tagdata){}
+  inline void update (){}
   //-------------------------------------------------------------------------------                                                                                                                    
   //! Interface get the border size
   /*!  */
   //------------------------------------------------------------------------------- 
-  inline int16_t getBorder(){return border;}
+  inline void getBorder(int16_t& b){b=border;}
   //-------------------------------------------------------------------------------
   //! Set value in the global middle
   /*!  */
@@ -109,43 +109,43 @@ public:
   //! Return the pointer on the data
   /*!  */
   //-------------------------------------------------------------------------------
-  inline double * getData(){return dmatrix->getData();}
+  inline void getData(double * data){data=dmatrix->getData();}
   //-------------------------------------------------------------------------------
   //! Return width
   /*!  */
   //-------------------------------------------------------------------------------
-  inline int64_t getWidth(){return dmatrix->getWidth();}
+  inline void getWidth(int64_t& w){w=dmatrix->getWidth();}
   //-------------------------------------------------------------------------------
   //! Return width local
   /*!  */
   //-------------------------------------------------------------------------------
-  inline int64_t getWidthLoc(){return dmatrix->getWidthLoc();}
+  inline void getWidthLoc(int64_t& wl){wl=dmatrix->getWidthLoc();}
   //-------------------------------------------------------------------------------
   //! Return height local
   /*!  */
   //-------------------------------------------------------------------------------
-  inline int64_t getHeightLoc(){return dmatrix->getHeightLoc();}
+  inline void getHeightLoc(int64_t& hl){hl=dmatrix->getHeightLoc();}
   //-------------------------------------------------------------------------------
 
-  inline int64_t getStartWPHBL(){return dmatrix->getStartWPHBL();}
-  inline int64_t getWidthPHBL(){return dmatrix->getWidthPHBL();}
-  inline int64_t getStartHPHBL(){return dmatrix->getStartHPHBL();}
-  inline int64_t getHeightPHBL(){return dmatrix->getHeightPHBL();}
+  inline void getStartWPHBL(int64_t& v){v=dmatrix->getStartWPHBL();}
+  inline void getWidthPHBL(int64_t& v){v=dmatrix->getWidthPHBL();}
+  inline void getStartHPHBL(int64_t& v){v=dmatrix->getStartHPHBL();}
+  inline void getHeightPHBL(int64_t& v){v=dmatrix->getHeightPHBL();}
 
-  inline int64_t getStartWPHBR(){return dmatrix->getStartWPHBR();}
-  inline int64_t getWidthPHBR(){return dmatrix->getWidthPHBR();}
-  inline int64_t getStartHPHBR(){return dmatrix->getStartHPHBR();}
-  inline int64_t getHeightPHBR(){return dmatrix->getHeightPHBR();}
+  inline void getStartWPHBR(int64_t& v){v=dmatrix->getStartWPHBR();}
+  inline void getWidthPHBR(int64_t& v){v=dmatrix->getWidthPHBR();}
+  inline void getStartHPHBR(int64_t& v){v=dmatrix->getStartHPHBR();}
+  inline void getHeightPHBR(int64_t& v){v=dmatrix->getHeightPHBR();}
 
-  inline int64_t getStartWPHBU(){return dmatrix->getStartWPHBU();}
-  inline int64_t getWidthPHBU(){return dmatrix->getWidthPHBU();}
-  inline int64_t getStartHPHBU(){return dmatrix->getStartHPHBU();}
-  inline int64_t getHeightPHBU(){return dmatrix->getHeightPHBU();}
+  inline void getStartWPHBU(int64_t& v){v=dmatrix->getStartWPHBU();}
+  inline void getWidthPHBU(int64_t& v){v=dmatrix->getWidthPHBU();}
+  inline void getStartHPHBU(int64_t& v){v=dmatrix->getStartHPHBU();}
+  inline void getHeightPHBU(int64_t& v){v=dmatrix->getHeightPHBU();}
 
-  inline int64_t getStartWPHBD(){return dmatrix->getStartWPHBD();}
-  inline int64_t getWidthPHBD(){return dmatrix->getWidthPHBD();}
-  inline int64_t getStartHPHBD(){return dmatrix->getStartHPHBD();}
-  inline int64_t getHeightPHBD(){return dmatrix->getHeightPHBD();}
+  inline void getStartWPHBD(int64_t& v){v=dmatrix->getStartWPHBD();}
+  inline void getWidthPHBD(int64_t& v){v=dmatrix->getWidthPHBD();}
+  inline void getStartHPHBD(int64_t& v){v=dmatrix->getStartHPHBD();}
+  inline void getHeightPHBD(int64_t& v){v=dmatrix->getHeightPHBD();}
 
 };
 

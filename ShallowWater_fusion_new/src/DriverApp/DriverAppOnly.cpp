@@ -44,9 +44,9 @@ public:
 
     dh1->setMiddle(1);
 
-    width = dh1->getWidth();
-    widthLoc = dh1->getWidthLoc();
-    heightLoc = dh1->getHeightLoc();
+    dh1->getWidth(width);
+    dh1->getWidthLoc(widthLoc);
+    dh1->getHeightLoc(heightLoc);
 
     //-----Time calculation                                                                                                                                     
     Chronometer chrono;
@@ -56,8 +56,8 @@ public:
       {
 	// dh1->update();
 	// dh2->update();
-	d1=dh1->getData();
-	d2=dh2->getData();
+	   dh1->getData(d1);
+	   dh2->getData(d2);
 
 	for(int64_t yy = 1; yy<1+heightLoc;yy++)
 	  {
