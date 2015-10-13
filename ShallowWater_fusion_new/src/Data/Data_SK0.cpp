@@ -109,7 +109,8 @@ public:
   //! Return the pointer on the data
   /*!  */
   //-------------------------------------------------------------------------------
-  inline void getData(double * data){data=dmatrix->getData();}
+  inline void getData(double * & data){data=dmatrix->getData();}
+  //inline double * getData(){return dmatrix->getData();}
   //-------------------------------------------------------------------------------
   //! Return width
   /*!  */

@@ -15,24 +15,30 @@ public:
 
   ControllerPHBU(Datah * d):data(d)
   {
-    data->getWidth(w);
     data->getData(tab);
     data->getStartWPHBU(swphb);
     data->getWidthPHBU(wphb);
     data->getStartHPHBU(shphb);
     data->getHeightPHBU(hphb);
+    int64_t wl;
+    data->getBorder(border);
+    data->getWidthLoc(wl);
+    w = wl + 2*border;
   }
   ~ControllerPHBU(){}
 
   void init(Datah * d)
   {
     data = d;
-    data->getWidth(w);
     data->getData(tab);
     data->getStartWPHBU(swphb);
     data->getWidthPHBU(wphb);
     data->getStartHPHBU(shphb);
     data->getHeightPHBU(hphb);
+    int64_t wl;
+    data->getBorder(border);
+    data->getWidthLoc(wl);
+    w = wl + 2*border;
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}

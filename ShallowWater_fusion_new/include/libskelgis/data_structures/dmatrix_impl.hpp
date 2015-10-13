@@ -1200,6 +1200,7 @@ namespace skelgis{
       st1<<"Local width and height :"<<this->loc_head.width<<","<<this->loc_head.height<<"\n";
       this->print(st1.str());
 #endif
+      //std::cout<<this->mpi_rank<<" - ("<<this->loc_head.width<<","<<this->loc_head.height<<")"<<std::endl;
       this->data = new T[this->border_head.width*this->border_head.height];
     }
     //-------------------------------------------------------------------------------
@@ -2290,8 +2291,8 @@ namespace skelgis{
     inline int getRow(){return this->row;}
     //-------------------------------------------------------------------------------
     inline T * getData(){return this->data;}
-    //inline unsigned int getWidth(){return this->head.width;}
-    inline unsigned int getWidth(){return this->loc_head.width+2*this->border;}
+    inline unsigned int getWidth(){return this->head.width;}
+    //inline unsigned int getWidth(){return this->loc_head.width+2*this->border;}
     inline unsigned int getWidthLoc(){return this->loc_head.width;}
     inline unsigned int getHeightLoc(){return this->loc_head.height;}
     //-------------------------------------------------------------------------------
@@ -2613,8 +2614,8 @@ namespace skelgis{
     inline int getRow(){return this->row;}
     //-------------------------------------------------------------------------------
     inline T * getData(){return this->data;}
-    //inline unsigned int getWidth(){return this->head.width;}
-    inline unsigned int getWidth(){return this->loc_head.width;}
+    inline unsigned int getWidth(){return this->head.width;}
+    //inline unsigned int getWidth(){return this->loc_head.width;}
     inline unsigned int getWidthLoc(){return this->loc_head.width;}
     inline unsigned int getHeightLoc(){return this->loc_head.height;}
     inline int getBorder(){return 0;}

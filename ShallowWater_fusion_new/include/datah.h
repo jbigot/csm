@@ -11,7 +11,7 @@ class Datah
   //virtual void end_comm() = 0;
   // virtual inline int16_t getBorder() = 0;
   // virtual void setMiddle(double val) =0;
-  // virtual inline double* getData() = 0;
+  //virtual inline double* getData() = 0;
   // virtual inline int64_t getWidth() = 0;
   // virtual inline int64_t getWidthLoc() = 0;
   // virtual inline int64_t getHeightLoc() = 0;
@@ -34,7 +34,7 @@ class Datah
 
   virtual inline void getBorder(int16_t& b) = 0;
   virtual void setMiddle(double val) =0;
-  virtual inline void getData(double * data) = 0;
+  virtual inline void getData(double * & data) = 0;
   virtual inline void getWidth(int64_t& w) = 0;
   virtual inline void getWidthLoc(int64_t& wl) = 0;
   virtual inline void getHeightLoc(int64_t& hl) = 0;
