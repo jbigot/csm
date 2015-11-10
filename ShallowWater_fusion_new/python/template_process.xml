@@ -1167,18 +1167,6 @@
 				<property id="h1d">
 					<cppref instance="h1d_$proc" property="services"/>
 				</property>
-				<property id="u1l">
-					<cppref instance="u1l_$proc" property="services"/>
-				</property>
-				<property id="u1r">
-					<cppref instance="u1r_$proc" property="services"/>
-				</property>
-				<property id="h1g">
-					<cppref instance="h1g_$proc" property="services"/>
-				</property>
-				<property id="h1d">
-					<cppref instance="h1d_$proc" property="services"/>
-				</property>
 				<property id="v1l">
 					<cppref instance="v1l_$proc" property="services"/>
 				</property>
@@ -1594,10 +1582,10 @@
 				<property id="rainm">
 					<cppref instance="rainm_$proc" property="services"/>
 				</property>
-				<property id="u">
+				<property id="us">
 					<cppref instance="us_$proc" property="services"/>
 				</property>
-				<property id="v">
+				<property id="vs">
 					<cppref instance="vs_$proc" property="services"/>
 				</property>
 				<property id="qs1">

@@ -5,9 +5,9 @@
 order2::order2(parameters * &par):scheme(par) {
 
   // variable avec cellule fictive
-  hsa.init(head,0.);
-  usa.init(head,0.);
-  vsa.init(head,0.);
+  hsa.init(head,1.0);
+  usa.init(head,1.0);
+  vsa.init(head,1.0);
 
   // variable sans cellule fictive
   qsa1.init(head,0.);
@@ -119,8 +119,8 @@ void order2::calcul() {
         //-------------------------------------------------//
 
         bloc1(flux_left,flux_right,flux_bottom,flux_top);
-        bloc2(h,u,v,q1,q2,hs,qs1,qs2);
-        check_ve_ca(hs,us,vs,qs1,qs2);
+        bloc2(h,u,v,q1,q2,hs,qs1,qs2,us,vs); //with check
+        //check_ve_ca(hs,us,vs,qs1,qs2);
         //----------------------------------------------//
 
         //boundary conditions
@@ -167,10 +167,10 @@ void order2::calcul() {
         ApplyBinary<SCALAR,0,SCALAR,SCALAR,0,false>::apply(order2_delzc2_f,z2l,z2r,delzc2);
         //-------------------------------------------------//
         bloc1(flux_left,flux_right,flux_bottom,flux_top);
-        bloc2(hs,us,vs,qs1,qs2,hsa,qsa1,qsa2);
+        bloc22(hs,us,vs,qs1,qs2,hsa,qsa1,qsa2,h,q1,q2); //with Heun
         //----------------------------------------------//
-	Heun_hq(h,q1,q2,hsa,qsa1,qsa2);
-        check_ve_ca(h,u,v,q1,q2);
+	   //Heun_hq(h,q1,q2,hsa,qsa1,qsa2);
+        //check_ve_ca(h,u,v,q1,q2);
 
         tps += 1;//dt;
         n++;
