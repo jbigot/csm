@@ -246,8 +246,8 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
   //Controller<double> cRain(Rain);
 
   //check
-  Controller<double,2,false> cus(us);
-  Controller<double,2,false> cvs(vs);
+  Controller<double,2,false> cus(us.getDMatrix());
+  Controller<double,2,false> cvs(vs.getDMatrix());
 
     double tx=0.005;
     double ty=0.005;
@@ -407,9 +407,9 @@ BEGINApplyListBlock(bloc2_f2,inputs,SCALAR,2,outputs,SCALAR,0)
     //Controller<double> cRain(Rain);
 
   //heun
-  Controller<double> chh(h);
-  Controller<double> cqq1(q1);
-  Controller<double> cqq2(q2);
+  Controller<double,2,false> chh(h.getDMatrix());
+  Controller<double,0,false> cqq1(q1.getDMatrix());
+  Controller<double,0,false> cqq2(q2.getDMatrix());
 
     double tx=0.005;
     double ty=0.005;
