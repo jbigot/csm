@@ -118,7 +118,7 @@ void scheme:: bloc2(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB 
   outputs.push_back(qes1);
   outputs.push_back(qes2);
 
-  ApplyList<SCALAR,2,SCALAR,0,false,true>::apply(bloc2_f,inputs,outputs);
+  ApplyList<SCALAR,2,SCALAR,0,false/*,true*/>::apply(bloc2_f,inputs,outputs);
 }
 
 void scheme:: bloc22(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB & hes, TAB0 & qes1, TAB0 & qes2, TAB & h, TAB0 & q1, TAB0& q2) {
@@ -161,7 +161,7 @@ void scheme:: bloc22(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB
   outputs.push_back(q1);
   outputs.push_back(q2);
 
-  ApplyList<SCALAR,2,SCALAR,0,false,true>::apply(bloc2_f,inputs,outputs);
+  ApplyList<SCALAR,2,SCALAR,0,false/*,true*/>::apply(bloc2_f2,inputs,outputs);
 }
 
 void scheme:: update_hq(TAB & he, TAB0 & qe1, TAB0 & qe2, TAB & hes, TAB0 & qes1, TAB0 & qes2) {

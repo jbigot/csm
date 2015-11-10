@@ -92,12 +92,12 @@ public:
     double ty=0.005;
     double dt=0.5;
 
-    int64_t yyq=cRain.start();
+    int64_t yyq=cq1.start();
     int64_t yy1=cf1.start();
     int64_t yy2=cg1.start();
     for(int64_t yy = ch.start(); yy<ch.height();yy++,yyq++,yy1++,yy2++)
     {
-      int64_t xxq=cRain.start();
+      int64_t xxq=cq1.start();
       int64_t xx1=cf1.start();
       int64_t xx2=cg1.start();
       for(int64_t xx = ch.start();xx<ch.width(); xx++,xxq++,xx1++,xx2++)
