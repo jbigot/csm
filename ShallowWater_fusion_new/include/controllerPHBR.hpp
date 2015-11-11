@@ -15,24 +15,30 @@ public:
 
   ControllerPHBR(Datah * d):data(d)
   {
-    w = data->getWidth();
-    tab = data->getData();
-    swphb = data->getStartWPHBR();
-    wphb = data->getWidthPHBR();
-    shphb = data->getStartHPHBR();
-    hphb = data->getHeightPHBR();
+    data->getData(tab);
+    data->getStartWPHBR(swphb);
+    data->getWidthPHBR(wphb);
+    data->getStartHPHBR(shphb);
+    data->getHeightPHBR(hphb);
+    int64_t wl;
+    data->getBorder(border);
+    data->getWidthLoc(wl);
+    w = wl + 2*border;
   }
   ~ControllerPHBR(){}
 
   void init(Datah * d)
   {
     data = d;
-    w = data->getWidth();
-    tab = data->getData();
-    swphb = data->getStartWPHBR();
-    wphb = data->getWidthPHBR();
-    shphb = data->getStartHPHBR();
-    hphb = data->getHeightPHBR();
+    data->getData(tab);
+    data->getStartWPHBR(swphb);
+    data->getWidthPHBR(wphb);
+    data->getStartHPHBR(shphb);
+    data->getHeightPHBR(hphb);
+    int64_t wl;
+    data->getBorder(border);
+    data->getWidthLoc(wl);
+    w = wl + 2*border;
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}

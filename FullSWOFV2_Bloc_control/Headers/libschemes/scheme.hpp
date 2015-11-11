@@ -93,7 +93,8 @@ public:
 
     void bloc1(SCALAR &, SCALAR &, SCALAR &, SCALAR &);
 
-    void bloc2(TAB &, TAB &, TAB &, TAB0 &, TAB0 &, TAB &, TAB0 &, TAB0 &);
+    void bloc2(TAB &, TAB &, TAB &, TAB0 &, TAB0 &, TAB &, TAB0 &, TAB0 &, TAB &, TAB &);
+    void bloc22(TAB &, TAB &, TAB &, TAB0 &, TAB0 &, TAB &, TAB0 &, TAB0 &, TAB &, TAB0 &, TAB0&);
 
     void update_hq(TAB &, TAB0 &, TAB0 &, TAB &, TAB0 &, TAB0 &);
 

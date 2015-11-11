@@ -59,7 +59,7 @@ void order1::calcul() {
 
         bloc1(flux_left,flux_right,flux_bottom,flux_top);
 
-        bloc2(h,u,v,q1,q2,hs,qs1,qs2);
+        //bloc2(h,u,v,q1,q2,hs,qs1,qs2);
 
         update_hq(h,q1,q2,hs,qs1,qs2);
 

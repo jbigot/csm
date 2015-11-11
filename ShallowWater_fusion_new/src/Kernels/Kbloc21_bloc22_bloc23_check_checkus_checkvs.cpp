@@ -77,13 +77,14 @@ public:
     Controller<double> cg1(g1);
     Controller<double> cg2(g2);
     Controller<double> cg3(g3);
-    Controller<double> crainm(rainm);
-    Controller<double> cmcf(mcf);
+    //Controller<double> crainm(rainm);
+    //Controller<double> cmcf(mcf);
     Controller<double> chs(hs);
     Controller<double> cqs1(qs1);
     Controller<double> cqs2(qs2);
-    Controller<double> cRain(Rain);
+    //Controller<double> cRain(Rain);
 
+    //check
     Controller<double> cus(us);
     Controller<double> cvs(vs);
 
@@ -91,25 +92,25 @@ public:
     double ty=0.005;
     double dt=0.5;
 
-    int64_t yyq=cRain.start();
+    int64_t yyq=cq1.start();
     int64_t yy1=cf1.start();
     int64_t yy2=cg1.start();
     for(int64_t yy = ch.start(); yy<ch.height();yy++,yyq++,yy1++,yy2++)
     {
-      int64_t xxq=cRain.start();
+      int64_t xxq=cq1.start();
       int64_t xx1=cf1.start();
       int64_t xx2=cg1.start();
       for(int64_t xx = ch.start();xx<ch.width(); xx++,xxq++,xx1++,xx2++)
       {
-        chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1)) + cRain(xxq,yyq)*dt;
+        chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1)) ;//+ cRain(xxq,yyq)*dt;
         cqs1(xxq,yyq) = cq1(xxq,yyq)-tx*(cf2(xx1+1,yy1)-cf2(xx1,yy1)+grav_dem*(ch1d(xx1,yy1)*ch1d(xx1,yy1)-ch1r(xx1,yy1)*ch1r(xx1,yy1)
           +ch1l(xx1+1,yy1)*ch1l(xx1+1,yy1)-ch1g(xx1+1,yy1)*ch1g(xx1+1,yy1)+(ch1r(xx1+1,yy1)+ch1l(xx1+1,yy1))*cdelzc1(xxq,yyq)))
           -ty*(cg2(xx2,yy2)-cg2(xx2,yy2+1));
         cqs2(xxq,yyq)= cq2(xxq,yyq)-tx*(cf3(xx1+1,yy1)-cf3(xx1,yy1))-ty*(cg3(xx2,yy2)-cg3(xx2,yy2+1)+grav_dem*(ch2d(xx2,yy2+1)
           *ch2d(xx2,yy2+1)-ch2r(xx2,yy2+1)*ch2r(xx2,yy2+1)+ch2l(xx2,yy2)*ch2l(xx2,yy2)-ch2g(xx2,yy2)*ch2g(xx2,yy2)+(ch2r(xx2,yy2+1)
           +ch2l(xx2,yy2))*cdelzc2(xxq,yyq)));
-        cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1.+cmcf(xxq,yyq)*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
-        cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1.+cmcf(xxq,yyq)*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
 
         //check checkus checkvs
         if(chs(xx,yy)<he_ca)

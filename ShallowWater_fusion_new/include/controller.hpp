@@ -14,22 +14,22 @@ public:
 
   Controller(Datah * d):data(d)
   {
-    w = data->getWidth();
-    wl = data->getWidthLoc();
-    hl = data->getHeightLoc();
-    tab = data->getData();
-    border = data->getBorder();
+    /*wl = */data->getWidthLoc(wl);
+    /*hl = */data->getHeightLoc(hl);
+    /*tab = */data->getData(tab);
+    /*border = */data->getBorder(border);
+    w = wl + 2*border;
   }
   ~Controller(){}
 
   void init(Datah * d)
   {
     data = d;
-    w = data->getWidth();
-    wl = data->getWidthLoc();
-    hl = data->getHeightLoc();
-    tab = data->getData();
-    border = data->getBorder();
+    data->getWidthLoc(wl);
+    data->getHeightLoc(hl);
+    data->getData(tab);
+    data->getBorder(border);
+    w = wl + 2*border;
   }
 
   inline T& operator()(int64_t x, int64_t y){return tab[x + w*y];}

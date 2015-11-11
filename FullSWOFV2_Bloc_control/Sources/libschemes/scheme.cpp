@@ -81,7 +81,7 @@ void scheme:: bloc1(SCALAR & flux_left_tmp, SCALAR & flux_right_tmp, SCALAR & fl
   ApplyList<SCALAR,0,SCALAR,0,false>::apply(bloc1y_f,inputs,outputs);
 }
 
-void scheme:: bloc2(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB & hes, TAB0 & qes1, TAB0 & qes2) {
+void scheme:: bloc2(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB & hes, TAB0 & qes1, TAB0 & qes2, TAB & us, TAB & vs) {
   vTAB inputs;
   vTAB0 outputs;
   inputs.push_back(he);
@@ -89,6 +89,10 @@ void scheme:: bloc2(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB 
   inputs.push_back(ve2);
    //pb je recupere les voisins alors que autre version non
   inputs.push_back(hes);
+
+  //check
+  inputs.push_back(us);
+  inputs.push_back(vs);
 
   //R=0 pas de pb
   outputs.push_back(qe1);
@@ -114,7 +118,50 @@ void scheme:: bloc2(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB 
   outputs.push_back(qes1);
   outputs.push_back(qes2);
 
-  ApplyList<SCALAR,2,SCALAR,0,false,true>::apply(bloc2_f,inputs,outputs);
+  ApplyList<SCALAR,2,SCALAR,0,false/*,true*/>::apply(bloc2_f,inputs,outputs);
+}
+
+void scheme:: bloc22(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB & hes, TAB0 & qes1, TAB0 & qes2, TAB & h, TAB0 & q1, TAB0& q2) {
+  vTAB inputs;
+  vTAB0 outputs;
+  inputs.push_back(he);
+  inputs.push_back(ve1);
+  inputs.push_back(ve2);
+   //pb je recupere les voisins alors que autre version non
+  inputs.push_back(hes);
+
+  //heun
+  inputs.push_back(h);
+
+  //R=0 pas de pb
+  outputs.push_back(qe1);
+  outputs.push_back(qe2);
+  outputs.push_back(h1l);
+  outputs.push_back(h1r);
+  outputs.push_back(h1g);
+  outputs.push_back(h1d);
+  outputs.push_back(h2l);
+  outputs.push_back(h2r);
+  outputs.push_back(h2g);
+  outputs.push_back(h2d);
+  outputs.push_back(delzc1);
+  outputs.push_back(delzc2);
+  outputs.push_back(f1);
+  outputs.push_back(f2);
+  outputs.push_back(f3);
+  outputs.push_back(g1);
+  outputs.push_back(g2);
+  outputs.push_back(g3);
+
+  //outputs.push_back(hes);
+  outputs.push_back(qes1);
+  outputs.push_back(qes2);
+
+  //heun
+  outputs.push_back(q1);
+  outputs.push_back(q2);
+
+  ApplyList<SCALAR,2,SCALAR,0,false/*,true*/>::apply(bloc2_f2,inputs,outputs);
 }
 
 void scheme:: update_hq(TAB & he, TAB0 & qe1, TAB0 & qe2, TAB & hes, TAB0 & qes1, TAB0 & qes2) {
@@ -173,15 +220,15 @@ void scheme::allocation(parameters * & par) {
 
     // variable avec cellule fictive
     //sans fichiers
-    h.init(head,0.);
-    z.init(head,0.);
+    h.init(head,1.0);
+    z.init(head,1.0);
 
-    u.init(head,0.);
-    v.init(head,0.);
+    u.init(head,1.0);
+    v.init(head,1.0);
 
-    hs.init(head,0.);
-    us.init(head,0.);
-    vs.init(head,0.);
+    hs.init(head,1.0);
+    us.init(head,1.0);
+    vs.init(head,1.0);
 
     // variable sans cellule fictive
 

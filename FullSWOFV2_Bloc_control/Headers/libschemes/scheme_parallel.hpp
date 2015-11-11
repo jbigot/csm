@@ -188,10 +188,13 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
   TAB ve1(inputs[1]);
   TAB ve2(inputs[2]);
   TAB hes(inputs[3]);
+  //check
+  TAB us(inputs[4]);
+  TAB vs(inputs[5]);
 
-  ve1.getBorders();
-  ve2.getBorders();
-  he.getBorders();
+  //ve1.getBorders();
+  //ve2.getBorders();
+  //he.getBorders();
 
   TAB0 qe1(outputs[0]);
   TAB0 qe2(outputs[1]);
@@ -235,12 +238,16 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
   Controller<double,0,false> cg1(g1.getDMatrix());
   Controller<double,0,false> cg2(g2.getDMatrix());
   Controller<double,0,false> cg3(g3.getDMatrix());
-    //Controller<double> crainm(rainm);
-    //Controller<double> cmcf(mcf);
+  //Controller<double> crainm(rainm);
+  //Controller<double> cmcf(mcf);
   Controller<double,2,false> chs(hes.getDMatrix());
   Controller<double,0,false> cqs1(qes1.getDMatrix());
   Controller<double,0,false> cqs2(qes2.getDMatrix());
-    //Controller<double> cRain(Rain);
+  //Controller<double> cRain(Rain);
+
+  //check
+  Controller<double,2,false> cus(us.getDMatrix());
+  Controller<double,2,false> cvs(vs.getDMatrix());
 
     double tx=0.005;
     double ty=0.005;
@@ -265,6 +272,31 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
           +ch2l(xx2,yy2))*cdelzc2(xxq,yyq)));
         cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
         cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+
+        //check checkus checkvs
+        if(chs(xx,yy)<he_ca)
+        {
+          chs(xx,yy)=0.;
+          cus(xx,yy)=0.;
+          cvs(xx,yy)=0.;
+          cqs1(xxq,yyq)=0.;
+          cqs2(xxq,yyq)=0.;
+        }
+        else
+        {
+          cus(xx,yy)=cqs1(xxq,yyq)/chs(xx,yy);
+          if(fabs(cus(xx,yy))<ve_ca)
+          {
+            cus(xx,yy)=0.;
+            cqs1(xxq,yyq)=0.;
+          }
+          cvs(xx,yy)=cqs2(xxq,yyq)/chs(xx,yy);
+          if(fabs(cvs(xx,yy))<ve_ca)
+          {
+            cvs(xx,yy)=0.;
+            cqs2(xxq,yyq)=0.;
+          }
+        }
       }
     }
 
@@ -304,6 +336,115 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
 END(bloc2_f);
 //-------------------------------------------------------------------------------
 
+//BLOC2
+//-------------------------------------------------------------------------------
+BEGINApplyListBlock(bloc2_f2,inputs,SCALAR,2,outputs,SCALAR,0)
+//-------------------------------------------------------------------------------
+{
+  TAB he(inputs[0]);
+  TAB ve1(inputs[1]);
+  TAB ve2(inputs[2]);
+  TAB hes(inputs[3]);
+
+  //heun
+  TAB h(inputs[4]);
+
+  //ve1.getBorders();
+  //ve2.getBorders();
+  //he.getBorders();
+
+  TAB0 qe1(outputs[0]);
+  TAB0 qe2(outputs[1]);
+  TAB0 h1l(outputs[2]);
+  TAB0 h1r(outputs[3]);
+  TAB0 h1g(outputs[4]);
+  TAB0 h1d(outputs[5]);
+  TAB0 h2l(outputs[6]);
+  TAB0 h2r(outputs[7]);
+  TAB0 h2g(outputs[8]);
+  TAB0 h2d(outputs[9]);
+  TAB0 delzc1(outputs[10]);
+  TAB0 delzc2(outputs[11]);
+  TAB0 f1(outputs[12]);
+  TAB0 f2(outputs[13]);
+  TAB0 f3(outputs[14]);
+  TAB0 g1(outputs[15]);
+  TAB0 g2(outputs[16]);
+  TAB0 g3(outputs[17]);
+  TAB0 qes1(outputs[18]);
+  TAB0 qes2(outputs[19]);
+
+  //heun
+  TAB0 q1(outputs[20]);
+  TAB0 q2(outputs[21]);
+
+  Controller<double,2,false> ch(he.getDMatrix());
+  Controller<double,2,false> cu(ve1.getDMatrix());
+  Controller<double,2,false> cv(ve2.getDMatrix());
+  Controller<double,0,false> cq1(qe1.getDMatrix());
+  Controller<double,0,false> cq2(qe2.getDMatrix());
+  Controller<double,0,false> ch1g(h1g.getDMatrix());
+  Controller<double,0,false> ch1d(h1d.getDMatrix());
+  Controller<double,0,false> ch1l(h1l.getDMatrix());
+  Controller<double,0,false> ch1r(h1r.getDMatrix());
+  Controller<double,0,false> ch2g(h2g.getDMatrix());
+  Controller<double,0,false> ch2d(h2d.getDMatrix());
+  Controller<double,0,false> ch2l(h2l.getDMatrix());
+  Controller<double,0,false> ch2r(h2r.getDMatrix());
+  Controller<double,0,false> cdelzc1(delzc1.getDMatrix());
+  Controller<double,0,false> cdelzc2(delzc2.getDMatrix());
+  Controller<double,0,false> cf1(f1.getDMatrix());
+  Controller<double,0,false> cf2(f2.getDMatrix());
+  Controller<double,0,false> cf3(f3.getDMatrix());
+  Controller<double,0,false> cg1(g1.getDMatrix());
+  Controller<double,0,false> cg2(g2.getDMatrix());
+  Controller<double,0,false> cg3(g3.getDMatrix());
+    //Controller<double> crainm(rainm);
+    //Controller<double> cmcf(mcf);
+  Controller<double,2,false> chs(hes.getDMatrix());
+  Controller<double,0,false> cqs1(qes1.getDMatrix());
+  Controller<double,0,false> cqs2(qes2.getDMatrix());
+    //Controller<double> cRain(Rain);
+
+  //heun
+  Controller<double,2,false> chh(h.getDMatrix());
+  Controller<double,0,false> cqq1(q1.getDMatrix());
+  Controller<double,0,false> cqq2(q2.getDMatrix());
+
+    double tx=0.005;
+    double ty=0.005;
+    double dt=0.5;
+
+    int64_t yyq=cq1.start();
+    int64_t yy1=ch1r.start();
+    int64_t yy2=ch2r.start();
+    for(int64_t yy = ch.start(); yy<ch.height();yy++,yyq++,yy1++,yy2++)
+    {
+      int64_t xxq=cq1.start();
+      int64_t xx1=ch1r.start();
+      int64_t xx2=ch2r.start();
+      for(int64_t xx = ch.start();xx<ch.width(); xx++,xxq++,xx1++,xx2++)
+      {
+        chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1)) ;//+ cRain(xxq,yyq)*dt;
+        cqs1(xxq,yyq) = cq1(xxq,yyq)-tx*(cf2(xx1+1,yy1)-cf2(xx1,yy1)+grav_dem*(ch1d(xx1,yy1)*ch1d(xx1,yy1)-ch1r(xx1,yy1)*ch1r(xx1,yy1)
+          +ch1l(xx1+1,yy1)*ch1l(xx1+1,yy1)-ch1g(xx1+1,yy1)*ch1g(xx1+1,yy1)+(ch1r(xx1+1,yy1)+ch1l(xx1+1,yy1))*cdelzc1(xxq,yyq)))
+          -ty*(cg2(xx2,yy2)-cg2(xx2,yy2+1));
+        cqs2(xxq,yyq)= cq2(xxq,yyq)-tx*(cf3(xx1+1,yy1)-cf3(xx1,yy1))-ty*(cg3(xx2,yy2)-cg3(xx2,yy2+1)+grav_dem*(ch2d(xx2,yy2+1)
+          *ch2d(xx2,yy2+1)-ch2r(xx2,yy2+1)*ch2r(xx2,yy2+1)+ch2l(xx2,yy2)*ch2l(xx2,yy2)-ch2g(xx2,yy2)*ch2g(xx2,yy2)+(ch2r(xx2,yy2+1)
+          +ch2l(xx2,yy2))*cdelzc2(xxq,yyq)));
+        cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+
+        //heun
+        chh(xx,yy)=0.5*(chh(xx,yy)+chs(xx,yy));
+        cqq1(xxq,yyq)=0.5*(cqq1(xxq,yyq)+cqs1(xxq,yyq));
+        cqq2(xxq,yyq)=0.5*(cqq2(xxq,yyq)+cqs2(xxq,yyq));
+      }
+    }
+}
+END(bloc2_f2);
+//-------------------------------------------------------------------------------
+
 //BUNDARY
 //-------------------------------------------------------------------------------
 BEGINApplyListBlock(boundary_f,inputs,SCALAR,0,outputs,SCALAR,2)
@@ -327,33 +468,45 @@ BEGINApplyListBlock(boundary_f,inputs,SCALAR,0,outputs,SCALAR,2)
        }                                                                                                                                                                                           
       }
 
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+  ControllerPHBL<double,2,false> chl(he.getDMatrix());
+  ControllerPHBL<double,2,false> cul(ve1.getDMatrix());
+  ControllerPHBL<double,2,false> cvl(ve2.getDMatrix());
+
+    for(int64_t yy = chl.startHeight(); yy<chl.height();yy++)                                                                                                               
       {
-       for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+       for(int64_t xx = chl.startWidth();xx<chl.width(); xx++)
        {
-        ch(xx,yy) = ch(xx+1,yy);
-        cu(xx,yy) = -cu(xx+1,yy);
-        cv(xx,yy) = cv(xx+1,yy);
+        chl(xx,yy) = chl(xx+1,yy);
+        cul(xx,yy) = -cul(xx+1,yy);
+        cvl(xx,yy) = cvl(xx+1,yy);
        }                                                                                                                                                                                           
       }
 
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+  ControllerPHBR<double,2,false> chr(he.getDMatrix());
+  ControllerPHBR<double,2,false> cur(ve1.getDMatrix());
+  ControllerPHBR<double,2,false> cvr(ve2.getDMatrix());
+
+    for(int64_t yy = chr.startHeight(); yy<chr.height();yy++)                                                                                                               
       {
-       for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+       for(int64_t xx = chr.startWidth();xx<chr.width(); xx++)
        {
-        ch(xx,yy) = ch(xx-1,yy);
-        cu(xx,yy) = -cu(xx-1,yy);
-        cv(xx,yy) = cv(xx-1,yy);
+        chr(xx,yy) = chr(xx-1,yy);
+        cur(xx,yy) = -cur(xx-1,yy);
+        cvr(xx,yy) = cvr(xx-1,yy);
        }                                                                                                                                                                                           
       }
 
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+  ControllerPHBU<double,2,false> chu(he.getDMatrix());
+  ControllerPHBU<double,2,false> cuu(ve1.getDMatrix());
+  ControllerPHBU<double,2,false> cvu(ve2.getDMatrix());
+
+    for(int64_t yy = chu.startHeight(); yy<chu.height();yy++)                                                                                                               
       {
-       for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+       for(int64_t xx = chu.startWidth();xx<chu.width(); xx++)
        {
-        ch(xx,yy) = ch(xx,yy+1);
-        cu(xx,yy) = -cu(xx,yy+1);
-        cv(xx,yy) = cv(xx,yy+1);
+        chu(xx,yy) = chu(xx,yy+1);
+        cuu(xx,yy) = -cuu(xx,yy+1);
+        cvu(xx,yy) = cvu(xx,yy+1);
        }                                                                                                                                                                                           
        }
 

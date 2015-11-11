@@ -28,6 +28,7 @@ public:
     ControllerPHBL<double> cu(u);
     ControllerPHBL<double> cv(v);
     
+    //std::cout<<"max xx="<<ch.width()<<" et max yy="<<ch.height()<<std::endl;
     for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
       {
 	     for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
