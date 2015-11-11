@@ -4,103 +4,131 @@ This section gives formal definitions of a \textit{stencil program} and its comp
 %-------------------------------------
 \subsection{Time, mesh and data}
 
-A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $\Omega$ of a set of PDEs and is defined as follows. 
+$\Omega=\mathbb{R}^n$ is the continuous space domain of a numerical simulation. Any geo-referenced point in this space can be represented.
+
+A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $\Omega$ of a set of PDEs and is defined as follows.
 
 \begin{mydef}
-\textit{A mesh is a connected undirected graph $\mathcal{M}=(V,E)$, where $V\in \Omega$ is the set of vertices and $E\in V^2$ the set of edges. The set of edges $E$ of a mesh $\mathcal{M}=(V,E)$ does not contain bridges.}
+\textit{A mesh is a connected undirected graph $\mathcal{M}=(V,E)$, where $V\subset \Omega$ is the set of vertices and $E\subseteq V^2$ the set of edges. The set of edges $E$ of a mesh $\mathcal{M}=(V,E)$ does not contain bridges.}
 \end{mydef}
 \begin{figure}[!h]\begin{center}
   \resizebox{8cm}{!}{\includegraphics{./images/maillages.pdf}}
   \caption{From left to right, Cartesian, curvilinear and unstructured meshes.}
   \label{fig:mesh}
 \end{center}\end{figure}
-A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) and hybrid. 
+A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) and hybrid as illustrated in Figure~\ref{fig:mesh}.
 
-%\rmq{Pas très clair la suite; motivation? dom == some sub elements of M ?}
-For simulations, data is discretized based on the mesh; but for a given mesh, there are various ways of mapping the data depending on the mesh entities on which the data is applied.
-% \begin{mydef}
-% \todo{JB: vraiment, ta def dit que pour chaque couple (noeud, arete), tu associes un element de $D_i$ ...}
-% $D_i$ is a set of elements of a mesh $\mathcal{M}=(V,E)$, constructed by a function $dom_i$ which defines a precise association between $V$ and $E$, $dom_i : V \times E \rightarrow D_i$.
-% \end{mydef}
+\noindent \textbf{Definitions}
+%\begin{mydef}
+\begin{itemize}
+\item An entity $e$ of a mesh $\mathcal{M}=(V,E)$ is a subset of its vertices and edges, $e\subset (V\cup E)$. 
+\item The set of mesh entities, of a same given type, is denoted $E$ such that $E\subset \mathcal{P}(V\cup E)$. 
+\item Finally the set of mesh entities of a simulation is denoted $\mathcal{E}$.
+\end{itemize}
+%\end{mydef}
 
-\begin{mydef}
-%\todo{JB: def alternative}
-An entity $e$ of a mesh $\mathcal{M}=(V,E)$ is a subset of the mesh elements: $e\subset (V\cup E)$.
-A kind of mesh entities $E$ is a set of entities: $E\subset \mathcal{P}(V\cup E)$
-\end{mydef}
-For example, in a 2D Cartesian mesh a first kind of entities are the cells ($D_0$), they can be defined as all sets containing exactly four vertices and four edges connected as a cycle. Another kind of entities are the vertices ($D_1$) that can be defined as all singletons formed of a single vertex.
+For example, in a 2D Cartesian mesh a first kind of entities are the cells, they can be defined as all sets containing exactly four vertices and four edges connected as a cycle. Another kind of entities simply are the vertices ($V$) and can be defined as all singletons formed of a single vertex of $V$.
 
+\medskip
 This covers the space discretization, however another dimension manipulated in simulations that has to be discretized is the time dimension.
-\begin{mydef}
-The discretization of the continuous time domain $\mathcal{T}$ is denoted $T$ such that $\forall\mbox{ }t_i\mbox{, }t_{i+1} \in T\mbox{, }\exists\mbox{ }\Delta t \in \mathbb{R}$\mbox{, }$t_{i+1} = t_i + \Delta t$.
-\end{mydef}
-$T$ is responsible for the iteration time steps of the numerical simulation. 
+
+\noindent \textbf{Definitions}
+%\begin{mydef}
+\begin{itemize}
+\item $\mathcal{T}=\mathbb{R}$ is the continuous time domain of a numerical simulation.
+\item The discretization of the continuous time domain $\mathcal{T}$ is denoted $T$ such that $\forall\mbox{ }t_i\mbox{, }t_{i+1} \in T\mbox{, }\exists\mbox{ }\Delta t \in \mathbb{R}$\mbox{, }$t_{i+1} = t_i + \Delta t$.
+\end{itemize}
+%\end{mydef}
+
+$T$ is responsible for the iteration time steps of the numerical simulation. A numerical simulation though does not run forever and must be stopped at some point. Some simulations choose a fix number of time iteration, others compute a \emph{convergence} criteria at the end of each time iteration to determine if the simulation has to continue. A convergence criteria is computed by a reduction computation that will be detailed in the next section.
 
 In a numerical simulation a set of data elements, or quantities, are applied onto the mesh and represent the set of values to compute, or to use, for computation.
-\begin{mydef}
-A quantity is a function $\delta: E_{\delta} \mapsto V_{\delta}$ which associates each entity of its definition domain $e\in E_{\delta}$ to a value $v\in V_{\delta}$ where $V_{\delta}$ is the data type, typically $\mathbb{R}$ or $\mathbb{C}$.
-The set of quantities applied on the mesh is denoted $\Delta$.
-In the rest of this paper, the entities on which a quantity $\delta$ is mapped is denoted $entity(\delta)=E_{\delta}$.
-\end{mydef}
+
+\noindent \textbf{Definitions}
+%\begin{mydef}
+\begin{itemize}
+\item A quantity is a function $\delta: E_{\delta} \mapsto V_{\delta}$ which associates each entity of a type $e\in E_{\delta}$ to a value $v\in V_{\delta}$ where $V_{\delta}$ is the data type, typically $\mathbb{R}$ or $\mathbb{C}$.
+\item The set of quantities applied onto the mesh is denoted $\Delta$.
+\item In the rest of this paper, the type of mesh entities on which a quantity $\delta$ is mapped is denoted $entity(\delta)=E_{\delta}$.
+\end{itemize}
+%\end{mydef}
+
 Another approach closer to that taken in applied mathematics would have been to define $\delta$ functions over $E_{\delta} \times T$; however the approach chosen in this paper where a distinct function is defined for each time-step better matches the implementation of numerical simulations where the outer loop iterates over time and where only a few time-steps of quantity values are stored.
 
 %-----------------------
 \subsection{Computations}
 
-\begin{mydef}
-A numerical expression $\text{exp}_{w}: entity(w)\times R\mapsto V_{w}$ is a function that computes the value of a quantity $w(e)$ (written quantity) for a given entity $e \in entity(w)=E$, using the set of its input data $R=\{e_{1}, e_{2}, ...\} \subset \Delta$ (read quantities). It is defined as $\text{exp}_{w}(e,r) \rightarrow w(e)$.
-\todo{JB: tu n'introduis pas la notion de stencil ici?}
-\end{mydef}
+In this section are considered two different types of computations, a reduction or a numerical kernel. 
 
-\begin{mydef}
-A computation kernel $k$ of a numerical simulation is defined as $k(R,w,\text{exp})$, where $R \subset \Delta, w \in \Delta$ and $\text{exp}$ a numerical expression. %$D$ is one of the subsets $D_i \subset \mathcal{M}$, such that $w : D \rightarrow V$.
-\end{mydef}
-% It has to be noticed that at each time iteration, all the values of a quantity are computed. However, it happens that computations of the quantity is split in different domains, as for example the computation of the physical border. In this case additional $D_i$ can be specified for the mesh $\mathcal{M}$.
-% \todo{JB: je comprends pas vraiment...}
-
-\begin{mydef}
-The set of $n$ ordered computations of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i \leq j$, then $k_i$ is computed before $k_j$, and $k_j$ can be computed when $k_i$ is finished.
-%\todo{JB: je dirais que $c_j$ peut etre calculé quand $c_j$ l'est, j'eleverais le "only", c'est justement parce qu'il n'y a pas le only que tu peux faire du task parallelism}
-\end{mydef}
-
-%JB: fin de relecture
-
-\begin{mydef}
-A \textit{multi-stencil program} is defined by the sextuplet $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta,\Gamma)$.
-\end{mydef}
+\noindent \textbf{Definitions}
+%\begin{mydef}
+\begin{itemize}
+\item A computation domain $D$ is a subpart of mesh entities of a given type, $D \subset E \in \mathcal{E}$.
+\item The set of computation domains of a numerical simulation is denoted $\mathcal{D}$.
+\item A neighborhood $n$ is a function which for a given entity $e \in E_i$, returns a set of $m$ entities in $E_j$, $n : E_i \rightarrow E_j^m$. It is possible that $E_i = E_j$.
+\item The set of neihborhood functions in a numerical simulation is denoted $\mathcal{N}$.
+\item A set of data to read and used in a computation is denoted $R \subset \Delta \times \mathcal{N}$. It is the set of pairs $(r,n)$, where $r \in \Delta$ and $n$ is a neighborhood function such that $n : E_i \rightarrow entity(r)^m$.
+\item A numerical expression $\text{exp}_{w}: entity(w) \times R \rightarrow V_{w}$ is a function that computes the value of the written quantity $w \in \Delta$ for a given entity $e \in entity(w)=E$, using a set of input data $R$.
+\item A computation kernel $k$ of a numerical simulation is defined as $k(R,w,\text{exp},D)$, where $R \subset \Delta \times \mathcal{N}$ is the set of data read, $w \in \Delta$ is the unique data written, $\text{exp}$ is a numerical expression, and $D \in \mathcal{D}$.
+\end{itemize}
+%\end{mydef}
 %If the number of computations in $\Gamma$ is $card(\Gamma)=n$, such that $\bigcup_{i=0}^{n-1}c_i = \Gamma$, then $\bigcup_{i=0}^{m-1}R_i \cup w_i \subseteq \Delta$.
 
-As already mentioned, the ordered list $\Gamma$ can be composed of two different types of computations, stencil and local computations, which will be defined in the rest of this Section.
+Most of the time we can dissociate two types of kernel computations.
 
-\begin{mydef}
-The neighborhood $\mathcal{N}$ of an element $d \in D_i$ is a function to obtain a set of elements in any $D_k \subset \mathcal{M}$, $\mathcal{N} : D_i \rightarrow D_k \times D_k \times \dots$.
-\end{mydef}
-The function $\mathcal{N}$ is also sometimes called the \textit{stencil shape}, or the \textit{stencil} in applied mathematics. In this paper we distinguish a stencil shape from a \textit{stencil computation} defined as followed:
+\noindent \textbf{Definitions}
+%\begin{mydef}
+\begin{itemize}
+\item We denote by $identity$ the identity function $x=x$.
+\item A kernel computation $k(R,w,\text{exp},D) \in \Gamma$ is a stencil kernel $\iff \exists (r,n) \in R$ such that $n \neq identity$.
+\item A kernel computation $k(R,w,\text{exp},D) \in \Gamma$ is a local kernel $\iff \forall (r,n) \in R$, $n = identity$.
+\item The set of $n$ ordered computations of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i \leq j$, then $k_i$ is computed before $k_j$.
+\end{itemize}
 
-\begin{mydef}
-A \textit{stencil computation} is defined as a quadruplet $s(R,w,\text{exp},\mathcal{N})$, where $R \subset \Delta$, and $w : D \rightarrow V \in \Delta$.
-\end{mydef}
-In a stencil computation $s$, $\forall d \in D$, the stencil numerical expression $\text{exp}$ is applied such that $w(d) = \text{exp}(R(d),R(\mathcal{N}(d))$. In this work, a stencil computation $s(R,w,\text{exp},\mathcal{N})$ always verifies $R \cap \{w\} = \emptyset$, otherwize an implicit numerical scheme has to be solve which is over the scope of this paper. As a result, the ordered list $\Gamma$ of a multi-stencil program can be composed of a set of stencil computations applied on one or more stencil shapes.
+A reduction computation is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be performed during a time iteration. This last usage is typically done to place a conditionnal branch to chose one computation or another. This paper only study the use of reduction computations as convergence citerion.
 
-Figure~\ref{fig:ex} gives an example of a stencil computation $s(R,w,\text{exp},\mathcal{N})$, where $\mathcal{M}(V,E)$ is a two dimensional Cartesian mesh. A single domain $D=dom(w)$ is defined in this example and is composed of cells formed by a cycle of four vertices $v \in V$ and four edges $e \in E$. Furthermore, in this example $R=\{A\}$, $w=B$, and for $(x,y) \in D$ the neighborhood function is 
+\noindent \textbf{Definitions}
+%\begin{mydef}
+\begin{itemize}
+\item A reduction computation is defined as the triplet $red(R,)$
+\item ...
+\item A \textit{multi-stencil program} is defined by the sextuplet $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta,\Gamma)$.
+\end{itemize}
+%\end{mydef}
+
+
+For example, in Figure~\ref{fig:ex1}, assuming the computation domain (full lines) is denoted $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
 \begin{equation*}
-\mathcal{N} : (x,y) \rightarrow \{(x,y+1),(x,y-1),(x+1,y),(x-1,y)\}.
+R: \{(B,n1)\}, \quad w: A, \quad d: dc1,
 \end{equation*}
-Finally, the numerical expression of this example is 
 \begin{equation*}
-\text{exp}(A(x,y),A(\mathcal{N}(x,y)) = B(x,y) = A(x,y)+(A(x,y+1)+A(x,y-1)+A(x+1,y)+A(x-1,y))/4.
+exp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
+\end{equation*}
+On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel is defined as:
+\begin{equation*}
+R: \{(C,n2),(A,identity)\}, \quad w: A, \quad d: dc2,
+\end{equation*}
+\begin{equation*}
+exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
 
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{./images/example.pdf}}
-  \caption{Example of a stencil computation.}
-  \label{fig:ex}
-\end{center}\end{figure}
-
-The second type of numerical computation is a local computation.
-\begin{mydef}
-A local computation is a triplet $l(R,w,\text{exp})$, where $exp$ does not involve a neighborhood function $\mathcal{N}$.
-\end{mydef}
+\begin{figure}
+\begin{center}
+\subfloat[Mesh and mesh domains.\label{fig:mesh}]{
+\resizebox{8cm}{!}{\includegraphics{./images/mesh.pdf}}
+}\\
+\hspace{10pt}
+\subfloat[4-neighborhood stencil.\label{fig:ex1}]{
+\resizebox{5cm}{!}{\includegraphics{./images/stencil1.pdf}}
+}
+\vspace{20pt}
+\subfloat[4-neighborhood stencil.\label{fig:ex2}]{
+\resizebox{5cm}{!}{\includegraphics{./images/stencil2.pdf}}
+}
+\end{center}
+\caption{(a) a Cartesian mesh and two kind of mesh entities, (b) an example of stencil kernel on cells, (c) an example of stencil kernel on two different entities of the mesh.}
+\label{fig:gspmsp}
+\end{figure}
 
 A stencil program and stencil and local computations have been formally defined in this section. This formalism is used in the next Section to define two parallelization techniques of a multi-stencil program.
 

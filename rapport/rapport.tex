@@ -28,6 +28,8 @@
 \usepackage{caption}
 \usepackage{cite}
 \usepackage{todonotes}
+\usepackage{filecontents}
+\usepackage{listings}
 %%\usepackage[frenchb]{babel} % optionnel
 \RRNo{7003}
 %% \RTNo{0703}
@@ -182,29 +184,29 @@ abstract }
 \section{Introduction}
 \label{sect:introduction}
 %------------------------------------------------------------------------------
-\section{Computational model of multi-stencil programs}
+\section{Computational model of Multi-Stencil Programs}
 \label{sect:formalism}
 \input{formalism.tex}
 %------------------------------------------------------------------------------
-\section{Parallelization of multi-stencil programs}
+\section{The Multi-Stencil Language}
+\label{sect:msl}
+\input{msl.tex}
+%------------------------------------------------------------------------------
+\section{Parallelization of Multi-Stencil Programs}
 \label{sect:parallelism}
 \input{parallelism.tex}
 %------------------------------------------------------------------------------
-\section{Series-parallel graphs and tree decompositions}
+\section{Static Scheduling}
 \label{sect:msp}
 \input{msp.tex}
 %------------------------------------------------------------------------------
-% \section{Component models}
-% \label{sect:component}
-% \input{component.tex}
+\section{Component-Based Runtime}
+\label{sect:component}
+\input{component.tex}
 %------------------------------------------------------------------------------
-% \section{Component Stencil Language}
-% \label{sect:csl}
-% \input{csl.tex}
-%------------------------------------------------------------------------------
-% \section{Evaluation}
-% \label{sect:eval}
-%\input{evaluation.tex}
+\section{Evaluation}
+\label{sect:eval}
+\input{evaluation.tex}
 %------------------------------------------------------------------------------
 \section{Related work}
 \label{sect:rel}
