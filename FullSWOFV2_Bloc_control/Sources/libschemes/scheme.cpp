@@ -63,6 +63,7 @@ void scheme:: bloc1(SCALAR & flux_left_tmp, SCALAR & flux_right_tmp, SCALAR & fl
   outputs.push_back(f2);
   outputs.push_back(f3);
   ApplyList<SCALAR,0,SCALAR,0,false>::apply(bloc1x_f,inputs,outputs);
+  ApplyList<SCALAR,0,SCALAR,0,false>::apply(bloc1x_f2,inputs,outputs);
 
   inputs.clear();
   outputs.clear();
@@ -79,6 +80,7 @@ void scheme:: bloc1(SCALAR & flux_left_tmp, SCALAR & flux_right_tmp, SCALAR & fl
   outputs.push_back(g2);
   outputs.push_back(g3);
   ApplyList<SCALAR,0,SCALAR,0,false>::apply(bloc1y_f,inputs,outputs);
+  ApplyList<SCALAR,0,SCALAR,0,false>::apply(bloc1y_f2,inputs,outputs);
 }
 
 void scheme:: bloc2(TAB & he, TAB & ve1, TAB & ve2, TAB0 & qe1, TAB0 & qe2, TAB & hes, TAB0 & qes1, TAB0 & qes2, TAB & us, TAB & vs) {

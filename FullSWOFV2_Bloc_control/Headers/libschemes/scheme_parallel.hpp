@@ -26,16 +26,16 @@ BEGINApplyListBlock(bloc1x_f,inputs,SCALAR,0,outputs,SCALAR,0)
 
   Controller<double,0,false> ch1l(h1l.getDMatrix());
   Controller<double,0,false> ch1r(h1r.getDMatrix());
-  Controller<double,0,false> cu1l(u1l.getDMatrix());
+  /*Controller<double,0,false> cu1l(u1l.getDMatrix());
   Controller<double,0,false> cu1r(u1r.getDMatrix());
   Controller<double,0,false> cv1l(v1l.getDMatrix());
-  Controller<double,0,false> cv1r(v1r.getDMatrix());
+  Controller<double,0,false> cv1r(v1r.getDMatrix());*/
   Controller<double,0,false> cdelz1(delz1.getDMatrix());
   Controller<double,0,false> ch1g(h1g.getDMatrix());
   Controller<double,0,false> ch1d(h1d.getDMatrix());
-  Controller<double,0,false> cf1(f1.getDMatrix());
+  /*Controller<double,0,false> cf1(f1.getDMatrix());
   Controller<double,0,false> cf2(f2.getDMatrix());
-  Controller<double,0,false> cf3(f3.getDMatrix());
+  Controller<double,0,false> cf3(f3.getDMatrix());*/
 
     for(int64_t yy = ch1l.start(); yy<ch1l.height();yy++)
     {
@@ -43,22 +43,22 @@ BEGINApplyListBlock(bloc1x_f,inputs,SCALAR,0,outputs,SCALAR,0)
       {
         ch1g(xx,yy)=max(0.,ch1l(xx,yy)-max(0.,cdelz1(xx,yy)));
         ch1d(xx,yy)=max(0.,ch1r(xx,yy)-max(0.,-cdelz1(xx,yy)));
-        if (ch1g(xx,yy)<=0. && ch1d(xx,yy)<=0.)
-        {
-          cf1(xx,yy)=0.;
-          cf2(xx,yy)=0.;
-          cf3(xx,yy)=0.;
-        }
-        else
-        {
-          double c = max(fabs(cu1l(xx,yy))+sqrt(grav*ch1g(xx,yy)),fabs(cu1r(xx,yy))+sqrt(grav*ch1d(xx,yy)));
-          double cd = c*0.5;
-          double qd = cu1r(xx,yy)*ch1d(xx,yy);
-          double qg = cu1l(xx,yy)*ch1g(xx,yy);
-          cf1(xx,yy)=(qg+qd)*0.5-cd*(ch1d(xx,yy)-ch1g(xx,yy));
-          cf2(xx,yy)=((cu1l(xx,yy)*qg)+(grav_dem*ch1g(xx,yy)*ch1g(xx,yy))+(cu1r(xx,yy)*qd)+(grav_dem*ch1d(xx,yy)*ch1d(xx,yy)))*0.5-cd*(qd-qg);
-          cf3(xx,yy)=(qg*cv1l(xx,yy)+qd*cv1r(xx,yy))*0.5-cd*(ch1d(xx,yy)*cv1r(xx,yy)-ch1g(xx,yy)*cv1l(xx,yy));
-        }
+        // if (ch1g(xx,yy)<=0. && ch1d(xx,yy)<=0.)
+        // {
+        //   cf1(xx,yy)=0.;
+        //   cf2(xx,yy)=0.;
+        //   cf3(xx,yy)=0.;
+        // }
+        // else
+        // {
+        //   double c = max(fabs(cu1l(xx,yy))+sqrt(grav*ch1g(xx,yy)),fabs(cu1r(xx,yy))+sqrt(grav*ch1d(xx,yy)));
+        //   double cd = c*0.5;
+        //   double qd = cu1r(xx,yy)*ch1d(xx,yy);
+        //   double qg = cu1l(xx,yy)*ch1g(xx,yy);
+        //   cf1(xx,yy)=(qg+qd)*0.5-cd*(ch1d(xx,yy)-ch1g(xx,yy));
+        //   cf2(xx,yy)=((cu1l(xx,yy)*qg)+(grav_dem*ch1g(xx,yy)*ch1g(xx,yy))+(cu1r(xx,yy)*qd)+(grav_dem*ch1d(xx,yy)*ch1d(xx,yy)))*0.5-cd*(qd-qg);
+        //   cf3(xx,yy)=(qg*cv1l(xx,yy)+qd*cv1r(xx,yy))*0.5-cd*(ch1d(xx,yy)*cv1r(xx,yy)-ch1g(xx,yy)*cv1l(xx,yy));
+        // }
       }
     }
 
@@ -91,9 +91,155 @@ BEGINApplyListBlock(bloc1x_f,inputs,SCALAR,0,outputs,SCALAR,0)
 END(bloc1x_f);
 //-------------------------------------------------------------------------------
 
+//-------------------------------------------------------------------------------
+BEGINApplyListBlock(bloc1x_f2,inputs,SCALAR,0,outputs,SCALAR,0)
+//-------------------------------------------------------------------------------
+{
+  //std::cout<<"BLOC1 X------------"<<std::endl;
+
+  TAB0 h1l(inputs[0]);
+  TAB0 h1r(inputs[1]);
+  TAB0 u1l(inputs[2]);
+  TAB0 u1r(inputs[3]);
+  TAB0 v1l(inputs[4]);
+  TAB0 v1r(inputs[5]);
+  TAB0 delz1(inputs[6]);
+
+  TAB0 h1g(outputs[0]);
+  TAB0 h1d(outputs[1]);
+  TAB0 f1(outputs[2]);
+  TAB0 f2(outputs[3]);
+  TAB0 f3(outputs[4]);
+
+  Controller<double,0,false> ch1l(h1l.getDMatrix());
+  Controller<double,0,false> ch1r(h1r.getDMatrix());
+  Controller<double,0,false> cu1l(u1l.getDMatrix());
+  Controller<double,0,false> cu1r(u1r.getDMatrix());
+  Controller<double,0,false> cv1l(v1l.getDMatrix());
+  Controller<double,0,false> cv1r(v1r.getDMatrix());
+  Controller<double,0,false> cdelz1(delz1.getDMatrix());
+  Controller<double,0,false> ch1g(h1g.getDMatrix());
+  Controller<double,0,false> ch1d(h1d.getDMatrix());
+  Controller<double,0,false> cf1(f1.getDMatrix());
+  Controller<double,0,false> cf2(f2.getDMatrix());
+  Controller<double,0,false> cf3(f3.getDMatrix());
+
+    for(int64_t yy = ch1l.start(); yy<ch1l.height();yy++)
+    {
+      for(int64_t xx = ch1l.start();xx<ch1l.width(); xx++)
+      {
+        if (ch1g(xx,yy)<=0. && ch1d(xx,yy)<=0.)
+        {
+          cf1(xx,yy)=0.;
+          cf2(xx,yy)=0.;
+          cf3(xx,yy)=0.;
+        }
+        else
+        {
+          double c = max(fabs(cu1l(xx,yy))+sqrt(grav*ch1g(xx,yy)),fabs(cu1r(xx,yy))+sqrt(grav*ch1d(xx,yy)));
+          double cd = c*0.5;
+          double qd = cu1r(xx,yy)*ch1d(xx,yy);
+          double qg = cu1l(xx,yy)*ch1g(xx,yy);
+          cf1(xx,yy)=(qg+qd)*0.5-cd*(ch1d(xx,yy)-ch1g(xx,yy));
+          cf2(xx,yy)=((cu1l(xx,yy)*qg)+(grav_dem*ch1g(xx,yy)*ch1g(xx,yy))+(cu1r(xx,yy)*qd)+(grav_dem*ch1d(xx,yy)*ch1d(xx,yy)))*0.5-cd*(qd-qg);
+          cf3(xx,yy)=(qg*cv1l(xx,yy)+qd*cv1r(xx,yy))*0.5-cd*(ch1d(xx,yy)*cv1r(xx,yy)-ch1g(xx,yy)*cv1l(xx,yy));
+        }
+      }
+    }
+}
+END(bloc1x_f2);
+//-------------------------------------------------------------------------------
+
 //BLOC1y
 //-------------------------------------------------------------------------------
 BEGINApplyListBlock(bloc1y_f,inputs,SCALAR,0,outputs,SCALAR,0)
+//-------------------------------------------------------------------------------
+{
+  //std::cout<<"BLOC1 Y------------"<<std::endl;
+
+  TAB0 h2l(inputs[0]);
+  TAB0 h2r(inputs[1]);
+  TAB0 u2l(inputs[2]);
+  TAB0 u2r(inputs[3]);
+  TAB0 v2l(inputs[4]);
+  TAB0 v2r(inputs[5]);
+  TAB0 delz2(inputs[6]);
+
+  TAB0 h2g(outputs[0]);
+  TAB0 h2d(outputs[1]);
+  TAB0 g1(outputs[2]);
+  TAB0 g2(outputs[3]);
+  TAB0 g3(outputs[4]);
+
+  Controller<double,0,false> ch2l(h2l.getDMatrix());
+  Controller<double,0,false> ch2r(h2r.getDMatrix());
+  /*Controller<double,0,false> cu2l(u2l.getDMatrix());
+  Controller<double,0,false> cu2r(u2r.getDMatrix());
+  Controller<double,0,false> cv2l(v2l.getDMatrix());
+  Controller<double,0,false> cv2r(v2r.getDMatrix());*/
+  Controller<double,0,false> cdelz2(delz2.getDMatrix());
+  Controller<double,0,false> ch2g(h2g.getDMatrix());
+  Controller<double,0,false> ch2d(h2d.getDMatrix());
+  /*Controller<double,0,false> cg1(g1.getDMatrix());
+  Controller<double,0,false> cg2(g2.getDMatrix());
+  Controller<double,0,false> cg3(g3.getDMatrix()); */
+
+    for(int64_t yy = ch2l.start(); yy<ch2l.height();yy++)
+    {
+      for(int64_t xx = ch2l.start();xx<ch2l.width(); xx++)
+      {
+        ch2g(xx,yy)=max(0.,ch2l(xx,yy)-max(0.,cdelz2(xx,yy)));
+        ch2d(xx,yy)=max(0.,ch2r(xx,yy)-max(0.,-cdelz2(xx,yy)));
+        // if (ch2g(xx,yy)<=0. && ch2d(xx,yy)<=0.)
+        // {
+        //   cg1(xx,yy)=0.;
+        //   cg2(xx,yy)=0.;
+        //   cg3(xx,yy)=0.;
+        // }
+        // else
+        // {
+        //   double c = max(fabs(cu2l(xx,yy))+sqrt(grav*ch2g(xx,yy)),fabs(cu2r(xx,yy))+sqrt(grav*ch2d(xx,yy)));
+        //   double cd = c*0.5;
+        //   double qd = cu2r(xx,yy)*ch2d(xx,yy);
+        //   double qg = cu2l(xx,yy)*ch2g(xx,yy);
+        //   cg1(xx,yy)=(qg+qd)*0.5-cd*(ch2d(xx,yy)-ch2g(xx,yy));
+        //   cg2(xx,yy)=((cu2l(xx,yy)*qg)+(grav_dem*ch2g(xx,yy)*ch2g(xx,yy))+(cu2r(xx,yy)*qd)+(grav_dem*ch2d(xx,yy)*ch2d(xx,yy)))*0.5-cd*(qd-qg);
+        //   cg3(xx,yy)=(qg*cv2l(xx,yy)+qd*cv2r(xx,yy))*0.5-cd*(ch2d(xx,yy)*cv2r(xx,yy)-ch2g(xx,yy)*cv2l(xx,yy));
+        // }
+      }
+    }
+
+  // iTAB0 it = h2l.begin();
+  // iTAB0 itEnd = h2l.end();
+
+  // parameters * par = parameters::getSingleton();
+  // hydrostatic * rec_hydro = hydrostatic::getSingleton();
+  // choice_flux * flux_num = choice_flux::getSingleton(par->get_flux());
+
+  // SCALAR cfl_fix = par->get_cflfix();
+  // SCALAR cfl = 0;
+  // SCALAR ty = par->get_dtfix()/par->get_dy();
+
+  // for(; it<=itEnd; ++it) {
+  //   rec_hydro->calcul(h2l[it],h2r[it],delz2[it]);
+  //   h2g[it]=rec_hydro->hg();
+  //   h2d[it]=rec_hydro->hd();
+  //   flux_num->calcul(h2g[it],v2l[it],u2l[it],h2d[it],v2r[it],u2r[it]);
+  //   g1[it]=flux_num->get_f1();
+  //   g3[it]=flux_num->get_f2();
+  //   g2[it]=flux_num->get_f3();
+
+  //   cfl=max(cfl,flux_num->get_cfl());
+  // }
+
+  // if(cfl*ty>cfl_fix)
+  //   std::cout<<"cfl conditioin is not satisfied in y"<<std::endl;
+}
+END(bloc1y_f);
+//-------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------
+BEGINApplyListBlock(bloc1y_f2,inputs,SCALAR,0,outputs,SCALAR,0)
 //-------------------------------------------------------------------------------
 {
   //std::cout<<"BLOC1 Y------------"<<std::endl;
@@ -129,8 +275,6 @@ BEGINApplyListBlock(bloc1y_f,inputs,SCALAR,0,outputs,SCALAR,0)
     {
       for(int64_t xx = ch2l.start();xx<ch2l.width(); xx++)
       {
-        ch2g(xx,yy)=max(0.,ch2l(xx,yy)-max(0.,cdelz2(xx,yy)));
-        ch2d(xx,yy)=max(0.,ch2r(xx,yy)-max(0.,-cdelz2(xx,yy)));
         if (ch2g(xx,yy)<=0. && ch2d(xx,yy)<=0.)
         {
           cg1(xx,yy)=0.;
@@ -149,34 +293,8 @@ BEGINApplyListBlock(bloc1y_f,inputs,SCALAR,0,outputs,SCALAR,0)
         }
       }
     }
-
-  // iTAB0 it = h2l.begin();
-  // iTAB0 itEnd = h2l.end();
-
-  // parameters * par = parameters::getSingleton();
-  // hydrostatic * rec_hydro = hydrostatic::getSingleton();
-  // choice_flux * flux_num = choice_flux::getSingleton(par->get_flux());
-
-  // SCALAR cfl_fix = par->get_cflfix();
-  // SCALAR cfl = 0;
-  // SCALAR ty = par->get_dtfix()/par->get_dy();
-
-  // for(; it<=itEnd; ++it) {
-  //   rec_hydro->calcul(h2l[it],h2r[it],delz2[it]);
-  //   h2g[it]=rec_hydro->hg();
-  //   h2d[it]=rec_hydro->hd();
-  //   flux_num->calcul(h2g[it],v2l[it],u2l[it],h2d[it],v2r[it],u2r[it]);
-  //   g1[it]=flux_num->get_f1();
-  //   g3[it]=flux_num->get_f2();
-  //   g2[it]=flux_num->get_f3();
-
-  //   cfl=max(cfl,flux_num->get_cfl());
-  // }
-
-  // if(cfl*ty>cfl_fix)
-  //   std::cout<<"cfl conditioin is not satisfied in y"<<std::endl;
 }
-END(bloc1y_f);
+END(bloc1y_f2);
 //-------------------------------------------------------------------------------
 
 //BLOC2
