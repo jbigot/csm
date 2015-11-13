@@ -5,8 +5,8 @@ import copy
 from string import Template
 
 nb_proc = 1
-size_x=5000
-size_y=5000
+size_x=500
+size_y=500
 iteration=1
 
 tempProcF = open("template_process.xml",'r')

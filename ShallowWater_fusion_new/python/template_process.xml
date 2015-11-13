@@ -1303,46 +1303,46 @@
 			</instance>
 			<instance id="limhl_limul_limvl_1_$proc" type="Klimhl_limul_limvl">
 				<property id="h">
-					<cppref instance="h_$proc" property="services"/>
+					<cppref instance="hs_$proc" property="services"/>
 				</property>
 				<property id="u">
-					<cppref instance="u_$proc" property="services"/>
+					<cppref instance="us_$proc" property="services"/>
 				</property>
 				<property id="v">
-					<cppref instance="v_$proc" property="services"/>
+					<cppref instance="vs_$proc" property="services"/>
 				</property>
 			</instance>
 			<instance id="limhr_limur_limvr_1_$proc" type="Klimhr_limur_limvr">
 				<property id="h">
-					<cppref instance="h_$proc" property="services"/>
+					<cppref instance="hs_$proc" property="services"/>
 				</property>
 				<property id="u">
-					<cppref instance="u_$proc" property="services"/>
+					<cppref instance="us_$proc" property="services"/>
 				</property>
 				<property id="v">
-					<cppref instance="v_$proc" property="services"/>
+					<cppref instance="vs_$proc" property="services"/>
 				</property>
 			</instance>
 			<instance id="limhu_limuu_limvu_1_$proc" type="Klimhu_limuu_limvu">
 				<property id="h">
-					<cppref instance="h_$proc" property="services"/>
+					<cppref instance="hs_$proc" property="services"/>
 				</property>
 				<property id="u">
-					<cppref instance="u_$proc" property="services"/>
+					<cppref instance="us_$proc" property="services"/>
 				</property>
 				<property id="v">
-					<cppref instance="v_$proc" property="services"/>
+					<cppref instance="vs_$proc" property="services"/>
 				</property>
 			</instance>
 			<instance id="limhd_limud_limvd_1_$proc" type="Klimhd_limud_limvd">
 				<property id="h">
-					<cppref instance="h_$proc" property="services"/>
+					<cppref instance="hs_$proc" property="services"/>
 				</property>
 				<property id="u">
-					<cppref instance="u_$proc" property="services"/>
+					<cppref instance="us_$proc" property="services"/>
 				</property>
 				<property id="v">
-					<cppref instance="v_$proc" property="services"/>
+					<cppref instance="vs_$proc" property="services"/>
 				</property>
 			</instance>
 			<instance id="Sync1_$proc" type="Sync">

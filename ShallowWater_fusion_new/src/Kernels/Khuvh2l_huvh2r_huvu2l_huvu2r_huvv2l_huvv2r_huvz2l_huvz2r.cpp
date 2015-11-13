@@ -82,11 +82,11 @@ public:
     //other lines
     int64_t yy2l = ch2l.start();
     int64_t yy2r = ch2r.start()+1;
-    for(int64_t yy = ch.start()+1; yy<ch.height()-1;yy++,yy2l++)//,yy2r++)
+    for(int64_t yy = ch.start()+1; yy<ch.height()-1;yy++,yy2l++,yy2r++)
     {
       int64_t xx2l = ch2l.start();
       int64_t xx2r = ch2r.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++,xx2l++)//,xx2r++)
+      for(int64_t xx = ch.start();xx<ch.width(); xx++,xx2l++,xx2r++)
       {
         dh1 = ch(xx,yy)-ch(xx,yy+1);
         du1 = cu(xx,yy)-cu(xx,yy+1);

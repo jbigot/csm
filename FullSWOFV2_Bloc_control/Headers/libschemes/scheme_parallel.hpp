@@ -111,22 +111,22 @@ BEGINApplyListBlock(bloc1x_f2,inputs,SCALAR,0,outputs,SCALAR,0)
   TAB0 f2(outputs[3]);
   TAB0 f3(outputs[4]);
 
-  Controller<double,0,false> ch1l(h1l.getDMatrix());
-  Controller<double,0,false> ch1r(h1r.getDMatrix());
+  //Controller<double,0,false> ch1l(h1l.getDMatrix());
+  //Controller<double,0,false> ch1r(h1r.getDMatrix());
   Controller<double,0,false> cu1l(u1l.getDMatrix());
   Controller<double,0,false> cu1r(u1r.getDMatrix());
   Controller<double,0,false> cv1l(v1l.getDMatrix());
   Controller<double,0,false> cv1r(v1r.getDMatrix());
-  Controller<double,0,false> cdelz1(delz1.getDMatrix());
+  //Controller<double,0,false> cdelz1(delz1.getDMatrix());
   Controller<double,0,false> ch1g(h1g.getDMatrix());
   Controller<double,0,false> ch1d(h1d.getDMatrix());
   Controller<double,0,false> cf1(f1.getDMatrix());
   Controller<double,0,false> cf2(f2.getDMatrix());
   Controller<double,0,false> cf3(f3.getDMatrix());
 
-    for(int64_t yy = ch1l.start(); yy<ch1l.height();yy++)
+  for(int64_t yy = cu1l.start(); yy<cu1l.height();yy++)
     {
-      for(int64_t xx = ch1l.start();xx<ch1l.width(); xx++)
+      for(int64_t xx = cu1l.start();xx<cu1l.width(); xx++)
       {
         if (ch1g(xx,yy)<=0. && ch1d(xx,yy)<=0.)
         {
@@ -258,23 +258,22 @@ BEGINApplyListBlock(bloc1y_f2,inputs,SCALAR,0,outputs,SCALAR,0)
   TAB0 g2(outputs[3]);
   TAB0 g3(outputs[4]);
 
-  Controller<double,0,false> ch2l(h2l.getDMatrix());
-  Controller<double,0,false> ch2r(h2r.getDMatrix());
+  //Controller<double,0,false> ch2l(h2l.getDMatrix());
+  //Controller<double,0,false> ch2r(h2r.getDMatrix());
   Controller<double,0,false> cu2l(u2l.getDMatrix());
   Controller<double,0,false> cu2r(u2r.getDMatrix());
   Controller<double,0,false> cv2l(v2l.getDMatrix());
   Controller<double,0,false> cv2r(v2r.getDMatrix());
-  Controller<double,0,false> cdelz2(delz2.getDMatrix());
+  //Controller<double,0,false> cdelz2(delz2.getDMatrix());
   Controller<double,0,false> ch2g(h2g.getDMatrix());
   Controller<double,0,false> ch2d(h2d.getDMatrix());
   Controller<double,0,false> cg1(g1.getDMatrix());
   Controller<double,0,false> cg2(g2.getDMatrix());
   Controller<double,0,false> cg3(g3.getDMatrix()); 
 
-    for(int64_t yy = ch2l.start(); yy<ch2l.height();yy++)
+  for(int64_t yy = cu2l.start(); yy<cu2l.height();yy++)
     {
-      for(int64_t xx = ch2l.start();xx<ch2l.width(); xx++)
-      {
+      for(int64_t xx = cu2l.start();xx<cu2l.width(); xx++)
         if (ch2g(xx,yy)<=0. && ch2d(xx,yy)<=0.)
         {
           cg1(xx,yy)=0.;
@@ -291,7 +290,6 @@ BEGINApplyListBlock(bloc1y_f2,inputs,SCALAR,0,outputs,SCALAR,0)
           cg2(xx,yy)=((cu2l(xx,yy)*qg)+(grav_dem*ch2g(xx,yy)*ch2g(xx,yy))+(cu2r(xx,yy)*qd)+(grav_dem*ch2d(xx,yy)*ch2d(xx,yy)))*0.5-cd*(qd-qg);
           cg3(xx,yy)=(qg*cv2l(xx,yy)+qd*cv2r(xx,yy))*0.5-cd*(ch2d(xx,yy)*cv2r(xx,yy)-ch2g(xx,yy)*cv2l(xx,yy));
         }
-      }
     }
 }
 END(bloc1y_f2);
