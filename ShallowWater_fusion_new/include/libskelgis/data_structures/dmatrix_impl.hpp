@@ -1270,17 +1270,18 @@ namespace skelgis{
 	  swphbL = 0; 
 	  wphbL = R;
 	  shphbL = R;
-	  hphbL = this->border_head.height-R;//border+(height-2*border);
+	  hphbL = this->border_head.height-2*R;//border+(height-2*border);
 	}
       else
 	swphbL = wphbL = shphbL = hphbL = 0;
 
       if(this->col==this->cols-1) //right
 	{
-	  swphbR = this->border_head.width-R;//border+(width-2*border); 
-	  wphbR = this->border_head.width;//border+(width-2*border)+border;
+	  swphbR = this->border_head.width-2*R;//border+(width-2*border); 
+	  //wphbR = this->border_head.width;//border+(width-2*border)+border;
+    wphbR = R;
 	  shphbR = R;
-	  hphbR = this->border_head.height-R;//border+(height-2*border);
+	  hphbR = this->border_head.height-2*R;//border+(height-2*border);
 	}
       else
 	swphbR = wphbR = shphbR = hphbR = 0;
@@ -1288,7 +1289,7 @@ namespace skelgis{
       if(this->row==0) //up
 	{
 	  swphbU = R; 
-	  wphbU = this->border_head.width-R;//border+(width-2*border);
+	  wphbU = this->border_head.width-2*R;//border+(width-2*border);
 	  shphbU = 0;
 	  hphbU = R;
 	}
@@ -1298,9 +1299,9 @@ namespace skelgis{
       if(this->row==this->rows-1) //down
 	{
 	  swphbD = R; 
-	  wphbD = this->border_head.width-R;//border+(width-2*border);
-	  shphbD = this->border_head.height-R;//border+(height-2*border);
-	  hphbD = this->border_head.height;
+	  wphbD = this->border_head.width-2*R;//border+(width-2*border);
+	  shphbD = this->border_head.height-2*R;//border+(height-2*border);
+	  hphbD = this->border_head.height-2*R;
 	}
       else
 	swphbD = wphbD = shphbD = hphbD = 0;

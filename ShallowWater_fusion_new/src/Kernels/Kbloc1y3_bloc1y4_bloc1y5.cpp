@@ -58,6 +58,9 @@ public:
         }
         else
         {
+          //std::cout<<"ch2g(xx,yy)="<<ch2g(xx,yy)<<std::endl;
+          //std::cout<<"ch2d(xx,yy)="<<ch2d(xx,yy)<<std::endl;
+
           double c = max(fabs(cu2l(xx,yy))+sqrt(grav*ch2g(xx,yy)),fabs(cu2r(xx,yy))+sqrt(grav*ch2d(xx,yy)));
           double cd = c*0.5;
           double qd = cu2r(xx,yy)*ch2d(xx,yy);

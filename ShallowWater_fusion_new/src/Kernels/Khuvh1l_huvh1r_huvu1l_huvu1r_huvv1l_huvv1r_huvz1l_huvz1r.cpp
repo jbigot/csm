@@ -93,6 +93,7 @@ public:
         hr = ch(xx,yy)+0.5*Minmod(dh1,dh2);
         hl = ch(xx,yy)-0.5*Minmod(dh1,dh2);
         ch1r(xx1,yy1)=hl;
+
         cu1r(xx1,yy1)=cu(xx,yy)-0.5*Minmod(du1,du2)*hr/ch(xx,yy);
         cv1r(xx1,yy1)=cv(xx,yy)-0.5*Minmod(dv1,dv2)*hr/ch(xx,yy);
         cz1r(xx1,yy1)=cz(xx,yy)-0.5*(Minmod(dz1+dh1,dz2+dh2)-Minmod(dh1,dh2));
@@ -115,6 +116,7 @@ public:
       dv2=ch(x+2,yy)-cv(x+1,yy);
       dz2=ch(x+2,yy)-cz(x+1,yy);
       ch1r(xx1,yy1) = ch(x+1,yy)+0.5*Minmod(dh1,dh2);
+
       cu1r(xx1,yy1) = cu(x+1,yy)+0.5*Minmod(du1,du2)*hl/ch(x+1,yy);
       cv1r(xx1,yy1) = cv(x+1,yy)+0.5*Minmod(dv1,dv2)*hl/ch(x+1,yy);
       cz1r(xx1,yy1) = cz(x+1,yy)+0.5*(Minmod(dz1+dh1,dz2+dh2)-Minmod(dh1,dh2));

@@ -32,6 +32,7 @@ public:
       {
 	     for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
 	     {
+        //std::cout<<"ch("<<xx<<","<<yy<<")="<<ch(xx,yy)<<std::endl;
 	     	ch(xx,yy) = ch(xx-1,yy);
         cu(xx,yy) = -cu(xx-1,yy);
         cv(xx,yy) = cv(xx-1,yy);
