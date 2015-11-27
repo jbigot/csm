@@ -66,7 +66,8 @@ void order2::calcul() {
 
     //while (T > tps) {
     while(tps<T){
-        // save the data in huv_movie.dat
+      std::cout<<"========= ITERATION "<<tps<<"==========="<<std::endl;
+      // save the data in huv_movie.dat
       //if (n % nsave == 0) {
       //out->write(h,u,v,z,tps);
       //}// end if

@@ -26,16 +26,9 @@ BEGINApplyListBlock(bloc1x_f,inputs,SCALAR,0,outputs,SCALAR,0)
 
   Controller<double,0,false> ch1l(h1l.getDMatrix());
   Controller<double,0,false> ch1r(h1r.getDMatrix());
-  /*Controller<double,0,false> cu1l(u1l.getDMatrix());
-  Controller<double,0,false> cu1r(u1r.getDMatrix());
-  Controller<double,0,false> cv1l(v1l.getDMatrix());
-  Controller<double,0,false> cv1r(v1r.getDMatrix());*/
   Controller<double,0,false> cdelz1(delz1.getDMatrix());
   Controller<double,0,false> ch1g(h1g.getDMatrix());
   Controller<double,0,false> ch1d(h1d.getDMatrix());
-  /*Controller<double,0,false> cf1(f1.getDMatrix());
-  Controller<double,0,false> cf2(f2.getDMatrix());
-  Controller<double,0,false> cf3(f3.getDMatrix());*/
 
     for(int64_t yy = ch1l.start(); yy<ch1l.height();yy++)
     {
@@ -43,50 +36,8 @@ BEGINApplyListBlock(bloc1x_f,inputs,SCALAR,0,outputs,SCALAR,0)
       {
         ch1g(xx,yy)=max(0.,ch1l(xx,yy)-max(0.,cdelz1(xx,yy)));
         ch1d(xx,yy)=max(0.,ch1r(xx,yy)-max(0.,-cdelz1(xx,yy)));
-        // if (ch1g(xx,yy)<=0. && ch1d(xx,yy)<=0.)
-        // {
-        //   cf1(xx,yy)=0.;
-        //   cf2(xx,yy)=0.;
-        //   cf3(xx,yy)=0.;
-        // }
-        // else
-        // {
-        //   double c = max(fabs(cu1l(xx,yy))+sqrt(grav*ch1g(xx,yy)),fabs(cu1r(xx,yy))+sqrt(grav*ch1d(xx,yy)));
-        //   double cd = c*0.5;
-        //   double qd = cu1r(xx,yy)*ch1d(xx,yy);
-        //   double qg = cu1l(xx,yy)*ch1g(xx,yy);
-        //   cf1(xx,yy)=(qg+qd)*0.5-cd*(ch1d(xx,yy)-ch1g(xx,yy));
-        //   cf2(xx,yy)=((cu1l(xx,yy)*qg)+(grav_dem*ch1g(xx,yy)*ch1g(xx,yy))+(cu1r(xx,yy)*qd)+(grav_dem*ch1d(xx,yy)*ch1d(xx,yy)))*0.5-cd*(qd-qg);
-        //   cf3(xx,yy)=(qg*cv1l(xx,yy)+qd*cv1r(xx,yy))*0.5-cd*(ch1d(xx,yy)*cv1r(xx,yy)-ch1g(xx,yy)*cv1l(xx,yy));
-        // }
       }
     }
-
-  //iTAB0 it = h1l.begin();
-  //iTAB0 itEnd = h1l.end();
-
-  // parameters * par = parameters::getSingleton();
-  // hydrostatic * rec_hydro = hydrostatic::getSingleton();
-  // choice_flux * flux_num = choice_flux::getSingleton(par->get_flux());
-
-  // SCALAR cfl_fix = par->get_cflfix();
-  // SCALAR cfl = 0;
-  // SCALAR tx = par->get_dtfix()/par->get_dx();
-
-  // for(; it<=itEnd; ++it) {
-  //   rec_hydro->calcul(h1l[it],h1r[it],delz1[it]);
-  //   h1g[it]=rec_hydro->hg();
-  //   h1d[it]=rec_hydro->hd();
-  //   flux_num->calcul(h1g[it],u1l[it],v1l[it],h1d[it],u1r[it],v1r[it]);
-  //   f1[it]=flux_num->get_f1();
-  //   f2[it]=flux_num->get_f2();
-  //   f3[it]=flux_num->get_f3();
-
-  //   cfl=max(cfl,flux_num->get_cfl());
-  // }
-
-  // if(cfl*tx>cfl_fix)
-  //   std::cout<<"cfl conditioin is not satisfied in x"<<std::endl;
 }
 END(bloc1x_f);
 //-------------------------------------------------------------------------------
@@ -173,16 +124,9 @@ BEGINApplyListBlock(bloc1y_f,inputs,SCALAR,0,outputs,SCALAR,0)
 
   Controller<double,0,false> ch2l(h2l.getDMatrix());
   Controller<double,0,false> ch2r(h2r.getDMatrix());
-  /*Controller<double,0,false> cu2l(u2l.getDMatrix());
-  Controller<double,0,false> cu2r(u2r.getDMatrix());
-  Controller<double,0,false> cv2l(v2l.getDMatrix());
-  Controller<double,0,false> cv2r(v2r.getDMatrix());*/
   Controller<double,0,false> cdelz2(delz2.getDMatrix());
   Controller<double,0,false> ch2g(h2g.getDMatrix());
   Controller<double,0,false> ch2d(h2d.getDMatrix());
-  /*Controller<double,0,false> cg1(g1.getDMatrix());
-  Controller<double,0,false> cg2(g2.getDMatrix());
-  Controller<double,0,false> cg3(g3.getDMatrix()); */
 
     for(int64_t yy = ch2l.start(); yy<ch2l.height();yy++)
     {
@@ -190,50 +134,8 @@ BEGINApplyListBlock(bloc1y_f,inputs,SCALAR,0,outputs,SCALAR,0)
       {
         ch2g(xx,yy)=max(0.,ch2l(xx,yy)-max(0.,cdelz2(xx,yy)));
         ch2d(xx,yy)=max(0.,ch2r(xx,yy)-max(0.,-cdelz2(xx,yy)));
-        // if (ch2g(xx,yy)<=0. && ch2d(xx,yy)<=0.)
-        // {
-        //   cg1(xx,yy)=0.;
-        //   cg2(xx,yy)=0.;
-        //   cg3(xx,yy)=0.;
-        // }
-        // else
-        // {
-        //   double c = max(fabs(cu2l(xx,yy))+sqrt(grav*ch2g(xx,yy)),fabs(cu2r(xx,yy))+sqrt(grav*ch2d(xx,yy)));
-        //   double cd = c*0.5;
-        //   double qd = cu2r(xx,yy)*ch2d(xx,yy);
-        //   double qg = cu2l(xx,yy)*ch2g(xx,yy);
-        //   cg1(xx,yy)=(qg+qd)*0.5-cd*(ch2d(xx,yy)-ch2g(xx,yy));
-        //   cg2(xx,yy)=((cu2l(xx,yy)*qg)+(grav_dem*ch2g(xx,yy)*ch2g(xx,yy))+(cu2r(xx,yy)*qd)+(grav_dem*ch2d(xx,yy)*ch2d(xx,yy)))*0.5-cd*(qd-qg);
-        //   cg3(xx,yy)=(qg*cv2l(xx,yy)+qd*cv2r(xx,yy))*0.5-cd*(ch2d(xx,yy)*cv2r(xx,yy)-ch2g(xx,yy)*cv2l(xx,yy));
-        // }
       }
     }
-
-  // iTAB0 it = h2l.begin();
-  // iTAB0 itEnd = h2l.end();
-
-  // parameters * par = parameters::getSingleton();
-  // hydrostatic * rec_hydro = hydrostatic::getSingleton();
-  // choice_flux * flux_num = choice_flux::getSingleton(par->get_flux());
-
-  // SCALAR cfl_fix = par->get_cflfix();
-  // SCALAR cfl = 0;
-  // SCALAR ty = par->get_dtfix()/par->get_dy();
-
-  // for(; it<=itEnd; ++it) {
-  //   rec_hydro->calcul(h2l[it],h2r[it],delz2[it]);
-  //   h2g[it]=rec_hydro->hg();
-  //   h2d[it]=rec_hydro->hd();
-  //   flux_num->calcul(h2g[it],v2l[it],u2l[it],h2d[it],v2r[it],u2r[it]);
-  //   g1[it]=flux_num->get_f1();
-  //   g3[it]=flux_num->get_f2();
-  //   g2[it]=flux_num->get_f3();
-
-  //   cfl=max(cfl,flux_num->get_cfl());
-  // }
-
-  // if(cfl*ty>cfl_fix)
-  //   std::cout<<"cfl conditioin is not satisfied in y"<<std::endl;
 }
 END(bloc1y_f);
 //-------------------------------------------------------------------------------
@@ -379,6 +281,8 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
       int64_t xx2=ch2r.start();
       for(int64_t xx = ch.start();xx<ch.width(); xx++,xxq++,xx1++,xx2++)
       {
+	std::cout<<"chs("<<xx<<","<<yy<<")="<<chs(xx,yy)<<std::endl;
+	
         chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1)) ;//+ cRain(xxq,yyq)*dt;
         cqs1(xxq,yyq) = cq1(xxq,yyq)-tx*(cf2(xx1+1,yy1)-cf2(xx1,yy1)+grav_dem*(ch1d(xx1,yy1)*ch1d(xx1,yy1)-ch1r(xx1,yy1)*ch1r(xx1,yy1)
           +ch1l(xx1+1,yy1)*ch1l(xx1+1,yy1)-ch1g(xx1+1,yy1)*ch1g(xx1+1,yy1)+(ch1r(xx1+1,yy1)+ch1l(xx1+1,yy1))*cdelzc1(xxq,yyq)))
@@ -386,8 +290,8 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
         cqs2(xxq,yyq)= cq2(xxq,yyq)-tx*(cf3(xx1+1,yy1)-cf3(xx1,yy1))-ty*(cg3(xx2,yy2)-cg3(xx2,yy2+1)+grav_dem*(ch2d(xx2,yy2+1)
           *ch2d(xx2,yy2+1)-ch2r(xx2,yy2+1)*ch2r(xx2,yy2+1)+ch2l(xx2,yy2)*ch2l(xx2,yy2)-ch2g(xx2,yy2)*ch2g(xx2,yy2)+(ch2r(xx2,yy2+1)
           +ch2l(xx2,yy2))*cdelzc2(xxq,yyq)));
-        cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
-        cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        //cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        //cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
 
         //check checkus checkvs
         if(chs(xx,yy)<he_ca)
@@ -415,39 +319,6 @@ BEGINApplyListBlock(bloc2_f,inputs,SCALAR,2,outputs,SCALAR,0)
         }
       }
     }
-
- //  parameters * par = parameters::getSingleton();
- //  //    choice_friction * fric = choice_friction::getSingleton(par);
- //  SCALAR ty = par->get_dtfix()/par->get_dy();
- //  SCALAR tx = par->get_dtfix()/par->get_dx();
- //  SCALAR dt = par->get_dtfix();
-
- //  iTAB0L itc_line = delzc1.begin_line();
- //  iTAB0L itl_line = f1.begin_line();
- //  iTABL it_line = he.begin_line();
- //  iTABL it_line_End = he.end_line();
- //  iTAB0L itu_line = g1.begin_line();
- //  iTAB0L itd_line = g1.begin_line();
- //  ++itd_line;
-
- //  for(;it_line<=it_line_End;++it_line,++itc_line,++itl_line,++itu_line,++itd_line)
- //    {
- //      iTAB0 itc = itc_line.begin();
- //      iTAB it = it_line.begin();
- //      iTAB itEnd = it_line.end();
- //      iTAB0 itl = itl_line.begin();
- //      iTAB0 itr = itl_line.begin();
- //      ++itr;
- //      iTAB0 itu = itu_line.begin();
- //      iTAB0 itd = itd_line.begin();
-
- //      for(;it<=itEnd;++it,++itc,++itl,++itr,++itu,++itd)
-	// {
-	//   hes[it] = he[it]-tx*(f1[itr]-f1[itl])-ty*(g1[itu]-g1[itd]);
-	//   qes1[itc] = qe1[itc]-tx*(f2[itr]-f2[itl]+grav_dem*(h1d[itl]*h1d[itl]-h1r[itl]*h1r[itl]+h1l[itr]*h1l[itr]-h1g[itr]*h1g[itr]+(h1r[itl]+h1l[itr])*delzc1[itc]))-ty*(g2[itu]-g2[itd]);
-	//   qes2[itc] = qe2[itc]-tx*(f3[itr]-f3[itl])-ty*(g3[itu]-g3[itd]+grav_dem*(h2d[itd]*h2d[itd]-h2r[itd]*h2r[itd]+h2l[itu]*h2l[itu]-h2g[itu]*h2g[itu]+(h2r[itd]+h2l[itu])*delzc2[itc]));
-	// }
- //    }
 }
 END(bloc2_f);
 //-------------------------------------------------------------------------------
@@ -548,8 +419,8 @@ BEGINApplyListBlock(bloc2_f2,inputs,SCALAR,2,outputs,SCALAR,0)
         cqs2(xxq,yyq)= cq2(xxq,yyq)-tx*(cf3(xx1+1,yy1)-cf3(xx1,yy1))-ty*(cg3(xx2,yy2)-cg3(xx2,yy2+1)+grav_dem*(ch2d(xx2,yy2+1)
           *ch2d(xx2,yy2+1)-ch2r(xx2,yy2+1)*ch2r(xx2,yy2+1)+ch2l(xx2,yy2)*ch2l(xx2,yy2)-ch2g(xx2,yy2)*ch2g(xx2,yy2)+(ch2r(xx2,yy2+1)
           +ch2l(xx2,yy2))*cdelzc2(xxq,yyq)));
-        cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
-        cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        //cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        //cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
 
         //heun
         chh(xx,yy)=0.5*(chh(xx,yy)+chs(xx,yy));

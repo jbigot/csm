@@ -113,8 +113,6 @@ public:
         cqs2(xxq,yyq)= cq2(xxq,yyq)-tx*(cf3(xx1+1,yy1)-cf3(xx1,yy1))-ty*(cg3(xx2,yy2)-cg3(xx2,yy2+1)+grav_dem*(ch2d(xx2,yy2+1)
           *ch2d(xx2,yy2+1)-ch2r(xx2,yy2+1)*ch2r(xx2,yy2+1)+ch2l(xx2,yy2)*ch2l(xx2,yy2)-ch2g(xx2,yy2)*ch2g(xx2,yy2)+(ch2r(xx2,yy2+1)
           +ch2l(xx2,yy2))*cdelzc2(xxq,yyq)));
-        cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
-        cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1./*+cmcf(xxq,yyq)*/*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
 
         //heun
         chh(xx,yy)=0.5*(chh(xx,yy)+chs(xx,yy));
