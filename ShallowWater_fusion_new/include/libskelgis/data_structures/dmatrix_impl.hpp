@@ -2143,138 +2143,98 @@ namespace skelgis{
     void getBorders()
     //-------------------------------------------------------------------------------
     {
-#ifdef DEBUG
-      std::stringstream st;
-      st<<"MPI Ranks 0 to 8 :\n";
-      for(int i=0;i<8;i++)
-	{
-	  st<<mpi_ranks[i]<<",";
-	}
-      st<<"\n"<<"\n";
-      this->print(st.str());
-#endif
-	  
-      if(this->col!=0 && this->row!=0)
-	{
-#ifdef DEBUG
-	  std::stringstream st;
-	  st<<"Send and Rcv left up corner : MPI-"<<mpi_ranks[0]<<" : \n";
-	  this->print(st.str());
-#endif
+      if(this->row%2==0)
+      {
+        if(this->row!=0)
+      	{
 
-	  T * toSend = getUpLeftBorderToSend();
-	  T * toGet = new T[border*border];
-	  Communications<T>::Exchanges(toSend,toGet,border*border,mpi_ranks[0],this->communicator);
-	  setUpLeftBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
-      if(this->col!=(this->cols-1) && this->row!=(this->rows-1))
-	{				      
-#ifdef DEBUG
-	  std::stringstream st;
-	  st<<"Send and Rcv right down corner : MPI-"<<mpi_ranks[4]<<" : \n";
-	  this->print(st.str());
-#endif
+      	  T * toSend = getUpBorderToSend();
+      	  T * toGet = new T[this->loc_head.width*border];
+      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[1],this->communicator);
+      	  setUpBorder(toGet);
+      	  delete [] toSend;
+      	  delete [] toGet;
+      	}
+        if(this->row!=(this->rows-1))
+      	{    
 
-	  T * toSend = getDownRightBorderToSend();
-	  T * toGet = new T[border*border];
-	  Communications<T>::Exchanges(toSend,toGet,border*border,mpi_ranks[4],this->communicator);
-	  setDownRightBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
-      if(this->row!=0)
-	{
-#ifdef DEBUG
-	  std::stringstream st;
-	  st<<"Send and Rcv up values : MPI-"<<mpi_ranks[1]<<" : \n";
-	  this->print(st.str());
-#endif
+      	  T * toSend = getDownBorderToSend();
+      	  T * toGet = new T[this->loc_head.width*border];
+      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[5],this->communicator);
+      	  setDownBorder(toGet);
+      	  delete [] toSend;
+      	  delete [] toGet;
+      	}
+      }
+      else if(this->row%2==1)
+      {
+        if(this->row!=(this->rows-1))
+        {    
 
-	  T * toSend = getUpBorderToSend();
-	  T * toGet = new T[this->loc_head.width*border];
-	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[1],this->communicator);
-	  setUpBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
-      if(this->row!=(this->rows-1))
-	{          
-#ifdef DEBUG				  
-	  std::stringstream st;
-	  st<<"Send and Rcv down values : MPI-"<<mpi_ranks[5]<<" : \n";
-	  this->print(st.str());
-#endif
+          T * toSend = getDownBorderToSend();
+          T * toGet = new T[this->loc_head.width*border];
+          Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[5],this->communicator);
+          setDownBorder(toGet);
+          delete [] toSend;
+          delete [] toGet;
+        }
+        if(this->row!=0)
+        {
 
-	  T * toSend = getDownBorderToSend();
-	  T * toGet = new T[this->loc_head.width*border];
-	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[5],this->communicator);
-	  setDownBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
-      if(this->col!=(this->cols-1) && this->row!=0)
-	{
-#ifdef DEBUG
-	  std::stringstream st;
-	  st<<"Send and Rcv right up corner  : MPI-"<<mpi_ranks[2]<<" : \n";
-	  this->print(st.str());
-#endif
+          T * toSend = getUpBorderToSend();
+          T * toGet = new T[this->loc_head.width*border];
+          Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[1],this->communicator);
+          setUpBorder(toGet);
+          delete [] toSend;
+          delete [] toGet;
+        }
+      }
+    	if(this->col%2==0)
+      { 
+        if(this->col!=(this->cols-1))
+      	{	  
 
-	  T * toSend = getUpRightBorderToSend();
-	  T * toGet = new T[border*border];
-	  Communications<T>::Exchanges(toSend,toGet,border*border,mpi_ranks[2],this->communicator);
-	  setUpRightBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
-      if(this->row!=(this->rows-1) && this->col!=0)
-	{	            
-#ifdef DEBUG				      
-	  std::stringstream st;
-	  st<<"Send and Rcv left down corner : MPI-"<<mpi_ranks[6]<<" : \n";
-	  this->print(st.str());
-#endif
+      	  T * toSend = getRightBorderToSend();
+      	  T * toGet = new T[this->loc_head.height*border];
+      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[3],this->communicator);
+      	  setRightBorder(toGet);
+      	  delete [] toSend;
+      	  delete [] toGet;
+      	}
+        if(this->col!=0)
+      	{
 
-	  T * toSend = getDownLeftBorderToSend();
-	  T * toGet = new T[border*border];
-	  Communications<T>::Exchanges(toSend,toGet,border*border,mpi_ranks[6],this->communicator);
-	  setDownLeftBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
-	  
-      if(this->col!=(this->cols-1))
-	{	  
-#ifdef DEBUG
-	  std::stringstream st;
-	  st<<"Send and Rcv right values : MPI-"<<mpi_ranks[3]<<": \n";
-	  this->print(st.str());
-#endif
+      	  T * toSend = getLeftBorderToSend();
+      	  T * toGet = new T[this->loc_head.height*border];
+      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[7],this->communicator);
+      	  setLeftBorder(toGet);
+      	  delete [] toSend;
+      	  delete [] toGet;
+      	}
+      }
+      else if(this->col%2==1)
+      {
+        if(this->col!=0)
+        {
 
-	  T * toSend = getRightBorderToSend();
-	  T * toGet = new T[this->loc_head.height*border];
-	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[3],this->communicator);
-	  setRightBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
-      if(this->col!=0)
-	{
-#ifdef DEBUG
-	  std::stringstream st;
-	  st<<"Send and Rcv left values : MPI-"<<mpi_ranks[7]<<" : \n";
-	  this->print(st.str());
-#endif
+          T * toSend = getLeftBorderToSend();
+          T * toGet = new T[this->loc_head.height*border];
+          Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[7],this->communicator);
+          setLeftBorder(toGet);
+          delete [] toSend;
+          delete [] toGet;
+        }
+        if(this->col!=(this->cols-1))
+        {   
 
-	  T * toSend = getLeftBorderToSend();
-	  T * toGet = new T[this->loc_head.height*border];
-	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[7],this->communicator);
-	  setLeftBorder(toGet);
-	  delete [] toSend;
-	  delete [] toGet;
-	}
+          T * toSend = getRightBorderToSend();
+          T * toGet = new T[this->loc_head.height*border];
+          Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[3],this->communicator);
+          setRightBorder(toGet);
+          delete [] toSend;
+          delete [] toGet;
+        }
+      }
     }
     //-------------------------------------------------------------------------------
     inline HEADER getGlobalHeader(){return this->head;}

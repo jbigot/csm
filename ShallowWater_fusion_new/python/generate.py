@@ -7,7 +7,7 @@ from string import Template
 nb_proc = 1
 size_x=500
 size_y=500
-iteration=10
+iteration=1
 
 tempProcF = open("template_process.xml",'r')
 tempCommF = open("template_comm.xml",'r')
