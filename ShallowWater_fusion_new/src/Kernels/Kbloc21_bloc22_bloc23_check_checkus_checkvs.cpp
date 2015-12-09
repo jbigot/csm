@@ -88,19 +88,21 @@ public:
     Controller<double> cus(us);
     Controller<double> cvs(vs);
 
-    double tx=0.005;
-    double ty=0.005;
-    double dt=0.5;
-
     int64_t yyq=cq1.start();
     int64_t yy1=cf1.start();
     int64_t yy2=cg1.start();
-    for(int64_t yy = ch.start(); yy<ch.height();yy++,yyq++,yy1++,yy2++)
+    int64_t yy,xx,xxq,xx1,xx2;
+
+   double tx=0.005;
+    double ty=0.005;
+    double dt=0.5;
+    
+   for(yy = ch.start(); yy<ch.height();yy++)//,yyq++,yy1++,yy2++)
     {
-      int64_t xxq=cq1.start();
-      int64_t xx1=cf1.start();
-      int64_t xx2=cg1.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++,xxq++,xx1++,xx2++)
+      xxq=cq1.start();
+      xx1=cf1.start();
+      xx2=cg1.start();
+      for(xx = ch.start();xx<ch.width(); xx++)//,xxq++,xx1++,xx2++)
       {
 	//std::cout<<"chs("<<xx<<","<<yy<<")="<<chs(xx,yy)<<std::endl;
 	
@@ -136,8 +138,14 @@ public:
             cqs2(xxq,yyq)=0.;
           }
         }
+        xxq++;
+        xx1++;
+        xx2++;
       }
-    }                                                                                                                                                                                      
+      yyq++;
+      yy1++;
+      yy2++;
+    }
   }
 
 };

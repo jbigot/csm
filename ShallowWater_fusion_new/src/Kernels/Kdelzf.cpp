@@ -5,7 +5,6 @@
 #include <datah.h>
 #include <controller.hpp>
 #include <kernelh.h>
-#include <chronometer.hpp>
 
 typedef llcmcpp::Go Go;
 
@@ -30,21 +29,10 @@ public:
     Controller<double> cdelz1(delz1);
 
     int64_t xx,yy;
-    int thread=0;
 
-#pragma omp parallel shared(cz1l,cz1r,cdelz1) private(yy,xx,thread)
-    {
-    Chronometer chrono;
-    chrono.start();
-
-#pragma omp for schedule(static)
     for(yy = cdelz1.start(); yy<cdelz1.height();yy++)
        for(xx = cdelz1.start();xx<cdelz1.width(); xx++)
-          cdelz1(xx,yy) = cz1r(xx,yy) - cz1l(xx,yy);
-
-    chrono.stop();
-    cout<<"Thread "<<thread<<" - Time bloc2 cahck : "<<chrono.dureeCalcule()<<endl;                                                                                                                                          
-    }
+          cdelz1(xx,yy) = cz1r(xx,yy) - cz1l(xx,yy);                                                                                                                                       
   }
 
 };

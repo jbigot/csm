@@ -61,27 +61,29 @@ public:
   void go ()
   //-------------------------------------------------------------------------------
   {
+    HEADER head;
+    head.width = 0;
+    head.height = 0;
+    head.x = 0;
+    head.y = 0;
+    head.spacing = 1;
+    head.nodata = -9999;
+    dmatrix = new DMatrix_impl<double,0,false>(head,init_val,comm);
+
   	if(str && initializer)
       {
         str->getSizes(width,height); //get local size
-        if(domain==1)
+        if(domain==2)
         {
-          width = width;//+2*border; //add the border
-          height = height;//+2*border; //add the border
-        }
-        else if(domain==2)
-        {
-          width = width+1;//2*border+1; //add the border
-          height = height;//+2*border; //add the border
+          width = width+dmatrix->getCols();
         }
         else if(domain==3)
         {
-          width = width;//+2*border; //add the border
-          height = height+1;//2*border+1; //add the border
+          height = height+dmatrix->getRows();
         }
       }
 
-  	HEADER head;
+  	delete dmatrix;
     head.width = width;
     head.height = height;
     head.x = 0;
