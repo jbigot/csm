@@ -1093,6 +1093,13 @@ namespace skelgis{
     unsigned int shphbL,shphbR,shphbU,shphbD;
     unsigned int hphbL,hphbR,hphbU,hphbD;
 
+    double * toSendUp;
+    double * toSendRight;
+    double * toGetUp;
+    double * toGetRight;
+    char * getUp;
+    char * getRight;
+
     //-------------------------------------------------------------------------------
     void create()
     //-------------------------------------------------------------------------------
@@ -1422,20 +1429,18 @@ namespace skelgis{
       \return list of values
     */
     //-------------------------------------------------------------------------------
-    T * getRightBorderToSend()
+    void getRightBorderToSend()
     //-------------------------------------------------------------------------------
     {
-      T * result = new T[this->loc_head.height*border];
       for(unsigned int i=0;i<this->loc_head.height;i++)
 	{
 	  for(int j=0;j<border;j++)
 	    {
 	      unsigned int r1 = i*border+j;
 	      unsigned int r2 = ((border+1)*border_head.width - border*2) + i*border_head.width +j;
-	      result[r1] = this->data[r2];
+	      toSendRight[r1] = this->data[r2];
 	    }
 	}
-      return result;
     }
     //-------------------------------------------------------------------------------
     //! set the right border ghost cells with neighbor values from processors
@@ -1458,20 +1463,18 @@ namespace skelgis{
       \return list of values
     */
     //-------------------------------------------------------------------------------
-    T * getLeftBorderToSend()
+    void getLeftBorderToSend()
     //-------------------------------------------------------------------------------
     {
-      T * result = new T[this->loc_head.height*border];
       for(unsigned int i=0;i<this->loc_head.height;i++)
 	{
 	  for(int j=0;j<border;j++)
 	    {
 	      unsigned int r1 = i*border+j;
 	      unsigned int r2 = (border*border_head.width + border) + i*border_head.width + j;
-	      result[r1] = this->data[r2];
+	      toSendRight[r1] = this->data[r2];
 	    }
 	}
-      return result;
     }
     //-------------------------------------------------------------------------------
     //! set the left border ghost cells with neighbor values from processors
@@ -1494,20 +1497,18 @@ namespace skelgis{
       \return list of values
     */
     //-------------------------------------------------------------------------------
-    T * getUpBorderToSend()
+    void getUpBorderToSend()
     //-------------------------------------------------------------------------------
     {
-      T * result = new T[this->loc_head.width*border];
       for(int i=0;i<border;i++)
 	{
 	  for(unsigned int j=0;j<this->loc_head.width;j++)
 	    {
 	      unsigned int r1 = i*this->loc_head.width+j;
 	      unsigned int r2 = (border*border_head.width + border) + i*border_head.width+j;
-	      result[r1] = this->data[r2];
+	      toSendUp[r1] = this->data[r2];
 	    }
 	}
-      return result;
     }
     //-------------------------------------------------------------------------------
     //! set the up border ghost cells with neighbor values from processors
@@ -1530,20 +1531,18 @@ namespace skelgis{
       \return list of values
     */
     //-------------------------------------------------------------------------------
-    T * getDownBorderToSend()
+    void getDownBorderToSend()
     //-------------------------------------------------------------------------------
     {
-      T * result = new T[this->loc_head.width*border];
       for(int i=0;i<border;i++)
 	{
 	  for(unsigned int j=0;j<this->loc_head.width;j++)
 	    {
 	      unsigned int r1 = i*this->loc_head.width+j;
 	      unsigned int r2 = (border_head.height*border_head.width - (border+border)*border_head.width + border) + i*border_head.width + j;
-	      result[r1] = this->data[r2];
+	      toSendUp[r1] = this->data[r2];
 	    }
 	}
-      return result;
     }
     //-------------------------------------------------------------------------------
     //! set the down border ghost cells with neighbor values from processors
@@ -2030,6 +2029,13 @@ namespace skelgis{
       getNeighborRanks();
       phBLimits();
       //print();
+
+      toSendUp = new T[this->loc_head.width*border];
+      toSendRight = new T[this->loc_head.height*border];
+      toGetUp = new T[this->loc_head.width*border];
+      toGetRight = new T[this->loc_head.height*border];
+      getUp = new char[this->loc_head.width*border*sizeof(T)];
+      getRight = new char[this->loc_head.height*border*sizeof(T)];
     }
   
     //! constructor of the distributed matrix
@@ -2053,6 +2059,13 @@ namespace skelgis{
       getNeighborRanks();
       phBLimits();
       //print();
+
+      toSendUp = new T[this->loc_head.width*border];
+      toSendRight = new T[this->loc_head.height*border];
+      toGetUp = new T[this->loc_head.width*border];
+      toGetRight = new T[this->loc_head.height*border];
+      getUp = new char[this->loc_head.width*border*sizeof(T)];
+      getRight = new char[this->loc_head.height*border*sizeof(T)];
     }
     //-------------------------------------------------------------------------------
   
@@ -2063,7 +2076,20 @@ namespace skelgis{
     //-------------------------------------------------------------------------------
     {
       if(NULL!=this->data)
-	delete [] this->data;
+	       delete [] this->data;
+      if(NULL!=toSendUp)
+         delete [] toSendUp;
+      if(NULL!=toSendRight)
+         delete [] toSendRight;
+      if(NULL!=toGetUp)
+         delete [] toGetUp;
+      if(NULL!=toGetRight)
+         delete [] toGetRight;
+      if(NULL!=getUp)
+         delete [] getUp;
+      if(NULL!=getRight)
+         delete [] getRight;
+
     }
     //-------------------------------------------------------------------------------
     //! Set value in the global middle
@@ -2147,46 +2173,31 @@ namespace skelgis{
       {
         if(this->row!=0)
       	{
-
-      	  T * toSend = getUpBorderToSend();
-      	  T * toGet = new T[this->loc_head.width*border];
-      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[1],this->communicator);
-      	  setUpBorder(toGet);
-      	  delete [] toSend;
-      	  delete [] toGet;
+      	  getUpBorderToSend();
+      	  Communications<T>::Exchanges(toSendUp,toGetUp,getUp,this->loc_head.width*border,mpi_ranks[1],this->communicator);
+      	  setUpBorder(toGetUp);
       	}
         if(this->row!=(this->rows-1))
       	{    
-
-      	  T * toSend = getDownBorderToSend();
-      	  T * toGet = new T[this->loc_head.width*border];
-      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[5],this->communicator);
-      	  setDownBorder(toGet);
-      	  delete [] toSend;
-      	  delete [] toGet;
+      	  getDownBorderToSend();
+      	  Communications<T>::Exchanges(toSendUp,toGetUp,getUp,this->loc_head.width*border,mpi_ranks[5],this->communicator);
+      	  setDownBorder(toGetUp);
       	}
       }
       else if(this->row%2==1)
       {
         if(this->row!=(this->rows-1))
         {    
-
-          T * toSend = getDownBorderToSend();
-          T * toGet = new T[this->loc_head.width*border];
-          Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[5],this->communicator);
-          setDownBorder(toGet);
-          delete [] toSend;
-          delete [] toGet;
+          getDownBorderToSend();
+          Communications<T>::Exchanges(toSendUp,toGetUp,getUp,this->loc_head.width*border,mpi_ranks[5],this->communicator);
+          setDownBorder(toGetUp);
         }
         if(this->row!=0)
         {
 
-          T * toSend = getUpBorderToSend();
-          T * toGet = new T[this->loc_head.width*border];
-          Communications<T>::Exchanges(toSend,toGet,this->loc_head.width*border,mpi_ranks[1],this->communicator);
-          setUpBorder(toGet);
-          delete [] toSend;
-          delete [] toGet;
+          getUpBorderToSend();
+          Communications<T>::Exchanges(toSendUp,toGetUp,getUp,this->loc_head.width*border,mpi_ranks[1],this->communicator);
+          setUpBorder(toGetUp);
         }
       }
     	if(this->col%2==0)
@@ -2194,22 +2205,16 @@ namespace skelgis{
         if(this->col!=(this->cols-1))
       	{	  
 
-      	  T * toSend = getRightBorderToSend();
-      	  T * toGet = new T[this->loc_head.height*border];
-      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[3],this->communicator);
-      	  setRightBorder(toGet);
-      	  delete [] toSend;
-      	  delete [] toGet;
+      	  getRightBorderToSend();
+      	  Communications<T>::Exchanges(toSendRight,toGetRight,getRight,this->loc_head.height*border,mpi_ranks[3],this->communicator);
+      	  setRightBorder(toGetRight);
       	}
         if(this->col!=0)
       	{
 
-      	  T * toSend = getLeftBorderToSend();
-      	  T * toGet = new T[this->loc_head.height*border];
-      	  Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[7],this->communicator);
-      	  setLeftBorder(toGet);
-      	  delete [] toSend;
-      	  delete [] toGet;
+      	  getLeftBorderToSend();
+      	  Communications<T>::Exchanges(toSendRight,toGetRight,getRight,this->loc_head.height*border,mpi_ranks[7],this->communicator);
+      	  setLeftBorder(toGetRight);
       	}
       }
       else if(this->col%2==1)
@@ -2217,22 +2222,16 @@ namespace skelgis{
         if(this->col!=0)
         {
 
-          T * toSend = getLeftBorderToSend();
-          T * toGet = new T[this->loc_head.height*border];
-          Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[7],this->communicator);
-          setLeftBorder(toGet);
-          delete [] toSend;
-          delete [] toGet;
+          getLeftBorderToSend();
+          Communications<T>::Exchanges(toSendRight,toGetRight,getRight,this->loc_head.height*border,mpi_ranks[7],this->communicator);
+          setLeftBorder(toGetRight);
         }
         if(this->col!=(this->cols-1))
         {   
 
-          T * toSend = getRightBorderToSend();
-          T * toGet = new T[this->loc_head.height*border];
-          Communications<T>::Exchanges(toSend,toGet,this->loc_head.height*border,mpi_ranks[3],this->communicator);
-          setRightBorder(toGet);
-          delete [] toSend;
-          delete [] toGet;
+          getRightBorderToSend();
+          Communications<T>::Exchanges(toSendRight,toGetRight,getRight,this->loc_head.height*border,mpi_ranks[3],this->communicator);
+          setRightBorder(toGetRight);
         }
       }
     }

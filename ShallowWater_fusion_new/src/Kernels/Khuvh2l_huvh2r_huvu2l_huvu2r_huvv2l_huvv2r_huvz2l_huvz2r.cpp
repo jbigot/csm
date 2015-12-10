@@ -6,6 +6,8 @@
 #include <controller.hpp>
 #include <kernelh.h>
 
+#include "libskelgis/skelgis.hpp"
+
 typedef llcmcpp::Go Go;
 
 using ::std::cout;
@@ -35,6 +37,7 @@ public:
   
   void go ()
   {
+
     //cout<<"====START Khuvh2l_huvh2r_huvu2l_huvu2r_huvv2l_huvv2r_huvz2l_huvz2r===="<<endl;
     Controller<double> ch(h);
     Controller<double> cu(u);

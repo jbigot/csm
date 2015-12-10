@@ -23,7 +23,7 @@ namespace skelgis{
       \param rank is the mpi rank to exchange with
     */
     //-------------------------------------------------------------------------------
-    static void Exchanges(T * toSend, T* toGet,unsigned int size,int rank)
+    static void Exchanges(T * toSend, T* toGet,char * get,unsigned int size,int rank)
     //-------------------------------------------------------------------------------
     {
       MPI_Status status;
@@ -41,11 +41,9 @@ namespace skelgis{
 #endif
 
       //work for every basic types not for complex types
-      char * get = new char[size*sizeof(T)];
       MPI_Sendrecv(reinterpret_cast<char *>(toSend), size*(sizeof(T)), MPI_BYTE,rank,0,get,size*(sizeof(T)),MPI_BYTE,rank,0,MPI_COMM_WORLD,&status);
       for(int i=0;i<size;i++)
-	  memcpy(&toGet[i], get+i*sizeof(T), sizeof(T));
-      delete [] get;
+	       memcpy(&toGet[i], get+i*sizeof(T), sizeof(T));
 
 #ifdef DEBUG
       std::stringstream st2;

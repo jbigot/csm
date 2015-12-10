@@ -4,6 +4,8 @@
 #include <vector>
 #include <datah.h>
 
+#include "libskelgis/skelgis.hpp"
+
 typedef llcmcpp::Go Go;
 
 using ::std::vector;
@@ -20,10 +22,7 @@ public:
 
   void go ()
   {
-    //cout<<"====START Sync===="<<endl;
-    //cout<<"updates "<<n<<endl;
     for(int i=0;i<data.size();i++)
-      //data[i]->update(i+1);
       data[i]->update();
   }
 

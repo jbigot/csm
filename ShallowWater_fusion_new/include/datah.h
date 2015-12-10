@@ -2,6 +2,7 @@
 #define DATAH_H
 
 #include <iterator.hpp>
+#include "libskelgis/skelgis.hpp"
 
 class Datah
 {
@@ -35,6 +36,7 @@ class Datah
   virtual inline void getBorder(int16_t& b) = 0;
   virtual void setMiddle(double val) =0;
   virtual inline void getData(double * & data) = 0;
+  virtual void getDMatrix(skelgis::DMatrix_impl<double,2,false> * & dm) = 0;
   virtual inline void getWidth(int64_t& w) = 0;
   virtual inline void getWidthLoc(int64_t& wl) = 0;
   virtual inline void getHeightLoc(int64_t& hl) = 0;

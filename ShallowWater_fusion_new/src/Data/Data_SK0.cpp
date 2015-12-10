@@ -112,6 +112,7 @@ public:
   /*!  */
   //-------------------------------------------------------------------------------
   inline void getData(double * & data){data=dmatrix->getData();}
+  inline void getDMatrix(DMatrix_impl<double,2,false> * & dm){dm = NULL;}
   //inline double * getData(){return dmatrix->getData();}
   //-------------------------------------------------------------------------------
   //! Return width

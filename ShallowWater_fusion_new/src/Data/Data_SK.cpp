@@ -114,6 +114,7 @@ public:
   //-------------------------------------------------------------------------------
   //inline double * getData(){return dmatrix->getData();}
   inline void getData(double * & data){data = dmatrix->getData();}
+  inline void getDMatrix(skelgis::DMatrix_impl<double,2,false> * & dm){dm = dmatrix;}
   //-------------------------------------------------------------------------------
   //! Return width
   /*!  */
