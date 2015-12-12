@@ -1,0 +1,8 @@
+//#implements=SeqParOmp
+LCMP(SeqParOmp)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Go, limhd);
+  L_CPP_USE(Go, limvd);
+  L_CPP_USE(Go, limud);
+  L_CPP_USE(Go, sync0);
+LEND
