@@ -4,10 +4,10 @@ sys.path.append(os.path.dirname("./utils/"))
 import copy
 from string import Template
 
-nb_proc = 1
+nb_proc = 2
 size_x=500
-size_y=500
-iteration=1
+size_y=1000
+iteration=10
 
 tempProcF = open("template_process.xml",'r')
 tempCommF = open("template_comm.xml",'r')
