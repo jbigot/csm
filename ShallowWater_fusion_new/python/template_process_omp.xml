@@ -926,38 +926,20 @@
 					<cppref instance="bloc1x3_bloc1x4_bloc1x5_1_$proc" property="inGo"/>
 					<cppref instance="bloc1y1_bloc1y2_1_$proc" property="inGo"/>
 					<cppref instance="bloc1y3_bloc1y4_bloc1y5_1_$proc" property="inGo"/>
-					<cppref instance="bloc21_bloc22_bloc23_heun1_heun2_heun3_0_$proc" property="inGo"/>-->
-				</property>
+					<cppref instance="bloc21_bloc22_bloc23_heun1_heun2_heun3_0_$proc" property="inGo"/>
+				</property>-->
 			</instance>
-			<instance id="limhl_0_$proc" type="Klimhl">
+			<instance id="limhd_0_$proc" type="Klimhd">
 				<property id="h">
 					<cppref instance="h_$proc" property="services"/>
 				</property>
+			</instance>
+			<instance id="limud_0_$proc" type="Klimud">
 				<property id="u">
 					<cppref instance="u_$proc" property="services"/>
-				</property>
-				<property id="v">
-					<cppref instance="v_$proc" property="services"/>
 				</property>
 			</instance>
-			<instance id="limul_0_$proc" type="Klimul">
-				<property id="h">
-					<cppref instance="h_$proc" property="services"/>
-				</property>
-				<property id="u">
-					<cppref instance="u_$proc" property="services"/>
-				</property>
-				<property id="v">
-					<cppref instance="v_$proc" property="services"/>
-				</property>
-			</instance>
-			<instance id="limvl_0_$proc" type="Klimvl">
-				<property id="h">
-					<cppref instance="h_$proc" property="services"/>
-				</property>
-				<property id="u">
-					<cppref instance="u_$proc" property="services"/>
-				</property>
+			<instance id="limvd_0_$proc" type="Klimvd">
 				<property id="v">
 					<cppref instance="v_$proc" property="services"/>
 				</property>

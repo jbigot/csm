@@ -1203,9 +1203,9 @@ namespace skelgis{
 #endif
 
 #ifdef DEBUG
-      std::stringstream st1;
-      st1<<"Local width and height :"<<this->loc_head.width<<","<<this->loc_head.height<<"\n";
-      this->print(st1.str());
+      //std::stringstream st1;
+      std::cout<<"Local width and height :"<<this->loc_head.width<<","<<this->loc_head.height<<std::endl;
+      //this->print(st1.str());
 #endif
       //std::cout<<this->mpi_rank<<" - ("<<this->loc_head.width<<","<<this->loc_head.height<<")"<<std::endl;
       this->data = new T[this->border_head.width*this->border_head.height];
