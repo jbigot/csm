@@ -11,7 +11,6 @@ LCMP(Kbloc22)
   L_CPP_USE(Datah, delzc1);
   L_CPP_USE(Datah, f2);
   L_CPP_USE(Datah, g2);
-  L_CPP_USE(Datah, mcf);
   L_CPP_USE(Datah, qs1);
   L_CPP_USE(Datah, hs);
 LEND

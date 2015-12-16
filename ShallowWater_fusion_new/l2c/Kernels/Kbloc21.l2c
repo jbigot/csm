@@ -5,5 +5,4 @@ LCMP(Kbloc21)
   L_CPP_USE(Datah, f1);
   L_CPP_USE(Datah, g1);
   L_CPP_USE(Datah, hs);
-  L_CPP_USE(Datah, Rain);
 LEND

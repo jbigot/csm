@@ -43,7 +43,6 @@ public:
   Datah* hs;
   // Datah* qs1;
   // Datah* qs2;
-  Datah* Rain;
 
   Kbloc21(){}
   ~Kbloc21(){}
@@ -77,23 +76,20 @@ public:
     Controller<double> chs(hs);
     //Controller<double> cqs1(qs1);
     //Controller<double> cqs2(qs2);
-    Controller<double> cRain(Rain);
 
     double tx=0.005;
     double ty=0.005;
     double dt=0.5;
 
-    int64_t yyq=cRain.start();
     int64_t yy1=cf1.start();
     int64_t yy2=cg1.start();
-    for(int64_t yy = ch.start(); yy<ch.height();yy++,yyq++,yy1++,yy2++)
+    for(int64_t yy = ch.start(); yy<ch.height();yy++,yy1++,yy2++)
     {
-      int64_t xxq=cRain.start();
       int64_t xx1=cf1.start();
       int64_t xx2=cg1.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++,xxq++,xx1++,xx2++)
+      for(int64_t xx = ch.start();xx<ch.width(); xx++,xx1++,xx2++)
       {
-        chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1)) + cRain(xxq,yyq)*dt;
+        chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1));
         // cqs1(xxq,yyq) = cq1(xxq,yyq)-tx*(cf2(xx1+1,yy1)-cf2(xx1,yy1)+grav_dem*(ch1d(xx1,yy1)*ch1d(xx1,yy1)-ch1r(xx1,yy1)*ch1r(xx1,yy1)
         //   +ch1l(xx1+1,yy1)*ch1l(xx1+1,yy1)-ch1g(xx1+1,yy1)*ch1g(xx1+1,yy1)+(ch1r(xx1+1,yy1)+ch1l(xx1+1,yy1))*cdelzc1(xxq,yyq)))
         //   -ty*(cg2(xx2,yy2)-cg2(xx2,yy2+1));

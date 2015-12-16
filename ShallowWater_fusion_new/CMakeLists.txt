@@ -14,6 +14,16 @@ endif(NOT ${MPI_FOUND})
 
 include_directories(${MPI_INCLUDE_PATH} include)
 
+add_library(Assembly MODULE src/Assembly/Assembly.cpp)
+target_link_libraries(Assembly ${MPI_LIBRARIES})
+foreach(COMPILE_FLAG IN LISTS MPI_COMPILE_FLAGS)
+        set_target_properties(Assembly PROPERTIES COMPILE_FLAGS ${COMPILE_FLAG})
+endforeach(COMPILE_FLAG)
+foreach(LINK_FLAG IN LISTS MPI_LINK_FLAGS)
+        set_target_properties(Assembly PROPERTIES LINK_FLAGS ${LINK_FLAG})
+endforeach(LINK_FLAG)
+install(TARGETS Assembly LIBRARY DESTINATION lib)
+
 add_library(Driver MODULE src/Driver/Driver.cpp)
 target_link_libraries(Driver ${MPI_LIBRARIES})
 foreach(COMPILE_FLAG IN LISTS MPI_COMPILE_FLAGS)

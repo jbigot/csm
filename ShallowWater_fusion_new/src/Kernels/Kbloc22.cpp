@@ -27,7 +27,6 @@ public:
   Datah* delzc1;
   Datah* f2;
   Datah* g2;
-  Datah* mcf;
   Datah* hs;
   Datah* qs1;
 
@@ -47,7 +46,6 @@ public:
     Controller<double> cdelzc1(delzc1);
     Controller<double> cf2(f2);
     Controller<double> cg2(g2);
-    Controller<double> cmcf(mcf);
     Controller<double> chs(hs);
     Controller<double> cqs1(qs1);
 
@@ -68,7 +66,7 @@ public:
         cqs1(xxq,yyq) = cq1(xxq,yyq)-tx*(cf2(xx1+1,yy1)-cf2(xx1,yy1)+grav_dem*(ch1d(xx1,yy1)*ch1d(xx1,yy1)-ch1r(xx1,yy1)*ch1r(xx1,yy1)
           +ch1l(xx1+1,yy1)*ch1l(xx1+1,yy1)-ch1g(xx1+1,yy1)*ch1g(xx1+1,yy1)+(ch1r(xx1+1,yy1)+ch1l(xx1+1,yy1))*cdelzc1(xxq,yyq)))
           -ty*(cg2(xx2,yy2)-cg2(xx2,yy2+1));
-        cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1.+cmcf(xxq,yyq)*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        //cqs1(xxq,yyq)= cqs1(xxq,yyq)/(1.+cmcf(xxq,yyq)*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
       }
     }                                                                                                                                                                                      
   }

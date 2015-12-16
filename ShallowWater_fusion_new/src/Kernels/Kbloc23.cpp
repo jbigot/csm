@@ -27,7 +27,6 @@ public:
   Datah* delzc2;
   Datah* f3;
   Datah* g3;
-  Datah* mcf;
   Datah* hs;
   Datah* qs2;
 
@@ -47,7 +46,6 @@ public:
     Controller<double> cdelzc2(delzc2);
     Controller<double> cf3(f3);
     Controller<double> cg3(g3);
-    Controller<double> cmcf(mcf);
     Controller<double> chs(hs);
     Controller<double> cqs2(qs2);
 
@@ -55,12 +53,12 @@ public:
     double ty=0.005;
     double dt=0.5;
 
-    int64_t yyq=cmcf.start();
+    int64_t yyq=cq2.start();
     int64_t yy1=cf3.start();
     int64_t yy2=ch2r.start();
     for(int64_t yy = chs.start(); yy<chs.height();yy++,yyq++,yy1++,yy2++)
     {
-      int64_t xxq=cmcf.start();
+      int64_t xxq=cq2.start();
       int64_t xx1=cf3.start();
       int64_t xx2=ch2r.start();
       for(int64_t xx = chs.start();xx<chs.width(); xx++,xxq++,xx1++,xx2++)
@@ -68,7 +66,7 @@ public:
         cqs2(xxq,yyq)= cq2(xxq,yyq)-tx*(cf3(xx1+1,yy1)-cf3(xx1,yy1))-ty*(cg3(xx2,yy2)-cg3(xx2,yy2+1)+grav_dem*(ch2d(xx2,yy2+1)
           *ch2d(xx2,yy2+1)-ch2r(xx2,yy2+1)*ch2r(xx2,yy2+1)+ch2l(xx2,yy2)*ch2l(xx2,yy2)-ch2g(xx2,yy2)*ch2g(xx2,yy2)+(ch2r(xx2,yy2+1)
           +ch2l(xx2,yy2))*cdelzc2(xxq,yyq)));
-        cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1.+cmcf(xxq,yyq)*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
+        //cqs2(xxq,yyq)= cqs2(xxq,yyq)/(1.+cmcf(xxq,yyq)*sqrt(cu(xx,yy)*cu(xx,yy)+cv(xx,yy)*cv(xx,yy))*dt/(8.*chs(xx,yy)));
       }
     }                                                                                                                                                                                      
   }
