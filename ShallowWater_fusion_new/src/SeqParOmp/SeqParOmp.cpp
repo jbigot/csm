@@ -135,9 +135,9 @@ public:
 
   void go ()
   {
-#pragma omp parallel
+#pragma omp parallel proc_bind(close)
     {
-#pragma omp single
+#pragma omp master
     {
       //SeqPar with task creation
       //first boundary conditions
@@ -165,11 +165,8 @@ public:
       limur0->go();
       #pragma omp task untied final(1)
       limvr0->go();
-    }
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       //sync 1
       sync0->go();
 
@@ -206,12 +203,9 @@ public:
       huvz2l0->go();
       #pragma omp task untied final(1)
       huvz2r0->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       delzc2f0->go();
       #pragma omp task untied final(1)
@@ -220,12 +214,9 @@ public:
       delzc1f0->go();
       #pragma omp task untied final(1)
       delzf10->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       bloc1x10->go();
       #pragma omp task untied final(1)
@@ -234,12 +225,9 @@ public:
       bloc1y10->go();
       #pragma omp task untied final(1)
       bloc1y20->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       bloc1x30->go();
       #pragma omp task untied final(1)
@@ -252,12 +240,9 @@ public:
       bloc1y40->go();
       #pragma omp task untied final(1)
       bloc1y50->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       bloc210->go();
 
       #pragma omp task untied final(1)
@@ -266,12 +251,9 @@ public:
       bloc230->go();
       #pragma omp task untied final(1)
       check0->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       checkus0->go();
       #pragma omp task untied final(1)
@@ -284,12 +266,28 @@ public:
       limhu1->go();
       #pragma omp task untied final(1)
       limhd1->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
+      #pragma omp task untied final(1)
+      limud1->go();
+      #pragma omp task untied final(1)
+      limvd1->go();
+      #pragma omp task untied final(1)
+      limul1->go();
+      #pragma omp task untied final(1)
+      limvl1->go();
+      #pragma omp task untied final(1)
+      limuu1->go();
+      #pragma omp task untied final(1)
+      limvu1->go();
+      #pragma omp task untied final(1)
+      limur1->go();
+      #pragma omp task untied final(1)
+      limvr1->go();
+
+      #pragma omp taskwait
+
       sync1->go();
 
       #pragma omp task untied final(1)
@@ -325,12 +323,9 @@ public:
       huvz2l1->go();
       #pragma omp task untied final(1)
       huvz2r1->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       delzc2f1->go();
       #pragma omp task untied final(1)
@@ -339,12 +334,9 @@ public:
       delzc1f1->go();
       #pragma omp task untied final(1)
       delzf11->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       bloc1x11->go();
       #pragma omp task untied final(1)
@@ -353,12 +345,9 @@ public:
       bloc1y11->go();
       #pragma omp task untied final(1)
       bloc1y21->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       bloc1x31->go();
       #pragma omp task untied final(1)
@@ -371,12 +360,9 @@ public:
       bloc1y41->go();
       #pragma omp task untied final(1)
       bloc1y51->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       bloc211->go();
 
       #pragma omp task untied final(1)
@@ -385,12 +371,9 @@ public:
       bloc231->go();
       #pragma omp task untied final(1)
       heun1->go();
-    }
 
       #pragma omp taskwait
 
-    #pragma omp single
-    {
       #pragma omp task untied final(1)
       heun2->go();
       #pragma omp task untied final(1)
