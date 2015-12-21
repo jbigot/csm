@@ -37,7 +37,6 @@ public:
   Datah* delzc2;
   Datah* f3;
   Datah* g3;
-  Datah* hs;
   Datah* qs2;
 
   Kbloc22_bloc23(){}
@@ -66,7 +65,6 @@ public:
     Controller<double> cdelzc2(delzc2);
     Controller<double> cf3(f3);
     Controller<double> cg3(g3);
-    Controller<double> chs(hs);
     Controller<double> cqs2(qs2);
 
     double tx=0.005;
