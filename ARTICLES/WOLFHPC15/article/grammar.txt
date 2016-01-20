@@ -1,0 +1,29 @@
+program ::= "mesh:" meshid
+            "mesh entities:" listmeshent
+            "computation domains:"
+                       listcompdom
+            "independent:"
+                       listinde
+            "data:" listdata
+            "time:" iteration
+            "computations:" listcomp
+listmeshent ::= meshent listmeshent
+             |  meshent
+listcompdom ::= compdom listcompdom
+             |  compdom
+compdom ::= compdomid "in" listmeshent
+listinde ::= inde listinde
+          |  inde
+inde ::= compdomid "and" compdomid
+listdata ::= data listdata
+          |  data
+data ::= dataid "," meshent
+iteration ::= num
+listcomp ::= comp listcomp
+          |  comp
+comp ::= dataid "[" compdomid "]=" compid
+            "(" listdataread ")"
+listdataread ::= dataread listdataread
+              |  dataread
+dataread ::= dataid "[" neighborid "]"
+          |  dataid

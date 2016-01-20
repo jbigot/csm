@@ -1,0 +1,5 @@
+LLCMc++ provides an implementation for two Low Level Component Models
+  * L²C (C++ Low Level Components)
+  * Gluon++ (based on Charm++)
+
+You can find more documentation on its use at http://hlcm.gforge.inria.fr/llcmcpp:about

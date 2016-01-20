@@ -1,0 +1,43 @@
+\begin{thebibliography}{1}
+
+\bibitem{l2c}
+Julien Bigot, Zhengxiong Hou, Christian Pérez, and Vincent Pichon.
+\newblock A low level component model easing performance portability of hpc
+  applications.
+\newblock {\em Computing}, 96(12):1115--1130, 2014.
+
+\bibitem{bigot:inria-00388508}
+Julien Bigot and Christian P{\'e}rez.
+\newblock {Increasing Reuse in Component Models through Genericity}.
+\newblock Research Report RR-6941, 2009.
+
+\bibitem{Finta:1996:SUS:235643.235649}
+Lucian Finta, Zhen Liu, Ioannis Milis, and Evripidis Bampis.
+\newblock Scheduling uet-uct series-parallel graphs on two processors.
+\newblock {\em Theor. Comput. Sci.}, 162(2):323--340, August 1996.
+
+\bibitem{Finta1996323}
+Lucian Finta, Zhen Liu, Ioannis Mills, and Evripidis Bampis.
+\newblock Scheduling uet-uct series-parallel graphs on two processors.
+\newblock {\em Theoretical Computer Science}, 162(2):323 -- 340, 1996.
+
+\bibitem{Szyperski:2002:CSB:515228}
+Clemens Szyperski.
+\newblock {\em Component Software: Beyond Object-Oriented Programming}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 2nd
+  edition, 2002.
+
+\bibitem{Valdes:1979:RSP:800135.804393}
+Jacobo Valdes, Robert~E. Tarjan, and Eugene~L. Lawler.
+\newblock The recognition of series parallel digraphs.
+\newblock In {\em Proceedings of the Eleventh Annual ACM Symposium on Theory of
+  Computing}, STOC '79, pages 1--12, New York, NY, USA, 1979. ACM.
+
+\bibitem{Wang20082684}
+Ji-Bo Wang, C.T. Ng, and T.C.E. Cheng.
+\newblock Single-machine scheduling with deteriorating jobs under a
+  series–parallel graph constraint.
+\newblock {\em Computers \& Operations Research}, 35(8):2684 -- 2693, 2008.
+\newblock Queues in Practice.
+
+\end{thebibliography}

@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {french}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Overview}{6}{0}{2}
+\beamer@sectionintoc {3}{Data description}{7}{0}{3}
+\beamer@sectionintoc {4}{Time description}{8}{0}{4}
+\beamer@sectionintoc {5}{Computation description}{9}{0}{5}
+\beamer@sectionintoc {6}{Overall example}{11}{0}{6}

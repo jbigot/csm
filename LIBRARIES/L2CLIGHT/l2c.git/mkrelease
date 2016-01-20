@@ -1,0 +1,12 @@
+#!/bin/bash
+
+VERSION="$1"
+FILES="AUTHORS ChangeLog CMakeLists.txt COPYING COPYING.LESSER README cmake gluon l2c llcmcpp"
+
+if [ -z "${VERSION}" ]
+then
+	echo "No Release defined"
+fi
+
+tar --exclude=".*" --transform "s%^%llcmcpp-src-${VERSION}/%" -cjf "llcmcpp-src-${VERSION}.tar.bz2" $FILES
+tar --exclude=".*" --transform "s%^%llcmcpp-src-${VERSION}/%" -cJf "llcmcpp-src-${VERSION}.tar.xz"  $FILES

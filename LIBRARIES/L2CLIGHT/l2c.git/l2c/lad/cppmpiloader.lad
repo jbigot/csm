@@ -1,0 +1,108 @@
+<?xml version='1.0'?>
+<!--
+    This file is part of LLCMc++ (a.k.a. llcmcpp)
+    Copyright (C) 2011 INRIA Julien Bigot <julien.bigot@inria.fr>
+    Copyright (C) 2011 INRIA Christian Pérez <christian.perez@inria.fr>
+
+    LLCMc++ is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    LLCMc++ is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with LLCMc++.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<lad xmlns="http://www.inria.fr/graal/lad/1.0.0">
+	<process>
+		<start_property instance="driver" property="go"/>
+		
+		<instance id="local_namespace_manager" type="LocalNamespaceManager" >
+			<property id="host3"><systemref name="host3"/></property>
+		</instance>
+		
+		<instance id="mpi_initializer" type="MpiInitializer" />
+		
+		<instance id="mpi_barrier" type="MpiBarrier" >
+			<property id="comm"><cppref instance="mpi_initializer" property="world"/></property>
+		</instance>
+		
+		<instance id="lifecycle_manager" type="LifecycleManager" >
+			<property id="raw_component_management"><cppref instance="local_namespace_manager" property="raw_component_manager"/></property>
+			<property id="managed_instances"><cppref instance="local_namespace_manager" property="namespace_management"/></property>
+		</instance>
+		
+		<instance id="cluster_namespace_manager" type="ClusterNamespaceManager" >
+			<property id="local_instantiation_management"><cppref instance="local_namespace_manager" property="instantiation_manager"/></property>
+			<property id="local_rank"><cppref instance="mpi_manager" property="local_rank"/></property>
+		</instance>
+		
+		<instance id="cpp_manager" type="CppManager" >
+			<property id="raw_component_management"><cppref instance="local_namespace_manager" property="raw_component_manager"/></property>
+			<property id="args"><cppref instance="commandline_handler" property="args"/></property>
+			<property id="host"><systemref name="host"/></property>
+			<property id="host3"><systemref name="host3"/></property>
+		</instance>
+		
+		<instance id="cpp_global_manager" type="LocalCppManagementFilter" >
+			<property id="local_cpp_management"><cppref instance="cpp_manager" property="cpp_manager"/></property>
+			<property id="local_namespace_management"><cppref instance="local_namespace_manager" property="namespace_management"/></property>
+			<property id="global_namespace_management"><cppref instance="cluster_namespace_manager" property="namespace_manager"/></property>
+		</instance>
+		
+		<instance id="mpi_manager" type="MpiManager" >
+			<property id="cluster_namespace_management"><cppref instance="cluster_namespace_manager" property="cluster_namespace_manager"/></property>
+			<property id="comm"><cppref instance="mpi_initializer" property="world"/></property>
+			<property id="raw_component_management"><cppref instance="local_namespace_manager" property="raw_component_manager"/></property>
+		</instance>
+		
+		<instance id="type_interpreter" type="TypeInterpreter" >
+			<property id="cpp_management"><cppref instance="cpp_global_manager" property="cpp_manager"/></property>
+		</instance>
+		
+		<instance id="instantiation_filter" type="LocalInstantiationFilter" >
+			<property id="cluster_instantiation_management"><cppref instance="cluster_namespace_manager" property="instantiation_manager"/></property>
+		</instance>
+		
+		<instance id="assembly_builder" type="AssemblyBuilder" >
+			<property id="grid_instantiation_management"><cppref instance="instantiation_filter" property="grid_instantiation_manager"/></property>
+			<property id="collective_access"><cppref instance="mpi_barrier" property="collective"/></property>
+			<property id="cpp_management"><cppref instance="cpp_global_manager" property="cpp_manager"/></property>
+			<property id="lifecycle_management"><cppref instance="lifecycle_manager" property="lifecycle_manager"/></property>
+			<property id="mpi_management"><cppref instance="mpi_manager" property="mpi_manager"/></property>
+			<property id="typed_configuration"><cppref instance="type_interpreter" property="interpreter"/></property>
+		</instance>
+		
+		<instance id="xml_handler" type="LadHandler" >
+			<property id="grid_instantiation_management"><cppref instance="assembly_builder" property="grid_instantiation_manager"/></property>
+			<property id="cpp_management"><cppref instance="assembly_builder" property="cpp_manager"/></property>
+			<property id="mpi_management"><cppref instance="assembly_builder" property="mpi_manager"/></property>
+			<property id="typed_configuration"><cppref instance="assembly_builder" property="typed_configurer"/></property>
+		</instance>
+		
+		<instance id="xml_parser" type="TinyXmlComponent" >
+			<property id="visitor"><cppref instance="xml_handler" property="visitor"/></property>
+		</instance>
+		
+		<instance id="commandline_handler" type="CommandlineHandler" >
+			<property id="typed_configuration"><cppref instance="assembly_builder" property="typed_configurer"/></property>
+			<property id="xml_parsing"><cppref instance="xml_parser" property="parser"/></property>
+		</instance>
+		
+		<instance id="driver" type="Driver2" >
+			<property id="initializations">
+				<cppref instance="commandline_handler" property="initializer"/>
+				<cppref instance="mpi_initializer" property="initializer"/>
+				<cppref instance="mpi_manager" property="initializer"/>
+			</property>
+			<property id="assembly_building"><cppref instance="assembly_builder" property="go"/></property>
+			<property id="argc"><systemref name="argc"/></property>
+			<property id="argv"><systemref name="argv"/></property>
+		</instance>
+		
+	</process>
+</lad>

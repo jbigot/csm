@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.inria.fr/graal/gad/1.0.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.inria.fr/graal/gad/1.0.0">
+  <xsd:element name="gad" type="gad"/>
+  <xsd:complexType name="gad">
+    <xsd:sequence>
+      <xsd:element form="qualified" maxOccurs="unbounded" name="pe" type="pe"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pe">
+    <xsd:sequence>
+      <xsd:element form="qualified" minOccurs="0" name="start_property" type="endpoint"/>
+      <xsd:element form="qualified" maxOccurs="unbounded" name="instance" type="instance"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="instance">
+    <xsd:sequence>
+      <xsd:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="property" type="property_value"/>
+    </xsd:sequence>
+    <xsd:attribute name="from" type="xsd:string"/>
+    <xsd:attribute name="id" type="xsd:ID" use="required"/>
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="property_value">
+    <xsd:sequence>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:element form="qualified" minOccurs="0" name="value" type="data_value"/>
+        <xsd:element form="qualified" minOccurs="0" name="cppref" type="endpoint"/>
+        <xsd:element form="qualified" minOccurs="0" name="charmref" type="endpoint"/>
+        <xsd:element form="qualified" minOccurs="0" name="systemref" type="system_ref"/>
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="data_value">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="type" type="data_type" use="required"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="data_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="int8"/>
+      <xsd:enumeration value="uint8"/>
+      <xsd:enumeration value="int16"/>
+      <xsd:enumeration value="uint16"/>
+      <xsd:enumeration value="int32"/>
+      <xsd:enumeration value="uint32"/>
+      <xsd:enumeration value="int64"/>
+      <xsd:enumeration value="uint64"/>
+      <xsd:enumeration value="double"/>
+      <xsd:enumeration value="complexDouble"/>
+      <xsd:enumeration value="string"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="endpoint">
+    <xsd:attribute name="instance" type="xsd:IDREF" use="required"/>
+    <xsd:attribute name="property" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="system_ref">
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+  </xsd:complexType>
+</xsd:schema>

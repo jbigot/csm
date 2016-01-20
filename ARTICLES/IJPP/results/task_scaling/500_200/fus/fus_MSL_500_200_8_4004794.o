@@ -1,0 +1,43 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 Time TOTAL CALCULATION : 3.20724
+1 Time TOTAL CALCULATION : 3.20734
+2 Time TOTAL CALCULATION : 3.20741
+3 Time TOTAL CALCULATION : 3.20731
+4 Time TOTAL CALCULATION : 3.20742
+5 Time TOTAL CALCULATION : 3.20743
+7 Time TOTAL CALCULATION : 3.20737
+6 Time TOTAL CALCULATION : 3.20749
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4004794
+Jobname   : fus_MSL_500_200_8
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 17:00 , memory/task = 4000 Mo
+Date      : submit = 18/01/2016 14:25:54 , start = 18/01/2016 14:25:54
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 1 , ncpus = 8 , nodes = 1
+   Nodes=curie2108 CPU_IDs=0-7 Mem=32000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4004794       fus_MSL_500_200_8         -      8      1           -     00:00:06     100            -      -  -
+4004794.0     llcmcpp_loader            8      8      1      BBlock     00:00:05    83.3     00:00:01   20.0  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -1,0 +1,398 @@
+%----------------------------------------
+%\subsection{Overview}
+%----------------------------------------
+This section describes the projection of a MSL program to a component-based runtime, including the components used to implement the static scheduling of $\Gamma_{tsp}$.
+The section first gives an overview of component models, and especially the Low Level Components (\llc) used in this work.
+
+\pagebreak
+%----------------------------------------
+\subsection{Component-Based Software Engineering}
+%----------------------------------------
+Component-based software engineering (CBSE) is a domain of software engineering~\cite{Szyperski:2002:CSB:515228} which promotes code
+re-use, separations of concerns, and thus maintainability.
+An application is made of a set of component instances.
+A component is a black box that implements an independent functionality of the application, and which interacts with its environment only through well defined interfaces: its ports.
+A port can, for example, specify services provided or required by the component.
+With respect to high performance computing, some works have also shown
+that component models can achieve the needed level of performance, and
+scalability while also helping in application
+portability~\cite{Bernholdt01052006, bigot:inria-00388508, UCHPC2015}
+
+Many component models exist, each of them with its own specificities.
+Well known component models include, for example, the CORBA Component Model (CCM)~\cite{corba:omg06}, and the Grid Component Model (GCM)~\cite{Baude} for distributed computing, while the Common Component Architecture (CCA)~\cite{Bernholdt01052006}, and Low Level Components (\llc)~\cite{l2c} are HPC-oriented.
+This work makes use of \llc for the experiments.
+%Let therefore introduce this model in more details.
+
+%----------------------------------------
+\subsection{\llc}
+%----------------------------------------
+
+\llc~\cite{l2c} is a minimalist \texttt{C++} based HPC-oriented component model
+where a component extends the concept of class.
+The services offered by the components are specified trough $provide$ ports,
+those used either by $use$ ports for a single service instance,
+or $use-multiple$ ports for multiple service instances.
+Services are specified as \texttt{C++} interfaces.
+\llc also offers $MPI$ ports that enable components to share MPI communicators.
+Components can also have attribute ports to be configured.
+%
+As illustrated in Figures~\ref{fig:ports}, a $provide$ port is
+represented by a white circle, a $use$
+port with a black circle, a $use-multiple$ port by a black circle with
+a white $m$ in it. MPI port are
+connected with a black rectangle.
+A \llc-based application is a static \emph{assembly} of components instances and connections between their ports.
+Such an assembly is described in LAD, an XML dialect.
+
+\begin{figure}[t]
+\begin{center}
+\subfloat[][\label{fig:2comp}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$c_0$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {};
+   \node[provide,right=1.5cm of u] (p1) {};
+   \node[component,right=1.5cm of p1] (C1) {$c_1$};
+   \node[use,right=1.5cm of C1] (um) {$m$};
+ 
+  \path[-]
+    (p) edge node {$p$} (C)
+    (C.east) edge node {$u$} (u)
+    (C1)  edge node {$v$} (um)
+    (p1) edge node {$q$} (C1);
+\end{tikzpicture}
+}
+\\
+\subfloat[][\label{fig:ass}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$c_0$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {};
+   \node[provide,right=0.15 of u] (p2) {};
+   \node[component,right=1.5 of p2] (C1) {$c_1$};
+   \node[use,right=1.5 of C1] (um) {$m$};
+ 
+  \path[-]
+    (p) edge node {$p$} (C)
+    (C) edge node {$u$} (u)
+    (C1)  edge node {$v$} (um)
+    (p2) edge node {$q$} (C1);
+\end{tikzpicture}
+}
+\\
+\subfloat[][\label{fig:mpi}]{
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (C) at (0,0) {$c_2$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[mpi] (u) at (1.5,0) {};
+   \node[component,right=1.5 of u] (C1) {$c_3$};
+ 
+  \path[-]
+    (p) edge node {} (C)
+    (C) edge node {} (u)
+    (u) edge node {} (C1);
+\end{tikzpicture}
+}
+\caption{Example of components and their ports representation. a) Component $c_0$ has a provide port ($p$) and a use port ($u$); Component $c_1$ has also a provide port ($q$) but also a use multiple port ($v$). b) A use port is connected to a (compatible) provide port. c) Component $c_2$ and $c_3$ shares an MPI communicator.}
+\label{fig:ports}
+\end{center}
+\end{figure}
+
+%% In the rest of this paper, when a required service of a \emph{use} (or \emph{use-multiple}) port is filled and linked to a \emph{provide} port in the comonent assembly, only the use port stay visible, as illustrated in Figure~\ref{fig:assembly}. As the use port is on the right of its component, and the provide port on the left, in a component assembly the component on the left uses the provide port of the component on the right.
+
+%----------------------------------------
+\subsection{MSP Component Runtime Overview}
+%----------------------------------------
+
+\begin{figure}[t]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (D) at (0,0) {$Driver$};
+   \node[provide] (Dp) at (-1,0) {};
+   \node (Ds) at (-1.5,0) {start};
+   \node[use,right=1.5cm of D] (Du1) {};
+   \node[use,below=1.75cm of D] (Du2) {};
+   \node[use,below=0.8cm of Du1] (Du3) {$m$};
+
+   \node[provide,below=0.15 of Du2] (Tp) {};
+   \node[component,below=1.6cm of Tp] (T) {$Time$};
+   \node[use,right=1cm of T] (Tu) {};
+   \node[left=0.8cm of T] (tt) {$T$};
+
+   \node[provide,right=0.15 of Tu] (Cp) {};
+   \node[component,right=2cm of Cp] (C) {$Computations$};
+   \node[use,above=0.8cm of C] (Cu) {};
+   \node[right=0.2cm of Cu] (star) {$*$};
+   \node[right=1.5cm of C] (gamma) {$\Gamma$};
+
+   \node[provide,below right=0.2 of Du3] (Datap1) {};
+   \node[provide,above=0.15 of Cu] (Datap2) {};
+   \node[component,double,above=0.8cm of Datap2] (Data) {$Data$};
+   \node[use,above=0.8cm of Data] (Datau) {};
+   \node[left=1cm of Data] (delta) {$\Delta,\mathcal{D}$};
+   \node[mpi,right=1cm of Data] (mpidata) {};
+   \node[above=0.2cm of mpidata] (star2) {$*$};
+
+   \node[provide,right=0.15 of Du1] (DDSp1) {};
+   \node[provide,above=0.15 of Datau] (DDSp2) {};
+   \node[component,above=0.8cm of DDSp2] (DDS) {$DDS$};
+   \node[right=1.2cm of DDS] (m) {$\mathcal{M},\mathcal{E}$};
+ 
+  \path[-]
+    (Dp) edge node {} (D)
+    (D) edge node {} (Du1)
+        edge node {} (Du2)
+        edge node {} (Du3)
+    (DDSp1) edge node {} (DDS)
+    (Tp) edge node {} (T)
+    (T)  edge node {} (Tu)
+    (Cp) edge node {} (C)
+    (C) edge node {} (Cu)
+    (Datap2) edge node {} (Data)
+    (Datap1) edge node {} (Data)
+    (Data) edge node {} (Datau)
+          edge node {} (mpidata)
+    (DDSp2) edge node {} (DDS);
+\end{tikzpicture}
+\vspace*{.5em}
+\caption{MSCAC Component-based Runtime Overview.}
+\label{fig:mscac:assembly}
+\end{center}
+\end{figure}
+
+As described in Section~\ref{sect:mscac}, the compiler generates four independent parts in a component assembly in addition to a static part as represented in Figure~\ref{fig:mscac:assembly}: each rounded box represents one component instance, drawn with simple lines, or more, drawn with double lines. For example, the component \texttt{Data} is instantiated more than once.
+\texttt{Driver} is static and drives the whole application.
+The four other parts are generated based on the content of the different sections of the MSL program: \texttt{Computations}, from the parallelization of $\Gamma$ (done by MSC as explained in Section~\ref{sect:msc}), \emph{DDS} from $\mathcal{M}$ and $\mathcal{E}$, \emph{Data} from $\Delta$ and $\mathcal{D}$, and \emph{Time} from $T$.
+
+%, and using the kernel codes provided by the user
+
+\texttt{DDS} manages the structure and the partitioning of the mesh, a single instance is generated as MSL only supports a single mesh for now.
+The back-end presented in this paper uses the distributed data structure proposed in SkelGIS library~\cite{CPE:CPE3494}.
+\texttt{DDS} is used by \texttt{Data}, for which one instance represents one data element in the MSL program.
+\texttt{Time} is parametrized by the \texttt{iteration} value from MSL and uses the \texttt{Computations} component as many times as required.
+
+\texttt{Computations} contains the static scheduling $\Gamma_{tsp}$, or the data parallel transformation $\Gamma_{data}$, both computed by MSC.
+Both transformations, $\Gamma_{tsp}$ and $\Gamma_{data}$, are encoded using three specific components, detailed in Section~\ref{sect:control}, which manage the $P$, $S$, and $sync$ operations.
+At the leaves of $\Gamma_{tsp}$ and $\Gamma_{data}$, the computation components instances (denoted $K$), provided by the user, are connected to \texttt{Data}.
+As shown in Figure~\ref{fig:k}, a $K$ component provides a port to launch the computation and exposes a use port for each data element manipulated in the computation; a star is added on the use port to \texttt{Data} to denote it.
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (k) at (0,0) {$K$};
+   \node[provide] (p) at (-1.5,0) {};
+   \node[use] (u) at (1.5,0) {};
+   \node[right=0.2 of u] (star) {*};
+ 
+  \path[-]
+    (p) edge node {} (k)
+    (k) edge node {} (u);
+\end{tikzpicture}
+\end{center}
+\caption{A kernel component $K$.}
+\label{fig:k}
+\end{figure}
+
+
+A complete assembly is obtained by replicating the component assembly of Figure~\ref{fig:mscac:assembly} on available processors (or cores). Connections is done with MPI ports of \texttt{Data} components.
+
+As a result of this approach, each part of the generated code is rather independent.
+Changing the main time loop to use a convergence criteria rather than a fixed number of iterations would only require changing the \texttt{Time} component.
+Similarly, changing the approach used for scheduling would only impact the code generated in \texttt{Computations}.
+The technology used for data parallelism can also be changed by replacing the \texttt{DDS} and \texttt{Data} components, and by using the adequate interfaces in $K$. As a matter of fact, we have started evaluating an alternative based on Global Arrays~\cite{Nieplocha:2006:AAP:1125980.1125985} instead of SkelGIS.
+  
+%----------------------------------------
+\subsection{Control Components and Dump}
+\label{sect:control}
+%----------------------------------------
+The series-parallel tree decomposition $\Gamma_{tsp}$ represents a static scheduling of the simulation. $\Gamma_{data}$, on the other hand, is an optimized merged ordered list of computations. Both are dumped to components by generating an assembly that exactly matches their structure.
+We introduce what we call \emph{control components} to represent all nodes of $\Gamma_{tsp}$ or $\Gamma_{data}$.
+These components can be used for any simulation, which increases code reuse between simulations.
+A control component exposes a single \emph{provide} port containing a \emph{control-only} method, without any parameter.
+Three control components have been needed: SEQ, PAR, and SYNC. They are represented in Figure~\ref{fig:ctrlcomponents}.
+
+
+\begin{description}
+\item[Sequence component (SEQ)] It is the direct representation of a sequence node of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component sequentially calls an ordered list of other components. It exposes an ordered \emph{use-multiple} port to be connected to the components to call in sequence.
+
+\item[Parallel component (PAR)] It is the direct representation of a parallel node of $\Gamma_{tsp}$ (not $\Gamma_{data}$). This component simultaneously calls a set of other components. It exposes a \emph{use-multiple} port to be connected to the components to call in parallel.
+  
+\item[Synchronization component (SYNC)] It is the direct representation to an update leaf of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component calls the synchronization of a given data. It exposes a \emph{use} port to be connected to the data to be updated.
+\end{description}
+
+% \paragraph{Sequence component (SEQ)}{It is the direct representation of a sequence node of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component sequentially calls an ordered list of other components. It exposes an ordered \emph{use-multiple} port to be connected to the components to call in sequence.}
+
+% \paragraph{Parallel component (PAR)}{It is the direct representation of a parallel node of $\Gamma_{tsp}$ (not $\Gamma_{data}$). This component simultaneously calls a set of other components. It exposes a \emph{use-multiple} port to be connected to the components to call in parallel.}
+
+% \paragraph{Synchronization component (SYNC)}{It is the direct representation to an update leaf of $\Gamma_{tsp}$ or $\Gamma_{data}$. This component calls the synchronization of a given data. It exposes a \emph{use} port to be connected to the data to be updated.}
+
+Then, from $\Gamma_{tsp}$ or $\Gamma_{data}$, and using the control components described above,
+a direct dump can be done to a component assembly for a data or hybrid (data
+and task) parallelization of a simulation.
+Figure~\ref{fig:tsp:assembly} displays the assembly part corresponding to
+$\Gamma_{tsp}$ of Figure~\ref{fig:tsp}. In this figure, the ports
+linked to data (use and use-multiple ports of SYNC and K) are
+represented but are not connected for readability. Moreover, each computation
+component is an instance of a specific K component using
+the identification name of the computation of an MSL instance.
+Thus, this figure represents what the component \texttt{Computations} of Figure~\ref{fig:mscac:assembly} contains if an hybrid parallelization is performed. On the other hand, if a data parallelization is performed, a single $SEQ$ component is used by \texttt{Time}, which invokes in the appropriate order the computation kernels and synchronizations. Among those kernels, a single \emph{merged} kernel would represent $c_3$ and $c_5$.
+
+\begin{figure}[t]
+\begin{tikzpicture}[shorten >=1pt, node distance=1cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$SEQ$}; \node[provide] (p) at
+   (-1,0) {}; \node[use] (u) at (1,0) {$m$};
+ 
+  \path[-]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u);
+\end{tikzpicture}
+\hspace{\fill}
+\begin{tikzpicture}[shorten >=1pt, node distance=1cm, on grid, auto]
+   \node[component] (seq) at (0,0) {$PAR$};
+   \node[provide] (p) at (-1,0) {};
+   \node[use] (u) at (1,0) {$m$};
+ 
+  \path[-]
+    (p) edge node {} (seq)
+    (seq) edge node {} (u);
+\end{tikzpicture}
+\hspace{\fill}
+\begin{tikzpicture}[shorten >=1pt, node distance=1cm, on grid, auto]
+   \node[component] (sync) at (0,0) {$SYNC$};
+   \node[provide] (p) at (-1,0) {};
+   \node[use] (u) at (1,0) {};
+ 
+  \path[-]
+    (p) edge node {} (sync)
+    (sync) edge node {} (u);
+\end{tikzpicture}
+\\
+a) Comp. SEQ
+\hspace{\fill}
+b) Comp. PAR
+\hspace{\fill}
+c) Comp. SYNC
+\\
+\caption{The three control components.}
+\label{fig:ctrlcomponents}
+\end{figure}
+
+\begin{figure*}[t]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   %seq0
+   \node[component] (seq0) at (0,0) {$SEQ$};
+   \node[provide] (seq0p) [left = 0.8cm of seq0] {};
+   \node[use] (seq0u) [right = 1cm of seq0] {$m$};
+   %c0
+   \node[component] (c0) [right = 2cm of seq0u] {$K(c_0)$};
+   \node[use] (c0u) [right = 0.8cm of c0] {};
+   \node[right=0.2 of c0u] (star) {*};
+   %sync0
+   \node[component] (sync0) [below = 1cm of c0] {$SYNC$};
+   \node[use] (sync0u) [right = 1cm of sync0] {$m$};
+   %c1
+   \node[component] (c1) [below = 0.8cm of sync0] {$K(c_1)$};
+   \node[use] (c1u) [right = 0.8cm of c1] {};
+   \node[right=0.2 of c1u] (star) {*};
+   %par0
+   \node[component] (par0) [below = 0.8cm of c1] {$PAR$};
+   \node[use] (par0u) [right = 1cm of par0] {$m$};
+  %seq1
+   \node[component] (seq1) [right = 1cm of sync0u] {$SEQ$};
+   \node[use] (seq1u) [right = 1cm of seq1] {$m$};
+  %c2
+   \node[component] (c2) [right = 4cm of c0] {$K(c_2)$};
+   \node[use] (c2u) [right = 0.8cm of c2] {};
+   \node[right=0.2 of c2u] (star) {*};
+  %sync1
+   \node[component] (sync1) [below = 0.8cm of c2] {$SYNC$};
+   \node[use] (sync1u) [right = 1cm of sync1] {$m$};
+  %c4
+   \node[component] (c4) [below = 0.8cm of sync1] {$K(c_4)$};
+   \node[use] (c4u) [right = 0.8cm of c4] {};
+   \node[right=0.2 of c4u] (star) {*};
+  %c6
+   \node[component] (c6) [below = 0.8cm of c4] {$K(c_6)$};
+   \node[use] (c6u) [right = 0.8cm of c6] {};
+   \node[right=0.2 of c6u] (star) {*};
+  %seq2
+   \node[component] (seq2) [below = 3.2cm of seq1] {$SEQ$};
+   \node[use] (seq2u) [right = 1cm of seq2] {$m$};
+  %c3
+   \node[component] (c3) [right = 1cm of seq2u] {$K(c_3)$};
+   \node[use] (c3u) [right = 0.8cm of c3] {};
+   \node[right=0.2 of c3u] (star) {*};
+  %c5
+   \node[component] (c5) [below = 0.8cm of c3] {$K(c_5)$};
+   \node[use] (c5u) [right = 0.8cm of c5] {};
+   \node[right=0.2 of c5u] (star) {*};
+  %c7
+   \node[component] (c7) [below = 0.8cm of par0] {$K(c_7)$};
+   \node[use] (c7u) [right = 0.8cm of c7] {};
+   \node[right=0.2 of c7u] (star) {*};
+  %sync2
+   \node[component] (sync2) [below = 0.8cm of c7] {$SYNC$};
+   \node[use] (sync2u) [right = 1cm of sync2] {$m$};
+  %c8
+   \node[component] (c8) [below = 0.8cm of sync2] {$K(c_8)$};
+   \node[use] (c8u) [right = 0.8cm of c8] {};
+   \node[right=0.2 of c8u] (star) {*};
+
+   \path[-]
+   %seq0
+    (seq0) edge node {} (seq0u)
+    (seq0p) edge node {} (seq0)
+   %c0
+    (seq0u) edge node {} (c0)
+    (c0) edge node {} (c0u)
+    %sync0
+    (seq0u) edge node {} (sync0.west)
+    (sync0) edge node {} (sync0u)
+    %c1
+    (seq0u) edge node {} (c1)
+    (c1) edge node {} (c1u)
+   %par0
+    (seq0u) edge node {} (par0.west)
+    (par0) edge node {} (par0u)
+  %seq1
+    (par0u) edge node {} (seq1.west)
+    (seq1) edge node {} (seq1u)
+  %c2
+    (seq1u) edge node {} (c2.west)
+    (c2) edge node {} (c2u)
+  %sync0
+    (seq1u) edge node {} (sync1.west)
+    (sync1) edge node {} (sync1u)
+  %c4
+    (seq1u) edge node {} (c4.west)
+    (c4) edge node {} (c4u)
+  %c6
+    (seq1u) edge node {} (c6.west)
+    (c6) edge node {} (c6u)
+  %seq2
+    (par0u) edge node {} (seq2.west)
+    (seq2) edge node {} (seq2u)
+  %c3
+    (seq2u) edge node {} (c3)
+    (c3) edge node {} (c3u)
+  %c6
+    (seq2u) edge node {} (c5.west)
+    (c5) edge node {} (c5u)
+  %c6
+    (seq0u) edge node {} (c7.west)
+    (c7) edge node {} (c7u)
+  %sync2
+    (seq0u) edge node {} (sync2.west)
+    (sync2) edge node {} (sync2u)
+  %c8
+    (seq0u) edge [bend right] node {} (c8.west)
+    (c8) edge node {} (c8u)
+   ;
+\end{tikzpicture}
+\vspace*{.5em}
+\caption{Component assembly representing the computation part generated from $\Gamma_{tsp}$ of Figure~\ref{fig:tsp}.}
+\label{fig:tsp:assembly}
+\end{center}
+\end{figure*}
+
+%----------------------------------------

@@ -1,0 +1,3 @@
+Julien Bigot:    Architecture update for local version, support for MPI, merge
+                 of CORBA and MPI
+Christian Pérez: Initial local version, support for CORBA

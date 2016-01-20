@@ -1,0 +1,214 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemeCambridgeUS}
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usecolortheme{beaver}
+
+\usepackage{listings}
+
+\setbeamertemplate{navigation symbols}{
+\insertframenumber/
+\inserttotalframenumber
+}
+
+%-------------------------------------------------------------------
+\title{Multi-Stencil agnostic descriptive language}
+\author{Hélène Coullon}
+\institute{INRIA}
+%-------------------------------------------------------------------
+
+\begin{document}
+
+% \AtBeginSection[ ]
+% {
+%  \begin{frame}
+%    \tableofcontents[currentsection, hideallsubsections]
+%   \end{frame}
+% }
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% presentation of the table of contents
+\begin{frame}
+\frametitle{Table of contents}
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+%-------------------------------------------------------------
+\section{Introduction}
+%-------------------------------------------------------------
+\begin{frame}{Introduction}
+\begin{block}{What is a stencil ?}
+In a mesh-based simulation, it is an explicit numerical schemes involving a neighborhood of an element for its computation
+\end{block}
+
+\begin{block}{What are Multi-Stencil Porgrams ?}
+A real case numerical simulation is composed of
+\begin{itemize}
+\item more than one computation involving a neighborhood shape,
+\item sometimes more than one stencil shape,
+\item boundary condition computations,
+\item and additionnal local computations.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Introduction}
+\begin{block}{What does produce the MS Language ?}
+Unlike other solutions MS Language gives
+\begin{itemize}
+\item an hybrid parallelization structure of the overall numerical simulation
+\begin{itemize}
+\item data parallelism (domain decomposition),
+\item and task parallelism to increase parallelism for large scale parallel machines
+\end{itemize}
+\item the parallelized structure is made of component which increases code re-use, maintainability and portability
+\end{itemize}
+\end{block}
+
+\begin{block}{What means agnostic ?}
+The language do not need any knowledge on
+\begin{itemize}
+\item the mesh type
+\item the neighborhood shape
+\item the underlying programming language used
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Introduction}
+\begin{block}{What means descriptive ?}
+The language is based on the textual description of the simulation, using identifiers choosen by the user.
+\end{block}
+
+\begin{block}{What are the limitations ?}
+\begin{itemize}
+\item explicit numerical schemes only
+\item for now a single mesh type for a simulation
+\end{itemize}
+\end{block}
+\end{frame}
+
+%-------------------------------------------------------------
+\section{Overview}
+%-------------------------------------------------------------
+\begin{frame}{Overview}
+\begin{itemize}
+\item Data description
+\item Time description
+\item Computation description
+\end{itemize}
+\end{frame}
+
+%-------------------------------------------------------------
+\section{Data description}
+%-------------------------------------------------------------
+\begin{frame}[fragile]{Data description}
+\begin{block}{One data per line}
+\begin{lstlisting}[basicstyle=\footnotesize]
+data:
+  name_id,domain_id
+\end{lstlisting}
+\end{block}
+example:\\
+\begin{lstlisting}[basicstyle=\footnotesize]
+data:
+  h,d1
+  g,cell
+\end{lstlisting}
+\end{frame}
+
+%-------------------------------------------------------------
+\section{Time description}
+%-------------------------------------------------------------
+\begin{frame}[fragile]{Time description}
+\begin{block}{A single line}
+\begin{lstlisting}[basicstyle=\footnotesize]
+time:nb_iteration
+\end{lstlisting}
+\end{block}
+example for 500 iterations:\\
+\begin{lstlisting}[basicstyle=\footnotesize]
+time:500
+\end{lstlisting}
+\end{frame}
+
+%-------------------------------------------------------------
+\section{Computation description}
+%-------------------------------------------------------------
+\begin{frame}[fragile]{Computation description}
+\begin{block}{One computation per line}
+\begin{lstlisting}[basicstyle=\footnotesize]
+computations:
+  type:name_id({read1_id,read2_id,...},
+    written_id[,neighborhood_id])
+\end{lstlisting}
+\end{block}
+Three types available:
+\begin{itemize}
+\item stencil: it is a computation which involves a neighborhood around the element to compute
+\item local:  it is a computation which does not involve a neighborhood around the element to compute
+\item bound: it is a computation on the physical border of the domain (additional elements)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Computation description}
+\begin{block}{One computation per line}
+\begin{lstlisting}[basicstyle=\footnotesize]
+computations:
+  type:name_id({read1_id,read2_id,...},
+    written_id[,neighborhood_id])
+\end{lstlisting}
+\end{block}
+\begin{itemize}
+\item read1\_id, read2\_id: data identifiers read by the computation
+\item written\_id: data identifier written by the computation (a single one)
+\item if type==stencil precise a neighborhood identifier
+\end{itemize}
+\end{frame}
+
+%-------------------------------------------------------------
+\section{Overall example}
+%-------------------------------------------------------------
+\begin{frame}{Overall example}
+\begin{block}{Data}
+\begin{itemize}
+\item 3 data on a domain called \textit{cell}
+\item 2 data on a domain called \textit{edgex}
+\item 2 data on a domain called \textit{edgey}
+\end{itemize}
+\end{block}
+\begin{block}{Computations}
+\begin{itemize}
+\item 4 local computations
+\item 2 stencil computations
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Overall example}
+\begin{lstlisting}[basicstyle=\footnotesize,frame=single]
+data:
+  h,cell
+  u,cell
+  v,cell
+  w,edgex
+  z,edgey
+  a,edgex
+  b,edgey
+time:500
+computations:
+  local:c0({h},u)
+  stencil:c1({u},v,N1)
+  local:c2({v},w)
+  local:c3({v},z)
+  stencil:c4({w,v},a,N1)
+  local:c6({a},b)
+\end{lstlisting}
+\end{frame}
+
+\end{document}
+

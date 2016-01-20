@@ -1,0 +1,41 @@
+\frametitle{Example}
+\begin{columns}
+\begin{column}{.52\textwidth}
+\begin{lstlisting}[style=base]
+@mesh:@ cart
+@mesh entities:@ cell,edgex,edgey
+@computation domains:@
+  allcell @in@ cell
+  alledgex @in@ edgex
+  alledgey @in@ edgey
+  part1edgex @in@ edgex
+  part2edgex @in@ edgex
+@data:@
+  a,cell
+  b,cell
+  c,edgex
+  d,edgex
+  e,edgey
+\end{lstlisting}
+\end{column}
+\begin{column}{.48\textwidth}
+\begin{lstlisting}[style=base]
+  f,cell
+  g,edgey
+  h,edgex
+  i,cell
+  j,edgex
+@time:@500
+@computations:@
+  b[allcell]=&c0&(a)
+  c[alledgex]=&c1&(b[n1])
+  d[alledgex]=&c2&(c)
+  e[alledgey]=&c3&(c)
+  f[allcell]=&c4&(d[n1])
+  g[alledgey]=&c5&(e)
+  h[alledgex]=&c6&(f)
+  i[allcell]=&c7&(g,h)
+  j[partedgex]=&c8&(i[n1])
+\end{lstlisting}
+\end{column}
+\end{columns}

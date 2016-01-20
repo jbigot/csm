@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Stencil programs}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Definitions}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Stencil program parallelization}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Dependencies and synchronizations}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Component-based parallelism}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Component models}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Stencil program parallelization using components}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Component Stencil Model}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Phase, group and kernel}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Overall assembly and evaluation}{section.4}% 11
+\BOOKMARK [1][-]{section.5}{Component Stencil Language}{}% 12
+\BOOKMARK [2][-]{subsection.5.1}{CSL language}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.2}{CCSL compiler}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.3}{Performance evaluation}{section.5}% 15
+\BOOKMARK [1][-]{section.6}{Related work}{}% 16
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 17

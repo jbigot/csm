@@ -1,0 +1,136 @@
+---
+title: "Results on Edel cluster Grid'5000"
+output: pdf_document
+---
+
+On a 5000*5000 Cartesian grid and 500 time iterations, from 8 to 256 cores (32 nodes) :
+For MSL :
+```{r, echo=FALSE}
+data2=read.table('/Users/hcoullon/Documents/Postdoc/WORK/csm/WOLFHPC15/results_g5k/5k_500_base.data',header=FALSE)
+data2
+```
+For SkelGIS :
+```{r, echo=FALSE}
+data3=read.table('/Users/hcoullon/Documents/Postdoc/WORK/csm/WOLFHPC15/results_g5k/5k_500_FS.data',header=FALSE)
+data3
+```
+
+Speedup where the reference time is the minimum one (MSL) :
+
+```{r, echo=FALSE}
+#calcul des speedups
+xy = rep(0,length(data2$V1))
+spV2 = rep(0,length(data2$V2))
+for(i in 1:length(data2$V2)){
+  spV2[i] = data2$V2[1]/data2$V2[i]
+  xy[i] = data2$V1[i]/data2$V1[1]
+}
+spV3 = rep(0,length(data3$V2))
+for(i in 1:length(data3$V2)){
+  spV3[i] = data2$V2[1]/data3$V2[i]
+  xy[i] = data3$V1[i]/data3$V1[1]
+}
+
+par(mar=c(4,4,0.5,0.5))
+plot(data2$V1, spV2, type = "n", ylim = range(c(spV2, xy)), xlab = "Cores", ylab = "Speedup",axes=FALSE) 
+box()
+grid(col = "black")
+lines(data2$V1, spV2, col = "blue")
+lines(data3$V1, spV3, col = "red")
+lines(data2$V1, xy, lty=2, col = "green") 
+points(data2$V1,spV2, pch=21, col = "blue")
+points(data3$V1,spV3, pch=21, col = "red")
+points(data2$V1,xy, pch=22, col = "green")
+
+legend(200, 8, c("MSL","SkelGIS","ideal"), cex=1, col=c("blue","red","green"), pch=21:22, lty=1:2, bty="n");
+axis(1, at=1, lab="1",cex.axis=1)
+axis(1, at=2, lab="2",cex.axis=1)
+axis(1, at=4, lab="4",cex.axis=1)
+axis(1, at=8, lab="8",cex.axis=1)
+axis(1, at=16, lab="16",cex.axis=1)
+axis(1, at=32, lab="32",cex.axis=1)
+axis(1, at=64, lab="64",cex.axis=1)
+axis(1, at=128, lab="128",cex.axis=1)
+axis(1, at=256, lab="256",cex.axis=1)
+axis(2, at=1, lab="1",cex.axis=1)
+axis(2, at=2, lab="2",cex.axis=1)
+axis(2, at=4, lab="4",cex.axis=1)
+axis(2, at=8, lab="8",cex.axis=1)
+axis(2, at=16, lab="16",cex.axis=1)
+axis(2, at=32, lab="32",cex.axis=1)
+axis(2, at=64, lab="64",cex.axis=1)
+axis(2, at=128, lab="128",cex.axis=1)
+axis(2, at=256, lab="256",cex.axis=1)
+```
+
+Independent speedups where each application has its own reference time :
+
+```{r, echo=FALSE}
+#calcul des speedups
+xy = rep(0,length(data2$V1))
+spV2 = rep(0,length(data2$V2))
+for(i in 1:length(data2$V2)){
+  spV2[i] = data2$V2[1]/data2$V2[i]
+  xy[i] = data2$V1[i]/data2$V1[1]
+}
+spV3 = rep(0,length(data3$V2))
+for(i in 1:length(data3$V2)){
+  spV3[i] = data3$V2[1]/data3$V2[i]
+  xy[i] = data3$V1[i]/data3$V1[1]
+}
+
+par(mar=c(4,4,0.5,0.5))
+plot(data2$V1, spV2, type = "n", ylim = range(c(spV2, xy)), xlab = "Cores", ylab = "Speedup",axes=FALSE) 
+box()
+grid(col = "black")
+lines(data2$V1, spV2, col = "blue")
+lines(data3$V1, spV3, col = "red")
+lines(data2$V1, xy, lty=2, col = "green") 
+points(data2$V1,spV2, pch=21, col = "blue")
+points(data3$V1,spV3, pch=21, col = "red")
+points(data2$V1,xy, pch=22, col = "green")
+
+legend(200, 8, c("MSL","SkelGIS","ideal"), cex=1, col=c("blue","red","green"), pch=21:22, lty=1:2, bty="n");
+axis(1, at=1, lab="1",cex.axis=1)
+axis(1, at=2, lab="2",cex.axis=1)
+axis(1, at=4, lab="4",cex.axis=1)
+axis(1, at=8, lab="8",cex.axis=1)
+axis(1, at=16, lab="16",cex.axis=1)
+axis(1, at=32, lab="32",cex.axis=1)
+axis(1, at=64, lab="64",cex.axis=1)
+axis(1, at=128, lab="128",cex.axis=1)
+axis(1, at=256, lab="256",cex.axis=1)
+axis(2, at=1, lab="1",cex.axis=1)
+axis(2, at=2, lab="2",cex.axis=1)
+axis(2, at=4, lab="4",cex.axis=1)
+axis(2, at=8, lab="8",cex.axis=1)
+axis(2, at=16, lab="16",cex.axis=1)
+axis(2, at=32, lab="32",cex.axis=1)
+axis(2, at=64, lab="64",cex.axis=1)
+axis(2, at=128, lab="128",cex.axis=1)
+axis(2, at=256, lab="256",cex.axis=1)
+```
+
+log2 of execution times :
+
+```{r, echo=FALSE}
+par(mar=c(4,4,0.5,0.5))
+plot(log2(data2$V1), log2(data2$V2), type = "n", xlim = range(c(log2(data3$V1), log2(data2$V1))), xlab = "Cores", ylab = "Speedup",axes=FALSE) 
+box()
+grid(col = "black")
+lines(log2(data2$V1), log2(data2$V2), col = "blue")
+lines(log2(data3$V1), log2(data3$V2), col = "red")
+points(log2(data2$V1),log2(data2$V2), pch=21, col = "blue")
+points(log2(data3$V1), log2(data3$V2), pch=21, col = "red")
+
+legend(0, 0, c("MSL","SkelGIS"), cex=1, col=c("blue","red"), pch=21:22, lty=1:2, bty="n");
+axis(1, at=1, lab="1",cex.axis=1)
+axis(1, at=2, lab="2",cex.axis=1)
+axis(1, at=4, lab="4",cex.axis=1)
+axis(1, at=log2(8), lab="8",cex.axis=1)
+axis(1, at=log2(16), lab="16",cex.axis=1)
+axis(1, at=log2(32), lab="32",cex.axis=1)
+axis(1, at=log2(64), lab="64",cex.axis=1)
+axis(1, at=log2(128), lab="128",cex.axis=1)
+axis(1, at=log2(256), lab="256",cex.axis=1)
+```

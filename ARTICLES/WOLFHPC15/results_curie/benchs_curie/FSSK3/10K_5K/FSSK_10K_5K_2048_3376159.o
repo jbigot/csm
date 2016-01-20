@@ -1,0 +1,27 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3376159
+Jobname   : FSSK_10K_5K_2048
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 17:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 19:10:36 , start = 08/08/2015 13:48:49
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 2048 , cpus/task = 1 , ncpus = 2048 , nodes = 128
+   Nodes=curie[1951,1953,2580-2597,2832-2849,3138-3155,3318-3335,3354-3371,3408-3425,3750-3767] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3376159       FSSK_10K_5K_2048          -   2048    128           -     00:10:11     100            -      -  -
+3376159.0     main                   2048   2048    128      BBlock     00:10:09    99.6     00:09:48   96.5  CANCELLED by 24823
+########## ########## ########## ########## ########## ########## ########## ##########

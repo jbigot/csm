@@ -1,0 +1,42 @@
+ Time TOTAL CALCULATION : 1627.14
+ Time TOTAL CALCULATION : 1627.14
+ Time TOTAL CALCULATION : 1627.18
+ Time TOTAL CALCULATION : 1627.2
+ Time TOTAL CALCULATION : 1627.2
+ Time TOTAL CALCULATION : 1627.17
+ Time TOTAL CALCULATION : 1627.19
+ Time TOTAL CALCULATION : 1627.2
+ Time TOTAL CALCULATION : 1627.19
+ Time TOTAL CALCULATION : 1627.13
+ Time TOTAL CALCULATION : 1627.21
+ Time TOTAL CALCULATION : 1627.14
+ Time TOTAL CALCULATION : 1627.16
+ Time TOTAL CALCULATION : 1627.12
+ Time TOTAL CALCULATION : 1627.15
+ Time TOTAL CALCULATION : 1627.23
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3376001
+Jobname   : MSL_10K_500_16
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 1:40:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 18:25:33 , start = 07/08/2015 19:58:13
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 1 , ncpus = 16 , nodes = 1
+   Nodes=curie6105 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3376001       MSL_10K_500_16            -     16      1           -     00:27:15     100            -      -  -
+########## ########## ########## ########## ########## ########## ########## ##########

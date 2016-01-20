@@ -1,0 +1,59 @@
+20 Time TOTAL CALCULATION : 64.646
+5 Time TOTAL CALCULATION : 64.6465
+13 Time TOTAL CALCULATION : 64.6474
+10 Time TOTAL CALCULATION : 64.6474
+2 Time TOTAL CALCULATION : 64.6471
+7 Time TOTAL CALCULATION : 64.6467
+15 Time TOTAL CALCULATION : 64.6473
+3 Time TOTAL CALCULATION : 64.6473
+12 Time TOTAL CALCULATION : 64.6475
+6 Time TOTAL CALCULATION : 64.6472
+4 Time TOTAL CALCULATION : 64.6483
+11 Time TOTAL CALCULATION : 64.6475
+8 Time TOTAL CALCULATION : 64.6477
+14 Time TOTAL CALCULATION : 64.6474
+9 Time TOTAL CALCULATION : 64.6474
+0 Time TOTAL CALCULATION : 64.6472
+1 Time TOTAL CALCULATION : 64.6484
+28 Time TOTAL CALCULATION : 64.6473
+27 Time TOTAL CALCULATION : 64.6457
+19 Time TOTAL CALCULATION : 64.647
+26 Time TOTAL CALCULATION : 64.6475
+29 Time TOTAL CALCULATION : 64.6473
+16 Time TOTAL CALCULATION : 64.6472
+18 Time TOTAL CALCULATION : 64.647
+22 Time TOTAL CALCULATION : 64.6471
+31 Time TOTAL CALCULATION : 64.6473
+24 Time TOTAL CALCULATION : 64.6472
+21 Time TOTAL CALCULATION : 64.6488
+30 Time TOTAL CALCULATION : 64.6474
+23 Time TOTAL CALCULATION : 64.6475
+25 Time TOTAL CALCULATION : 64.647
+17 Time TOTAL CALCULATION : 64.6471
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4004232
+Jobname   : weakMSL_3200_200_32
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 18/01/2016 13:09:53 , start = 18/01/2016 13:11:29
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 1 , ncpus = 32 , nodes = 2
+   Nodes=curie[2850-2851] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4004232       weakMSL_3200_200_32       -     32      2           -     00:01:13     100            -      -  -
+4004232.0     llcmcpp_loader           32     32      2      BBlock     00:01:10    95.8     00:01:00   85.7  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

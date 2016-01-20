@@ -1,0 +1,26 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3376201
+Jobname   : MSL_10K_5K_2048
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 17:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 19:12:06 , start = 08/08/2015 21:22:41
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 2048 , cpus/task = 1 , ncpus = 2048 , nodes = 128
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3376201       MSL_10K_5K_2048           -   2048    128           -     00:16:56     100            -      -  -
+3376201.0     orted                   127    127    127      Cyclic     00:16:53    99.7            -      -  FAILED
+########## ########## ########## ########## ########## ########## ########## ##########

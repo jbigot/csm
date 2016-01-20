@@ -1,0 +1,27 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3376235
+Jobname   : MSL_20K_5K_1024
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 1:40:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 19:13:13 , start = 08/08/2015 23:00:18
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 1024 , cpus/task = 1 , ncpus = 1024 , nodes = 64
+   Nodes=curie[1986-1987,1991,1996,2001-2003,2022,2026-2028,2032-2036,2130,2133-2134,2139-2144,2147,4866-4867,4875,4877,4882-4883,4910,4912-4913,4915-4916,4919,4921-4922,4925,4927,4930-4931,4935,4937,4992-5009] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3376235       MSL_20K_5K_1024           -   1024     64           -     01:39:57     100            -      -  -
+3376235.0     orted                    63     63     63      Cyclic     01:39:57   100.0            -      -  FAILED
+########## ########## ########## ########## ########## ########## ########## ##########

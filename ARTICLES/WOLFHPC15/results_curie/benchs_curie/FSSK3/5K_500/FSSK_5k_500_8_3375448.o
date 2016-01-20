@@ -1,0 +1,35 @@
+MPI 2 -  :  Time TOTAL CALCULATION : 674.254 
+MPI 3 -  :  Time TOTAL CALCULATION : 674.252 
+MPI 4 -  :  Time TOTAL CALCULATION : 674.26 
+MPI 5 -  :  Time TOTAL CALCULATION : 674.253 
+MPI 7 -  :  Time TOTAL CALCULATION : 674.255 
+MPI 6 -  :  Time TOTAL CALCULATION : 674.264 
+MPI 0 -  :  Time TOTAL CALCULATION : 674.265 
+MPI 1 -  :  Time TOTAL CALCULATION : 674.26 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375448
+Jobname   : FSSK_5k_500_8
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 34:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 15:15:27 , start = 07/08/2015 15:43:30
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 1 , ncpus = 8 , nodes = 1
+   Nodes=curie3592 CPU_IDs=8-15 Mem=32000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375448       FSSK_5k_500_8             -      8      1           -     00:11:21     100            -      -  -
+3375448.0     main                      8      8      1      BBlock     00:11:19    99.7     00:11:11   98.8  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

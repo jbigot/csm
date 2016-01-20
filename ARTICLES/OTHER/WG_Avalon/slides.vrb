@@ -1,0 +1,10 @@
+\frametitle{Separation of concerns}
+\begin{itemize}
+\item Non-computer scientist who uses the DSL
+\item The numerician who writes numerical codes
+\item The computer-scientists who writes
+\begin{itemize}
+\item parallel components
+\item DDS + Data
+\end{itemize}
+\end{itemize}

@@ -1,0 +1,59 @@
+ Time TOTAL CALCULATION : 788.01
+ Time TOTAL CALCULATION : 788.011
+ Time TOTAL CALCULATION : 787.975
+ Time TOTAL CALCULATION : 787.979
+ Time TOTAL CALCULATION : 787.992
+ Time TOTAL CALCULATION : 788.011
+ Time TOTAL CALCULATION : 787.995
+ Time TOTAL CALCULATION : 788.011
+ Time TOTAL CALCULATION : 788.008
+ Time TOTAL CALCULATION : 788.009
+ Time TOTAL CALCULATION : 787.993
+ Time TOTAL CALCULATION : 788.011
+ Time TOTAL CALCULATION : 787.991
+ Time TOTAL CALCULATION : 788.017
+ Time TOTAL CALCULATION : 788.013
+ Time TOTAL CALCULATION : 787.981
+ Time TOTAL CALCULATION : 787.991
+ Time TOTAL CALCULATION : 788.001
+ Time TOTAL CALCULATION : 787.989
+ Time TOTAL CALCULATION : 788.005
+ Time TOTAL CALCULATION : 788.001
+ Time TOTAL CALCULATION : 788.014
+ Time TOTAL CALCULATION : 788.014
+ Time TOTAL CALCULATION : 787.995
+ Time TOTAL CALCULATION : 788.016
+ Time TOTAL CALCULATION : 788.02
+ Time TOTAL CALCULATION : 788.018
+ Time TOTAL CALCULATION : 787.997
+ Time TOTAL CALCULATION : 788.024
+ Time TOTAL CALCULATION : 787.955
+ Time TOTAL CALCULATION : 788.001
+ Time TOTAL CALCULATION : 788.026
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375982
+Jobname   : MSL_10K_500_32
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 1:07:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 18:24:53 , start = 07/08/2015 19:50:11
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 1 , ncpus = 32 , nodes = 2
+   Nodes=curie[3834,3837] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375982       MSL_10K_500_32            -     32      2           -     00:13:14     100            -      -  -
+3375982.0     orted                     1      1      1      Cyclic     00:13:12    99.7            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

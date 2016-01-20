@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    This file is part of LLCMc++ (a.k.a. llcmcpp)
+    Copyright (C) 2011 INRIA Julien Bigot <julien.bigot@inria.fr>
+    Copyright (C) 2011 INRIA Christian Pérez <christian.perez@inria.fr>
+
+    LLCMc++ is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    LLCMc++ is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with LLCMc++.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<xsd:schema xmlns="http://www.inria.fr/avalon/lad/1.0.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.inria.fr/avalon/lad/1.0.0">
+  <xsd:element name="lad" type="lad"/>
+  <xsd:complexType name="lad">
+    <xsd:sequence>
+      <xsd:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="mpi" type="mpi_group"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="mpi_group">
+    <xsd:sequence>
+      <xsd:element form="qualified" maxOccurs="unbounded" name="process" type="process"/>
+      <xsd:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="communicator" type="mpi_communicator"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="mpi_communicator">
+    <xsd:sequence>
+      <xsd:element form="qualified" maxOccurs="unbounded" minOccurs="2" name="peer" type="endpoint"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="process">
+    <xsd:sequence>
+      <xsd:element form="qualified" minOccurs="0" name="start_property" type="endpoint"/>
+      <xsd:element form="qualified" maxOccurs="unbounded" name="instance" type="instance"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="instance">
+    <xsd:sequence>
+      <xsd:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="property" type="property_value"/>
+    </xsd:sequence>
+    <xsd:attribute name="from" type="xsd:string"/>
+    <xsd:attribute name="id" type="xsd:ID" use="required"/>
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="property_value">
+    <xsd:sequence>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:element form="qualified" minOccurs="0" name="value" type="data_value"/>
+        <xsd:element form="qualified" minOccurs="0" name="cppref" type="endpoint"/>
+        <xsd:element form="qualified" minOccurs="0" name="corbaref" type="endpoint"/>
+        <xsd:element form="qualified" minOccurs="0" name="systemref" type="system_ref"/>
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="data_value">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="type" type="data_type" use="required"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="data_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="int8"/>
+      <xsd:enumeration value="uint8"/>
+      <xsd:enumeration value="int16"/>
+      <xsd:enumeration value="uint16"/>
+      <xsd:enumeration value="int32"/>
+      <xsd:enumeration value="uint32"/>
+      <xsd:enumeration value="int64"/>
+      <xsd:enumeration value="uint64"/>
+      <xsd:enumeration value="double"/>
+      <xsd:enumeration value="complexDouble"/>
+      <xsd:enumeration value="string"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="endpoint">
+    <xsd:attribute name="instance" type="xsd:IDREF" use="required"/>
+    <xsd:attribute name="property" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="system_ref">
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,91 @@
+ Time TOTAL CALCULATION : 99.0167
+ Time TOTAL CALCULATION : 99.0196
+ Time TOTAL CALCULATION : 99.02
+ Time TOTAL CALCULATION : 99.0182
+ Time TOTAL CALCULATION : 99.0182
+ Time TOTAL CALCULATION : 99.0191
+ Time TOTAL CALCULATION : 99.0191
+ Time TOTAL CALCULATION : 99.019
+ Time TOTAL CALCULATION : 99.0184
+ Time TOTAL CALCULATION : 99.0158
+ Time TOTAL CALCULATION : 99.0185
+ Time TOTAL CALCULATION : 99.0208
+ Time TOTAL CALCULATION : 99.019
+ Time TOTAL CALCULATION : 99.0177
+ Time TOTAL CALCULATION : 99.019
+ Time TOTAL CALCULATION : 99.0169
+ Time TOTAL CALCULATION : 99.0167
+ Time TOTAL CALCULATION : 99.0169
+ Time TOTAL CALCULATION : 99.0178
+ Time TOTAL CALCULATION : 99.0176
+ Time TOTAL CALCULATION : 99.0178
+ Time TOTAL CALCULATION : 99.0182
+ Time TOTAL CALCULATION : 99.018
+ Time TOTAL CALCULATION : 99.0194
+ Time TOTAL CALCULATION : 99.0186
+ Time TOTAL CALCULATION : 99.0181
+ Time TOTAL CALCULATION : 99.0178
+ Time TOTAL CALCULATION : 99.0175
+ Time TOTAL CALCULATION : 99.0178
+ Time TOTAL CALCULATION : 99.018
+ Time TOTAL CALCULATION : 99.0166
+ Time TOTAL CALCULATION : 99.0175
+ Time TOTAL CALCULATION : 99.0118
+ Time TOTAL CALCULATION : 99.0139
+ Time TOTAL CALCULATION : 99.0172
+ Time TOTAL CALCULATION : 99.016
+ Time TOTAL CALCULATION : 99.0179
+ Time TOTAL CALCULATION : 99.0181
+ Time TOTAL CALCULATION : 99.0158
+ Time TOTAL CALCULATION : 99.0129
+ Time TOTAL CALCULATION : 99.0168
+ Time TOTAL CALCULATION : 99.0151
+ Time TOTAL CALCULATION : 99.0134
+ Time TOTAL CALCULATION : 99.0167
+ Time TOTAL CALCULATION : 99.0155
+ Time TOTAL CALCULATION : 99.0176
+ Time TOTAL CALCULATION : 99.0161
+ Time TOTAL CALCULATION : 99.0159
+ Time TOTAL CALCULATION : 99.0151
+ Time TOTAL CALCULATION : 99.014
+ Time TOTAL CALCULATION : 99.0172
+ Time TOTAL CALCULATION : 99.0146
+ Time TOTAL CALCULATION : 99.0159
+ Time TOTAL CALCULATION : 99.0166
+ Time TOTAL CALCULATION : 99.011
+ Time TOTAL CALCULATION : 99.0169
+ Time TOTAL CALCULATION : 99.0118
+ Time TOTAL CALCULATION : 99.0189
+ Time TOTAL CALCULATION : 99.0176
+ Time TOTAL CALCULATION : 99.0164
+ Time TOTAL CALCULATION : 99.0185
+ Time TOTAL CALCULATION : 99.0174
+ Time TOTAL CALCULATION : 99.0184
+ Time TOTAL CALCULATION : 99.0201
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3382774
+Jobname   : MSL_5k_500_64
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 14:00 , memory/task = 4000 Mo
+Date      : submit = 10/08/2015 11:28:09 , start = 10/08/2015 11:28:09
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 1 , ncpus = 64 , nodes = 4
+   Nodes=curie[2684-2687] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3382774       MSL_5k_500_64             -     64      4           -     00:01:43     100            -      -  -
+3382774.0     orted                     3      3      3      Cyclic     00:01:41    98.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

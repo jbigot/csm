@@ -1,0 +1,36 @@
+mesh:cart
+data:
+	jx,node
+	jy,node
+	jz,node
+	jx_old,node
+	jy_old,node
+	jz_old,node
+	a0,edge
+	a1,edge
+	cx,edge
+	cy,edge
+	cz,edge
+	density,node
+	f_ext_x,node
+	f_ext_y,node
+	f_ext_z,node
+	n,node
+	n_old,node
+	nature,node
+	ip,edge
+	jp,edge
+	kp,edge
+time: 10000
+computations:
+	local:backup_flux({jx},jx_old,node)
+	stencil:collision({density,a0,a1,jx,jy,jz,f_ext_x,f_ext_y,f_ext_z},n,D3Q19,node)
+	stencil:bounceback({nature,n,ip,jp,kp},n,D3Q19,node)
+	stencil:propagation({n,n_old,ip,jp,kp},n,D3Q19,node)
+	local:checkpop({n},n,node)
+	stencil:majfluxX({jx,n,cx},jx,D3Q19,edge)
+	stencil:majfluxY({jy,n,cy},jy,D3Q19,edge)
+	stencil:majfluxZ({jz,n,cz},jz,D3Q19,edge)
+	local:halvefluxX({jx},jx,node)
+	local:halvefluxY({jy},jy,node)
+	local:halvefluxZ({jz},jz,node)

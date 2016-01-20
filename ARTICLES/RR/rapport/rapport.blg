@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/MacPorts 2015_4)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: rapport.aux
+The style file: plain.bst
+Database file #1: biblio.bib
+Warning--I didn't find a database entry for ""
+Warning--empty institution in bigot:inria-00388508
+You've used 7 entries,
+            2118 wiz_defined-function locations,
+            556 strings with 5424 characters,
+and the built_in function-call counts, 2524 in all, are:
+= -- 247
+> -- 125
+< -- 2
++ -- 51
+- -- 42
+* -- 200
+:= -- 430
+add.period$ -- 23
+call.type$ -- 7
+change.case$ -- 42
+chr.to.int$ -- 0
+cite$ -- 8
+duplicate$ -- 84
+empty$ -- 188
+format.name$ -- 42
+if$ -- 519
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 7
+newline$ -- 39
+num.names$ -- 14
+pop$ -- 35
+preamble$ -- 1
+purify$ -- 35
+quote$ -- 0
+skip$ -- 53
+stack$ -- 0
+substring$ -- 168
+swap$ -- 12
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 26
+warning$ -- 1
+while$ -- 22
+width$ -- 8
+write$ -- 84
+(There were 2 warnings)

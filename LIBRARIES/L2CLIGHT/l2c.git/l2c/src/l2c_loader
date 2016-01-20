@@ -1,0 +1,337 @@
+#!/bin/bash
+#     This file is part of LLCMc++ (a.k.a. llcmcpp)
+#     Copyright (C) 2011 INRIA Julien Bigot <julien.bigot@inria.fr>
+#     Copyright (C) 2011 INRIA Christian Pérez <christian.perez@inria.fr>
+# 
+#     LLCMc++ is free software: you can redistribute it and/or modify
+#     it under the terms of the GNU Lesser General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+# 
+#     LLCMc++ is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU Lesser General Public License for more details.
+# 
+#     You should have received a copy of the GNU Lesser General Public License
+#     along with LLCMc++.  If not, see <http://www.gnu.org/licenses/>.
+
+PROG=`basename "$0"`
+INSTALLDIR="@CMAKE_INSTALL_PREFIX@"
+L2COPTS=""
+CORBA=0
+TAG=""
+PROCESSES=0
+IS_MASTER=1
+MASTER_IOR=""
+IOR_FILE=""
+MPI=0
+CLUSTPROC=0
+MPIRUN="mpirun"
+MPITHREADS=""
+MPIOPTS=""
+CAD=""
+CADOPTS=""
+DEBUGCMD=""
+
+usage() {
+cat <<- ENDUSAGE
+Usage: ${PROG} [OPTION]... [--] <cadfile.lad> [CADOPTS]...
+  
+  Runs the <cadfile.lad> assembly descriptor and forwards the <CADOPTS> to its
+  argument processing system.
+  
+  Options that require a parameter in the long form also require it in the short
+  form.
+  
+  -h, --help                 displays this help message and exits
+  -i, --installdir <installdir>
+                             the place where llcmcpp is installed
+  -d, --gdb                  debug mode launch processes with gdb
+  --valgrind                 launch processes with Valgrind
+  -D, --define <instance>.<property>=<value>
+                             sets a (string) value for a given component
+                             instance property
+  --corba                    do load CORBA support
+  --no-corba                 do not load CORBA support [default]
+  -t, --tag <tag>            tag of this cluster/process (required when CORBA is
+                             enabled)
+  -p, --processes            total amount of processes (required when CORBA is
+                             enabled)
+  -m, --dump-ior-file <iorfile>   a file where to dump the IOR (required for the
+                             master when CORBA is enabled)
+  -f, --master-ior-file <master_ior_file>
+                             retrieve the IOR of the master process from this file (required when
+                             CORBA is enabled except for the master)
+  -s, --master-ior <master_ior>
+                             sets the IOR of the master process (required when
+                             CORBA is enabled except for the master)
+  --mpi                      do load MPI support
+  --no-mpi                   do not load MPI support [default]
+  -c, --cluster-proc         amount of processes in this cluster (required when
+                             MPI is enabled)
+  -r, --mpirun <mpirun.exe>  the executable used to run mpi applications
+  -l, --mpi_theads <thread_level>
+                             sets the MPI required thread level support
+  -M,<option>                forwards <option> to mpirun, commas can used to
+                             separate multiple options
+ENDUSAGE
+	exit 1
+}
+
+while [ "$#" -gt 0 -a "$1" != "--" ]
+do
+case "$1" in
+'-h' | '--help' )
+	usage
+	exit 1
+;;
+'-i' | '--installdir')
+	shift
+	INSTALLDIR="$1"
+	shift
+;;
+'-D' | '--define')
+	shift
+	ARG=`echo "$1"|sed -e "s/'/'\"'\"'/g"`
+	L2COPTS="$L2COPTS '-D$ARG'"
+	unset ARG
+	shift
+;;
+'--corba')
+	CORBA=1
+	shift
+;;
+'--no-corba')
+	CORBA=0
+	shift
+;;
+'-t' | '--tag')
+	shift
+	TAG="$1"
+	shift
+;;
+'-p' | '--processes')
+	shift
+	PROCESSES="$1"
+	shift
+;;
+'-s' | '--master-ior')
+	shift
+	IS_MASTER=0
+	MASTER_IOR="$1"
+	shift
+;;
+'-f' | '--master-ior-file')
+	shift
+	IS_MASTER=0
+	MASTER_IOR=`cat "$1"`
+	shift
+;;
+'-m' | '--dump-ior-file')
+	shift
+	IOR_FILE="$1"
+	shift
+;;
+'--mpi')
+	MPI=1
+	shift
+;;
+'--no-mpi')
+	MPI=0
+	shift
+;;
+'-c' | '--cluster-proc')
+	shift
+	CLUSTPROC="$1"
+	shift
+;;
+'-r' | '--mpirun')
+	shift
+	MPIRUN="$1"
+	shift
+;;
+'-l' | '--mpi_theads')
+	shift
+	MPITHREADS=$1
+	shift
+;;
+'-M,'*)
+	ARG=`echo "$1"|sed "s/^-M,//" | sed "s/^-M,//" | sed -e "s/'/'\"'\"'/g" -e "s/\([^\\\\]\),/\\1' '/g" | sed -e "s/\\\\\\,/,/g"`
+	MPIOPTS="$MPIOPTS '$ARG'"
+	unset ARG
+	shift
+;;
+'-d' | '--gdb')
+	shift
+	DEBUGCMD="gdb --quiet --eval-command=run --args "
+;;
+'--valgrind')
+	shift
+	DEBUGCMD="valgrind "
+;;
+'--')
+	break
+;;
+-*)
+	echo "ERROR! unknown argument: $1!"
+	echo
+	usage
+	exit 1
+;;
+*)
+	break
+;;
+esac
+done
+
+if [ "$#" -le 0 ]; then
+	echo 'ERROR! no <cadfile.lad> specified!'
+	echo
+	usage
+	exit 1
+fi
+CAD=$1
+shift
+
+while [ "$#" -gt 0 ]
+do
+	ARG=`echo "$1"|sed -e "s/'/'\"'\"'/g"`
+	CADOPTS="$CADOPTS '$ARG'"
+	unset ARG
+	shift
+done
+
+################################# No MPI, no CORBA ##############################
+
+if [ "$CORBA" -eq 0 -a "$MPI" -eq 0 ]; then
+	eval "$DEBUGCMD '$INSTALLDIR/bin/llcmcpp_loader' $L2COPTS -- '$CAD' $CADOPTS"
+	exit
+fi
+
+################################# MPI enabled, no CORBA ##############################
+
+if  [ "$CORBA" -eq 0 -a "$MPI" -eq 1 ]; then
+	MPIWRAPPEROPTS=''
+	if [ "$CLUSTPROC" -eq 0 ]
+	then
+		echo "ERROR! MPI enabled but no amount of cluster processes specified!"
+		echo
+		usage
+		exit
+	fi
+	MPIOPTS="$MPIOPTS -np '$CLUSTPROC'"
+	if [ -n "$MPITHREADS" ]
+	then
+		MPIWRAPPEROPTS="$MPIWRAPPEROPTS -Dmpi_initializer.thread_level=$MPITHREADS"
+	fi
+	eval "'$MPIRUN' $MPIOPTS '$INSTALLDIR/bin/llcmcpp_loader' $MPIWRAPPEROPTS -- '$INSTALLDIR/lib/lad/l2c/cppmpiloader.lad' $L2COPTS -- '$CAD' $CADOPTS"
+	exit
+fi
+
+################################# No MPI, CORBA enabled ##############################
+
+if  [ "$CORBA" -eq 1 -a "$MPI" -eq 0 ]; then
+	CORBAWRAPPEROPTS=''
+	if [ -z "$TAG" ]; then
+		echo "ERROR! CORBA enabled but no tag specified!"
+		echo
+		usage
+		exit
+	fi
+	if [ "$PROCESSES" -eq 0 ]
+	then
+		echo "ERROR! CORBA enabled but no amount of processes specified!"
+		echo
+		usage
+		exit
+	fi
+	CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS '-Ddistributed_namespace_manager.local_host=$TAG'"
+	if [ "$IS_MASTER" -eq 1 ]; then
+		if [ -z "$IOR_FILE" ]; then
+			echo "ERROR! no <ior_file> specified for CORBA master!"
+			echo
+			usage
+			exit
+		fi
+		PEERS=`expr "$PROCESSES" - 1`
+		CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS '-Dcorba_bridge.nbpeers=$PEERS'"
+		unset PEERS
+		CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS '-Dcorba_bridge.ior_file=$IOR_FILE'"
+		eval "$DEBUGCMD '$INSTALLDIR/bin/llcmcpp_loader' $CORBAWRAPPEROPTS -- '$INSTALLDIR/lib/lad/l2c/cppcorbaloader_master.lad' $L2COPTS -- '$CAD' $CADOPTS"
+	else
+		if [ -z "$MASTER_IOR" ]; then
+			echo "ERROR! no <master_ior> specified for CORBA slave!"
+			echo
+			usage
+			exit
+		fi
+		CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS '-Dcorba_bridge.master_ior=$MASTER_IOR'"
+		eval "$DEBUGCMD '$INSTALLDIR/bin/llcmcpp_loader' $CORBAWRAPPEROPTS -- '$INSTALLDIR/lib/lad/l2c/cppcorbaloader_slave.lad' $L2COPTS -- '$CAD' $CADOPTS"
+	fi
+	exit
+fi
+
+################################# MPI enabled, CORBA enabled ##############################
+
+if  [ "$CORBA" -eq 1 -a "$MPI" -eq 1 ]; then
+	MPIWRAPPEROPTS=''
+	CORBAWRAPPEROPTS=''
+	if [ -z "$TAG" ]; then
+		echo "ERROR! CORBA enabled but no tag specified!"
+		echo
+		usage
+		exit
+	fi
+	if [ "$PROCESSES" -eq 0 ]
+	then
+		echo "ERROR! CORBA enabled but no amount of processes specified!"
+		echo
+		usage
+		exit
+	fi
+	if [ "$CLUSTPROC" -eq 0 ]
+	then
+		echo "ERROR! MPI enabled but no amount of cluster processes specified!"
+		echo
+		usage
+		exit
+	fi
+	MPIOPTS="$MPIOPTS -np '$CLUSTPROC'"
+	N='0'
+	while [ "$N" -lt "$CLUSTPROC" ]
+	do
+		CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS -Dgrid_namespace_manager_$N.local_cluster=$TAG"
+		N=`expr "$N" + 1`
+	done
+	unset N
+	if [ -n "$MPITHREADS" ]
+	then
+		MPIWRAPPEROPTS="$MPIWRAPPEROPTS -Dmpi_initializer.thread_level=$MPITHREADS"
+	fi
+	GENERATED_CAD=`mktemp --tmpdir l2c_loader.XXXXXXXXXX.lad` || exit 1
+	if [ "$IS_MASTER" -eq 1 ]; then
+		if [ -z "$IOR_FILE" ]; then
+			echo "ERROR! no <ior_file> specified for CORBA master!"
+			echo
+			usage
+			exit
+		fi
+		PEERS=`expr "$PROCESSES" - 1`
+		CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS '-Dcorba_bridge_0.nbpeers=$PEERS'"
+		unset PEERS
+		CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS '-Dcorba_bridge_0.ior_file=$IOR_FILE'"
+		sh "$INSTALLDIR/share/cppmpicorbaloader_master.lad.sh" "$CLUSTPROC"> "$GENERATED_CAD"
+	else
+		if [ -z "$MASTER_IOR" ]; then
+			echo "ERROR! no <master_ior> specified for CORBA slave!"
+			echo
+			usage
+			exit
+		fi
+		CORBAWRAPPEROPTS="$CORBAWRAPPEROPTS '-Dcorba_bridge_0.master_ior=$MASTER_IOR'"
+		sh "$INSTALLDIR/share/cppmpicorbaloader_slave.lad.sh" "$CLUSTPROC" > "$GENERATED_CAD"
+	fi
+	eval "'$MPIRUN' $MPIOPTS '$INSTALLDIR/bin/llcmcpp_loader' $MPIWRAPPEROPTS -- '$INSTALLDIR/lib/lad/l2c/cppmpiloader.lad' $CORBAWRAPPEROPTS -- '$GENERATED_CAD' $L2COPTS -- '$CAD' $CADOPTS"
+	exit
+fi

@@ -1,0 +1,104 @@
+<?xml version='1.0'?>
+<!--
+    This file is part of LLCMc++ (a.k.a. llcmcpp)
+    Copyright (C) 2011 INRIA Julien Bigot <julien.bigot@inria.fr>
+    Copyright (C) 2011 INRIA Christian Pérez <christian.perez@inria.fr>
+
+    LLCMc++ is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    LLCMc++ is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with LLCMc++.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<lad xmlns="http://www.inria.fr/graal/lad/1.0.0">
+	<process> <!-- localhost -->
+		<start_property instance="driver" property="go"/>
+		
+		<instance id="local_namespace_manager" type="LocalNamespaceManager" >
+			<property id="host3"><systemref name="host3"/></property>
+		</instance>
+		
+		<instance id="corba_bridge" type="CorbaBridgeMaster">
+			<property id="local_host"><cppref instance="distributed_namespace_manager" property="local_host"/></property>
+			<property id="raw_component_management"><cppref instance="local_namespace_manager" property="raw_component_manager"/></property>
+		</instance>
+		
+		<instance id="lifecycle_manager" type="LifecycleManager" >
+			<property id="raw_component_management"><cppref instance="local_namespace_manager" property="raw_component_manager"/></property>
+			<property id="managed_instances"><cppref instance="local_namespace_manager" property="namespace_management"/></property>
+		</instance>
+		
+		<instance id="distributed_namespace_manager" type="DistributedNamespaceManager" >
+			<property id="local_instantiation_management"><cppref instance="local_namespace_manager" property="instantiation_manager"/></property>
+		</instance>
+		
+		<instance id="cpp_manager" type="CppManager" >
+			<property id="raw_component_management"><cppref instance="local_namespace_manager" property="raw_component_manager"/></property>
+			<property id="args"><cppref instance="commandline_handler" property="args"/></property>
+			<property id="host"><systemref name="host"/></property>
+			<property id="host3"><systemref name="host3"/></property>
+		</instance>
+		
+		<instance id="cpp_global_manager" type="LocalCppManagementFilter" >
+			<property id="local_cpp_management"><cppref instance="cpp_manager" property="cpp_manager"/></property>
+			<property id="local_namespace_management"><cppref instance="local_namespace_manager" property="namespace_management"/></property>
+			<property id="global_namespace_management"><cppref instance="distributed_namespace_manager" property="namespace_manager"/></property>
+		</instance>
+		
+		<instance id="corba_manager" type="CorbaManager" >
+			<property id="corba_access"><cppref instance="corba_bridge" property="corba"/></property>
+			<property id="global_namespace_management"><cppref instance="distributed_namespace_manager" property="namespace_manager"/></property>
+			<property id="local_namespace_management"><cppref instance="local_namespace_manager" property="namespace_management"/></property>
+			<property id="namespace_management"><cppref instance="distributed_namespace_manager" property="distributed_namespace_manager"/></property>
+			<property id="raw_component_management"><cppref instance="local_namespace_manager" property="raw_component_manager"/></property>
+		</instance>
+		
+		<instance id="type_interpreter" type="TypeInterpreter" >
+			<property id="cpp_management"><cppref instance="cpp_global_manager" property="cpp_manager"/></property>
+		</instance>
+		
+		<instance id="assembly_builder" type="AssemblyBuilder" >
+			<property id="collective_access"><cppref instance="corba_bridge" property="collective"/></property>
+			<property id="corba_management"><cppref instance="corba_manager" property="corba_manager"/></property>
+			<property id="cpp_management"><cppref instance="cpp_global_manager" property="cpp_manager"/></property>
+			<property id="distributed_instantiation_management"><cppref instance="distributed_namespace_manager" property="instantiation_manager"/></property>
+			<property id="lifecycle_management"><cppref instance="lifecycle_manager" property="lifecycle_manager"/></property>
+			<property id="typed_configuration"><cppref instance="type_interpreter" property="interpreter"/></property>
+		</instance>
+		
+		<instance id="xml_handler" type="LadHandler" >
+			<property id="corba_management"><cppref instance="assembly_builder" property="corba_manager"/></property>
+			<property id="cpp_management"><cppref instance="assembly_builder" property="cpp_manager"/></property>
+			<property id="distributed_instantiation_management"><cppref instance="assembly_builder" property="distributed_instantiation_manager"/></property>
+			<property id="typed_configuration"><cppref instance="assembly_builder" property="typed_configurer"/></property>
+		</instance>
+		
+		<instance id="xml_parser" type="TinyXmlComponent" >
+			<property id="visitor"><cppref instance="xml_handler" property="visitor"/></property>
+		</instance>
+		
+		<instance id="commandline_handler" type="CommandlineHandler" >
+			<property id="typed_configuration"><cppref instance="assembly_builder" property="typed_configurer"/></property>
+			<property id="xml_parsing"><cppref instance="xml_parser" property="parser"/></property>
+		</instance>
+		
+		<instance id="driver" type="Driver2" >
+			<property id="initializations">
+				<cppref instance="commandline_handler" property="initializer"/>
+				<cppref instance="corba_bridge" property="initializer"/>
+				<cppref instance="corba_bridge" property="initializer2"/>
+			</property>
+			<property id="assembly_building"><cppref instance="assembly_builder" property="go"/></property>
+			<property id="argc"><systemref name="argc"/></property>
+			<property id="argv"><systemref name="argv"/></property>
+		</instance>
+		
+	</process>
+</lad>

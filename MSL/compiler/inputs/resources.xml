@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<resources> <!-- lad file of the first version of the heat equation -->
+<cluster id="test" nb_nodes="8">
+ <node id="node" nb_cpu="2">
+  <cpu id="core" nb_core="8"/>
+ </node>
+</cluster>
+</resources>

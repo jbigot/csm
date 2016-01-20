@@ -1,0 +1,27 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3376195
+Jobname   : FSSK_20K_5K_4096
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 50:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 19:11:39 , start = 08/08/2015 21:46:59
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 4096 , cpus/task = 1 , ncpus = 4096 , nodes = 256
+   Nodes=curie[1608-1609,1615,1622,5118-5153,5190-5207,5244-5261,5280-5297,5334-5351,5460-5477,5550-5567,5586-5603,5676-5693,5856-5873,5964-5981,6000-6017,6108-6125] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3376195       FSSK_20K_5K_4096          -   4096    256           -     00:10:10     100            -      -  -
+3376195.0     main                   4096   4096    256      BBlock     00:10:09    99.8            -      -  RUNNING
+########## ########## ########## ########## ########## ########## ########## ##########

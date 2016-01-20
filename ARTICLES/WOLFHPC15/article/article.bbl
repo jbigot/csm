@@ -1,0 +1,160 @@
+\begin{thebibliography}{10}
+
+\bibitem{Bernholdt01052006}
+B.~A. Allan et~al.
+\newblock A component architecture for high-performance scientific computing.
+\newblock {\em International Journal of High Performance Computing
+  Applications}, 20(2):163--202, 2006.
+
+\bibitem{Augonnet2011}
+C.~Augonnet, S.~Thibault, R.~Namyst, and P.-A. Wacrenier.
+\newblock {StarPU: a unified platform for task scheduling on heterogeneous
+  multicore architectures}.
+\newblock {\em {Concurrency and Computation: Practice and Experience}},
+  23(2):187--198, 2011.
+
+\bibitem{petsc-efficient}
+S.~Balay, W.~Gropp, L.~McInnes, and B.~Smith.
+\newblock {Efficient Management of Parallelism in Object Oriented Numerical
+  Software Libraries}.
+\newblock In E.~Arge, A.~M. Bruaset, and H.~P. Langtangen, editors, {\em
+  {Modern Software Tools in Scientific Computing}}, pages 163--202.
+  Birkh{\"{a}}user Press, 1997.
+
+\bibitem{Baude}
+F.~Baude, D.~Caromel, C.~Dalmasso, M.~Danelutto, V.~Getov, L.~Henrio, and
+  C.~P\'erez.
+\newblock Gcm: a grid extension to fractal for autonomous distributed
+  components.
+\newblock {\em annals of telecommunications}, 64(1-2):5--24, 2009.
+
+\bibitem{l2c}
+J.~Bigot, Z.~Hou, C.~P\'erez, and V.~Pichon.
+\newblock A low level component model easing performance portability of hpc
+  applications.
+\newblock {\em Computing}, 96(12):1115--1130, 2014.
+
+\bibitem{bigot:inria-00388508}
+J.~Bigot and C.~P\'erez.
+\newblock Increasing reuse in component models through genericity.
+\newblock In S.~Edwards and G.~Kulczycki, editors, {\em Formal Foundations of
+  Reuse and Domain Engineering}, volume 5791 of {\em Lecture Notes in Computer
+  Science}, pages 21--30. Springer Berlin Heidelberg, 2009.
+
+\bibitem{citeulike12258902}
+M.~Christen, O.~Schenk, and H.~Burkhart.
+\newblock {PATUS: A Code Generation and Autotuning Framework for Parallel
+  Iterative Stencil Computations on Modern Microarchitectures}.
+\newblock In {\em {Parallel \& Distributed Processing Symposium (IPDPS), 2011
+  IEEE International}}, pages 676--687. IEEE, May 2011.
+
+\bibitem{CPE:CPE3494}
+H.~Coullon and S.~Limet.
+\newblock {The SIPSim implicit parallelism model and the SkelGIS library}.
+\newblock {\em {Concurrency and Computation: Practice and Experience}}, 2015.
+
+\bibitem{660313}
+L.~Dagum and R.~Menon.
+\newblock Openmp: an industry standard api for shared-memory programming.
+\newblock {\em Computational Science Engineering, IEEE}, 5(1):46--55, Jan 1998.
+
+\bibitem{DeVito2011LDS}
+Z.~DeVito, N.~Joubert, F.~Palacios, S.~Oakley, M.~Medina, M.~Barrientos,
+  E.~Elsen, F.~Ham, A.~Aiken, K.~Duraisamy, E.~Darve, J.~Alonso, and
+  P.~Hanrahan.
+\newblock SC '11, pages 9:1--9:12, New York, NY, USA, 2011. ACM.
+
+\bibitem{Fernandez:2014:DFL:2691166.2691168}
+A.~Fern\'{a}ndez, V.~Beltran, S.~Mateo, T.~Patejko, and E.~Ayguad{\'e}.
+\newblock A data flow language to develop high performance computing dsls.
+\newblock In {\em Proceedings of the Fourth International Workshop on
+  Domain-Specific Languages and High-Level Frameworks for High Performance
+  Computing}, WOLFHPC '14, pages 11--20, Piscataway, NJ, USA, 2014. IEEE Press.
+
+\bibitem{Ferrari2004}
+S.~Ferrari and F.~Saleri.
+\newblock A new two-dimensional shallow water model including pressure effects
+  and slow varying bottom topography.
+\newblock {\em M2AN Math. Model. Numer. Anal.}, 38(2):211--234, 2004.
+
+\bibitem{Gautier:2013:XRS:2510661.2511383}
+T.~Gautier, J.~Lima, N.~Maillard, and B.~Raffin.
+\newblock Xkaapi: A runtime system for data-flow task programming on
+  heterogeneous architectures.
+\newblock In {\em Proceedings of the 2013 IEEE 27th International Symposium on
+  Parallel and Distributed Processing}, IPDPS '13, pages 1299--1308,
+  Washington, DC, USA, 2013. IEEE Computer Society.
+
+\bibitem{Giles2011}
+M.~B. Giles, G.~R. Mudalige, Z.~Sharif, G.~Markall, and P.~H. Kelly.
+\newblock {Performance Analysis of the OP2 Framework on Many-core
+  Architectures}.
+\newblock {\em SIGMETRICS Perform. Eval. Rev.}, 38(4):9--15, Mar. 2011.
+
+\bibitem{Mitchell:2004:CMV:1082101.1082117}
+M.~Mitchell.
+\newblock Creating minimal vertex series parallel graphs from directed acyclic
+  graphs.
+\newblock In {\em Proc. of the 2004 Australasian Symposium on Information
+  Visualisation}, volume~35 of {\em APVis '04}, pages 133--139, Darlinghurst,
+  Australia, 2004. Australian Computer Society, Inc.
+
+\bibitem{Nieplocha:2006:AAP:1125980.1125985}
+J.~Nieplocha, B.~Palmer, V.~Tipparaju, M.~Krishnan, H.~Trease, and E.~Apr\`{a}.
+\newblock Advances, applications and performance of the global arrays shared
+  memory programming toolkit.
+\newblock {\em Int. J. High Perform. Comput. Appl.}, 20(2):203--231, May 2006.
+
+\bibitem{corba:omg06}
+{Object Management Group}.
+\newblock Corba component model 4.0 specification.
+\newblock Specification Version 4.0, Object Management Group, April 2006.
+
+\bibitem{Ragan-Kelley:2013:HLC:2491956.2462176}
+J.~Ragan-Kelley, C.~Barnes, A.~Adams, S.~Paris, F.~Durand, and S.~Amarasinghe.
+\newblock Halide: A language and compiler for optimizing parallelism, locality,
+  and recomputation in image processing pipelines.
+\newblock In {\em Proceedings of the 34th ACM SIGPLAN Conference on Programming
+  Language Design and Implementation}, PLDI '13, pages 519--530, New York, NY,
+  USA, 2013. ACM.
+
+\bibitem{UCHPC2015}
+J.~Richard, V.~Lanore, and C.~P\'erez.
+\newblock Towards application variability handling with component models:
+  3d-fft use case study.
+\newblock In {\em Proc. of The 8th Workshop on UnConventional High Performance
+  Computing (UCHPC)}, Vienna, Austria, Aug. 2015.
+\newblock To appear.
+
+\bibitem{Schmitt:2014:EDL:2691166.2691171}
+C.~Schmitt, S.~Kuckuk, F.~Hannig, H.~K\"{o}stler, and J.~Teich.
+\newblock Exaslang: A domain-specific language for highly scalable multigrid
+  solvers.
+\newblock In {\em Proceedings of the Fourth International Workshop on
+  Domain-Specific Languages and High-Level Frameworks for High Performance
+  Computing}, WOLFHPC '14, pages 42--51, Piscataway, NJ, USA, 2014. IEEE Press.
+
+\bibitem{Schoenmakers95anew}
+B.~Schoenmakers.
+\newblock A new algorithm for the recognition of series parallel graphs.
+\newblock Technical report, CWI - Centrum voor Wiskunde en Informatica, 1995.
+
+\bibitem{Szyperski:2002:CSB:515228}
+C.~Szyperski.
+\newblock {\em Component Software: Beyond Object-Oriented Programming}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 2nd
+  edition, 2002.
+
+\bibitem{spaaTangCKLL11}
+Y.~Tang, R.~Chowdhury, B.~Kuszmaul, C.-K. Luk, and C.~Leiserson.
+\newblock {The pochoir stencil compiler.}
+\newblock In L.~Fortnow and S.~P. Vadhan, editors, {\em {SPAA}}, pages
+  117--128. ACM, 2011.
+
+\bibitem{Valdes:1979:RSP:800135.804393}
+J.~Valdes, R.~Tarjan, and E.~Lawler.
+\newblock The recognition of series parallel digraphs.
+\newblock In {\em Proceedings of the Eleventh Annual ACM Symposium on Theory of
+  Computing}, STOC '79, pages 1--12, New York, NY, USA, 1979. ACM.
+
+\end{thebibliography}

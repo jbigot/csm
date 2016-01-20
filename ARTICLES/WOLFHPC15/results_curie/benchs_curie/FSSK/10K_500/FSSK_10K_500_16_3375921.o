@@ -1,0 +1,43 @@
+MPI 3 -  :  Time TOTAL CALCULATION : 2175.61 
+MPI 10 -  :  Time TOTAL CALCULATION : 2175.54 
+MPI 11 -  :  Time TOTAL CALCULATION : 2175.54 
+MPI 15 -  :  Time TOTAL CALCULATION : 2175.56 
+MPI 2 -  :  Time TOTAL CALCULATION : 2175.58 
+MPI 6 -  :  Time TOTAL CALCULATION : 2175.6 
+MPI 4 -  :  Time TOTAL CALCULATION : 2175.57 
+MPI 12 -  :  Time TOTAL CALCULATION : 2175.57 
+MPI 13 -  :  Time TOTAL CALCULATION : 2175.54 
+MPI 5 -  :  Time TOTAL CALCULATION : 2175.57 
+MPI 14 -  :  Time TOTAL CALCULATION : 2175.56 
+MPI 8 -  :  Time TOTAL CALCULATION : 2175.49 
+MPI 1 -  :  Time TOTAL CALCULATION : 2175.58 
+MPI 7 -  :  Time TOTAL CALCULATION : 2175.54 
+MPI 0 -  :  Time TOTAL CALCULATION : 2175.61 
+MPI 9 -  :  Time TOTAL CALCULATION : 2175.58 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375921
+Jobname   : FSSK_10K_500_16
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 1:24:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 18:17:47 , start = 07/08/2015 19:45:47
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 1 , ncpus = 16 , nodes = 1
+   Nodes=curie2328 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375921       FSSK_10K_500_16           -     16      1           -     00:36:22     100            -      -  -
+3375921.0     FullSWOF_2D              16     16      1      BBlock     00:36:19    99.8     00:36:14   99.7  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

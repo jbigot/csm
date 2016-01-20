@@ -1,0 +1,27 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375987
+Jobname   : MSL_10K_500_1024
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 18:25:03 , start = 07/08/2015 19:52:09
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 1024 , cpus/task = 1 , ncpus = 1024 , nodes = 64
+   Nodes=curie[2292-2294,2296-2301,2303,4884-4901,5460-5477,6252-6269] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375987       MSL_10K_500_1024          -   1024     64           -     00:08:34     100            -      -  -
+3375987.0     orted                    63     63     63      Cyclic     00:08:32    99.6            -      -  FAILED
+########## ########## ########## ########## ########## ########## ########## ##########

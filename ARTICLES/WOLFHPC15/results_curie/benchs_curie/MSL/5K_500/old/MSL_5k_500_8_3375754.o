@@ -1,0 +1,34 @@
+ Time TOTAL CALCULATION : 794.217
+ Time TOTAL CALCULATION : 794.204
+ Time TOTAL CALCULATION : 794.209
+ Time TOTAL CALCULATION : 794.217
+ Time TOTAL CALCULATION : 794.23
+ Time TOTAL CALCULATION : 794.232
+ Time TOTAL CALCULATION : 794.227
+ Time TOTAL CALCULATION : 794.223
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375754
+Jobname   : MSL_5k_500_8
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 34:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 17:13:45 , start = 07/08/2015 17:14:26
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 1 , ncpus = 8 , nodes = 1
+   Nodes=curie1930 CPU_IDs=0-7 Mem=32000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375754       MSL_5k_500_8              -      8      1           -     00:13:20     100            -      -  -
+########## ########## ########## ########## ########## ########## ########## ##########

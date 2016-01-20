@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {french}
+\beamer@sectionintoc {1}{Multi-Stencil Applications}{6}{0}{1}
+\beamer@subsectionintoc {1}{1}{Multi-Stencil Applications}{6}{0}{1}
+\beamer@sectionintoc {2}{MSL Overview}{10}{0}{2}
+\beamer@subsectionintoc {2}{1}{MSL Overview}{10}{0}{2}
+\beamer@sectionintoc {3}{Compiler}{18}{0}{3}
+\beamer@subsectionintoc {3}{1}{Compiler}{18}{0}{3}
+\beamer@sectionintoc {4}{Evaluation}{26}{0}{4}
+\beamer@subsectionintoc {4}{1}{Evaluation}{26}{0}{4}
+\beamer@sectionintoc {5}{Conclusion and perspectives}{28}{0}{5}
+\beamer@subsectionintoc {5}{1}{Conclusion and perspectives}{28}{0}{5}

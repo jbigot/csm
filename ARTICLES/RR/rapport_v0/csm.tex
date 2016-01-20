@@ -1,0 +1,73 @@
+%-------------------------------------
+\subsection{Phase, group and kernel}
+Using the formalism described in the Section~\ref{sect:formalism}, the following definitions are given for the solution.
+
+\medskip
+\begin{mydef}
+For a stencil program $\mathcal{P}(\mathcal{M},\Delta,\Gamma,\mathcal{T})$, a \emph{phase} $\Phi \subset \Gamma$ is a subset of ordered computations $\{c_0,...,c_{n-1}\} \in \Gamma$ such that $\forall 0 \leq i,j \leq n-1, \nexists c_i,c_j \in \Phi$, which verifies $c_i \ll c_j$.
+\end{mydef}
+
+One can notice, however, that in a phase $Phi$ of a stencil program it is possible to have a pair $c_i,c_j \in \Phi$, which verifies $c_i<c_j$. As a result, a phase is equivalent to a sequence of computations $SEQ$. The set of phases of a stencil program are ordered and a synchronization is needed between two different \emph{phases} of a stencil program $\mathcal{P}$. In other terms for two phases $\Phi_1$ and $\Phi_2$ $\exists c_i \in \Phi_1, c_j \in \Phi_2$ such that $c_i \ll c_j$. If $m$ is the number of stencil computations in a phase $\Phi_i$ among $n$ total computations, the synchronizations of $\Phi_i$ are applied on $\bigcup_{j=0}^{m-1}R_j$. Instead of introducing an additional definition for the equivalent of $SSEQ$, and because $sequence(sequence(a,b),sequence(c,d))=sequence(a,b,c,d)$, synchronizations needed by a new phase are commputed inside the Phase itself before computations. A phase component is defined as
+\begin{equation}
+Phase(\{provide,use-multiple, synchronization\},\{phase\}).
+\end{equation}
+ The function $phase$ performs the needed synchronizations before to use each component of the sequence
+
+\begin{algorithm}[H]
+ synchronizations\\
+ \ForAll{component $cp$ to use}{
+ use the provide interface of $cp$
+ }
+ \caption{phase function}
+ \end{algorithm}
+
+\begin{mydef}
+For a stencil program $\mathcal{P}(\mathcal{M},\Delta,\Gamma,\mathcal{T})$, a \emph{group} $\mathcal{G} \subset \Gamma$ is a subset of unordered computations $\{c_0,...,c_{n-1}\}$ such that $\forall 0 \leq i,j \leq n-1, \nexists c_i,c_j \in \mathcal{G}$, which verifies $c_i<c_j$.
+\end{mydef}
+
+Thus, a dependency exists between two different \emph{groups} of a stencil program $\mathcal{P}$, but the computations inside a \emph{group} are unordered, without dependencies. As a result, the Group component is equivalent to $PAR$.
+
+\begin{mydef}
+For a stencil program $\mathcal{P}(\mathcal{M},\Delta,\Gamma,\mathcal{T})$, a \emph{kernel} $\mathcal{K} \subset \Gamma$ is a subset of unordered computations $\{c_0,...,c_{n-1}\}$ such that $\forall 0 \leq i,j \leq n-1, \nexists c_i,c_j \in \mathcal{K}$, which verifies $c_i<c_j$, and where $\forall i,j<n, D_i=D_j$.
+\end{mydef}
+
+\medskip
+Thus, a \emph{kernel} could contains $n$ computations $\{c_0,...,c_{n-1}\}$, but handles a single space loop in a coarser computation $c'$ such that $c'(\bigcup_{i=0}^{n-1}R_i,\bigcup_{i=0}^{n-1}w_i,D,\{e_0,...,e_{n-1}\})$. This definition differs from the component $K$ described in this section as a kernel could contains more than one computation if the space domain is the same. This definition of a kernel improves performances as the memory bandwidth is better used. A kernel component if defined as
+\begin{equation}
+Kernel(\{provide\},\{kernel\}).
+\end{equation}
+ The function $kernel$ performs the set of numerical computations
+
+\begin{algorithm}[H]
+ \ForAll{elements $d$ in $D$}{
+ $w(d)=e_1(R(d),R(\mathcal{N}(d)))$\\
+ $w(d)=e_2(R(d),R(\mathcal{N}(d)))$\\
+ ...
+ }
+ \caption{phase function}
+ \end{algorithm}
+
+\medskip
+The component assembly of a mesh-based numerical simulation using phase, group and kernel components is represented in the Figure~\ref{phgpk}. This assembly is equivalent to the one presented in the Figure~\ref{approx}, but $SSEQ$ and $SEQ$ are fusionned in $phase$, and the component $kernel$ is bit different from $K$.
+
+%---------
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (phase) at (0,0) {phase};
+   \node[component] (group) [right=of phase] {group};
+   \node[component] (kernel) [right=of group] {kernel};
+ 
+  \path[->]
+             (phase)  edge  [connection]               node           {1,n}   (group)
+                      edge [mpiconn] node {} (-1,0)
+             (group)   edge [connection]          node       {1,n}   (kernel)
+             (phase)   edge [bend left=100,connection]   node  [swap]   {1,n}   (kernel);
+\end{tikzpicture}
+\caption{General assembly proposed in our solution}
+\label{phgpk}
+\end{center}
+\end{figure}
+
+%-------------------------------------
+\subsection{Overall assembly and evaluation}

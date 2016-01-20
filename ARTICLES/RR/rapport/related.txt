@@ -1,0 +1,29 @@
+Notes sur les autres travaux avec des composants des points de vue suivants :
+- sémantique du modèle
+- composants de contrôle
+- HPC
+
+------------------------------------------------------------------------------
+XMAN - The New Component Model :
+Les contrôles sont exprimés dans les connecteurs de composition de composants.
+Ces connecteurs ne sont pas des composants eux même.
+Les composants ont des connecteurs internes d'invocation et une unité de calcul qui est complètement indépendante du reste de l'appli.
+XMan n'a pas de dataflow mais du controlflow.
+The new component model cherche les deux. Les deux sont séparés.
+Ce n'est pas HPC.
+Formalisation - 
+
+------------------------------------------------------------------------------
+ProActive :
+
+------------------------------------------------------------------------------
+BIP : 
+
+
+------------------------------------------------------------------------------
+Fractal : 
+Plutôt du type modèle d'exécution à part qu'il met en place la hierarchie.
+ProActive et Fractal ?
+
+------------------------------------------------------------------------------
+CCA : 

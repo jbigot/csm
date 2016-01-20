@@ -1,0 +1,98 @@
+TODO : cleaner l’histoire du n(x,y,z,l)  “node and edge”
+TODO : probleme de plusieurs boucles en temps
+TODO : réduction (trucs scalaires)
+TODO : convergence pour la boucle en temps
+TODO : et pour les choses que je fais tous les n pas de temps ? Genre tous les 100 pas de temps ?
+
+
+data:
+	jx, node
+	jy, node
+	jz, node
+	jx_old, node
+	jy_old, node
+	jz_old, node
+	a0, edge
+	a1, edge
+	cx, edge
+	cy, edge
+	cz, edge
+	density, node
+	f_ext_x, node
+	f_ext_y, node
+	f_ext_z, node
+	n, node .and. edge !<<<<<<<<<<<<<<<<<<<<<<<<< have look please    n(x,y,z,l)   l in stencil   
+	n_old, node
+	nature, node
+	ip, edge  !  si 10 noeuds indicés de 1 à 10, alors ip(i,l) = i+-1 selon l, mais peut aussi être 10 si i=1 et l’emmêne vers la gauche et 1 si i=10 et l vers la droite
+	jp, edge
+	kp, edge
+	convergenceQuantifier < a scalar
+
+time: 10000 ! convergence criteria would be better suited
+
+computations:
+	local:  	backup_flux ( {jx} , jx_old )
+	stencil:	collision   ( {density, a0, a1, jx, jy, jz f_ext_x, f_ext_y, f_ext_z}, n, D3Q19 )
+	stencil:	bounceback  ( {nature, n, ip, jp, kp} , n, D3Q19 )   <===== mélange des choses ... à discuter avec Hélène
+	stencil:	propagation ( {n, n_old, ip, jp, kp}, n, D3Q19)   !    n(x+dt, y+dt, z+dt, l) = n(x,y,z,l) connaissant   le lien entre x et x+dt (qui depend de l slt)
+	local:  	checkpop	( {n}, n )  ! only checks that each case of n is positive or 0 everywhere
+	stencil:	majdensity  ( {n}, density, D3Q19 )      ! density = sum( n , 4)
+	stencil:	majfluxX	( {jx, n, cx}, jx, D3Q19 )         !	do concurrent(l=1:lmax) ; jx(:,:,:) = jx(:,:,:) +n(:,:,:,l)*cx(l)  ; end do
+	stencil:	majfluxY	( {jy, n, cy}, jy, D3Q19 )
+	stencil:	majfluxZ	( {jz, n, cz}, jz, D3Q19 )
+	local:  	halvefluxX   ( {jx}, jx )    !  jx=jx/2
+	local:  	halvefluxY   ( {jy}, jy )
+	local:  	halvefluxZ   ( {jz}, jz )
+	local:  	quantifyConvergence ( {jx, jy, jz, jx_old, jy_old, jz_old}, convergenceQuantifier)
+
+
+! COLLISION
+    	do l=1,lmax
+        		n(:,:,:,l) = a0(l)*density(:,:,:) + a1(l)*(cx(l)*(jx+f_ext_x)+cy(l)*(jy+f_ext_y)+cz(l)*(jz+f_ext_z))
+    	end do
+
+
+
+
+
+	density = sum( n , 4)
+
+
+
+
+
+
+
+convergenceQuantifier = 
+    	convergenceQuantifier = norm2(jx-jx_old+jy-jy_old+jz-jz_old)
+    	if( convergenceQuantifier <= target_error .and. time>2 ) then
+      	convergence_reached = .true.
+    	else
+      	convergence_reached = .false.
+    	end if
+
+! PROPAGATION LATTICE BOLTZMANN
+for l = 1, lmax ( c’est mon stencil de 19 l possible)
+for all i,j,k (x, y, z)
+		calcule le x’, y’, z’ correspondant à “je suis en i,j,k et je regarde ce qu’il y a au bout de l’arrete l du stencil”
+		n(x’,y’,z’,l) = n(x,y,z,l)
+	end 
+end
+	
+
+    	do l=1,lmax
+      	old_n = n(:,:,:,l)
+      	do k=1,n3
+        	kp=pbc(k+cz(l),z)
+        	do j=1,n2
+          	jp=pbc(j+cy(l),y)
+          	do i=1,n1
+            	ip=pbc(i+cx(l),x)
+            	n(ip,jp,kp,l) = old_n(i,j,k)
+          	end do
+        	end do
+      	end do
+    	end do
+
+

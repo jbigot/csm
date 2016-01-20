@@ -1,0 +1,41 @@
+Read msp file
+Compute Gamma data
+Compute Gamma hybrid
+Compute transitive reduction
+Remove Nshapes
+Compute series-parallel decomposition
+Compute canonical form
+Compute the dump
+Computation(id='limhl_limul_limvl', type='bound', R=['h', 'u', 'v'], w=['h', 'u', 'v'], N='', d='phbl')
+Computation(id='limhr_limur_limvr', type='bound', R=['h', 'u', 'v'], w=['h', 'u', 'v'], N='', d='phbr')
+Computation(id='limhu_limuu_limvu', type='bound', R=['h', 'u', 'v'], w=['h', 'u', 'v'], N='', d='phbu')
+Computation(id='limhd_limud_limvd', type='bound', R=['h', 'u', 'v'], w=['h', 'u', 'v'], N='', d='phbd')
+Computation(id='upd_huvh1l', type='update', R=['h', 'u', 'v'], w=['wu_huvh1l'], N='', d='edgex')
+Computation(id='huvh1l_huvh1r_huvu1l_huvu1r_huvv1l_huvv1r_huvz1l_huvz1r', type='stencil', R=['h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l'], w=['h1l', 'h1r', 'u1l', 'u1r', 'v1l', 'v1r', 'z1l', 'z1r'], N='N1', d='edgex')
+Computation(id='huvh2l_huvh2r_huvu2l_huvu2r_huvv2l_huvv2r_huvz2l_huvz2r', type='stencil', R=['h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l', 'h', 'u', 'v', 'z', 'wu_huvh1l'], w=['h2l', 'h2r', 'u2l', 'u2r', 'v2l', 'v2r', 'z2l', 'z2r'], N='N1', d='edgey')
+Computation(id='delzf', type='local', R=['z1l', 'z1r'], w=['delz1'], N='', d='edgex')
+Computation(id='delzc1f_delzc2f', type='local', R=['z1l', 'z1r', 'z2l', 'z2r'], w=['delzc1', 'delzc2'], N='', d='cell')
+Computation(id='delzf', type='local', R=['z2l', 'z2r'], w=['delz2'], N='', d='edgey')
+Computation(id='bloc1x1_bloc1x2', type='local', R=['h1l', 'delz1', 'h1r', 'delz1'], w=['h1g', 'h1d'], N='', d='edgex')
+Computation(id='bloc1y1_bloc1y2', type='local', R=['h2l', 'delz2', 'h2r', 'delz2'], w=['h2g', 'h2d'], N='', d='edgey')
+Computation(id='bloc1x3_bloc1x4_bloc1x5', type='local', R=['u1l', 'u1r', 'h1g', 'h1d', 'u1l', 'u1r', 'h1g', 'h1d', 'u1l', 'u1r', 'v1l', 'v1r', 'h1g', 'h1d'], w=['f1', 'f2', 'f3'], N='', d='edgex')
+Computation(id='bloc1y3_bloc1y4_bloc1y5', type='local', R=['u2l', 'u2r', 'h2g', 'h2d', 'u2l', 'u2r', 'h2g', 'h2d', 'u2l', 'u2r', 'v2l', 'v2r', 'h2g', 'h2d'], w=['g1', 'g2', 'g3'], N='', d='edgey')
+Computation(id='bloc21_bloc22_bloc23_check_checkus_checkvs', type='local', R=['h', 'f1', 'g1', 'Rain', 'u', 'v', 'q1', 'h1l', 'h1r', 'h1g', 'h1d', 'delzc1', 'f2', 'g2', 'mcf', 'hs', 'u', 'v', 'q2', 'h2l', 'h2r', 'h2d', 'h2g', 'delzc2', 'f3', 'g3', 'mcf', 'hs', 'hs', 'hs', 'us', 'qs1', 'hs', 'vs', 'qs2'], w=['hs', 'qs1', 'qs2', 'hs', 'us', 'vs'], N='', d='cell')
+Computation(id='limhl', type='bound', R=['hs'], w=['hs'], N='', d='phbl')
+Computation(id='limhr', type='bound', R=['hs'], w=['hs'], N='', d='phbr')
+Computation(id='limhu', type='bound', R=['hs'], w=['hs'], N='', d='phbu')
+Computation(id='limul_limvl', type='bound', R=['us', 'vs'], w=['us', 'vs'], N='', d='phbl')
+Computation(id='limur_limvr', type='bound', R=['us', 'vs'], w=['us', 'vs'], N='', d='phbr')
+Computation(id='limuu_limvu', type='bound', R=['us', 'vs'], w=['us', 'vs'], N='', d='phbu')
+Computation(id='limud_limvd', type='bound', R=['us', 'vs'], w=['us', 'vs'], N='', d='phbd')
+Computation(id='upd_huvh1l', type='update', R=['hs', 'vs', 'us'], w=['wu_huvh1l'], N='', d='edgex')
+Computation(id='huvh1l_huvh1r_huvu1l_huvu1r_huvv1l_huvv1r_huvz1l_huvz1r', type='stencil', R=['hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l'], w=['h1l', 'h1r', 'u1l', 'u1r', 'v1l', 'v1r', 'z1l', 'z1r'], N='N1', d='edgex')
+Computation(id='huvh2l_huvh2r_huvu2l_huvu2r_huvv2l_huvv2r_huvz2l_huvz2r', type='stencil', R=['hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l', 'hs', 'us', 'vs', 'z', 'wu_huvh1l'], w=['h2l', 'h2r', 'u2l', 'u2r', 'v2l', 'v2r', 'z2l', 'z2r'], N='N1', d='edgey')
+Computation(id='delzf', type='local', R=['z1l', 'z1r'], w=['delz1'], N='', d='edgex')
+Computation(id='delzc1f_delzc2f', type='local', R=['z1l', 'z1r', 'z2l', 'z2r'], w=['delzc1', 'delzc2'], N='', d='cell')
+Computation(id='delzf', type='local', R=['z2l', 'z2r'], w=['delz2'], N='', d='edgey')
+Computation(id='bloc1x1_bloc1x2', type='local', R=['h1l', 'delz1', 'h1r', 'delz1'], w=['h1g', 'h1d'], N='', d='edgex')
+Computation(id='bloc1y1_bloc1y2', type='local', R=['h2l', 'delz2', 'h2r', 'delz2'], w=['h2g', 'h2d'], N='', d='edgey')
+Computation(id='bloc1x3_bloc1x4_bloc1x5', type='local', R=['u1l', 'u1r', 'h1g', 'h1d', 'u1l', 'u1r', 'h1g', 'h1d', 'u1l', 'u1r', 'v1l', 'v1r', 'h1g', 'h1d'], w=['f1', 'f2', 'f3'], N='', d='edgex')
+Computation(id='bloc1y3_bloc1y4_bloc1y5', type='local', R=['u2l', 'u2r', 'h2g', 'h2d', 'u2l', 'u2r', 'h2g', 'h2d', 'u2l', 'u2r', 'v2l', 'v2r', 'h2g', 'h2d'], w=['g1', 'g2', 'g3'], N='', d='edgey')
+Computation(id='bloc21_bloc22_bloc23_heun1_heun2_heun3', type='local', R=['hs', 'f1', 'g1', 'Rain', 'us', 'vs', 'qs1', 'h1l', 'h1r', 'h1g', 'h1d', 'delzc1', 'f2', 'g2', 'mcf', 'hsa', 'us', 'vs', 'qs2', 'h2l', 'h2r', 'h2d', 'h2g', 'delzc2', 'f3', 'g3', 'mcf', 'hsa', 'hsa', 'qsa1', 'h', 'qsa2', 'h'], w=['hsa', 'qsa1', 'qsa2', 'h', 'q1', 'q2'], N='', d='cell')

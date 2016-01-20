@@ -1,0 +1,27 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375938
+Jobname   : FSSK_10K_500_8
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 2:14:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 18:20:19 , start = 07/08/2015 19:46:42
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 1 , ncpus = 8 , nodes = 1
+   Nodes=curie1524 CPU_IDs=8-15 Mem=32000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375938       FSSK_10K_500_8            -      8      1           -     00:00:19     100            -      -  -
+3375938.0     main                      8      8      1      BBlock     00:00:18    94.7     00:00:10   55.5  CANCELLED by 24823
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -1,0 +1,43 @@
+MPI 10 -  :  Time TOTAL CALCULATION : 1352.31 
+MPI 12 -  :  Time TOTAL CALCULATION : 1352.27 
+MPI 13 -  :  Time TOTAL CALCULATION : 1352.29 
+MPI 14 -  :  Time TOTAL CALCULATION : 1352.29 
+MPI 2 -  :  Time TOTAL CALCULATION : 1352.36 
+MPI 3 -  :  Time TOTAL CALCULATION : 1352.35 
+MPI 4 -  :  Time TOTAL CALCULATION : 1352.35 
+MPI 5 -  :  Time TOTAL CALCULATION : 1352.31 
+MPI 8 -  :  Time TOTAL CALCULATION : 1352.26 
+MPI 11 -  :  Time TOTAL CALCULATION : 1352.28 
+MPI 15 -  :  Time TOTAL CALCULATION : 1352.28 
+MPI 6 -  :  Time TOTAL CALCULATION : 1352.33 
+MPI 1 -  :  Time TOTAL CALCULATION : 1352.36 
+MPI 7 -  :  Time TOTAL CALCULATION : 1352.32 
+MPI 0 -  :  Time TOTAL CALCULATION : 1352.32 
+MPI 9 -  :  Time TOTAL CALCULATION : 1352.29 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375939
+Jobname   : FSSK_10K_500_16
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 1:24:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 18:20:21 , start = 07/08/2015 19:46:42
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 1 , ncpus = 16 , nodes = 1
+   Nodes=curie4359 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375939       FSSK_10K_500_16           -     16      1           -     00:22:38     100            -      -  -
+3375939.0     main                     16     16      1      BBlock     00:22:37    99.9     00:22:29   99.4  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

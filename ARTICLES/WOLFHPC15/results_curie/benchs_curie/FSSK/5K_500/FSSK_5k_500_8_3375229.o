@@ -1,0 +1,35 @@
+MPI 4 -  :  Time TOTAL CALCULATION : 1070.37 
+MPI 3 -  :  Time TOTAL CALCULATION : 1070.37 
+MPI 5 -  :  Time TOTAL CALCULATION : 1070.37 
+MPI 2 -  :  Time TOTAL CALCULATION : 1070.37 
+MPI 7 -  :  Time TOTAL CALCULATION : 1070.37 
+MPI 1 -  :  Time TOTAL CALCULATION : 1070.37 
+MPI 6 -  :  Time TOTAL CALCULATION : 1070.37 
+MPI 0 -  :  Time TOTAL CALCULATION : 1070.37 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375229
+Jobname   : FSSK_5k_500_8
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 34:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 13:41:52 , start = 07/08/2015 13:44:15
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 1 , ncpus = 8 , nodes = 1
+   Nodes=curie4912 CPU_IDs=0-7 Mem=32000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375229       FSSK_5k_500_8             -      8      1           -     00:17:56     100            -      -  -
+3375229.0     FullSWOF_2D               8      8      1      BBlock     00:17:54    99.8     00:17:18   96.6  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

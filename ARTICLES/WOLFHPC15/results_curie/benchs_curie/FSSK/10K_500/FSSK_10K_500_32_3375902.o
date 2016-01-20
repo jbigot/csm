@@ -1,0 +1,59 @@
+MPI 20 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 12 -  :  Time TOTAL CALCULATION : 1075.44 
+MPI 13 -  :  Time TOTAL CALCULATION : 1075.42 
+MPI 10 -  :  Time TOTAL CALCULATION : 1075.44 
+MPI 2 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 3 -  :  Time TOTAL CALCULATION : 1075.44 
+MPI 4 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 5 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 11 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 7 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 6 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 0 -  :  Time TOTAL CALCULATION : 1075.45 
+MPI 15 -  :  Time TOTAL CALCULATION : 1075.44 
+MPI 14 -  :  Time TOTAL CALCULATION : 1075.43 
+MPI 8 -  :  Time TOTAL CALCULATION : 1075.44 
+MPI 9 -  :  Time TOTAL CALCULATION : 1075.44 
+MPI 1 -  :  Time TOTAL CALCULATION : 1075.46 
+MPI 28 -  :  Time TOTAL CALCULATION : 1075.42 
+MPI 29 -  :  Time TOTAL CALCULATION : 1075.43 
+MPI 27 -  :  Time TOTAL CALCULATION : 1075.43 
+MPI 31 -  :  Time TOTAL CALCULATION : 1075.43 
+MPI 26 -  :  Time TOTAL CALCULATION : 1075.44 
+MPI 19 -  :  Time TOTAL CALCULATION : 1075.46 
+MPI 18 -  :  Time TOTAL CALCULATION : 1075.46 
+MPI 21 -  :  Time TOTAL CALCULATION : 1075.46 
+MPI 24 -  :  Time TOTAL CALCULATION : 1075.39 
+MPI 23 -  :  Time TOTAL CALCULATION : 1075.43 
+MPI 22 -  :  Time TOTAL CALCULATION : 1075.46 
+MPI 30 -  :  Time TOTAL CALCULATION : 1075.42 
+MPI 17 -  :  Time TOTAL CALCULATION : 1075.46 
+MPI 25 -  :  Time TOTAL CALCULATION : 1075.43 
+MPI 16 -  :  Time TOTAL CALCULATION : 1075.46 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3375902
+Jobname   : FSSK_10K_500_32
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 50:00 , memory/task = 4000 Mo
+Date      : submit = 07/08/2015 18:16:58 , start = 07/08/2015 19:08:23
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 1 , ncpus = 32 , nodes = 2
+   Nodes=curie[2886,2888] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3375902       FSSK_10K_500_32           -     32      2           -     00:18:01     100            -      -  -
+3375902.0     FullSWOF_2D              32     32      2      BBlock     00:17:59    99.8     00:17:49   99.0  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -1,0 +1,5 @@
+# Changes since branch 0.5
+
+Julien Bigot
+  * Bugfix: corrected a case where connecting groups wouldn't work
+  * Bugfix: workaround limited buffer size in ckstream
