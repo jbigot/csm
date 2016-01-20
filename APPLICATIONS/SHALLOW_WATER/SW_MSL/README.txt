@@ -21,6 +21,15 @@ Deux versions possibles :
 Les deux ont étés évalués
 
 =====================================
+src/SeqParOmp/SeqParOmpFus.cpp :
+=====================================
+
+Scheduling statique openmp mais avec fusion de composants de façon à coller à 2 threads
+Deux versions possibles :
+1- politique d'ordonnancement close
+2- politique d'ordonnancement spread
+
+=====================================
 include/libskelgis/comunications.hpp :
 =====================================
 
