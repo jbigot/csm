@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libSimpleXpDriver.so -o libSimpleXpDriver.so CMakeFiles/SimpleXpDriver.dir/src/SimpleXpDriver/simplexpdriver.cpp.o 

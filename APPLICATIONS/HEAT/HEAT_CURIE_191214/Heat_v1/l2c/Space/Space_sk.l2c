@@ -1,0 +1,7 @@
+//#implements=space_sk
+LCMP(Space_sk)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_PROVIDE(Spaceh, init);
+  L_CPP_USE(Datah, data1SV);
+  L_CPP_USE(Datah, data2SV);
+LEND

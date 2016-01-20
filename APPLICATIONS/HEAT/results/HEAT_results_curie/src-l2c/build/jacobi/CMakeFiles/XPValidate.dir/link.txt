@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libXPValidate.so -o libXPValidate.so CMakeFiles/XPValidate.dir/src/XPValidate/xpvalidate.cpp.o 

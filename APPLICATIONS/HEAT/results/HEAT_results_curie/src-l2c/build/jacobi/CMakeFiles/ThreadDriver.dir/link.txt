@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libThreadDriver.so -o libThreadDriver.so CMakeFiles/ThreadDriver.dir/src/ThreadDriver/threaddriver.cpp.o -lboost_thread -lboost_system 

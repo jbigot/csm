@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../mandelbrot/include/Array2DDump.h
+
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/mandelbrot/src/Dumper/Dumper.cpp
+cassert
+-
+cstring
+-
+fstream
+-
+iostream
+-
+sstream
+-
+llcmcpp/lifecycle.h
+-
+llcmcpp/go.h
+-
+llcmcpp/llcmcpp.h
+-
+Array2DDump.h
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/mandelbrot/src/Dumper/Array2DDump.h
+../mytime.h
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/mandelbrot/src/mytime.h
+
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/mandelbrot/src/mytime.h
+time.h
+-
+sys/time.h
+-
+

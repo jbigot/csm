@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG   -shared -Wl,-soname,libThreadXp.so -o libThreadXp.so CMakeFiles/ThreadXp.dir/src/ThreadXp/threadxp.cpp.o -lboost_thread -lboost_system 

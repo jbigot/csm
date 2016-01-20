@@ -1,0 +1,5 @@
+//#implements=initializer
+LCMP(Initializer)
+  L_PROPERTY(double, init_val);
+  L_CPP_PROVIDE(Inith, initdata);
+LEND

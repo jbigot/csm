@@ -1,0 +1,243 @@
+<?xml version='1.0'?>
+
+<lad xmlns="http://www.inria.fr/avalon/lad"> <!-- lad file of the first version of the heat equation -->
+  <mpi>
+    <process>
+       <start_property instance="dr1" property="inGo"/>
+
+       <instance id="in1" type="Initializer">
+	 <property id="init_val"><value type="double">0</value></property>
+       </instance>
+       <instance id="in2" type="Initializer">
+         <property id="init_val"><value type="double">0</value></property>
+       </instance>
+
+       <instance id="d1" type="Data">
+	 <property id="str"><cppref instance="st1" property="services"/></property>
+	 <property id="initializer"><cppref instance="in1" property="initdata"/></property>
+       </instance>
+       <instance id="d2" type="Data">
+	 <property id="str"><cppref instance="st1" property="services"/></property>
+	 <property id="initializer"><cppref instance="in2" property="initdata"/></property>
+       </instance>
+
+       <instance id="st1" type="Structure">
+	 <property id="border_size"><value type="int16">1</value></property>
+       </instance>
+
+       <instance id="sp1" type="Space_sk">
+	 <property id="data1SV"><cppref instance="d1" property="services"/></property>
+	 <property id="data2SV"><cppref instance="d2" property="services"/></property>
+       </instance>
+
+       <instance id="ti1" type="Time">
+	 <property id="iter"><value type="int16">4</value></property>
+	 <property id="phaseGo"><cppref instance="ph1" property="inGo"/></property>
+       </instance>
+
+       <instance id="ph1" type="Phase">
+	 <property id="dataCompute"><cppref instance="d1" property="services"/></property>
+	 <property id="dataCompute"><cppref instance="d2" property="services"/></property>
+	 <property id="spaceCompute"><cppref instance="sp1" property="inGo"/></property>
+       </instance>
+
+       <instance id="dra1" type="DriverApp">
+	 <property id="dataCompute"><cppref instance="d1" property="inGo"/></property>
+         <property id="dataCompute"><cppref instance="d2" property="inGo"/></property>
+	 <property id="spaceCompute"><cppref instance="sp1" property="init"/></property>
+	 <property id="timeGo"><cppref instance="ti1" property="inGo"/></property>
+	 <property id="dh1"><cppref instance="d1" property="services"/></property>
+       </instance>
+
+       <instance id="dr1" type="Driver">
+	 <property id="width"><value type="int64">5000</value></property>
+	 <property id="height"><value type="int64">5000</value></property>
+	 <property id="nb_proc"><value type="int32">4</value></property>
+	 <property id="structInit"><cppref instance="st1" property="services"/></property>
+	 <property id="driverappGo"><cppref instance="dra1" property="inGo"/></property>
+       </instance>
+     </process>
+
+     <process>
+       <start_property instance="dr2" property="inGo"/>
+
+       <instance id="in3" type="Initializer">
+         <property id="init_val"><value type="double">0</value></property>
+       </instance>
+       <instance id="in4" type="Initializer">
+         <property id="init_val"><value type="double">0</value></property>
+       </instance>
+
+       <instance id="d3" type="Data">
+	 <property id="str"><cppref instance="st2" property="services"/></property>
+	 <property id="initializer"><cppref instance="in3" property="initdata"/></property>
+       </instance>
+       <instance id="d4" type="Data">
+	 <property id="str"><cppref instance="st2" property="services"/></property>
+	 <property id="initializer"><cppref instance="in4" property="initdata"/></property>
+       </instance>
+	 
+       <instance id="st2" type="Structure">
+	 <property id="border_size"><value type="int16">1</value></property>
+       </instance>
+
+       <instance id="sp2" type="Space_sk">
+         <property id="data1SV"><cppref instance="d3" property="services"/></property>
+         <property id="data2SV"><cppref instance="d4" property="services"/></property>
+       </instance>
+
+       <instance id="ti2" type="Time">
+         <property id="iter"><value type="int16">4</value></property>
+         <property id="phaseGo"><cppref instance="ph2" property="inGo"/></property>
+       </instance>
+
+       <instance id="ph2" type="Phase">
+         <property id="dataCompute"><cppref instance="d3" property="services"/></property>
+         <property id="dataCompute"><cppref instance="d4" property="services"/></property>
+         <property id="spaceCompute"><cppref instance="sp2" property="inGo"/></property>
+       </instance>
+
+       <instance id="dra2" type="DriverApp">
+         <property id="dataCompute"><cppref instance="d3" property="inGo"/></property>
+         <property id="dataCompute"><cppref instance="d4" property="inGo"/></property>
+         <property id="spaceCompute"><cppref instance="sp2" property="init"/></property>
+         <property id="timeGo"><cppref instance="ti2" property="inGo"/></property>
+	 <property id="dh1"><cppref instance="d3" property="services"/></property>
+       </instance>
+
+       <instance id="dr2" type="Driver">
+	 <property id="width"><value type="int64">5000</value></property>
+	 <property id="height"><value type="int64">5000</value></property>
+         <property id="nb_proc"><value type="int32">4</value></property>
+	 <property id="structInit"><cppref instance="st2" property="services"/></property>
+         <property id="driverappGo"><cppref instance="dra2" property="inGo"/></property>
+       </instance>
+     </process>
+
+     <process>
+       <start_property instance="dr3" property="inGo"/>
+
+       <instance id="in5" type="Initializer">
+         <property id="init_val"><value type="double">0</value></property>
+       </instance>
+       <instance id="in6" type="Initializer">
+         <property id="init_val"><value type="double">0</value></property>
+       </instance>
+
+       <instance id="d5" type="Data">
+	 <property id="str"><cppref instance="st3" property="services"/></property>
+	 <property id="initializer"><cppref instance="in5" property="initdata"/></property>
+       </instance>
+       <instance id="d6" type="Data">
+	 <property id="str"><cppref instance="st3" property="services"/></property>
+	 <property id="initializer"><cppref instance="in6" property="initdata"/></property>
+       </instance>
+
+       <instance id="st3" type="Structure">
+	 <property id="border_size"><value type="int16">1</value></property>
+       </instance>
+
+       <instance id="sp3" type="Space_sk">
+         <property id="data1SV"><cppref instance="d5" property="services"/></property>
+         <property id="data2SV"><cppref instance="d6" property="services"/></property>
+       </instance>
+
+       <instance id="ti3" type="Time">
+         <property id="iter"><value type="int16">4</value></property>
+         <property id="phaseGo"><cppref instance="ph3" property="inGo"/></property>
+       </instance>
+
+       <instance id="ph3" type="Phase">
+         <property id="dataCompute"><cppref instance="d5" property="services"/></property>
+         <property id="dataCompute"><cppref instance="d6" property="services"/></property>
+         <property id="spaceCompute"><cppref instance="sp3" property="inGo"/></property>
+       </instance>
+
+       <instance id="dra3" type="DriverApp">
+         <property id="dataCompute"><cppref instance="d5" property="inGo"/></property>
+         <property id="dataCompute"><cppref instance="d6" property="inGo"/></property>
+         <property id="spaceCompute"><cppref instance="sp3" property="init"/></property>
+         <property id="timeGo"><cppref instance="ti3" property="inGo"/></property>
+	 <property id="dh1"><cppref instance="d5" property="services"/></property>
+       </instance>
+
+       <instance id="dr3" type="Driver">
+	 <property id="width"><value type="int64">5000</value></property>
+	 <property id="height"><value type="int64">5000</value></property>
+         <property id="nb_proc"><value type="int32">4</value></property>
+	 <property id="structInit"><cppref instance="st3" property="services"/></property>
+         <property id="driverappGo"><cppref instance="dra3" property="inGo"/></property>
+       </instance>
+     </process>
+
+     <process>
+       <start_property instance="dr4" property="inGo"/>
+
+       <instance id="in7" type="Initializer">
+         <property id="init_val"><value type="double">0</value></property>
+       </instance>
+       <instance id="in8" type="Initializer">
+         <property id="init_val"><value type="double">0</value></property>
+       </instance>
+
+       <instance id="d7" type="Data">
+	 <property id="str"><cppref instance="st4" property="services"/></property>
+	 <property id="initializer"><cppref instance="in7" property="initdata"/></property>
+       </instance>
+       <instance id="d8" type="Data">
+	 <property id="str"><cppref instance="st4" property="services"/></property>
+	 <property id="initializer"><cppref instance="in8" property="initdata"/></property>
+       </instance>
+
+       <instance id="st4" type="Structure">
+	 <property id="border_size"><value type="int16">1</value></property>
+       </instance>
+
+       <instance id="sp4" type="Space_sk">
+         <property id="data1SV"><cppref instance="d7" property="services"/></property>
+         <property id="data2SV"><cppref instance="d8" property="services"/></property>
+       </instance>
+
+       <instance id="ti4" type="Time">
+         <property id="iter"><value type="int16">4</value></property>
+         <property id="phaseGo"><cppref instance="ph4" property="inGo"/></property>
+       </instance>
+
+       <instance id="ph4" type="Phase">
+         <property id="dataCompute"><cppref instance="d7" property="services"/></property>
+         <property id="dataCompute"><cppref instance="d8" property="services"/></property>
+         <property id="spaceCompute"><cppref instance="sp4" property="inGo"/></property>
+       </instance>
+
+       <instance id="dra4" type="DriverApp">
+         <property id="dataCompute"><cppref instance="d7" property="inGo"/></property>
+         <property id="dataCompute"><cppref instance="d8" property="inGo"/></property>
+         <property id="spaceCompute"><cppref instance="sp4" property="init"/></property>
+         <property id="timeGo"><cppref instance="ti4" property="inGo"/></property>
+	 <property id="dh1"><cppref instance="d7" property="services"/></property>
+       </instance>
+
+       <instance id="dr4" type="Driver">
+	 <property id="width"><value type="int64">5000</value></property>
+	 <property id="height"><value type="int64">5000</value></property>
+         <property id="nb_proc"><value type="int32">4</value></property>
+	 <property id="structInit"><cppref instance="st4" property="services"/></property>
+         <property id="driverappGo"><cppref instance="dra4" property="inGo"/></property>
+       </instance>
+     </process>
+
+     <!--As much communicators as the number of data in the simulation-->
+     <communicator>
+       <peer instance="d1" property="comm"/>
+       <peer instance="d3" property="comm"/>
+       <peer instance="d5" property="comm"/>
+       <peer instance="d7" property="comm"/>
+     </communicator>
+     <communicator>
+       <peer instance="d2" property="comm"/>
+       <peer instance="d4" property="comm"/>
+       <peer instance="d6" property="comm"/>
+       <peer instance="d8" property="comm"/>
+     </communicator>
+  </mpi>
+</lad>

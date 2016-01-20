@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG   -shared -Wl,-soname,libPthreadConnector.so -o libPthreadConnector.so CMakeFiles/PthreadConnector.dir/src/PthreadConnector/pthreadconnector.cpp.o -lpthread 

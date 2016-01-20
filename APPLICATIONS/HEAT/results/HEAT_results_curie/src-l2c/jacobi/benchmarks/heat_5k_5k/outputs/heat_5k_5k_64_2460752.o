@@ -1,0 +1,91 @@
+ Time TOTAL CALCULATION : 13.1769
+ Time TOTAL CALCULATION : 13.1769
+ Time TOTAL CALCULATION : 13.1768
+ Time TOTAL CALCULATION : 13.1769
+ Time TOTAL CALCULATION : 13.1771
+ Time TOTAL CALCULATION : 13.1774
+ Time TOTAL CALCULATION : 13.1767
+ Time TOTAL CALCULATION : 13.1769
+ Time TOTAL CALCULATION : 13.1765
+ Time TOTAL CALCULATION : 13.1768
+ Time TOTAL CALCULATION : 13.1772
+ Time TOTAL CALCULATION : 13.1768
+ Time TOTAL CALCULATION : 13.1772
+ Time TOTAL CALCULATION : 13.1771
+ Time TOTAL CALCULATION : 13.1768
+ Time TOTAL CALCULATION : 13.1773
+ Time TOTAL CALCULATION : 13.1778
+ Time TOTAL CALCULATION : 13.1789
+ Time TOTAL CALCULATION : 13.1786
+ Time TOTAL CALCULATION : 13.1787
+ Time TOTAL CALCULATION : 13.1787
+ Time TOTAL CALCULATION : 13.1787
+ Time TOTAL CALCULATION : 13.1784
+ Time TOTAL CALCULATION : 13.1788
+ Time TOTAL CALCULATION : 13.1789
+ Time TOTAL CALCULATION : 13.1787
+ Time TOTAL CALCULATION : 13.1787
+ Time TOTAL CALCULATION : 13.1787
+ Time TOTAL CALCULATION : 13.179
+ Time TOTAL CALCULATION : 13.1785
+ Time TOTAL CALCULATION : 13.1791
+ Time TOTAL CALCULATION : 13.1791
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1804
+ Time TOTAL CALCULATION : 13.1804
+ Time TOTAL CALCULATION : 13.1804
+ Time TOTAL CALCULATION : 13.1803
+ Time TOTAL CALCULATION : 13.1803
+ Time TOTAL CALCULATION : 13.1803
+ Time TOTAL CALCULATION : 13.1806
+ Time TOTAL CALCULATION : 13.1807
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1806
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1806
+ Time TOTAL CALCULATION : 13.1804
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1804
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1806
+ Time TOTAL CALCULATION : 13.1806
+ Time TOTAL CALCULATION : 13.1805
+ Time TOTAL CALCULATION : 13.1807
+ Time TOTAL CALCULATION : 13.182
+ Time TOTAL CALCULATION : 13.1822
+ Time TOTAL CALCULATION : 13.1823
+ Time TOTAL CALCULATION : 13.1821
+ Time TOTAL CALCULATION : 13.1822
+ Time TOTAL CALCULATION : 13.1823
+ Time TOTAL CALCULATION : 13.1823
+ Time TOTAL CALCULATION : 13.1822
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 2460752
+Jobname   : heat_5k_5k_64
+User      : richarje
+Account   : gen7317@standard
+Limits    : time = 3:00 , memory/task = 4000 Mo
+Date      : submit = 19/12/2014 22:09:43 , start = 20/12/2014 04:40:20
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 1 , ncpus = 64 , nodes = 4
+   Nodes=curie[4507,4515-4516,4518] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+2460752       heat_5k_5k_64             -     64      4           -     00:00:18     100            -      -  -
+2460752.0     orted                     3      3      3      Cyclic     00:00:15    83.3            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

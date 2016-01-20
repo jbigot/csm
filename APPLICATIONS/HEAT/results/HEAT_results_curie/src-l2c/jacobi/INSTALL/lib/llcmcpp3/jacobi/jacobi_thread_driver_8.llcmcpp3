@@ -1,0 +1,102 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns="http://avalon.inria.fr/llcmcpp3">
+	<instance id="xpdriver" type="XPDriver">
+		<property id="slow_start"><value type="uint32">44</value></property>
+		<property id="run_per_size"><value type="uint32">32</value></property>
+		<property id="l1_size"><value type="uint64">1572864</value></property>
+		<property id="l2_size"><value type="uint64">6291456</value></property>
+		<property id="l3_size"><value type="uint64">12582912</value></property>
+		<property id="ram_size"><value type="uint64">8589934592</value></property>
+		<property id="computer"><propref instance="driver" property="xpcomputer"/></property>
+		<start property="go"/>
+	</instance>
+	<instance id="driver" type="ThreadDriver">
+		<property id="debug"><value type="uint8">0</value></property>
+		<property id="nb_tiles_x"><value type="uint16">4</value></property>
+		<property id="nb_tiles_y"><value type="uint16">2</value></property>
+		<property id="computers">
+			<propref instance="core0" property="computer"/>
+			<propref instance="core1" property="computer"/>
+			<propref instance="core2" property="computer"/>
+			<propref instance="core3" property="computer"/>
+			<propref instance="core4" property="computer"/>
+			<propref instance="core5" property="computer"/>
+			<propref instance="core6" property="computer"/>
+			<propref instance="core7" property="computer"/>
+		</property>
+		<property id="initializations">
+			<propref instance="init0" property="initializer"/>
+			<propref instance="init1" property="initializer"/>
+			<propref instance="init2" property="initializer"/>
+			<propref instance="init3" property="initializer"/>
+			<propref instance="init4" property="initializer"/>
+			<propref instance="init5" property="initializer"/>
+			<propref instance="init6" property="initializer"/>
+			<propref instance="init7" property="initializer"/>
+		</property>
+	</instance>
+	<instance id="core0" type="JacobiCore"/>
+	<instance id="init0" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core1" type="JacobiCore"/>
+	<instance id="init1" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core2" type="JacobiCore"/>
+	<instance id="init2" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core3" type="JacobiCore"/>
+	<instance id="init3" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core4" type="JacobiCore"/>
+	<instance id="init4" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core5" type="JacobiCore"/>
+	<instance id="init5" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core6" type="JacobiCore"/>
+	<instance id="init6" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core7" type="JacobiCore"/>
+	<instance id="init7" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+</llcmcpp3_cad>

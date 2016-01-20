@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libPthreadConnectorDual.so CMakeFiles/PthreadConnectorDual.dir/src/PthreadConnectorDual/pthreadconnectordual.cpp.o 

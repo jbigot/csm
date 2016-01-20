@@ -1,0 +1,7 @@
+//#implements=phase
+LCMP(Phase)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Go, spaceCompute);
+  L_CPP_USE(Datah, dataCompute);
+  //L_CPP_USE(Datah, data2);
+LEND

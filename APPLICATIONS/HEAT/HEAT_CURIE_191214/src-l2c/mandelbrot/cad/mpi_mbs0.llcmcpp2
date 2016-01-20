@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<llcmcpp2_cad xmlns="http://avalon.inria.fr/llcmcpp2">
+  <host id="0">
+    <instance id="mbr0" type="llcm_MandelbrotRun">
+      <property id="R0"><value type="complex double">(-1.5,-1)</value></property>
+      <property id="R1"><value type="complex double">(0.5,1)</value></property>
+      <property id="NX"><value type="unsigned">256</value></property>
+      <property id="NY"><value type="unsigned">256</value></property>
+      <property id="NBITER"><value type="unsigned">256</value></property>
+      <property id="DUMP"><value type="unsigned">1</value></property>
+      <property id="DUMPFILE"><value type="string">/tmp/m0.pgm</value></property>
+
+      <property id="umb"><propref instance="mb0" property="pmb"/></property>
+      <property id="ua2dd"><propref instance="d0" property="pa2dd"/></property>
+
+      <start property="cc"/>
+      <start property="go"/>
+    </instance>
+
+    <instance id="mb0"  type="llcm_MandelbrotSeq">
+    </instance>
+
+    <instance id="d0"   type="llcm_Dumper"/>
+      
+  </host>
+
+</llcmcpp2_cad>

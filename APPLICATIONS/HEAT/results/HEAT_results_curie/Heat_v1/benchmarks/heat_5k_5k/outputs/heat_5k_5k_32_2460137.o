@@ -1,0 +1,59 @@
+ Time TOTAL CALCULATION : 20.5593
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.5592
+ Time TOTAL CALCULATION : 20.5592
+ Time TOTAL CALCULATION : 20.5593
+ Time TOTAL CALCULATION : 20.5592
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.559
+ Time TOTAL CALCULATION : 20.5589
+ Time TOTAL CALCULATION : 20.5592
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.559
+ Time TOTAL CALCULATION : 20.5589
+ Time TOTAL CALCULATION : 20.5595
+ Time TOTAL CALCULATION : 20.5596
+ Time TOTAL CALCULATION : 20.5594
+ Time TOTAL CALCULATION : 20.5593
+ Time TOTAL CALCULATION : 20.5594
+ Time TOTAL CALCULATION : 20.5596
+ Time TOTAL CALCULATION : 20.5593
+ Time TOTAL CALCULATION : 20.5594
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.5593
+ Time TOTAL CALCULATION : 20.5593
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.5596
+ Time TOTAL CALCULATION : 20.5592
+ Time TOTAL CALCULATION : 20.5591
+ Time TOTAL CALCULATION : 20.5589
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 2460137
+Jobname   : heat_5k_5k_32
+User      : richarje
+Account   : gen7317@standard
+Limits    : time = 5:00 , memory/task = 4000 Mo
+Date      : submit = 19/12/2014 19:51:29 , start = 19/12/2014 19:52:32
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 1 , ncpus = 32 , nodes = 2
+   Nodes=curie[5299,5308] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+2460137       heat_5k_5k_32             -     32      2           -     00:00:25     100            -      -  -
+2460137.0     orted                     1      1      1      Cyclic     00:00:22    88.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

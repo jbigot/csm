@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG   -shared -Wl,-soname,libJacocpuCore.so -o libJacocpuCore.so CMakeFiles/JacocpuCore.dir/src/JacocpuCore/jacocpucore.cpp.o 

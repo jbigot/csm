@@ -1,0 +1,223 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns="http://avalon.inria.fr/llcmcpp3">
+			<instance id="xpdriver" type="XPDriver">
+				<property id="slow_start"><value type="uint32">44</value></property>
+				<property id="run_per_size"><value type="uint32">32</value></property>
+				<property id="magic"><value type="uint64">10000000</value></property>
+				<property id="l1_size"><value type="uint64">1572864</value></property>
+				<property id="l2_size"><value type="uint64">6291456</value></property>
+				<property id="l3_size"><value type="uint64">12582912</value></property>
+				<property id="ram_size"><value type="uint64">8589934592</value></property>
+				<property id="computer"><propref instance="xp" property="xpcomputer"/></property>
+				<start property="go"/>
+			</instance>
+			<instance id="xp" type="ThreadXp">
+				<property id="global_nbtiles_x"><value type="uint16">1</value></property>
+				<property id="global_nbtiles_y"><value type="uint16">1</value></property>
+				<property id="global_tile_x"><value type="uint16">0</value></property>
+				<property id="global_tile_y"><value type="uint16">1</value></property>
+				<property id="memory_nbtiles_x"><value type="uint16">2</value></property>
+				<property id="memory_nbtiles_y"><value type="uint16">4</value></property>
+				<property id="computers">
+					<propref instance="jacobiniter_0_0" property="computerniter"/>
+					<propref instance="jacobiniter_0_1" property="computerniter"/>
+					<propref instance="jacobiniter_1_0" property="computerniter"/>
+					<propref instance="jacobiniter_1_1" property="computerniter"/>
+					<propref instance="jacobiniter_0_2" property="computerniter"/>
+					<propref instance="jacobiniter_0_3" property="computerniter"/>
+					<propref instance="jacobiniter_1_2" property="computerniter"/>
+					<propref instance="jacobiniter_1_3" property="computerniter"/>
+				</property>
+				<property id="memory_allocators">
+					<propref instance="mem" property="memory"/>
+				</property>
+			</instance>
+			<instance id="mem" type="MAlloc" />
+			<instance id="barrier" type="LocalBarrier">
+				<property id="nbpeers"><value type="uint32">4</value></property>
+			</instance>
+			
+			<instance id="jacobiniter_0_0" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_0_0" property="initializer"/></property>
+				<property id="computer"><propref instance="core_0_0" property="computer"/></property>
+				<property id="exchangeRight"><propref instance="exchange_0_0_1_0" property="exchange1"/></property>
+				<property id="exchangeUp"><propref instance="exchange_0_0_0_1" property="exchange1"/></property>
+			</instance>
+			<instance id="init_0_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_0_0" type="JacocpuCore"/>
+			
+			<instance id="jacobiniter_0_1" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_0_1" property="initializer"/></property>
+				<property id="computer"><propref instance="core_0_1" property="computer"/></property>
+				<property id="exchangeRight"><propref instance="exchange_0_1_1_1" property="exchange1"/></property>
+				<property id="exchangeDown"><propref instance="exchange_0_0_0_1" property="exchange2"/></property>
+				<property id="exchangeUp"><propref instance="exchange_0_1_0_2" property="exchange1"/></property>
+			</instance>
+			<instance id="init_0_1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_0_1" type="JacocpuCore"/>
+			
+			<instance id="jacobiniter_1_0" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_1_0" property="initializer"/></property>
+				<property id="computer"><propref instance="core_1_0" property="computer"/></property>
+				<property id="exchangeLeft"><propref instance="exchange_0_0_1_0" property="exchange2"/></property>
+				<property id="exchangeUp"><propref instance="exchange_1_0_1_1" property="exchange1"/></property>
+			</instance>
+			<instance id="init_1_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_1_0" type="JacocpuCore"/>
+			
+			<instance id="jacobiniter_1_1" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_1_1" property="initializer"/></property>
+				<property id="computer"><propref instance="core_1_1" property="computer"/></property>
+				<property id="exchangeLeft"><propref instance="exchange_0_1_1_1" property="exchange2"/></property>
+				<property id="exchangeDown"><propref instance="exchange_1_0_1_1" property="exchange2"/></property>
+				<property id="exchangeUp"><propref instance="exchange_1_1_1_2" property="exchange1"/></property>
+			</instance>
+			<instance id="init_1_1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_1_1" type="JacocpuCore"/>
+
+			<instance id="jacobiniter_0_2" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">2</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_0_2" property="initializer"/></property>
+				<property id="computer"><propref instance="core_0_2" property="computer"/></property>
+				<property id="exchangeRight"><propref instance="exchange_0_2_1_2" property="exchange1"/></property>
+				<property id="exchangeDown"><propref instance="exchange_0_1_0_2" property="exchange2"/></property>
+				<property id="exchangeUp"><propref instance="exchange_0_2_0_3" property="exchange1"/></property>
+			</instance>
+			<instance id="init_0_2" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_0_2" type="JacocpuCore"/>
+						
+			<instance id="jacobiniter_1_2" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">2</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_1_2" property="initializer"/></property>
+				<property id="computer"><propref instance="core_1_2" property="computer"/></property>
+				<property id="exchangeLeft"><propref instance="exchange_0_2_1_2" property="exchange2"/></property>
+				<property id="exchangeDown"><propref instance="exchange_1_1_1_2" property="exchange2"/></property>
+				<property id="exchangeUp"><propref instance="exchange_1_2_1_3" property="exchange1"/></property>
+			</instance>
+			<instance id="init_1_2" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_1_2" type="JacocpuCore"/>
+
+			<instance id="jacobiniter_0_3" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">3</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_0_3" property="initializer"/></property>
+				<property id="computer"><propref instance="core_0_3" property="computer"/></property>
+				<property id="exchangeRight"><propref instance="exchange_0_3_1_3" property="exchange1"/></property>
+				<property id="exchangeDown"><propref instance="exchange_0_2_0_3" property="exchange2"/></property>
+			</instance>
+			<instance id="init_0_3" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_0_3" type="JacocpuCore"/>
+
+			<instance id="jacobiniter_1_3" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">4</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">3</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="barrier" property="collective"/></property>
+				<property id="initialization"><propref instance="init_1_3" property="initializer"/></property>
+				<property id="computer"><propref instance="core_1_3" property="computer"/></property>
+				<property id="exchangeLeft"><propref instance="exchange_0_3_1_3" property="exchange2"/></property>
+				<property id="exchangeDown"><propref instance="exchange_1_2_1_3" property="exchange2"/></property>
+			</instance>
+			<instance id="init_1_3" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_1_3" type="JacocpuCore"/>
+
+			<instance id="exchange_0_0_1_0" type="PthreadConnectorDual" />
+			<instance id="exchange_0_0_0_1" type="PthreadConnectorDual" />
+			<instance id="exchange_0_1_1_1" type="PthreadConnectorDual"/>
+			<instance id="exchange_1_0_1_1" type="PthreadConnectorDual" />
+			<instance id="exchange_0_1_0_2" type="PthreadConnectorDual" />
+			<instance id="exchange_0_2_0_3" type="PthreadConnectorDual" />
+			<instance id="exchange_1_1_1_2" type="PthreadConnectorDual"/>
+			<instance id="exchange_1_2_1_3" type="PthreadConnectorDual" />
+			<instance id="exchange_0_2_1_2" type="PthreadConnectorDual" />
+			<instance id="exchange_0_3_1_3" type="PthreadConnectorDual" />
+			
+</llcmcpp3_cad>

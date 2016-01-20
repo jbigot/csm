@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG -fopenmp   -shared -Wl,-soname,libJacobiOMP.so -o libJacobiOMP.so CMakeFiles/JacobiOMP.dir/src/JacobiOMP/jacobiomp.cpp.o 

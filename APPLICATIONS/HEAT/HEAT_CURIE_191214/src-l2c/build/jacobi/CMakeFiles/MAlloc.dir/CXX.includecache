@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../jacobi/include/memory.h
+
+/ccc/cont003/home/gen7317/richarje/helene/HEAT/src-l2c/jacobi/src/MAlloc/malloc.cpp
+iostream
+-
+llcmcpp/llcmcpp3.h
+-
+stdint.h
+-
+memory.h
+-
+

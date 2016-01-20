@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libXPDriver.so CMakeFiles/XPDriver.dir/src/XPDriver/xpdriver.cpp.o 

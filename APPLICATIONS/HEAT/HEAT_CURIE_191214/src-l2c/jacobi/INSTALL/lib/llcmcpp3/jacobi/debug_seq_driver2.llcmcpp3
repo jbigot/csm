@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns="http://avalon.inria.fr/llcmcpp3">
+	<instance id="simplexpdriver" type="SimpleXpDriver">
+		<property id="niter"><value type="uint32">20</value></property>
+		<property id="nxp"><value type="uint32">20</value></property>
+		<property id="height"><value type="uint64">20</value></property>
+		<property id="width"><value type="uint64">20</value></property>
+		<property id="computer"><propref instance="driver" property="xpcomputer"/></property>
+		<start property="go"/>
+	</instance>
+	<instance id="driver" type="SeqDriver">
+		<property id="debug"><value type="uint8">0</value></property>
+		<property id="computer"><propref instance="core" property="computer"/></property>
+		<property id="initialization"><propref instance="init" property="initializer"/></property>
+	</instance>
+	<instance id="init" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core" type="JacobiCore"/>
+</llcmcpp3_cad>

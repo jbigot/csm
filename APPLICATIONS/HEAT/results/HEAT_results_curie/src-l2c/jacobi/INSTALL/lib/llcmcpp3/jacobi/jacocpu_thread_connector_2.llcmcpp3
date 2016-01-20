@@ -1,0 +1,74 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns='http://avalon.inria.fr/llcmcpp3'>
+			<instance id='xpdriver_0_0' type='XPDriver'>
+				<property id='slow_start'><value type='uint32'>44</value></property>
+				<property id='run_per_size'><value type='uint32'>32</value></property>
+				<property id="magic"><value type="uint64">10000000</value></property>
+				<property id='l1_size'><value type='uint64'>1572864</value></property>
+				<property id='l2_size'><value type='uint64'>6291456</value></property>
+				<property id='l3_size'><value type='uint64'>12582912</value></property>
+				<property id='ram_size'><value type='uint64'>8589934592</value></property>
+				<property id='computer'><propref instance='xp_0_0' property='xpcomputer'/></property>
+				<start property='go'/>
+			</instance>
+			<instance id='xp_0_0' type='ThreadXp'>
+				<property id='global_nbtiles_x'><value type='uint16'>1</value></property>
+				<property id='global_nbtiles_y'><value type='uint16'>1</value></property>
+				<property id='global_tile_x'><value type='uint16'>0</value></property>
+				<property id='global_tile_y'><value type='uint16'>0</value></property>
+				<property id='memory_nbtiles_x'><value type='uint16'>1</value></property>
+				<property id='memory_nbtiles_y'><value type='uint16'>2</value></property>
+				<property id='computers'>
+					<propref instance='jacobiniter_0_0_0_0' property='computerniter'/>
+					<propref instance='jacobiniter_0_0_0_1' property='computerniter'/>
+				</property>
+				<property id='memory_allocators'>
+					<propref instance='mem_0_0' property='memory'/>
+				</property>
+			</instance>
+			<instance id='mem_0_0' type='MAlloc' />
+			<instance id='barrier_0_0' type='LocalBarrier'>
+				<property id='nbpeers'><value type='uint32'>2</value></property>
+			</instance>
+			
+			<instance id='jacobiniter_0_0_0_0' type='JacobiCoreNiter'>
+				<property id='nb_tiles_x'><value type='uint16'>1</value></property>
+				<property id='nb_tiles_y'><value type='uint16'>2</value></property>
+				<property id='tile_x'><value type='uint16'>0</value></property>
+				<property id='tile_y'><value type='uint16'>0</value></property>
+				<property id='debug'><value type='uint8'>0</value></property>
+				<property id='collective'><propref instance='barrier_0_0' property='collective'/></property>
+				<property id='initialization'><propref instance='init_0_0_0_0' property='initializer'/></property>
+				<property id='computer'><propref instance='core_0_0_0_0' property='computer'/></property>
+				<property id='exchangeUp'><propref instance='texchange_0_0_0_0_0_1' property='exchange1'/></property>
+			</instance>
+			<instance id='init_0_0_0_0' type='DataInitializer' >
+				<property id='top'><value type='double'>10</value></property>
+				<property id='bottom'><value type='double'>0</value></property>
+				<property id='left'><value type='double'>5</value></property>
+				<property id='right'><value type='double'>5</value></property>
+				<property id='inside'><value type='double'>-10</value></property>
+			</instance>
+			<instance id='core_0_0_0_0' type='JacocpuCore'/>
+			
+			<instance id='jacobiniter_0_0_0_1' type='JacobiCoreNiter'>
+				<property id='nb_tiles_x'><value type='uint16'>1</value></property>
+				<property id='nb_tiles_y'><value type='uint16'>2</value></property>
+				<property id='tile_x'><value type='uint16'>0</value></property>
+				<property id='tile_y'><value type='uint16'>1</value></property>
+				<property id='debug'><value type='uint8'>0</value></property>
+				<property id='collective'><propref instance='barrier_0_0' property='collective'/></property>
+				<property id='initialization'><propref instance='init_0_0_0_1' property='initializer'/></property>
+				<property id='computer'><propref instance='core_0_0_0_1' property='computer'/></property>
+				<property id='exchangeDown'><propref instance='texchange_0_0_0_0_0_1' property='exchange2'/></property>
+			</instance>
+			<instance id='init_0_0_0_1' type='DataInitializer' >
+				<property id='top'><value type='double'>10</value></property>
+				<property id='bottom'><value type='double'>0</value></property>
+				<property id='left'><value type='double'>5</value></property>
+				<property id='right'><value type='double'>5</value></property>
+				<property id='inside'><value type='double'>-10</value></property>
+			</instance>
+			<instance id='core_0_0_0_1' type='JacocpuCore'/>
+			<instance id='texchange_0_0_0_0_0_1' type='PthreadConnectorDual' />
+</llcmcpp3_cad>

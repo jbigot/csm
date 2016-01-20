@@ -1,0 +1,22 @@
+// This file defines the descr structure 
+// of the BasicBC library.
+
+module BasicBCLib
+{
+  typedef sequence<unsigned long> ids_t;
+  struct BasicBCDescr
+  {
+    // Total data size (in element)
+    unsigned long glen;
+    // UnitSize -> size of an element (in octect)
+    // IMPOSSIBLE: 32bit vs 64bit: can vary !!! unsigned long usz;
+    // BlockSize -> distribution type: number of element in one bloc (in element)
+    unsigned long bsz;
+
+    // Sequence of gstart for each block element; (in element)
+    // The length of each block is the length of the sequence :)
+    ids_t ids;
+  };
+};
+
+

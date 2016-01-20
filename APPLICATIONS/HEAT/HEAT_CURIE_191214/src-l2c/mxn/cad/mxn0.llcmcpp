@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<llcmcpp_cad xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="llcmcpp.xsd" >
+
+<ctypes>
+  <ctype id="llcm_BasicBC_Test0" dll="libllcm_BasicBC_Test0.so" />
+  <ctype id="llcm_BasicBC_Server" dll="libllcm_BasicBC.so" />
+  <ctype id="llcm_BasicBC_Client" dll="libllcm_BasicBC.so" />
+</ctypes>
+
+<instances>
+  <instance id="t" ctype="llcm_BasicBC_Test0" />
+  <instance id="s0" ctype="llcm_BasicBC_Server" />
+  <instance id="c0" ctype="llcm_BasicBC_Client" />
+</instances>
+
+<connections>
+  <connection uid="t" uport="bcc" pid="c0" pport="bcc" />
+  <connection uid="t" uport="bcs" pid="s0" pport="bcs" />
+</connections>
+
+<invocations>
+  <invocation id="t" port="go" type="Go" />
+</invocations>
+
+</llcmcpp_cad>

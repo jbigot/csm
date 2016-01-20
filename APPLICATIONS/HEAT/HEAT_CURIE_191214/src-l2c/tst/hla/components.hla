@@ -1,0 +1,115 @@
+interface toto;
+interface Integer;
+
+component main
+exposes
+{}
+
+/** This is the result of merging N "Use<T>" connectors
+ * 
+ */
+connector MultiUse<datatype T, Integer N>
+{
+	part_user: [ each (i | [1 .. N]) { L_CPP_USE<T> } ]
+}
+
+/** This is the result of merging N "Use<T>" connectors
+ * 
+ */
+connector MultiProvide<datatype T, Integer N>
+{
+	part_provider: [ each (i | [1 .. N]) { L_CPP_PROVIDE<T> } ]
+}
+
+connector museprov<datatype T, Integer PN, Integer UN>
+{
+	part_provider: [ each (i | [1 .. PN]) { L_CPP_PROVIDE<T> } ]
+	part_user:     [ each (i | [1 .. UN]) { L_CPP_USE<T> } ]
+}
+
+connector MultipleUser<datatype T, Integer N>
+{
+	part_provider: [ each (i | [1 .. N]) { L_CPP_PROVIDE<T> } ]
+	user:    [  L_CPP_USE<T> ]
+}
+
+composite mainimpl
+implements main
+{
+components:
+   msi: MS;
+   ci: client<2>;
+
+connections:
+   merge(msi.sm, ci.c);
+exposes:
+}
+
+component MS
+exposes
+{
+    sm: MultiProvide<toto, 4>;
+}
+
+composite msimpl
+implements MS
+{
+components:
+   srv: [each (i| [1 .. 2] ) { server} ];
+connections:
+exposes:
+   sm = merge({ part_provider= [each (i| [ 1 .. 2 ] ) { srv[i].s.provider}] });
+}
+
+component server
+exposes
+{
+   s: Provide<toto>;
+}
+
+component MC
+exposes
+{
+    cm: MultiUse<toto, 4>;
+}
+
+composite mcimpl
+implements MC
+{
+components:
+   clt: [each (i| [1 .. 2] ) { client<i>} ];
+connections:
+exposes:
+   cm = merge({ part_user= [each (i| [ 1 .. 2 ] ) { clt[i].c.user[1]}] });
+}
+
+component client<Integer iter>
+exposes
+{
+    c: Use<toto>;
+}
+
+generator multipleuser_impl<datatype T, Integer N>
+implements MultipleUser<T, N>
+{
+components:
+connections:
+	each (i| [1 .. N] ) { merge({ provider= this.part_provider[i]  user=this.user}); }
+}
+
+generator museprov_impl<datatype T, Integer PNN, Integer UN>
+implements museprov<T, PNN, UN>
+{
+components:
+  p: mxn;
+connections:
+	each (i| [1 .. UN] ) { merge({ user= [this.part_user[i]] }, p.s ); }
+	each (i| [1 .. PNN] ) { merge({ provider= this.part_provider[i]},  p.u ); }
+}
+
+component mxn
+exposes
+{
+   s: Provide<toto>;
+   u: Use<toto>;
+}

@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libllcm_MandelbrotSeq.so CMakeFiles/llcm_MandelbrotSeq.dir/src/MandelbrotSeq/MandelbrotSeq.cpp.o 

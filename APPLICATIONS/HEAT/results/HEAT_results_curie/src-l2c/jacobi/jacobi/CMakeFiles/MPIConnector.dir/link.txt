@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libMPIConnector.so CMakeFiles/MPIConnector.dir/src/MPIConnector/mpiconnector.cpp.o /usr/local/lib/libmpi_cxx.dylib /usr/local/lib/libmpi.dylib 

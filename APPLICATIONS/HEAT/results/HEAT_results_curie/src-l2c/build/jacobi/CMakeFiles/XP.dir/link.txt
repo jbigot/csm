@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libXP.so -o libXP.so CMakeFiles/XP.dir/src/XP/xp.cpp.o 

@@ -1,0 +1,8 @@
+//#implements=driverapp
+LCMP(DriverApp)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Go, timeGo);
+  L_CPP_USE(Go, dataCompute);
+  L_CPP_USE(Datah, dh1);
+  L_CPP_USE(Spaceh, spaceCompute);
+LEND

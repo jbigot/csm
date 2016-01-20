@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2  -Wl,--export-dynamic   -shared -Wl,-soname,libPhase.so -o libPhase.so CMakeFiles/Phase.dir/src/Phase/Phase.cpp.o /opt/mpi/bullxmpi/1.2.7.2/lib/libmpi_cxx.so /opt/mpi/bullxmpi/1.2.7.2/lib/libmpi.so -ldl -lm -lnuma -lrt -lnsl -lutil -lm -ldl -lnuma -lrt -lnsl -lutil -Wl,-rpath,/opt/mpi/bullxmpi/1.2.7.2/lib: 

@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG   -shared -Wl,-soname,libJacobiCoreNiter.so -o libJacobiCoreNiter.so CMakeFiles/JacobiCoreNiter.dir/src/JacobiCoreNiter/jacobicoreniter.cpp.o 

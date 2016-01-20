@@ -1,0 +1,18 @@
+//#implements=server
+LCMP(Server)
+        L_CPP_PROVIDE(toto, s);
+LEND
+
+	
+//#implements=client<iter>
+LCMP(Client)
+	L_PROPERTY(int16_t, iter);
+    L_CPP_USE(toto, c);
+LEND
+
+
+//#implements=mxn
+LCMP(MxN)
+        L_CPP_PROVIDE(toto, s);
+        L_CPP_USE(toto, u);
+LEND

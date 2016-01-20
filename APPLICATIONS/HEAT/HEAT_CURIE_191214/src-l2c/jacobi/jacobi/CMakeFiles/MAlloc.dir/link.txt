@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libMAlloc.so CMakeFiles/MAlloc.dir/src/MAlloc/malloc.cpp.o 

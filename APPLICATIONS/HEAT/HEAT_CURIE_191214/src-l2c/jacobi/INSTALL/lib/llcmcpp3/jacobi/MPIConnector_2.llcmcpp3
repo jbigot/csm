@@ -1,0 +1,85 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns="http://avalon.inria.fr/llcmcpp3">
+	<mpi>
+		<process>
+			<instance id="xpdriver_0" type="XPDriver">
+				<property id="slow_start"><value type="uint32">44</value></property>
+				<property id="run_per_size"><value type="uint32">32</value></property>
+				<property id="l1_size"><value type="uint64">1572864</value></property>
+				<property id="l2_size"><value type="uint64">6291456</value></property>
+				<property id="l3_size"><value type="uint64">12582912</value></property>
+				<property id="ram_size"><value type="uint64">8589934592</value></property>
+				<property id="computer"><propref instance="driver_0" property="xpcomputer"/></property>
+				<start property="go"/>
+			</instance>
+			<instance id="driver_0" type="Jacobi4Connectors">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="nb_tiles_x"><value type="uint16">1</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="computer"><propref instance="core_0" property="computer"/></property>
+				<property id="initialization"><propref instance="init_0" property="initializer"/></property>
+				<property id="exchangeDown"><propref instance="exchange_0" property="exchange"/></property>
+				<property id="collective"><propref instance="mpibarrier_0" property="collective"/></property>
+			</instance>
+			<instance id="mpibarrier_0" type="MpiBarrier"/>
+			<instance id="init_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_0" type="JacobiCore"/>
+			<instance id="exchange_0" type="MPIConnector">
+				<property id="pos"><value type="uint16">2</value></property>
+				<property id="rank"><value type="int16">1</value></property>
+			</instance>
+		</process>
+		<process>
+			<instance id="xpdriver_1" type="XPDriver">
+				<property id="slow_start"><value type="uint32">44</value></property>
+				<property id="run_per_size"><value type="uint32">32</value></property>
+				<property id="l1_size"><value type="uint64">1572864</value></property>
+				<property id="l2_size"><value type="uint64">6291456</value></property>
+				<property id="l3_size"><value type="uint64">12582912</value></property>
+				<property id="ram_size"><value type="uint64">8589934592</value></property>
+				<property id="computer"><propref instance="driver_1" property="xpcomputer"/></property>
+				<start property="go"/>
+			</instance>
+			<instance id="driver_1" type="Jacobi4Connectors">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="nb_tiles_x"><value type="uint16">1</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="computer"><propref instance="core_1" property="computer"/></property>
+				<property id="initialization"><propref instance="init_1" property="initializer"/></property>
+				<property id="exchangeUp"><propref instance="exchange_1" property="exchange"/></property>
+				<property id="collective"><propref instance="mpibarrier_1" property="collective"/></property>
+			</instance>
+			<instance id="mpibarrier_1" type="MpiBarrier"/>
+			<instance id="init_1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="core_1" type="JacobiCore"/>
+			<instance id="exchange_1" type="MPIConnector">
+				<property id="pos"><value type="uint16">1</value></property>
+				<property id="rank"><value type="int16">0</value></property>
+			</instance>
+		</process>
+		<communicator>
+			<peer instance="exchange_0" property="comm"/>
+			<peer instance="exchange_1" property="comm"/>
+		</communicator>
+		<communicator>
+			<peer instance="mpibarrier_0" property="comm"/>
+			<peer instance="mpibarrier_1" property="comm"/>
+		</communicator>
+	</mpi>
+</llcmcpp3_cad>

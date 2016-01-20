@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../mandelbrot/include/Mandelbrot.h
+complex
+-
+stdint.h
+-
+
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/mandelbrot/src/MandelbrotOMP/MandelbrotOMP.cpp
+cassert
+-
+cstring
+-
+iostream
+-
+llcmcpp/llcmcpp.h
+-
+Mandelbrot.h
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/mandelbrot/src/MandelbrotOMP/Mandelbrot.h
+

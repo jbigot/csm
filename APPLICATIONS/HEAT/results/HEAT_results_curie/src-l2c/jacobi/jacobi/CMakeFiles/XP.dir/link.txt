@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libXP.so CMakeFiles/XP.dir/src/XP/xp.cpp.o 

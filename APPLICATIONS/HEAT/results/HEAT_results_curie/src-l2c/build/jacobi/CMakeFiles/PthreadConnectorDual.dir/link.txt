@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libPthreadConnectorDual.so -o libPthreadConnectorDual.so CMakeFiles/PthreadConnectorDual.dir/src/PthreadConnectorDual/pthreadconnectordual.cpp.o -lpthread 

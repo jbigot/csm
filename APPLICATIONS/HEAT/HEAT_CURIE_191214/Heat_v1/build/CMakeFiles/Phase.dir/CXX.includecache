@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/datah.h
+iterator.hpp
+-
+
+../include/iterator.hpp
+
+../l2c/Phase/Phase.l2c
+
+/ccc/cont003/home/gen7317/richarje/helene/HEAT/Heat_v1/src/Phase/Phase.cpp
+iostream
+-
+llcmcpp/llcmcpp3.h
+-
+llcmcpp/go.h
+-
+vector
+-
+datah.h
+-
+Phase/Phase.l2c
+-
+

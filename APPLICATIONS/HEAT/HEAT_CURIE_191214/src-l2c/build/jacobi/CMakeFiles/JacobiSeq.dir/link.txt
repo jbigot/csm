@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG   -shared -Wl,-soname,libJacobiSeq.so -o libJacobiSeq.so CMakeFiles/JacobiSeq.dir/src/JacobiSeq/jacobiseq.cpp.o 

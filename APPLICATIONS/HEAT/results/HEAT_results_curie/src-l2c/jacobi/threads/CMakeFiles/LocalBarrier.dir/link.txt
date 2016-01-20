@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libLocalBarrier.so CMakeFiles/LocalBarrier.dir/src/LocalBarrier/localbarrier.cpp.o 

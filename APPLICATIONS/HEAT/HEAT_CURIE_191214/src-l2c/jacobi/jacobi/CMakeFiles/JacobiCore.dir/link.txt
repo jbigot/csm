@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libJacobiCore.so CMakeFiles/JacobiCore.dir/src/JacobiCore/jacobicore.cpp.o 

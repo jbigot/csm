@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libDataInitializer.so -o libDataInitializer.so CMakeFiles/DataInitializer.dir/src/DataInitializer/datainitializer.cpp.o 

@@ -1,0 +1,18 @@
+/*
+ * CORBA2 version of hello2.h interface
+ *
+ */
+
+module cmandelbrot {
+
+  typedef sequence<double> area_t;
+  typedef sequence<unsigned long> dataULong_t;
+
+  // Mandelbrot.h
+  interface MandelbrotManagement
+  {
+    void dump();
+    void get_info(out dataULong_t data, out area_t area, out unsigned long nx, out unsigned long ny);
+    void compute();
+  };
+};

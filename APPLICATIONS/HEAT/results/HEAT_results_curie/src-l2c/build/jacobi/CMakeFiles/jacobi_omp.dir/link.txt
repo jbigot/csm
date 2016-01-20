@@ -1,0 +1,1 @@
+/usr/bin/c++   -O2    -fopenmp CMakeFiles/jacobi_omp.dir/src/jacobi_omp.cpp.o  -o jacobi_omp -rdynamic 

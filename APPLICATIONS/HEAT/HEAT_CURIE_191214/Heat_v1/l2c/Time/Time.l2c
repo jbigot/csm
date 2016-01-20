@@ -1,0 +1,6 @@
+//#implements=time
+LCMP(Time)
+  L_PROPERTY(int16_t, iter);
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Go, phaseGo);
+LEND

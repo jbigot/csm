@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG   -shared -Wl,-soname,libSeqDriver.so -o libSeqDriver.so CMakeFiles/SeqDriver.dir/src/SeqDriver/seqdriver.cpp.o 

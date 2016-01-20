@@ -1,0 +1,31 @@
+== Interfaces ==
+
+ParallelismManagement.h : ParallelismManagement
+
+DistributionLibrary.h : Internals API: DistributionLibrary, DistributionLibraryClient, DistributionLibraryServer
+
+BasicBC.h		  : Exposed to Used
+
+BasicBC_Redist.h	  : Internal
+
+VectorAdd.h		  : User interface (va/uva)
+VectorAdd_BC.h	  : Internal (vai/uvai)
+
+== Components == 
+
+BasicBC/		  : Internal, 2 components BasicBC_Client (provides: bcc, dlc, bc / uses: srcTopo, dstTopo)
+			    	      		   BasicBC_Server (provides: bcs, dls, bc / uses: srcTopo, dstTopo) ** MEMCPY **
+
+ParallelismManager/	  : Internal (provides: rank, size, pm / uses: rank, size)
+
+BasicBC_Vector_Client/		: User Client component (provides: go, cc / uses: DUMP, N, BSZ, upm, ubc, uva)
+BasicBC_Vector_Server/		: User Server component (provides: cc, va / uses: DUMP, upm, ubc)
+
+BasicBC_Vector_Redist_Client/	: Internal (provides: cc, va  / uses: srcTopo, dstTopo, upm, ubc, udlc, uvai)
+BasicBC_Vector_Redist_Client2/	: Internal (provides: cc, va  / uses: srcTopo, dstTopo, upm, ubc, udlc, uvai2)
+BasicBC_Vector_Redist_Server/	: Internal (provides: cc, vai / uses: srcTopo, dstTopo, upm, ubc, udls, uva)
+
+CcmLLCMMxNBlockSend/		: Internal (provides: vai2 / uses multiple CCM)
+CcmLLCMMxNBlockReceive/		: Internal (provides: vai2 / uses multiple CCM)
+
+BasicBC_Test/

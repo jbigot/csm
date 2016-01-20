@@ -1,0 +1,91 @@
+ Time TOTAL CALCULATION : 13.1928
+ Time TOTAL CALCULATION : 13.1927
+ Time TOTAL CALCULATION : 13.1929
+ Time TOTAL CALCULATION : 13.1929
+ Time TOTAL CALCULATION : 13.1929
+ Time TOTAL CALCULATION : 13.193
+ Time TOTAL CALCULATION : 13.1927
+ Time TOTAL CALCULATION : 13.1925
+ Time TOTAL CALCULATION : 13.1927
+ Time TOTAL CALCULATION : 13.193
+ Time TOTAL CALCULATION : 13.1928
+ Time TOTAL CALCULATION : 13.1926
+ Time TOTAL CALCULATION : 13.1929
+ Time TOTAL CALCULATION : 13.193
+ Time TOTAL CALCULATION : 13.1926
+ Time TOTAL CALCULATION : 13.1929
+ Time TOTAL CALCULATION : 13.1949
+ Time TOTAL CALCULATION : 13.1949
+ Time TOTAL CALCULATION : 13.1942
+ Time TOTAL CALCULATION : 13.1949
+ Time TOTAL CALCULATION : 13.1951
+ Time TOTAL CALCULATION : 13.1946
+ Time TOTAL CALCULATION : 13.1946
+ Time TOTAL CALCULATION : 13.1946
+ Time TOTAL CALCULATION : 13.1946
+ Time TOTAL CALCULATION : 13.1951
+ Time TOTAL CALCULATION : 13.1942
+ Time TOTAL CALCULATION : 13.1947
+ Time TOTAL CALCULATION : 13.1947
+ Time TOTAL CALCULATION : 13.1946
+ Time TOTAL CALCULATION : 13.1948
+ Time TOTAL CALCULATION : 13.1948
+ Time TOTAL CALCULATION : 13.1964
+ Time TOTAL CALCULATION : 13.1965
+ Time TOTAL CALCULATION : 13.1963
+ Time TOTAL CALCULATION : 13.1964
+ Time TOTAL CALCULATION : 13.1962
+ Time TOTAL CALCULATION : 13.1965
+ Time TOTAL CALCULATION : 13.1964
+ Time TOTAL CALCULATION : 13.1963
+ Time TOTAL CALCULATION : 13.1965
+ Time TOTAL CALCULATION : 13.1965
+ Time TOTAL CALCULATION : 13.1967
+ Time TOTAL CALCULATION : 13.1962
+ Time TOTAL CALCULATION : 13.1966
+ Time TOTAL CALCULATION : 13.1961
+ Time TOTAL CALCULATION : 13.1962
+ Time TOTAL CALCULATION : 13.1963
+ Time TOTAL CALCULATION : 13.1964
+ Time TOTAL CALCULATION : 13.1964
+ Time TOTAL CALCULATION : 13.1963
+ Time TOTAL CALCULATION : 13.1964
+ Time TOTAL CALCULATION : 13.1965
+ Time TOTAL CALCULATION : 13.1965
+ Time TOTAL CALCULATION : 13.1965
+ Time TOTAL CALCULATION : 13.1962
+ Time TOTAL CALCULATION : 13.1981
+ Time TOTAL CALCULATION : 13.198
+ Time TOTAL CALCULATION : 13.1981
+ Time TOTAL CALCULATION : 13.1979
+ Time TOTAL CALCULATION : 13.1981
+ Time TOTAL CALCULATION : 13.1981
+ Time TOTAL CALCULATION : 13.198
+ Time TOTAL CALCULATION : 13.1982
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 2460713
+Jobname   : heat_5k_5k_64
+User      : richarje
+Account   : gen7317@standard
+Limits    : time = 3:00 , memory/task = 4000 Mo
+Date      : submit = 19/12/2014 22:08:30 , start = 20/12/2014 04:03:38
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 1 , ncpus = 64 , nodes = 4
+   Nodes=curie[4507,4515,5436,5441] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+2460713       heat_5k_5k_64             -     64      4           -     00:00:18     100            -      -  -
+2460713.0     orted                     3      3      3      Cyclic     00:00:15    83.3            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

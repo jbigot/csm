@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/src/JacobiOMP/jacobiomp.cpp
+iostream
+-
+llcmcpp/llcmcpp3.h
+-
+omp.h
+-
+stdint.h
+-
+sys/time.h
+-
+time.h
+-
+XPcomputer.h
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/src/JacobiOMP/XPcomputer.h
+checkdata.h
+/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/src/JacobiOMP/checkdata.h
+initializer.h
+-
+
+include/XPcomputer.h
+stdint.h
+-
+
+include/arraypart.h
+cstring
+-
+
+include/checkdata.h
+string
+-
+arraypart.h
+include/arraypart.h
+
+include/initializer.h
+arraypart.h
+include/arraypart.h
+

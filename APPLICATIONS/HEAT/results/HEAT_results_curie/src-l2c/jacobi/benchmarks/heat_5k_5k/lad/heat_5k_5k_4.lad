@@ -1,0 +1,111 @@
+<?xml version='1.0'?>
+<lad xmlns="http://avalon.inria.fr/lad">
+	<mpi>
+		<process>
+                        <start_property instance="xpdriver_0" property="go"/>
+                        <instance id="xpdriver_0" type="SimpleXpDriver">
+                                <property id="height"><value type="uint64">5000</value></property>
+                                <property id="width"><value type="uint64">5000</value></property>
+                                <property id="computer"><cppref instance="driver_0" property="xpcomputer"/></property>
+                        </instance>
+                        <instance id="driver_0" type="MPIDriver">
+			        <property id="nbiter"><value type="uint32">5000</value></property>
+                                <property id="debug"><value type="uint8">0</value></property>
+                                <property id="nb_tiles_x"><value type="uint16">2</value></property>
+                                <property id="nb_tiles_y"><value type="uint16">2</value></property>
+                                <property id="computer"><cppref instance="core_0" property="computer"/></property>
+                                <property id="initialization"><cppref instance="init_0" property="initializer"/></property>
+                        </instance>
+                        <instance id="init_0" type="DataInitializer" >
+                                <property id="top"><value type="double">1</value></property>
+                                <property id="bottom"><value type="double">0</value></property>
+                                <property id="left"><value type="double">0</value></property>
+                                <property id="right"><value type="double">0</value></property>
+                                <property id="inside"><value type="double">0</value></property>
+                        </instance>
+                        <instance id="core_0" type="JacobiCore"/>
+                </process>
+
+		<process>
+                        <start_property instance="xpdriver_1" property="go"/>
+                        <instance id="xpdriver_1" type="SimpleXpDriver">
+                                <property id="height"><value type="uint64">5000</value></property>
+                                <property id="width"><value type="uint64">5000</value></property>
+                                <property id="computer"><cppref instance="driver_1" property="xpcomputer"/></property>
+                        </instance>
+                        <instance id="driver_1" type="MPIDriver">
+			        <property id="nbiter"><value type="uint32">5000</value></property>
+                                <property id="debug"><value type="uint8">0</value></property>
+                                <property id="nb_tiles_x"><value type="uint16">2</value></property>
+                                <property id="nb_tiles_y"><value type="uint16">2</value></property>
+                                <property id="computer"><cppref instance="core_1" property="computer"/></property>
+                                <property id="initialization"><cppref instance="init_1" property="initializer"/></property>
+                        </instance>
+                        <instance id="init_1" type="DataInitializer" >
+                                <property id="top"><value type="double">1</value></property>
+                                <property id="bottom"><value type="double">0</value></property>
+                                <property id="left"><value type="double">0</value></property>
+                                <property id="right"><value type="double">0</value></property>
+                                <property id="inside"><value type="double">0</value></property>
+                        </instance>
+                        <instance id="core_1" type="JacobiCore"/>
+		</process>
+
+		<process>
+                        <start_property instance="xpdriver_2" property="go"/>
+                        <instance id="xpdriver_2" type="SimpleXpDriver">
+                                <property id="height"><value type="uint64">5000</value></property>
+                                <property id="width"><value type="uint64">5000</value></property>
+                                <property id="computer"><cppref instance="driver_2" property="xpcomputer"/></property>
+                        </instance>
+                        <instance id="driver_2" type="MPIDriver">
+			        <property id="nbiter"><value type="uint32">5000</value></property>
+                                <property id="debug"><value type="uint8">0</value></property>
+                                <property id="nb_tiles_x"><value type="uint16">2</value></property>
+                                <property id="nb_tiles_y"><value type="uint16">2</value></property>
+                                <property id="computer"><cppref instance="core_2" property="computer"/></property>
+                                <property id="initialization"><cppref instance="init_2" property="initializer"/></property>
+                        </instance>
+                        <instance id="init_2" type="DataInitializer" >
+                                <property id="top"><value type="double">1</value></property>
+                                <property id="bottom"><value type="double">0</value></property>
+                                <property id="left"><value type="double">0</value></property>
+                                <property id="right"><value type="double">0</value></property>
+                                <property id="inside"><value type="double">0</value></property>
+                        </instance>
+                        <instance id="core_2" type="JacobiCore"/>
+                </process>
+
+		<process>
+                        <start_property instance="xpdriver_3" property="go"/>
+                        <instance id="xpdriver_3" type="SimpleXpDriver">
+                                <property id="height"><value type="uint64">5000</value></property>
+                                <property id="width"><value type="uint64">5000</value></property>
+                                <property id="computer"><cppref instance="driver_3" property="xpcomputer"/></property>
+                        </instance>
+                        <instance id="driver_3" type="MPIDriver">
+			        <property id="nbiter"><value type="uint32">5000</value></property>
+                                <property id="debug"><value type="uint8">0</value></property>
+                                <property id="nb_tiles_x"><value type="uint16">2</value></property>
+                                <property id="nb_tiles_y"><value type="uint16">2</value></property>
+                                <property id="computer"><cppref instance="core_3" property="computer"/></property>
+                                <property id="initialization"><cppref instance="init_3" property="initializer"/></property>
+                        </instance>
+                        <instance id="init_3" type="DataInitializer" >
+                                <property id="top"><value type="double">1</value></property>
+                                <property id="bottom"><value type="double">0</value></property>
+                                <property id="left"><value type="double">0</value></property>
+                                <property id="right"><value type="double">0</value></property>
+                                <property id="inside"><value type="double">0</value></property>
+                        </instance>
+                        <instance id="core_3" type="JacobiCore"/>
+                </process>
+
+		<communicator>
+		  <peer instance="driver_0" property="comm"/>
+		  <peer instance="driver_1" property="comm"/>
+		  <peer instance="driver_2" property="comm"/>
+		  <peer instance="driver_3" property="comm"/>
+		</communicator>
+	</mpi>
+</lad>

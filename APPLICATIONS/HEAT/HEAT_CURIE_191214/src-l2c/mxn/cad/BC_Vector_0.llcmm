@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<llcmcpp_cad xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="llcmcpp.xsd" >
+
+<!-- CAD that directly connects sequential instances of Client & Server -->
+
+<ctypes>
+  <ctype id="llcm_BasicBC_Vector_Redist_Client" dll="./llcm_BasicBC_Vector_Redist_Client.so" />
+  <ctype id="llcm_BasicBC_Vector_Redist_Server" dll="./llcm_BasicBC_Vector_Redist_Server.so" />
+
+  <ctype id="llcm_BasicBC_Vector_Client" dll="./llcm_BasicBC_Vector_Client.so" />
+  <ctype id="llcm_BasicBC_Vector_Server" dll="./llcm_BasicBC_Vector_Server.so" />
+
+  <ctype id="llcm_ParallelismManager" dll="./llcm_ParallelismManager.so" />
+  <ctype id="llcm_BasicBC_Client" dll="./llcm_BasicBC.so" />
+  <ctype id="llcm_BasicBC_Server" dll="./llcm_BasicBC.so" />
+</ctypes>
+
+<instances>
+  <instance id="c0" ctype="llcm_BasicBC_Vector_Client" />
+  <instance id="cbr0" ctype="llcm_BasicBC_Vector_Redist_Client" />
+  <instance id="cbc0" ctype="llcm_BasicBC_Client" />
+  <instance id="cpm0" ctype="llcm_ParallelismManager" />
+
+  <instance id="s0" ctype="llcm_BasicBC_Vector_Server" />
+  <instance id="sbrs0" ctype="llcm_BasicBC_Vector_Redist_Server" />
+  <instance id="spm0" ctype="llcm_ParallelismManager" />
+  <instance id="sbc0" ctype="llcm_BasicBC_Server" />
+</instances>
+
+<connections>
+  <!-- Client -->
+  <connection uid="c0" uport="ubc" pid="cbc0" pport="bc" />
+  <connection uid="c0" uport="upm" pid="cpm0" pport="pm" />
+  <connection uid="c0" uport="uva" pid="cbr0" pport="va" />
+
+  <connection uid="cbr0" uport="upm" pid="cpm0" pport="pm" />
+  <connection uid="cbr0" uport="ubc" pid="cbc0" pport="bc" />
+  <connection uid="cbr0" uport="udlc" pid="cbc0" pport="dlc" />
+
+  <!-- Server -->
+  <connection uid="s0" uport="ubc" pid="sbc0" pport="bc" />
+  <connection uid="s0" uport="upm" pid="spm0" pport="pm" />
+
+  <connection uid="sbrs0" uport="upm" pid="spm0" pport="pm" />
+  <connection uid="sbrs0" uport="ubc" pid="sbc0" pport="bc" />
+  <connection uid="sbrs0" uport="udls" pid="sbc0" pport="dls" />
+  <connection uid="sbrs0" uport="uva" pid="s0" pport="va" />
+
+  <!-- Client <-> Server  -->
+  <connection uid="cbr0" uport="uvai" pid="sbrs0" pport="vai" />
+
+  <!-- Configuration -->
+  <value uid="c0" uport="N" type="unsigned long" value="9" />
+
+  <value uid="cpm0" uport="rank" type="unsigned" value="0" />
+  <value uid="cpm0" uport="size" type="unsigned" value="1" />
+
+  <value uid="spm0" uport="rank" type="unsigned" value="0" />
+  <value uid="spm0" uport="size" type="unsigned" value="1" />
+
+  <value uid="sbc0" uport="srcTopo" type="unsigned" value="1" />
+  <value uid="sbc0" uport="dstTopo" type="unsigned" value="1" />
+
+</connections>
+
+<invocations>
+  <invocation id="cbr0" port="cc" type="ConfigureComplete" />
+  <invocation id="c0" port="cc" type="ConfigureComplete" />
+
+  <invocation id="sbrs0" port="cc" type="ConfigureComplete" />
+  <invocation id="s0" port="cc" type="ConfigureComplete" />
+
+  <invocation id="c0" port="go" type="Go" />
+</invocations>
+
+</llcmcpp_cad>

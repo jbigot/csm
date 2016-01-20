@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libJacobiCore.so -o libJacobiCore.so CMakeFiles/JacobiCore.dir/src/JacobiCore/jacobicore.cpp.o 

@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/jacobi_mpi.dir/src/jacobi_mpi.cpp.o  -o jacobi_mpi  /usr/local/lib/libmpi_cxx.dylib /usr/local/lib/libmpi.dylib 

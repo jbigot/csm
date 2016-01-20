@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libSimpleXpDriver.so CMakeFiles/SimpleXpDriver.dir/src/SimpleXpDriver/simplexpdriver.cpp.o 

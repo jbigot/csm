@@ -1,0 +1,57 @@
+<?xml version='1.0'?>
+<llcmcpp2_cad xmlns="http://avalon.inria.fr/llcmcpp2">
+  <host id="0">
+    <instance id="mbm0" type="llcm_MandelbrotRunMPI">
+      <property id="R0"><value type="complex double">(-1.5,-1)</value></property>
+      <property id="R1"><value type="complex double">(0.5,1)</value></property>
+      <property id="NX"><value type="unsigned">1024</value></property>
+      <property id="NY"><value type="unsigned">1024</value></property>
+      <property id="NBX"><value type="unsigned">1</value></property>
+      <property id="NBY"><value type="unsigned">1</value></property>
+      <property id="DUMP"><value type="unsigned">1</value></property>
+      <property id="DMODE"><value type="string">ONE</value></property>
+      <property id="DUMPFILE"><value type="string">/tmp/m.pgm</value></property>
+      <property id="umbmg"><propref instance="mbr0" property="pmbmg"/></property>
+      <property id="ua2dd"><propref instance="d0" property="pa2dd"/></property>
+      <start property="go"/>
+    </instance>
+    <instance id="d0"   type="llcm_Dumper"/>      
+    <instance id="mbr0" type="llcm_MandelbrotRun">
+      <property id="R0"><value type="complex double">(-1.5,-1)</value></property>
+      <property id="R1"><value type="complex double">(-0.5,1)</value></property>
+      <property id="NX"><value type="unsigned">512</value></property>
+      <property id="NY"><value type="unsigned">1024</value></property>
+      <property id="NBITER"><value type="unsigned">256</value></property>
+      <property id="DUMP"><value type="unsigned">0</value></property>
+      <property id="umb"><propref instance="mb0" property="pmb"/></property>
+    </instance>
+    <instance id="mb0"  type="llcm_MandelbrotSeq">
+    </instance>
+  </host>
+
+  <host id="1">
+    <instance id="mbm1" type="llcm_MandelbrotRunMPI">
+      <property id="DUMP"><value type="unsigned">1</value></property>
+      <property id="DMODE"><value type="string">ONE</value></property>
+      <property id="umbmg"><propref instance="mbr1" property="pmbmg"/></property>
+      <start property="go"/>
+    </instance>
+    <instance id="mbr1" type="llcm_MandelbrotRun">
+      <property id="R0"><value type="complex double">(-0.5,-1)</value></property>
+      <property id="R1"><value type="complex double">(0.5,1)</value></property>
+      <property id="NX"><value type="unsigned">512</value></property>
+      <property id="NY"><value type="unsigned">1024</value></property>
+      <property id="NBITER"><value type="unsigned">256</value></property>
+      <property id="DUMP"><value type="unsigned">0</value></property>
+      <property id="umb"><propref instance="mb1" property="pmb"/></property>
+    </instance>
+    <instance id="mb1"  type="llcm_MandelbrotSeq">
+    </instance>
+  </host>
+
+  <mpi>
+    <peer instance="mbm0" property="comm"/>
+    <peer instance="mbm1" property="comm"/>
+  </mpi>
+
+</llcmcpp2_cad>

@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libJacobi4Connectors.so CMakeFiles/Jacobi4Connectors.dir/src/Jacobi4Connectors/jacobi4connectors.cpp.o /usr/local/lib/libmpi_cxx.dylib /usr/local/lib/libmpi.dylib 

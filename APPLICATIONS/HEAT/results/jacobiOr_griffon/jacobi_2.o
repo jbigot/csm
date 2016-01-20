@@ -1,0 +1,496 @@
+#[XPDriver] go!
+#[XPDriver] go!
+# L1 1572864o == 98304 dbl/mat
+# L1 1572864o == 98304 dbl/mat
+# for 1024o to 1572864o step 1024o
+# height(nbdouble): 8	 width(nbdouble): 8	 niter: 925925
+# for 1024o to 1572864o step 1024o
+# height(nbdouble): 8	 width(nbdouble): 8	 niter: 925925
+size(nbdouble): 64	D1(ns): 1488	D2(ns): 1489	D3(ns): 1490	D4(ns): 1491	size(nbdouble): 64	D1(ns): 1488	D2(ns): 1489	D3(ns): 1490	D4(ns): 1491	D5(ns): 1491	D6(ns): 1492	D7(ns): 1494	D8(ns): 1497	D9(ns): 1504
+# height(nbdouble): 16	D5(ns): 1491	D6(ns): 1492	D7(ns): 1494	D8(ns): 1497	D9(ns): 1504
+ width(nbdouble): 16	 niter: 333333
+# height(nbdouble): 16	 width(nbdouble): 16	 niter: 333333
+size(nbdouble): 256	D1(ns): 1905	D2(ns): 1907	D3(ns): 1908	D4(ns): 1909size(nbdouble): 256	D1(ns): 1905	D2(ns): 1907	D3(ns): 1908	D4(ns): 1909	D5(ns): 1909	D6(ns): 1910	D7(ns): 1911	D8(ns): 1919		D5(ns): 1909	D6(ns): 1910	D7(ns): 1911	D8(ns): 1919	D9(ns): 1931
+# height(nbdouble): 24	 width(nbdouble): 24	 niter: 161290
+D9(ns): 1931
+# height(nbdouble): 24	 width(nbdouble): 24	 niter: 161290
+size(nbdouble): 576	D1(ns): 2521	D2(ns): 2522	D3(ns): 2522	D4(ns): 2525size(nbdouble): 576	D1(ns): 2521	D2(ns): 2522	D3(ns): 2522	D4(ns): 2525	D5(ns): 2530	D6(ns): 2534	D7(ns): 2537	D8(ns): 2540	D9(ns): 2542
+	D5(ns): 2530	D6(ns): 2534	D7(ns): 2537	D8(ns): 2540	# height(nbdouble): 32	 width(nbdouble): 32	 niter: 93632
+D9(ns): 2542
+# height(nbdouble): 32	 width(nbdouble): 32	 niter: 93632
+size(nbdouble): 1024	D1(ns): 3279	D2(ns): 3280	D3(ns): 3281	D4(ns): 3281	D5(ns): 3281	D6(ns): 3282size(nbdouble): 1024	D1(ns): 3279	D2(ns): 3280	D3(ns): 3281	D4(ns): 3281	D5(ns): 3281	D6(ns): 3282	D7(ns): 3287	D8(ns): 3312	D9(ns): 3342
+# height(nbdouble): 40	 width(nbdouble): 40	D7(ns): 3287	D8(ns): 3312	D9(ns): 3342
+# height(nbdouble): 40	 width(nbdouble): 40	 niter: 60827
+	 niter: 60827
+size(nbdouble): 1600	D1(ns): 4178	D2(ns): 4180	D3(ns): 4189	size(nbdouble): 1600	D1(ns): 4178	D2(ns): 4180	D3(ns): 4189	D4(ns): 4199	D5(ns): 4205	D6(ns): 4212	D7(ns): 4220	D4(ns): 4199	D5(ns): 4205	D6(ns): 4212	D7(ns): 4220	D8(ns): 4229	D9(ns): 4255
+# height(nbdouble): 48	 width(nbdouble): 48	 niter: 42589
+D8(ns): 4229	D9(ns): 4255
+# height(nbdouble): 48	 width(nbdouble): 48	 niter: 42589
+size(nbdouble): 2304	D1(ns): 5303	D2(ns): 5306	D3(ns): 5311	size(nbdouble): 2304	D1(ns): 5303	D2(ns): 5306	D3(ns): 5311	D4(ns): 5317	D5(ns): 5321	D6(ns): 5324	D7(ns): 5324	D8(ns): 5331	D4(ns): 5317	D5(ns): 5321	D6(ns): 5324	D7(ns): 5324	D8(ns): 5331	D9(ns): 5354
+D9(ns): 5354
+# height(nbdouble): 56	 width(nbdouble): 56	 niter: 31446
+# height(nbdouble): 56	 width(nbdouble): 56	 niter: 31446
+size(nbdouble): 3136	D1(ns): 6604	D2(ns): 6614	D3(ns): 6627	D4(ns): 6633	D5(ns): 6642	D6(ns): 6697	size(nbdouble): 3136	D1(ns): 6604	D2(ns): 6614	D3(ns): 6627	D4(ns): 6633	D5(ns): 6642	D7(ns): 6759	D8(ns): 6793	D9(ns): 6934
+# height(nbdouble): 64	 width(nbdouble): 64	 niter: 24154
+D6(ns): 6697	D7(ns): 6759	D8(ns): 6793	D9(ns): 6934
+# height(nbdouble): 64	 width(nbdouble): 64	 niter: 24154
+size(nbdouble): 4096	D1(ns): 8150	D2(ns): 8151	D3(ns): 8153	D4(ns): 8155size(nbdouble): 4096	D1(ns): 8150	D2(ns): 8151	D3(ns): 8153	D4(ns): 8155	D5(ns): 8157	D6(ns): 8167	D7(ns): 8179	D8(ns): 8190	D9(ns): 8205
+	D5(ns): 8157	D6(ns): 8167	D7(ns): 8179	D8(ns): 8190	D9(ns): 8205
+# height(nbdouble): 72	 width(nbdouble): 72	 niter: 19127
+# height(nbdouble): 72	 width(nbdouble): 72	 niter: 19127
+size(nbdouble): 5184	D1(ns): 9799	D2(ns): 9804	D3(ns): 9808	D4(ns): 9812	D5(ns): 9815size(nbdouble): 5184	D1(ns): 9799	D2(ns): 9804	D3(ns): 9808	D4(ns): 9812	D5(ns): 9815	D6(ns): 9819	D6(ns): 9819	D7(ns): 9823	D8(ns): 9826	D9(ns): 9833
+# height(nbdouble): 80	 width(nbdouble): 80		D7(ns): 9823	D8(ns): 9826	D9(ns): 9833
+# height(nbdouble): 80	 width(nbdouble): 80	 niter: 15518
+ niter: 15518
+size(nbdouble): 6400	D1(ns): 11666	D2(ns): 11668	D3(ns): 11672	D4(ns): 11675	size(nbdouble): 6400	D1(ns): 11666	D2(ns): 11668	D3(ns): 11672	D4(ns): 11675	D5(ns): 11682	D6(ns): 11688	D7(ns): 11689	D8(ns): 11691	D5(ns): 11682	D6(ns): 11688	D7(ns): 11689	D8(ns): 11691	D9(ns): 11698
+# height(nbdouble): 88D9(ns): 11698
+# height(nbdouble): 88	 width(nbdouble): 88	 niter: 12840
+	 width(nbdouble): 88	 niter: 12840
+size(nbdouble): 7744	D1(ns): 13687	D2(ns): 13691	D3(ns): 13697	D4(ns): 13699	D5(ns): 13701size(nbdouble): 7744	D1(ns): 13687	D2(ns): 13691	D3(ns): 13697	D4(ns): 13699	D5(ns): 13701	D6(ns): 13705	D6(ns): 13705	D7(ns): 13710	D8(ns): 13714	D9(ns): 13732
+# height(nbdouble): 96	 width(nbdouble): 96	 niter: 10799
+	D7(ns): 13710	D8(ns): 13714	D9(ns): 13732
+# height(nbdouble): 96	 width(nbdouble): 96	 niter: 10799
+size(nbdouble): 9216	D1(ns): 15826	D2(ns): 15834	D3(ns): 15848	size(nbdouble): 9216	D1(ns): 15826	D2(ns): 15834	D3(ns): 15848	D4(ns): 15857	D5(ns): 15863	D6(ns): 15867D4(ns): 15857	D5(ns): 15863	D6(ns): 15867	D7(ns): 15869	D8(ns): 15874	D9(ns): 15895
+	D7(ns): 15869	D8(ns): 15874	D9(ns): 15895
+# height(nbdouble): 104	 width(nbdouble): 104	 niter: 9208
+# height(nbdouble): 104	 width(nbdouble): 104	 niter: 9208
+size(nbdouble): 10816	D1(ns): 18231	D2(ns): 18233	D3(ns): 18240	D4(ns): 18246	D5(ns): 18249	D6(ns): 18255size(nbdouble): 10816	D1(ns): 18231	D2(ns): 18233	D3(ns): 18240	D4(ns): 18246	D5(ns): 18249	D6(ns): 18255		D7(ns): 18259	D8(ns): 18264	D9(ns): 18269
+D7(ns): 18259	D8(ns): 18264	D9(ns): 18269
+# height(nbdouble): 112	 width(nbdouble): 112	# height(nbdouble): 112	 width(nbdouble): 112	 niter: 7944
+ niter: 7944
+size(nbdouble): 12544	D1(ns): 20789	D2(ns): 20802	D3(ns): 20816	D4(ns): 20823	D5(ns): 20827size(nbdouble): 12544	D1(ns): 20789	D2(ns): 20802	D3(ns): 20816	D4(ns): 20823	D5(ns): 20827	D6(ns): 20833	D7(ns): 20838	D8(ns): 20841	D9(ns): 20845
+	D6(ns): 20833	D7(ns): 20838	D8(ns): 20841	# height(nbdouble): 120	 width(nbdouble): 120	 niter: 6923
+D9(ns): 20845
+# height(nbdouble): 120	 width(nbdouble): 120	 niter: 6923
+size(nbdouble): 14400	D1(ns): 23468	D2(ns): 23471	D3(ns): 23474	D4(ns): 23477	D5(ns): 23481	size(nbdouble): 14400	D1(ns): 23468	D2(ns): 23471	D3(ns): 23474	D4(ns): 23477	D5(ns): 23481	D6(ns): 23486	D7(ns): 23493	D6(ns): 23486	D7(ns): 23493	D8(ns): 23499	D9(ns): 23505
+# height(nbdouble): 128	 width(nbdouble): 128	 niter: 6087
+D8(ns): 23499	D9(ns): 23505
+# height(nbdouble): 128	 width(nbdouble): 128	 niter: 6087
+size(nbdouble): 16384	D1(ns): 26404	D2(ns): 26404	D3(ns): 26405	D4(ns): 26405size(nbdouble): 16384	D1(ns): 26404	D2(ns): 26404	D3(ns): 26405	D4(ns): 26405	D5(ns): 26406	D6(ns): 26411	D7(ns): 26420	D8(ns): 26425		D5(ns): 26406	D6(ns): 26411	D7(ns): 26420	D8(ns): 26425	D9(ns): 26431
+D9(ns): 26431
+# height(nbdouble): 136	 width(nbdouble): 136	 niter: 5393
+# height(nbdouble): 136	 width(nbdouble): 136	 niter: 5393
+size(nbdouble): 18496	D1(ns): 30888	D2(ns): 30897	D3(ns): 30909	D4(ns): 30919	D5(ns): 30922	size(nbdouble): 18496	D1(ns): 30888	D2(ns): 30897	D3(ns): 30909	D4(ns): 30919	D5(ns): 30922	D6(ns): 30928	D6(ns): 30928	D7(ns): 30933	D8(ns): 30935	D9(ns): 30940
+D7(ns): 30933	D8(ns): 30935	D9(ns): 30940
+# height(nbdouble): 144	 width(nbdouble): 144	 niter: 4812
+# height(nbdouble): 144	 width(nbdouble): 144	 niter: 4812
+size(nbdouble): 20736	D1(ns): 34426	D2(ns): 34428	size(nbdouble): 20736	D1(ns): 34426	D2(ns): 34428	D3(ns): 34434	D4(ns): 34441	D5(ns): 34444	D6(ns): 34447	D7(ns): 34449	D8(ns): 34466	D3(ns): 34434	D4(ns): 34441	D5(ns): 34444	D6(ns): 34447	D7(ns): 34449	D8(ns): 34466	D9(ns): 34484
+D9(ns): 34484
+# height(nbdouble): 152	 width(nbdouble): 152	 niter: 4320
+# height(nbdouble): 152	 width(nbdouble): 152	 niter: 4320
+size(nbdouble): 23104	D1(ns): 37775	D2(ns): 37778	D3(ns): 37785	D4(ns): 37792	size(nbdouble): 23104	D1(ns): 37775	D2(ns): 37778	D3(ns): 37785	D4(ns): 37792D5(ns): 37793	D6(ns): 37797	D7(ns): 37806	D8(ns): 37817	D9(ns): 37831
+	D5(ns): 37793	D6(ns): 37797	D7(ns): 37806	D8(ns): 37817	D9(ns): 37831
+# height(nbdouble): 160	 width(nbdouble): 160# height(nbdouble): 160	 width(nbdouble): 160	 niter: 3899
+	 niter: 3899
+size(nbdouble): 25600	D1(ns): 41496	D2(ns): 41503	D3(ns): 41516size(nbdouble): 25600	D1(ns): 41496	D2(ns): 41503	D3(ns): 41516	D4(ns): 41528	D5(ns): 41538	D6(ns): 41552	D7(ns): 41558		D4(ns): 41528	D5(ns): 41538	D6(ns): 41552	D7(ns): 41558	D8(ns): 41567D8(ns): 41567	D9(ns): 41590
+# height(nbdouble): 168	 width(nbdouble): 168	 niter: 3537
+	D9(ns): 41590
+# height(nbdouble): 168	 width(nbdouble): 168	 niter: 3537
+size(nbdouble): 28224	D1(ns): 45450	D2(ns): 45452	D3(ns): 45452	D4(ns): 45454	size(nbdouble): 28224	D1(ns): 45450	D2(ns): 45452	D3(ns): 45452	D4(ns): 45454	D5(ns): 45455	D5(ns): 45455	D6(ns): 45460	D7(ns): 45464	D8(ns): 45465	D9(ns): 45465
+# height(nbdouble): 176	 width(nbdouble): 176D6(ns): 45460	D7(ns): 45464	D8(ns): 45465	D9(ns): 45465
+# height(nbdouble): 176	 width(nbdouble): 176	 niter: 3223
+	 niter: 3223
+size(nbdouble): 30976	D1(ns): 49519	D2(ns): 49531	size(nbdouble): 30976	D1(ns): 49519	D2(ns): 49531	D3(ns): 49536	D4(ns): 49544	D5(ns): 49546	D6(ns): 49553	D7(ns): 49564	D8(ns): 49583D3(ns): 49536	D4(ns): 49544	D5(ns): 49546	D6(ns): 49553	D7(ns): 49564	D8(ns): 49583		D9(ns): 49611
+# height(nbdouble): 184	 width(nbdouble): 184	 niter: 2949
+D9(ns): 49611
+# height(nbdouble): 184	 width(nbdouble): 184	 niter: 2949
+size(nbdouble): 33856	D1(ns): 185669	D2(ns): 185695	D3(ns): 185714	size(nbdouble): 33856	D1(ns): 185669	D2(ns): 185695	D3(ns): 185714	D4(ns): 185718	D4(ns): 185718	D5(ns): 185804	D6(ns): 185906	D7(ns): 185936	D8(ns): 185951	D9(ns): 186482
+# height(nbdouble): 192	 width(nbdouble): 192	 niter: 2709
+D5(ns): 185804	D6(ns): 185906	D7(ns): 185936	D8(ns): 185951	D9(ns): 186482
+# height(nbdouble): 192	 width(nbdouble): 192	 niter: 2709
+size(nbdouble): 36864	D1(ns): 202056	D2(ns): 202061	D3(ns): 202076	D4(ns): 202091	D5(ns): 202105size(nbdouble): 36864	D1(ns): 202056	D2(ns): 202061	D3(ns): 202076	D4(ns): 202091	D5(ns): 202105	D6(ns): 202129	D7(ns): 202149	D8(ns): 202158	D9(ns): 202173
+# height(nbdouble): 200	 width(nbdouble): 200	 niter: 2497
+	D6(ns): 202129	D7(ns): 202149	D8(ns): 202158	D9(ns): 202173
+# height(nbdouble): 200	 width(nbdouble): 200	 niter: 2497
+size(nbdouble): 40000	D1(ns): 219085	D2(ns): 219092	D3(ns): 219103	D4(ns): 219132	D5(ns): 219163size(nbdouble): 40000	D1(ns): 219085	D2(ns): 219092	D3(ns): 219103	D4(ns): 219132	D5(ns): 219163	D6(ns): 219178	D7(ns): 219183	D8(ns): 219197	D9(ns): 219239
+# height(nbdouble): 208	D6(ns): 219178	D7(ns): 219183	D8(ns): 219197	D9(ns): 219239
+# height(nbdouble): 208	 width(nbdouble): 208	 niter: 2309
+	 width(nbdouble): 208	 niter: 2309
+size(nbdouble): 43264	D1(ns): 236906	D2(ns): 236915	D3(ns): 236917	D4(ns): 236922	D5(ns): 236935	D6(ns): 236948	size(nbdouble): 43264	D1(ns): 236906	D2(ns): 236915	D3(ns): 236917	D4(ns): 236922	D5(ns): 236935	D6(ns): 236948	D7(ns): 236965	D8(ns): 236992	D7(ns): 236965	D8(ns): 236992	D9(ns): 237036
+# height(nbdouble): 216	 width(nbdouble): 216	 niter: 2141
+D9(ns): 237036
+# height(nbdouble): 216	 width(nbdouble): 216	 niter: 2141
+size(nbdouble): 46656	D1(ns): 255275	D2(ns): 255278	size(nbdouble): 46656	D1(ns): 255275	D2(ns): 255278	D3(ns): 255285	D4(ns): 255302	D5(ns): 255315	D3(ns): 255285	D4(ns): 255302	D5(ns): 255315	D6(ns): 255320	D7(ns): 255331	D8(ns): 255342	D9(ns): 255356
+D6(ns): 255320	D7(ns): 255331	D8(ns): 255342	D9(ns): 255356
+# height(nbdouble): 224	 width(nbdouble): 224	 niter: 1991
+# height(nbdouble): 224	 width(nbdouble): 224	 niter: 1991
+size(nbdouble): 50176	D1(ns): 274412	D2(ns): 274426	D3(ns): 274444	D4(ns): 274470	D5(ns): 274487	size(nbdouble): 50176	D1(ns): 274412	D2(ns): 274426	D3(ns): 274444	D4(ns): 274470	D5(ns): 274487	D6(ns): 274496	D7(ns): 274498	D8(ns): 274501	D9(ns): 274507
+D6(ns): 274496	D7(ns): 274498	D8(ns): 274501	D9(ns): 274507
+# height(nbdouble): 232	 width(nbdouble): 232	 niter: 1856
+# height(nbdouble): 232	 width(nbdouble): 232	 niter: 1856
+size(nbdouble): 53824	D1(ns): 293992	D2(ns): 294006	D3(ns): 294029	D4(ns): 294054	D5(ns): 294068size(nbdouble): 53824	D1(ns): 293992	D2(ns): 294006	D3(ns): 294029	D4(ns): 294054	D5(ns): 294068		D6(ns): 294074	D7(ns): 294075	D8(ns): 294082D6(ns): 294074	D7(ns): 294075	D8(ns): 294082	D9(ns): 294571
+# height(nbdouble): 240	 width(nbdouble): 240	 niter: 1734
+	D9(ns): 294571
+# height(nbdouble): 240	 width(nbdouble): 240	 niter: 1734
+size(nbdouble): 57600	D1(ns): 314472	D2(ns): 314482	D3(ns): 314486size(nbdouble): 57600	D1(ns): 314472	D2(ns): 314482	D3(ns): 314486	D4(ns): 314491	D5(ns): 314505	D6(ns): 314533	D7(ns): 314551	D8(ns): 314562		D4(ns): 314491	D5(ns): 314505	D6(ns): 314533	D7(ns): 314551	D8(ns): 314562	D9(ns): 314589
+D9(ns): 314589
+# height(nbdouble): 248	 width(nbdouble): 248	 niter: 1624
+# height(nbdouble): 248	 width(nbdouble): 248	 niter: 1624
+size(nbdouble): 61504	D1(ns): 335670	D2(ns): 335685	D3(ns): 335696	D4(ns): 335706	D5(ns): 335713size(nbdouble): 61504	D1(ns): 335670	D2(ns): 335685	D3(ns): 335696	D4(ns): 335706	D5(ns): 335713	D6(ns): 335726		D6(ns): 335726	D7(ns): 335737	D8(ns): 335738	D9(ns): 335747
+# height(nbdouble): 256	 width(nbdouble): 256	 niter: 1524
+D7(ns): 335737	D8(ns): 335738	D9(ns): 335747
+# height(nbdouble): 256	 width(nbdouble): 256	 niter: 1524
+size(nbdouble): 65536	D1(ns): 357693	D2(ns): 357713	D3(ns): 357719	size(nbdouble): 65536	D1(ns): 357693	D2(ns): 357713	D3(ns): 357719	D4(ns): 357733	D5(ns): 357754	D6(ns): 357769	D7(ns): 357772	D8(ns): 357778D4(ns): 357733	D5(ns): 357754	D6(ns): 357769	D7(ns): 357772	D8(ns): 357778	D9(ns): 357787
+	D9(ns): 357787
+# height(nbdouble): 264	 width(nbdouble): 264	 niter: 1433
+# height(nbdouble): 264	 width(nbdouble): 264	 niter: 1433
+size(nbdouble): 69696	D1(ns): 380157	D2(ns): 380181	D3(ns): 380191	D4(ns): 380193	size(nbdouble): 69696	D1(ns): 380157	D2(ns): 380181	D3(ns): 380191	D4(ns): 380193	D5(ns): 380196	D5(ns): 380196	D6(ns): 380200	D7(ns): 380204	D8(ns): 380221	D9(ns): 380376
+# height(nbdouble): 272	 width(nbdouble): 272	D6(ns): 380200	D7(ns): 380204	D8(ns): 380221	D9(ns): 380376
+# height(nbdouble): 272	 width(nbdouble): 272 niter: 1350
+	 niter: 1350
+size(nbdouble): 73984	D1(ns): 403545	D2(ns): 403573	D3(ns): 403582	D4(ns): 403608	size(nbdouble): 73984	D1(ns): 403545	D2(ns): 403573	D3(ns): 403582	D4(ns): 403608	D5(ns): 403878	D6(ns): 404145	D7(ns): 404173	D8(ns): 404214	D9(ns): 404629
+D5(ns): 403878	D6(ns): 404145	D7(ns): 404173	D8(ns): 404214	D9(ns): 404629
+# height(nbdouble): 280	 width(nbdouble): 280	 niter: 1274
+# height(nbdouble): 280	 width(nbdouble): 280	 niter: 1274
+size(nbdouble): 78400	D1(ns): 428072	D2(ns): 428074	D3(ns): 428076	D4(ns): 428081	size(nbdouble): 78400	D1(ns): 428072	D2(ns): 428074	D3(ns): 428076	D4(ns): 428081	D5(ns): 428087	D6(ns): 428095	D7(ns): 428106	D8(ns): 428122	D9(ns): 428145
+# height(nbdouble): 288D5(ns): 428087	D6(ns): 428095	D7(ns): 428106	D8(ns): 428122	D9(ns): 428145
+# height(nbdouble): 288	 width(nbdouble): 288	 niter: 1204
+	 width(nbdouble): 288	 niter: 1204
+size(nbdouble): 82944	D1(ns): 452867	D2(ns): 452882	D3(ns): 452893	D4(ns): 452904	size(nbdouble): 82944	D1(ns): 452867	D2(ns): 452882	D3(ns): 452893	D4(ns): 452904	D5(ns): 452907	D6(ns): 452912	D7(ns): 452916	D8(ns): 452917	D5(ns): 452907	D6(ns): 452912	D7(ns): 452916	D8(ns): 452917	D9(ns): 452945
+# height(nbdouble): 296	 width(nbdouble): 296	 niter: 1140
+D9(ns): 452945
+# height(nbdouble): 296	 width(nbdouble): 296	 niter: 1140
+size(nbdouble): 87616	D1(ns): 478148	D2(ns): 478191	size(nbdouble): 87616	D1(ns): 478148	D2(ns): 478191	D3(ns): 478209	D4(ns): 478214	D5(ns): 478218	D6(ns): 478221D3(ns): 478209	D4(ns): 478214	D5(ns): 478218	D6(ns): 478221	D7(ns): 478221	D8(ns): 478228	D9(ns): 478233
+# height(nbdouble): 304	 width(nbdouble): 304	 niter: 1081
+	D7(ns): 478221	D8(ns): 478228	D9(ns): 478233
+# height(nbdouble): 304	 width(nbdouble): 304	 niter: 1081
+size(nbdouble): 92416	D1(ns): 504385	D2(ns): 504393	D3(ns): 504404	size(nbdouble): 92416	D1(ns): 504385	D2(ns): 504393	D3(ns): 504404	D4(ns): 504421	D5(ns): 504438	D6(ns): 504452	D4(ns): 504421	D5(ns): 504438	D6(ns): 504452	D7(ns): 504464	D8(ns): 504479	D9(ns): 504496
+# height(nbdouble): 312	 width(nbdouble): 312	D7(ns): 504464	D8(ns): 504479	D9(ns): 504496
+# height(nbdouble): 312	 width(nbdouble): 312	 niter: 1026
+ niter: 1026
+size(nbdouble): 97344	D1(ns): 531153	D2(ns): 531159	D3(ns): 531183	size(nbdouble): 97344	D1(ns): 531153	D2(ns): 531159	D3(ns): 531183	D4(ns): 531202	D5(ns): 531212	D6(ns): 531223	D7(ns): 531230D4(ns): 531202	D5(ns): 531212	D6(ns): 531223	D7(ns): 531230	D8(ns): 531247	D9(ns): 531268
+	D8(ns): 531247	D9(ns): 531268
+# L2 (6291456o == 393216 dbl/mat)
+# for 1638400o to 6291456o step 4096o
+# height(nbdouble): 320	 width(nbdouble): 320# L2 (6291456o == 393216 dbl/mat)
+# for 1638400o to 6291456o step 4096o
+# height(nbdouble): 320	 width(nbdouble): 320	 niter: 976
+	 niter: 976
+size(nbdouble): 102400	D1(ns): 558630	D2(ns): 558640	D3(ns): 558652	size(nbdouble): 102400	D1(ns): 558630	D2(ns): 558640	D3(ns): 558652	D4(ns): 558657	D5(ns): 558675	D6(ns): 558697D4(ns): 558657	D5(ns): 558675	D6(ns): 558697	D7(ns): 558709	D8(ns): 558725	D9(ns): 559434
+# height(nbdouble): 336	 width(nbdouble): 336	 niter: 885
+	D7(ns): 558709	D8(ns): 558725	D9(ns): 559434
+# height(nbdouble): 336	 width(nbdouble): 336	 niter: 885
+size(nbdouble): 112896	D1(ns): 615744	D2(ns): 615753	D3(ns): 615768	D4(ns): 615792	D5(ns): 615804	size(nbdouble): 112896	D1(ns): 615744	D2(ns): 615753	D3(ns): 615768	D4(ns): 615792	D5(ns): 615804	D6(ns): 615816	D7(ns): 615847	D8(ns): 615866	D9(ns): 615916
+# height(nbdouble): 352	D6(ns): 615816	D7(ns): 615847	D8(ns): 615866	D9(ns): 615916
+# height(nbdouble): 352	 width(nbdouble): 352	 width(nbdouble): 352	 niter: 806
+ niter: 806
+size(nbdouble): 123904	D1(ns): 675658	D2(ns): 675673	D3(ns): 675692	D4(ns): 675710	D5(ns): 675727	D6(ns): 675746	size(nbdouble): 123904	D1(ns): 675658	D2(ns): 675673	D3(ns): 675692	D4(ns): 675710	D5(ns): 675727	D6(ns): 675746	D7(ns): 675761	D8(ns): 675774D7(ns): 675761	D8(ns): 675774	D9(ns): 675780
+# height(nbdouble): 368	 width(nbdouble): 368	 niter: 738
+	D9(ns): 675780
+# height(nbdouble): 368	 width(nbdouble): 368	 niter: 738
+size(nbdouble): 135424	D1(ns): 737693	D2(ns): 737852	D3(ns): 738216	D4(ns): 738462	D5(ns): 738506	D6(ns): 738548size(nbdouble): 135424	D1(ns): 737693	D2(ns): 737852	D3(ns): 738216	D4(ns): 738462	D5(ns): 738506	D6(ns): 738548	D7(ns): 738566	D8(ns): 738571	D9(ns): 739123
+	D7(ns): 738566	D8(ns): 738571	D9(ns): 739123
+# height(nbdouble): 384	 width(nbdouble): 384	 niter: 677
+# height(nbdouble): 384	 width(nbdouble): 384	 niter: 677
+size(nbdouble): 147456	D1(ns): 803274	D2(ns): 803680	D3(ns): 803818	D4(ns): 803856	D5(ns): 803874	D6(ns): 803903	size(nbdouble): 147456	D1(ns): 803274	D2(ns): 803680	D3(ns): 803818	D4(ns): 803856	D5(ns): 803874	D6(ns): 803903	D7(ns): 803945D7(ns): 803945	D8(ns): 803968	D9(ns): 803994
+# height(nbdouble): 400	 width(nbdouble): 400	D8(ns): 803968	D9(ns): 803994
+# height(nbdouble): 400	 width(nbdouble): 400	 niter: 624
+	 niter: 624
+size(nbdouble): 160000	D1(ns): 871108	D2(ns): 871165	D3(ns): 871187size(nbdouble): 160000	D1(ns): 871108	D2(ns): 871165	D3(ns): 871187	D4(ns): 871713	D5(ns): 872246	D6(ns): 872307	D4(ns): 871713	D5(ns): 872246	D6(ns): 872307		D7(ns): 872358	D8(ns): 872373	D9(ns): 873251
+# height(nbdouble): 416	 width(nbdouble): 416	 niter: 577
+D7(ns): 872358	D8(ns): 872373	D9(ns): 873251
+# height(nbdouble): 416	 width(nbdouble): 416	 niter: 577
+size(nbdouble): 173056	D1(ns): 941982	D2(ns): 942001	D3(ns): 942024	D4(ns): 942053	D5(ns): 942083	size(nbdouble): 173056	D1(ns): 941982	D2(ns): 942001	D3(ns): 942024	D4(ns): 942053	D5(ns): 942083	D6(ns): 942102	D7(ns): 942126D6(ns): 942102	D7(ns): 942126	D8(ns): 942155	D9(ns): 942195
+# height(nbdouble): 432	 width(nbdouble): 432	 niter: 535
+	D8(ns): 942155	D9(ns): 942195
+# height(nbdouble): 432	 width(nbdouble): 432	 niter: 535
+size(nbdouble): 186624	D1(ns): 1015743	D2(ns): 1015773	D3(ns): 1015792size(nbdouble): 186624	D1(ns): 1015743	D2(ns): 1015773	D3(ns): 1015792	D4(ns): 1015813	D5(ns): 1015841	D6(ns): 1015863	D7(ns): 1015880	D8(ns): 1015889	D4(ns): 1015813	D5(ns): 1015841	D6(ns): 1015863		D9(ns): 1015934
+# height(nbdouble): 448	 width(nbdouble): 448	 niter: 498
+D7(ns): 1015880	D8(ns): 1015889	D9(ns): 1015934
+# height(nbdouble): 448	 width(nbdouble): 448	 niter: 498
+size(nbdouble): 200704	D1(ns): 1092277	D2(ns): 1092307	D3(ns): 1092327	D4(ns): 1092361size(nbdouble): 200704	D1(ns): 1092277	D2(ns): 1092307	D3(ns): 1092327		D5(ns): 1092393	D6(ns): 1092407	D7(ns): 1092425	D8(ns): 1092451	D4(ns): 1092361	D5(ns): 1092393	D6(ns): 1092407	D7(ns): 1092425	D8(ns): 1092451	D9(ns): 1092512
+# height(nbdouble): 464	 width(nbdouble): 464	 niter: 464
+D9(ns): 1092512
+# height(nbdouble): 464	 width(nbdouble): 464	 niter: 464
+size(nbdouble): 215296	D1(ns): 1171637	D2(ns): 1171650	D3(ns): 1171655	size(nbdouble): 215296	D1(ns): 1171637	D2(ns): 1171650	D3(ns): 1171655	D4(ns): 1171674	D5(ns): 1171724	D6(ns): 1171795	D7(ns): 1171849	D8(ns): 1171887	D4(ns): 1171674	D5(ns): 1171724	D6(ns): 1171795	D7(ns): 1171849	D9(ns): 1171956
+# height(nbdouble): 480	 width(nbdouble): 480	 niter: 433
+D8(ns): 1171887	D9(ns): 1171956
+# height(nbdouble): 480	 width(nbdouble): 480	 niter: 433
+size(nbdouble): 230400	D1(ns): 1253826	D2(ns): 1253870	D3(ns): 1253891	size(nbdouble): 230400	D1(ns): 1253826	D2(ns): 1253870	D3(ns): 1253891	D4(ns): 1253912	D5(ns): 1253935	D6(ns): 1253986	D7(ns): 1254046	D8(ns): 1254080	D9(ns): 1254103
+D4(ns): 1253912	D5(ns): 1253935	D6(ns): 1253986	D7(ns): 1254046	# height(nbdouble): 496	 width(nbdouble): 496	 niter: 406
+D8(ns): 1254080	D9(ns): 1254103
+# height(nbdouble): 496	 width(nbdouble): 496	 niter: 406
+size(nbdouble): 246016	D1(ns): 1339729	D2(ns): 1340032	D3(ns): 1340083	D4(ns): 1340133	D5(ns): 1340147size(nbdouble): 246016	D1(ns): 1339729	D2(ns): 1340032	D3(ns): 1340083	D4(ns): 1340133	D5(ns): 1340147	D6(ns): 1340152	D7(ns): 1340182	D8(ns): 1340283	D9(ns): 1341620
+# height(nbdouble): 512		D6(ns): 1340152	D7(ns): 1340182	D8(ns): 1340283	D9(ns): 1341620
+# height(nbdouble): 512	 width(nbdouble): 512	 niter: 381
+ width(nbdouble): 512	 niter: 381
+size(nbdouble): 262144	D1(ns): 1429141	D2(ns): 1429152	D3(ns): 1429175	D4(ns): 1429199	D5(ns): 1429299size(nbdouble): 262144	D1(ns): 1429141	D2(ns): 1429152	D3(ns): 1429175	D4(ns): 1429199	D5(ns): 1429299		D6(ns): 1429393	D7(ns): 1429409	D8(ns): 1429469	D9(ns): 1429564
+# height(nbdouble): 528	 width(nbdouble): 528	 niter: 358
+D6(ns): 1429393	D7(ns): 1429409	D8(ns): 1429469	D9(ns): 1429564
+# height(nbdouble): 528	 width(nbdouble): 528	 niter: 358
+size(nbdouble): 278784	D1(ns): 1519427	D2(ns): 1519502	D3(ns): 1519642	D4(ns): 1519737	size(nbdouble): 278784	D1(ns): 1519427	D2(ns): 1519502	D3(ns): 1519642	D4(ns): 1519737	D5(ns): 1519754	D6(ns): 1519765	D7(ns): 1519910	D8(ns): 1520128D5(ns): 1519754	D6(ns): 1519765	D7(ns): 1519910	D8(ns): 1520128	D9(ns): 1520268
+	D9(ns): 1520268
+# height(nbdouble): 544	 width(nbdouble): 544	# height(nbdouble): 544	 width(nbdouble): 544	 niter: 337
+ niter: 337
+size(nbdouble): 295936	D1(ns): 1613477	D2(ns): 1613623	D3(ns): 1613635	D4(ns): 1613679	D5(ns): 1613827size(nbdouble): 295936	D1(ns): 1613477	D2(ns): 1613623	D3(ns): 1613635	D4(ns): 1613679	D5(ns): 1613827	D6(ns): 1613970	D6(ns): 1613970	D7(ns): 1614017	D8(ns): 1614083	D9(ns): 1614267
+# height(nbdouble): 560	 width(nbdouble): 560	 niter: 318
+	D7(ns): 1614017	D8(ns): 1614083	D9(ns): 1614267
+# height(nbdouble): 560	 width(nbdouble): 560	 niter: 318
+size(nbdouble): 313600	D1(ns): 1709157	size(nbdouble): 313600	D1(ns): 1709157	D2(ns): 1709261	D3(ns): 1709330	D2(ns): 1709261	D3(ns): 1709330	D4(ns): 1709452	D5(ns): 1709628	D6(ns): 1709795	D7(ns): 1709927	D8(ns): 1710059	D9(ns): 1710191
+D4(ns): 1709452	D5(ns): 1709628	D6(ns): 1709795	D7(ns): 1709927	D8(ns): 1710059	D9(ns): 1710191
+# height(nbdouble): 576	 width(nbdouble): 576	 niter: 301
+# height(nbdouble): 576	 width(nbdouble): 576	 niter: 301
+size(nbdouble): 331776	D1(ns): 1807584	D2(ns): 1807714	D3(ns): 1807900	size(nbdouble): 331776	D1(ns): 1807584	D2(ns): 1807714	D3(ns): 1807900	D4(ns): 1808003	D5(ns): 1808229	D6(ns): 1808465	D7(ns): 1808564	D8(ns): 1808621	D4(ns): 1808003	D5(ns): 1808229	D6(ns): 1808465	D7(ns): 1808564	D8(ns): 1808621D9(ns): 1811920
+# height(nbdouble): 592	 width(nbdouble): 592	 niter: 285
+	D9(ns): 1811920
+# height(nbdouble): 592	 width(nbdouble): 592	 niter: 285
+size(nbdouble): 350464	D1(ns): 1908845	D2(ns): 1908870	size(nbdouble): 350464	D1(ns): 1908845	D2(ns): 1908870	D3(ns): 1908908	D4(ns): 1908950	D5(ns): 1909091	D3(ns): 1908908	D4(ns): 1908950	D5(ns): 1909091	D6(ns): 1909221	D7(ns): 1909277	D8(ns): 1909333	D6(ns): 1909221	D7(ns): 1909277	D8(ns): 1909333	D9(ns): 1909350
+# height(nbdouble): 608	 width(nbdouble): 608	 niter: 270
+D9(ns): 1909350
+# height(nbdouble): 608	 width(nbdouble): 608	 niter: 270
+size(nbdouble): 369664	D1(ns): 2013362	D2(ns): 2013392	D3(ns): 2013440	D4(ns): 2013488	D5(ns): 2013662	D6(ns): 2013933	size(nbdouble): 369664	D1(ns): 2013362	D2(ns): 2013392	D3(ns): 2013440	D4(ns): 2013488	D5(ns): 2013662	D6(ns): 2013933	D7(ns): 2014111	D8(ns): 2014192	D9(ns): 2014211
+D7(ns): 2014111	D8(ns): 2014192	D9(ns): 2014211
+# height(nbdouble): 624	 width(nbdouble): 624	 niter: 256
+# height(nbdouble): 624	 width(nbdouble): 624	 niter: 256
+size(nbdouble): 389376	D1(ns): 2120800	D2(ns): 2120910	D3(ns): 2120972	size(nbdouble): 389376	D1(ns): 2120800	D2(ns): 2120910	D3(ns): 2120972	D4(ns): 2121000	D5(ns): 2121121	D6(ns): 2121269	D7(ns): 2121351	D8(ns): 2121390D4(ns): 2121000	D5(ns): 2121121	D6(ns): 2121269	D7(ns): 2121351	D8(ns): 2121390	D9(ns): 2121468
+# L3 (12582912o == 786432 dbl/mat)
+	D9(ns): 2121468
+# L3 (12582912o == 786432 dbl/mat)
+# for 6553600o to 12582912o step 4096o
+# height(nbdouble): 640	 width(nbdouble): 640	 niter: 244
+# for 6553600o to 12582912o step 4096o
+# height(nbdouble): 640	 width(nbdouble): 640	 niter: 244
+size(nbdouble): 409600	D1(ns): 2230692	D2(ns): 2230799	D3(ns): 2230889	D4(ns): 2231155	D5(ns): 2231405size(nbdouble): 409600	D1(ns): 2230692	D2(ns): 2230799	D3(ns): 2230889	D4(ns): 2231155	D5(ns): 2231405	D6(ns): 2231426		D6(ns): 2231426	D7(ns): 2231446	D8(ns): 2231524	D9(ns): 2231639
+# height(nbdouble): 656	 width(nbdouble): 656	 niter: 232
+D7(ns): 2231446	D8(ns): 2231524	D9(ns): 2231639
+# height(nbdouble): 656	 width(nbdouble): 656	 niter: 232
+size(nbdouble): 430336	D1(ns): 2343366	D2(ns): 2343392	D3(ns): 2343418	D4(ns): 2343663size(nbdouble): 430336	D1(ns): 2343366	D2(ns): 2343392	D3(ns): 2343418	D4(ns): 2343663	D5(ns): 2343991	D6(ns): 2344202	D7(ns): 2344370	D8(ns): 2344525	D5(ns): 2343991	D6(ns): 2344202	D7(ns): 2344370	D8(ns): 2344525	D9(ns): 2345258
+# height(nbdouble): 672	 width(nbdouble): 672	 niter: 221
+	D9(ns): 2345258
+# height(nbdouble): 672	 width(nbdouble): 672	 niter: 221
+size(nbdouble): 451584	D1(ns): 2456850	D2(ns): 2456945	D3(ns): 2457040	size(nbdouble): 451584	D1(ns): 2456850	D2(ns): 2456945	D3(ns): 2457040	D4(ns): 2457063	D5(ns): 2457316	D6(ns): 2457674	D7(ns): 2457904	D8(ns): 2458429	D9(ns): 2469420
+D4(ns): 2457063	D5(ns): 2457316	D6(ns): 2457674	D7(ns): 2457904	D8(ns): 2458429# height(nbdouble): 688	 width(nbdouble): 688	 niter: 211
+	D9(ns): 2469420
+# height(nbdouble): 688	 width(nbdouble): 688	 niter: 211
+size(nbdouble): 473344	D1(ns): 2575236	D2(ns): 2575322	D3(ns): 2575350	D4(ns): 2575393	D5(ns): 2575469	size(nbdouble): 473344	D1(ns): 2575236	D2(ns): 2575322	D3(ns): 2575350	D4(ns): 2575393	D5(ns): 2575469	D6(ns): 2575620	D7(ns): 2575824	D6(ns): 2575620	D7(ns): 2575824	D8(ns): 2576018	D9(ns): 2576331
+# height(nbdouble): 704	 width(nbdouble): 704	 niter: 201
+D8(ns): 2576018	D9(ns): 2576331
+# height(nbdouble): 704	 width(nbdouble): 704	 niter: 201
+size(nbdouble): 495616	D1(ns): 2696154	D2(ns): 2696308	D3(ns): 2696661	D4(ns): 2696865size(nbdouble): 495616	D1(ns): 2696154	D2(ns): 2696308	D3(ns): 2696661	D4(ns): 2696865	D5(ns): 2696985	D6(ns): 2697238	D7(ns): 2697512	D8(ns): 2697756	D9(ns): 2698000
+	D5(ns): 2696985	D6(ns): 2697238	D7(ns): 2697512	D8(ns): 2697756	# height(nbdouble): 720	 width(nbdouble): 720	 niter: 192
+D9(ns): 2698000
+# height(nbdouble): 720	 width(nbdouble): 720	 niter: 192
+size(nbdouble): 518400	D1(ns): 2820093	D2(ns): 2820328	D3(ns): 2821661	D4(ns): 2823130	D5(ns): 2823395	D6(ns): 2823598	size(nbdouble): 518400	D1(ns): 2820093	D2(ns): 2820328	D3(ns): 2821661	D4(ns): 2823130	D5(ns): 2823395	D6(ns): 2823598	D7(ns): 2824479	D8(ns): 2825437	D7(ns): 2824479	D8(ns): 2825437	D9(ns): 2827083
+# height(nbdouble): 736	 width(nbdouble): 736	 niter: 184
+D9(ns): 2827083
+# height(nbdouble): 736	 width(nbdouble): 736	 niter: 184
+size(nbdouble): 541696	D1(ns): 2947494	D2(ns): 2948581	D3(ns): 2950201	D4(ns): 2952021size(nbdouble): 541696	D1(ns): 2947494	D2(ns): 2948581	D3(ns): 2950201	D4(ns): 2952021	D5(ns): 2953342	D6(ns): 2954097	D7(ns): 2955135	D8(ns): 2956467	D9(ns): 2959467
+# height(nbdouble): 752	D5(ns): 2953342	D6(ns): 2954097	D7(ns): 2955135	D8(ns): 2956467	D9(ns): 2959467
+	 width(nbdouble): 752	 niter: 176
+# height(nbdouble): 752	 width(nbdouble): 752	 niter: 176
+size(nbdouble): 565504	D1(ns): 3083272	D2(ns): 3085244	D3(ns): 3086909	D4(ns): 3087500	D5(ns): 3088335	D6(ns): 3089073	D7(ns): 3089636	size(nbdouble): 565504	D1(ns): 3083272	D2(ns): 3085244	D3(ns): 3086909	D4(ns): 3087500	D5(ns): 3088335	D6(ns): 3089073	D7(ns): 3089636	D8(ns): 3090886	D9(ns): 3092255
+D8(ns): 3090886	D9(ns): 3092255
+# height(nbdouble): 768	 width(nbdouble): 768	 niter: 169
+# height(nbdouble): 768	 width(nbdouble): 768	 niter: 169
+size(nbdouble): 589824	D1(ns): 3211254	D2(ns): 3212467	D3(ns): 3213869	D4(ns): 3215325	size(nbdouble): 589824	D1(ns): 3211254	D2(ns): 3212467	D3(ns): 3213869	D4(ns): 3215325	D5(ns): 3218449	D6(ns): 3220934	D7(ns): 3222094	D8(ns): 3223508	D9(ns): 3226562
+D5(ns): 3218449	D6(ns): 3220934	D7(ns): 3222094	D8(ns): 3223508	D9(ns): 3226562
+# height(nbdouble): 784	 width(nbdouble): 784	 niter: 162
+# height(nbdouble): 784	 width(nbdouble): 784	 niter: 162
+size(nbdouble): 614656	D1(ns): 3348333	D2(ns): 3351709	D3(ns): 3358962	D4(ns): 3363030	D5(ns): 3363240	D6(ns): 3364141	D7(ns): 3366851	size(nbdouble): 614656	D1(ns): 3348333	D2(ns): 3351709	D3(ns): 3358962	D4(ns): 3363030	D5(ns): 3363240	D6(ns): 3364141	D7(ns): 3366851	D8(ns): 3371043	D9(ns): 3373425
+D8(ns): 3371043	D9(ns): 3373425
+# height(nbdouble): 800	 width(nbdouble): 800	 niter: 156
+# height(nbdouble): 800	 width(nbdouble): 800	 niter: 156
+size(nbdouble): 640000	D1(ns): 3501891	D2(ns): 3502961	D3(ns): 3503339	D4(ns): 3505333	D5(ns): 3508570size(nbdouble): 640000	D1(ns): 3501891	D2(ns): 3502961	D3(ns): 3503339	D4(ns): 3505333	D5(ns): 3508570	D6(ns): 3511378	D7(ns): 3513801	D8(ns): 3516057	D6(ns): 3511378	D7(ns): 3513801	D8(ns): 3516057	D9(ns): 3518858
+# height(nbdouble): 816	D9(ns): 3518858
+# height(nbdouble): 816	 width(nbdouble): 816	 niter: 150
+	 width(nbdouble): 816	 niter: 150
+size(nbdouble): 665856	D1(ns): 3653713	D2(ns): 3655606	D3(ns): 3655920	D4(ns): 3657453	D5(ns): 3658926	D6(ns): 3660713size(nbdouble): 665856	D1(ns): 3653713	D2(ns): 3655606	D3(ns): 3655920	D4(ns): 3657453	D5(ns): 3658926	D6(ns): 3660713	D7(ns): 3664360	D8(ns): 3670920	D7(ns): 3664360	D8(ns): 3670920	D9(ns): 3675860
+# height(nbdouble): 832	 width(nbdouble): 832	 niter: 144
+	D9(ns): 3675860
+# height(nbdouble): 832	 width(nbdouble): 832	 niter: 144
+size(nbdouble): 692224	D1(ns): 3797041	D2(ns): 3799423	D3(ns): 3803444	D4(ns): 3808993	D5(ns): 3811625size(nbdouble): 692224	D1(ns): 3797041	D2(ns): 3799423	D3(ns): 3803444	D4(ns): 3808993	D5(ns): 3811625	D6(ns): 3812729	D7(ns): 3813833	D8(ns): 3815722	D6(ns): 3812729	D7(ns): 3813833	D8(ns): 3815722	D9(ns): 3823236
+# height(nbdouble): 848	 width(nbdouble): 848	 niter: 139
+	D9(ns): 3823236
+# height(nbdouble): 848	 width(nbdouble): 848	 niter: 139
+size(nbdouble): 719104	D1(ns): 3942769	D2(ns): 3944971	D3(ns): 3952812	D4(ns): 3961625	size(nbdouble): 719104	D1(ns): 3942769	D2(ns): 3944971	D3(ns): 3952812	D4(ns): 3961625	D5(ns): 3964388	D6(ns): 3965748	D7(ns): 3966719	D8(ns): 3971115	D9(ns): 3992172
+D5(ns): 3964388	D6(ns): 3965748	D7(ns): 3966719	D8(ns): 3971115	D9(ns): 3992172
+# height(nbdouble): 864# height(nbdouble): 864	 width(nbdouble): 864	 niter: 133
+	 width(nbdouble): 864	 niter: 133
+size(nbdouble): 746496	D1(ns): 4105308	D2(ns): 4108007	D3(ns): 4108879	D4(ns): 4117383size(nbdouble): 746496	D1(ns): 4105308	D2(ns): 4108007	D3(ns): 4108879	D4(ns): 4117383	D5(ns): 4126240	D6(ns): 4127601	D7(ns): 4129090	D5(ns): 4126240	D6(ns): 4127601	D7(ns): 4129090	D8(ns): 4133834	D9(ns): 4139827
+	D8(ns): 4133834	D9(ns): 4139827
+# height(nbdouble): 880	 width(nbdouble): 880	 niter: 129
+# height(nbdouble): 880	 width(nbdouble): 880	 niter: 129
+size(nbdouble): 774400	D1(ns): 4271759	D2(ns): 4274503	D3(ns): 4277868size(nbdouble): 774400	D1(ns): 4271759	D2(ns): 4274503	D3(ns): 4277868	D4(ns): 4280418	D4(ns): 4280418	D5(ns): 4282325	D6(ns): 4283248	D7(ns): 4284868	D5(ns): 4282325	D6(ns): 4283248	D7(ns): 4284868	D8(ns): 4287651	D9(ns): 4292666
+# RAM (8589934592o == 536870912 dbl/mat)
+# for 16777216o to 8589934592o step 4194304o
+	D8(ns): 4287651	D9(ns): 4292666
+# RAM (8589934592o == 536870912 dbl/mat)
+# for 16777216o to 8589934592o step 4194304o
+# height(nbdouble): 1024	 width(nbdouble): 1024	 niter: 95
+# height(nbdouble): 1024	 width(nbdouble): 1024	 niter: 95
+size(nbdouble): 1048576	D1(ns): 6501726	D2(ns): 6502600	size(nbdouble): 1048576	D1(ns): 6501726	D2(ns): 6502600	D3(ns): 6503694	D4(ns): 6504989	D5(ns): 6505494	D6(ns): 6506315D3(ns): 6503694	D4(ns): 6504989	D5(ns): 6505494	D6(ns): 6506315	D7(ns): 6509947	D8(ns): 6513021	D9(ns): 6513063
+	D7(ns): 6509947	D8(ns): 6513021	D9(ns): 6513063
+# height(nbdouble): 1536	# height(nbdouble): 1536	 width(nbdouble): 1536	 niter: 42
+ width(nbdouble): 1536	 niter: 42
+size(nbdouble): 2359296	D1(ns): 13318238	D2(ns): 13318571	D3(ns): 13319404	size(nbdouble): 2359296	D1(ns): 13318238	D2(ns): 13318571	D3(ns): 13319404	D4(ns): 13320142	D5(ns): 13320404	D6(ns): 13321119	D7(ns): 13321952	D8(ns): 13322714	D4(ns): 13320142	D5(ns): 13320404	D6(ns): 13321119	D7(ns): 13321952	D8(ns): 13322714	D9(ns): 13324500
+# height(nbdouble): 2048	D9(ns): 13324500
+# height(nbdouble): 2048	 width(nbdouble): 2048	 niter: 23
+ width(nbdouble): 2048	 niter: 23
+size(nbdouble): 4194304	D1(ns): 26083347	D2(ns): 26083826	D3(ns): 26085130	D4(ns): 26088608	D5(ns): 26094000	D6(ns): 26097217size(nbdouble): 4194304	D1(ns): 26083347	D2(ns): 26083826	D3(ns): 26085130	D4(ns): 26088608	D5(ns): 26094000	D6(ns): 26097217	D7(ns): 26098086	D8(ns): 26098782	D9(ns): 26099304
+# height(nbdouble): 2560	 width(nbdouble): 2560	 niter: 15
+	D7(ns): 26098086	D8(ns): 26098782	D9(ns): 26099304
+# height(nbdouble): 2560	 width(nbdouble): 2560	 niter: 15
+size(nbdouble): 6553600	D1(ns): 36842800	D2(ns): 36844333	D3(ns): 36845933size(nbdouble): 6553600	D1(ns): 36842800	D2(ns): 36844333	D3(ns): 36845933	D4(ns): 36847133	D5(ns): 36848266	D6(ns): 36851800	D4(ns): 36847133	D5(ns): 36848266	D6(ns): 36851800	D7(ns): 36855200	D8(ns): 36859666	D9(ns): 36865866
+	D7(ns): 36855200	D8(ns): 36859666	D9(ns): 36865866
+# height(nbdouble): 3072	 width(nbdouble): 3072# height(nbdouble): 3072	 width(nbdouble): 3072	 niter: 10
+	 niter: 10
+size(nbdouble): 9437184	D1(ns): 58563900	D2(ns): 58565100	D3(ns): 58565800size(nbdouble): 9437184	D1(ns): 58563900	D2(ns): 58565100	D3(ns): 58565800	D4(ns): 58568000	D5(ns): 58570700	D6(ns): 58575400	D7(ns): 58580000	D8(ns): 58584800	D9(ns): 58591300
+	D4(ns): 58568000	D5(ns): 58570700	D6(ns): 58575400	D7(ns): 58580000	D8(ns): 58584800	D9(ns): 58591300
+# height(nbdouble): 3584	 width(nbdouble): 3584	 niter: 7
+# height(nbdouble): 3584	 width(nbdouble): 3584	 niter: 7
+size(nbdouble): 12845056	D1(ns): 72090285	D2(ns): 72092714size(nbdouble): 12845056	D1(ns): 72090285	D2(ns): 72092714	D3(ns): 72098000	D4(ns): 72110428	D5(ns): 72193857	D6(ns): 72269571	D7(ns): 72271285		D3(ns): 72098000	D4(ns): 72110428	D5(ns): 72193857	D6(ns): 72269571	D7(ns): 72271285	D8(ns): 72272142D8(ns): 72272142	D9(ns): 72283428
+# height(nbdouble): 4096	 width(nbdouble): 4096	 niter: 5
+	D9(ns): 72283428
+# height(nbdouble): 4096	 width(nbdouble): 4096	 niter: 5
+size(nbdouble): 16777216	D1(ns): 104232200	D2(ns): 104233800size(nbdouble): 16777216	D1(ns): 104232200	D2(ns): 104233800	D3(ns): 104236000	D4(ns): 104240400	D5(ns): 104245400	D6(ns): 104251800	D3(ns): 104236000	D4(ns): 104240400	D5(ns): 104245400	D6(ns): 104251800	D7(ns): 104258200	D8(ns): 104263800	D9(ns): 104280800
+	D7(ns): 104258200	D8(ns): 104263800	D9(ns): 104280800
+# height(nbdouble): 4608	 width(nbdouble): 4608	 niter: 4
+# height(nbdouble): 4608	 width(nbdouble): 4608	 niter: 4
+size(nbdouble): 21233664	D1(ns): 119038000	D2(ns): 119048500	size(nbdouble): 21233664	D1(ns): 119038000	D2(ns): 119048500	D3(ns): 119082000	D4(ns): 119177000	D5(ns): 119289250	D6(ns): 119346750	D7(ns): 119371250	D8(ns): 119528500	D3(ns): 119082000	D4(ns): 119177000	D5(ns): 119289250	D6(ns): 119346750	D7(ns): 119371250	D8(ns): 119528500	D9(ns): 119960500
+# height(nbdouble): 5120	 width(nbdouble): 5120	 niter: 3
+D9(ns): 119960500
+# height(nbdouble): 5120	 width(nbdouble): 5120	 niter: 3
+size(nbdouble): 26214400	D1(ns): 162854333	D2(ns): 162863666	D3(ns): 162877666	D4(ns): 162884333	D5(ns): 162911333	D6(ns): 162945333	D7(ns): 163032333	D8(ns): 163117333size(nbdouble): 26214400	D1(ns): 162854333	D2(ns): 162863666	D3(ns): 162877666	D4(ns): 162884333	D5(ns): 162911333	D6(ns): 162945333	D7(ns): 163032333	D8(ns): 163117333		D9(ns): 163169000
+# height(nbdouble): 5632	 width(nbdouble): 5632	 niter: 3
+D9(ns): 163169000
+# height(nbdouble): 5632	 width(nbdouble): 5632	 niter: 3
+size(nbdouble): 31719424	D1(ns): 179051666	D2(ns): 179056000	D3(ns): 179064000	D4(ns): 179075666size(nbdouble): 31719424	D1(ns): 179051666	D2(ns): 179056000	D3(ns): 179064000	D4(ns): 179075666	D5(ns): 179082000	D6(ns): 179083333	D7(ns): 179089333	D8(ns): 179107333	D9(ns): 179124000
+	D5(ns): 179082000	D6(ns): 179083333	D7(ns): 179089333	D8(ns): 179107333	D9(ns): 179124000
+# height(nbdouble): 6144	 width(nbdouble): 6144	 niter: 2
+# height(nbdouble): 6144	 width(nbdouble): 6144	 niter: 2
+size(nbdouble): 37748736	D1(ns): 234960500	D2(ns): 234970500	D3(ns): 234980500	D4(ns): 234986500	D5(ns): 235001000	D6(ns): 235025500	D7(ns): 235039000	D8(ns): 235042500	size(nbdouble): 37748736	D1(ns): 234960500	D2(ns): 234970500	D3(ns): 234980500	D4(ns): 234986500	D5(ns): 235001000	D6(ns): 235025500	D7(ns): 235039000	D8(ns): 235042500	D9(ns): 235046500
+D9(ns): 235046500
+# height(nbdouble): 6656	 width(nbdouble): 6656	 niter: 2
+# height(nbdouble): 6656	 width(nbdouble): 6656	 niter: 2
+size(nbdouble): 44302336	D1(ns): 249998000	D2(ns): 250018000	D3(ns): 250021000	D4(ns): 250032000	D5(ns): 250044000	D6(ns): 250049000	size(nbdouble): 44302336	D1(ns): 249998000	D2(ns): 250018000	D3(ns): 250021000	D4(ns): 250032000	D5(ns): 250044000	D6(ns): 250049000	D7(ns): 250055500	D8(ns): 250066500	D9(ns): 250089000
+# height(nbdouble): 7168	 width(nbdouble): 7168	 niter: 2
+D7(ns): 250055500	D8(ns): 250066500	D9(ns): 250089000
+# height(nbdouble): 7168	 width(nbdouble): 7168	 niter: 2
+size(nbdouble): 51380224	D1(ns): 319658000	D2(ns): 319816500	D3(ns): 319836500	D4(ns): 319853000	D5(ns): 319855000	D6(ns): 319864500	D7(ns): 319881500size(nbdouble): 51380224	D1(ns): 319658000	D2(ns): 319816500	D3(ns): 319836500	D4(ns): 319853000	D5(ns): 319855000	D6(ns): 319864500		D8(ns): 319904500	D9(ns): 319946000
+# height(nbdouble): 7680	 width(nbdouble): 7680	 niter: 2
+D7(ns): 319881500	D8(ns): 319904500	D9(ns): 319946000
+# height(nbdouble): 7680	 width(nbdouble): 7680	 niter: 2
+size(nbdouble): 58982400	D1(ns): 332841000	D2(ns): 332859000	D3(ns): 332868000	D4(ns): 332886000	D5(ns): 332906500	size(nbdouble): 58982400	D1(ns): 332841000	D2(ns): 332859000	D3(ns): 332868000	D4(ns): 332886000	D5(ns): 332906500	D6(ns): 332916000	D7(ns): 332928500	D8(ns): 332948500	D9(ns): 332979000
+# height(nbdouble): 8192	 width(nbdouble): 8192	 niter: 2
+D6(ns): 332916000	D7(ns): 332928500	D8(ns): 332948500	D9(ns): 332979000
+# height(nbdouble): 8192	 width(nbdouble): 8192	 niter: 2
+size(nbdouble): 67108864	D1(ns): 416744500	D2(ns): 416765500	D3(ns): 417102000	D4(ns): 417557500size(nbdouble): 67108864	D1(ns): 416744500	D2(ns): 416765500	D3(ns): 417102000	D4(ns): 417557500	D5(ns): 417693500	D6(ns): 417714000	D7(ns): 417745500	D8(ns): 417793500	D9(ns): 417830500
+# height(nbdouble): 8704	 width(nbdouble): 8704	 niter: 2
+	D5(ns): 417693500	D6(ns): 417714000	D7(ns): 417745500	D8(ns): 417793500	D9(ns): 417830500
+# height(nbdouble): 8704	 width(nbdouble): 8704	 niter: 2
+size(nbdouble): 75759616	D1(ns): 427708000	D2(ns): 427719500	D3(ns): 427731000	D4(ns): 427751500	D5(ns): 427780500	D6(ns): 427803500	size(nbdouble): 75759616	D1(ns): 427708000	D2(ns): 427719500	D3(ns): 427731000	D4(ns): 427751500	D5(ns): 427780500	D6(ns): 427803500	D7(ns): 427828000	D8(ns): 427857000	D9(ns): 427882500
+D7(ns): 427828000	D8(ns): 427857000	D9(ns): 427882500
+# height(nbdouble): 9216	 width(nbdouble): 9216	 niter: 2
+# height(nbdouble): 9216	 width(nbdouble): 9216	 niter: 2
+size(nbdouble): 84934656	D1(ns): 528501500	D2(ns): 528524000	D3(ns): 528535500	D4(ns): 528540000	D5(ns): 528550500	D6(ns): 528562500	D7(ns): 528584500	size(nbdouble): 84934656	D1(ns): 528501500	D2(ns): 528524000	D3(ns): 528535500	D4(ns): 528540000	D5(ns): 528550500	D6(ns): 528562500	D7(ns): 528584500	D8(ns): 528610500	D9(ns): 528622500
+# height(nbdouble): 9728	D8(ns): 528610500	D9(ns): 528622500
+# height(nbdouble): 9728	 width(nbdouble): 9728	 niter: 2
+ width(nbdouble): 9728	 niter: 2
+size(nbdouble): 94633984	D1(ns): 533879000	D2(ns): 533893500	D3(ns): 533900500	D4(ns): 533925000	D5(ns): 533959500	D6(ns): 533970500size(nbdouble): 94633984	D1(ns): 533879000	D2(ns): 533893500	D3(ns): 533900500	D4(ns): 533925000	D5(ns): 533959500	D6(ns): 533970500	D7(ns): 533982500	D8(ns): 534028000	D9(ns): 534093500
+# height(nbdouble): 10240		D7(ns): 533982500	D8(ns): 534028000	D9(ns): 534093500
+# height(nbdouble): 10240	 width(nbdouble): 10240 width(nbdouble): 10240	 niter: 2
+	 niter: 2
+size(nbdouble): 104857600	D1(ns): 651023500	D2(ns): 651309500	D3(ns): 651567000	D4(ns): 651837500	D5(ns): 652159000	D6(ns): 652418500	D7(ns): 652461500	size(nbdouble): 104857600	D1(ns): 651023500	D2(ns): 651309500	D3(ns): 651567000	D4(ns): 651837500	D5(ns): 652159000	D6(ns): 652418500	D7(ns): 652461500	D8(ns): 652518500	D9(ns): 652604500
+D8(ns): 652518500	D9(ns): 652604500
+# height(nbdouble): 10752	 width(nbdouble): 10752	 niter: 2
+# height(nbdouble): 10752	 width(nbdouble): 10752	 niter: 2
+size(nbdouble): 115605504	D1(ns): 650515000	D2(ns): 650526000	D3(ns): 650536000	D4(ns): 650537500	D5(ns): 650553000	D6(ns): 650581500size(nbdouble): 115605504	D1(ns): 650515000	D2(ns): 650526000	D3(ns): 650536000	D4(ns): 650537500	D5(ns): 650553000	D6(ns): 650581500	D7(ns): 650601000	D8(ns): 650871000	D9(ns): 651505000
+# height(nbdouble): 11264		D7(ns): 650601000	D8(ns): 650871000	D9(ns): 651505000
+# height(nbdouble): 11264	 width(nbdouble): 11264	 niter: 2
+ width(nbdouble): 11264	 niter: 2
+size(nbdouble): 126877696	D1(ns): 787424500	D2(ns): 787432000	D3(ns): 787456500	D4(ns): 787509000size(nbdouble): 126877696	D1(ns): 787424500	D2(ns): 787432000	D3(ns): 787456500	D4(ns): 787509000	D5(ns): 787547500	D6(ns): 787561000	D7(ns): 787594000	D8(ns): 787645000	D9(ns): 788506500
+# height(nbdouble): 11776	 width(nbdouble): 11776	 niter: 2
+	D5(ns): 787547500	D6(ns): 787561000	D7(ns): 787594000	D8(ns): 787645000	D9(ns): 788506500
+# height(nbdouble): 11776	 width(nbdouble): 11776	 niter: 2
+size(nbdouble): 138674176	D1(ns): 780270500	D2(ns): 780295000	D3(ns): 780304000	D4(ns): 780345000	D5(ns): 780424500	size(nbdouble): 138674176	D1(ns): 780270500	D2(ns): 780295000	D3(ns): 780304000	D4(ns): 780345000	D5(ns): 780424500	D6(ns): 780483000	D7(ns): 780540000	D8(ns): 781026000	D9(ns): 781646500
+# height(nbdouble): 12288	 width(nbdouble): 12288	 niter: 2
+D6(ns): 780483000	D7(ns): 780540000	D8(ns): 781026000	D9(ns): 781646500
+# height(nbdouble): 12288	 width(nbdouble): 12288	 niter: 2
+size(nbdouble): 150994944	D1(ns): 937124000	D2(ns): 937207000	D3(ns): 937903000	D4(ns): 938568500	D5(ns): 938646500	D6(ns): 938691000	size(nbdouble): 150994944	D1(ns): 937124000	D2(ns): 937207000	D3(ns): 937903000	D4(ns): 938568500	D5(ns): 938646500	D6(ns): 938691000	D7(ns): 938765500	D8(ns): 938941500	D9(ns): 939093000
+D7(ns): 938765500	D8(ns): 938941500	D9(ns): 939093000
+# height(nbdouble): 12800	 width(nbdouble): 12800	 niter: 2
+# height(nbdouble): 12800	 width(nbdouble): 12800	 niter: 2
+size(nbdouble): 163840000	D1(ns): 921852000	D2(ns): 922044000	D3(ns): 922261000	D4(ns): 922667000	D5(ns): 923247500	D6(ns): 923470000	D7(ns): 923642000size(nbdouble): 163840000	D1(ns): 921852000	D2(ns): 922044000	D3(ns): 922261000	D4(ns): 922667000	D5(ns): 923247500	D6(ns): 923470000	D7(ns): 923642000	D8(ns): 923928500	D9(ns): 924109500
+# height(nbdouble): 13312	 width(nbdouble): 13312	D8(ns): 923928500	D9(ns): 924109500
+# height(nbdouble): 13312	 width(nbdouble): 13312	 niter: 2
+	 niter: 2
+size(nbdouble): 177209344	D1(ns): 1099811500	D2(ns): 1099864000	D3(ns): 1099882000	D4(ns): 1099937000	D5(ns): 1100071500size(nbdouble): 177209344	D1(ns): 1099811500	D2(ns): 1099864000	D3(ns): 1099882000	D4(ns): 1099937000	D5(ns): 1100071500	D6(ns): 1100801000	D7(ns): 1101603000	D8(ns): 1101971000	D9(ns): 1102330000
+# height(nbdouble): 13824		D6(ns): 1100801000	D7(ns): 1101603000	D8(ns): 1101971000	D9(ns): 1102330000
+# height(nbdouble): 13824	 width(nbdouble): 13824	 niter: 2
+ width(nbdouble): 13824	 niter: 2
+size(nbdouble): 191102976	D1(ns): 1075194000	D2(ns): 1075226500	D3(ns): 1075243000	D4(ns): 1075335500	size(nbdouble): 191102976	D1(ns): 1075194000	D2(ns): 1075226500	D3(ns): 1075243000	D4(ns): 1075335500	D5(ns): 1075447500	D6(ns): 1076099000	D7(ns): 1077029000	D8(ns): 1077476000	D9(ns): 1077712000
+# height(nbdouble): 14336	 width(nbdouble): 14336	 niter: 2
+D5(ns): 1075447500	D6(ns): 1076099000	D7(ns): 1077029000	D8(ns): 1077476000	D9(ns): 1077712000
+# height(nbdouble): 14336	 width(nbdouble): 14336	 niter: 2
+size(nbdouble): 205520896	D1(ns): 1275538000	D2(ns): 1275560000	D3(ns): 1275566500	D4(ns): 1275574000	D5(ns): 1275583000	D6(ns): 1275602000	size(nbdouble): 205520896	D1(ns): 1275538000	D2(ns): 1275560000	D3(ns): 1275566500	D4(ns): 1275574000	D5(ns): 1275583000	D6(ns): 1275602000	D7(ns): 1275703500	D8(ns): 1275994500	D9(ns): 1277175500
+# height(nbdouble): 14848	 width(nbdouble): 14848	 niter: 2
+D7(ns): 1275703500	D8(ns): 1275994500	D9(ns): 1277175500
+# height(nbdouble): 14848	 width(nbdouble): 14848	 niter: 2
+size(nbdouble): 220463104	D1(ns): 1240380000	D2(ns): 1240408000	D3(ns): 1240448000	D4(ns): 1240510000	D5(ns): 1240733500	D6(ns): 1241557500	D7(ns): 1242774500size(nbdouble): 220463104	D1(ns): 1240380000	D2(ns): 1240408000	D3(ns): 1240448000	D4(ns): 1240510000	D5(ns): 1240733500	D6(ns): 1241557500	D7(ns): 1242774500	D8(ns): 1243389500	D9(ns): 1243454500
+	D8(ns): 1243389500	D9(ns): 1243454500
+# height(nbdouble): 15360	 width(nbdouble): 15360	 niter: 2
+# height(nbdouble): 15360	 width(nbdouble): 15360	 niter: 2
+size(nbdouble): 235929600	D1(ns): 1465072000	D2(ns): 1465529500	D3(ns): 1465814000	D4(ns): 1465999500	D5(ns): 1466459000	D6(ns): 1466839000	size(nbdouble): 235929600	D1(ns): 1465072000	D2(ns): 1465529500	D3(ns): 1465814000	D4(ns): 1465999500	D5(ns): 1466459000	D6(ns): 1466839000	D7(ns): 1467001500	D8(ns): 1467128000	D9(ns): 1467524000
+# height(nbdouble): 15872	 width(nbdouble): 15872	 niter: 2
+D7(ns): 1467001500	D8(ns): 1467128000	D9(ns): 1467524000
+# height(nbdouble): 15872	 width(nbdouble): 15872	 niter: 2
+size(nbdouble): 251920384	D1(ns): 1418260500	D2(ns): 1419053500	D3(ns): 1419503500	D4(ns): 1419829500	D5(ns): 1419917500	D6(ns): 1420213000	D7(ns): 1420474000	D8(ns): 1420554000	size(nbdouble): 251920384	D1(ns): 1418260500	D2(ns): 1419053500	D3(ns): 1419503500	D4(ns): 1419829500	D5(ns): 1419917500	D6(ns): 1420213000	D7(ns): 1420474000	D8(ns): 1420554000	D9(ns): 1420760500
+D9(ns): 1420760500
+# height(nbdouble): 16384	 width(nbdouble): 16384	 niter: 2
+# height(nbdouble): 16384	 width(nbdouble): 16384	 niter: 2
+size(nbdouble): 268435456	D1(ns): 1676510500	D2(ns): 1676841500	D3(ns): 1676980000	D4(ns): 1677346000	D5(ns): 1677716000	D6(ns): 1677998500	D7(ns): 1678866000	D8(ns): 1679614500	D9(ns): 1679851500
+size(nbdouble): 268435456	D1(ns): 1676510500	D2(ns): 1676841500	D3(ns): 1676980000	D4(ns): 1677346000	D5(ns): 1677716000	D6(ns): 1677998500	D7(ns): 1678866000	D8(ns): 1679614500	D9(ns): 1679851500
+# height(nbdouble): 16896	 width(nbdouble): 16896# height(nbdouble): 16896	 width(nbdouble): 16896	 niter: 2
+	 niter: 2
+size(nbdouble): 285474816	D1(ns): 1607233000	D2(ns): 1607287500	D3(ns): 1607333000	D4(ns): 1607360000	D5(ns): 1607383500	D6(ns): 1608609500	D7(ns): 1610038000size(nbdouble): 285474816	D1(ns): 1607233000	D2(ns): 1607287500	D3(ns): 1607333000	D4(ns): 1607360000	D5(ns): 1607383500	D6(ns): 1608609500	D7(ns): 1610038000		D8(ns): 1610671000	D9(ns): 1611140500
+# height(nbdouble): 17408	 width(nbdouble): 17408	 niter: 2
+D8(ns): 1610671000	D9(ns): 1611140500
+# height(nbdouble): 17408	 width(nbdouble): 17408	 niter: 2
+size(nbdouble): 303038464	D1(ns): 1893643500	D2(ns): 1894439500	D3(ns): 1895774000	size(nbdouble): 303038464	D1(ns): 1893643500	D2(ns): 1894439500	D3(ns): 1895774000	D4(ns): 1896682000	D5(ns): 1897512000	D6(ns): 1898090000	D7(ns): 1898154500	D8(ns): 1898181000	D9(ns): 1898235000
+# height(nbdouble): 17920	 width(nbdouble): 17920D4(ns): 1896682000	D5(ns): 1897512000	D6(ns): 1898090000	D7(ns): 1898154500	D8(ns): 1898181000	D9(ns): 1898235000
+# height(nbdouble): 17920	 width(nbdouble): 17920	 niter: 2
+	 niter: 2
+size(nbdouble): 321126400	D1(ns): 1807789000	D2(ns): 1809831500	D3(ns): 1811318500	D4(ns): 1811481500	D5(ns): 1811504500	D6(ns): 1811518000	D7(ns): 1811534000	D8(ns): 1811544000	size(nbdouble): 321126400	D1(ns): 1807789000	D2(ns): 1809831500	D3(ns): 1811318500	D4(ns): 1811481500	D5(ns): 1811504500	D6(ns): 1811518000	D7(ns): 1811534000	D8(ns): 1811544000	D9(ns): 1811588500
+D9(ns): 1811588500
+# height(nbdouble): 18432	 width(nbdouble): 18432	 niter: 2
+# height(nbdouble): 18432	 width(nbdouble): 18432	 niter: 2
+size(nbdouble): 339738624	D1(ns): 2112903000	D2(ns): 2112915000	D3(ns): 2112920000	D4(ns): 2112925500	D5(ns): 2112930500	D6(ns): 2112939000	D7(ns): 2113009500	D8(ns): 2113074000	size(nbdouble): 339738624	D1(ns): 2112903000	D2(ns): 2112915000	D3(ns): 2112920000	D4(ns): 2112925500	D5(ns): 2112930500	D6(ns): 2112939000	D7(ns): 2113009500	D8(ns): 2113074000	D9(ns): 2113295500
+D9(ns): 2113295500
+# height(nbdouble): 18944	 width(nbdouble): 18944	 niter: 2
+# height(nbdouble): 18944	 width(nbdouble): 18944	 niter: 2
+size(nbdouble): 358875136	D1(ns): 2021245000	D2(ns): 2022892500	D3(ns): 2023192500	D4(ns): 2023207000	D5(ns): 2023232000	D6(ns): 2023256500size(nbdouble): 358875136	D1(ns): 2021245000	D2(ns): 2022892500	D3(ns): 2023192500	D4(ns): 2023207000	D5(ns): 2023232000	D6(ns): 2023256500	D7(ns): 2023302500	D8(ns): 2023355000	D9(ns): 2023503500
+# height(nbdouble): 19456	 width(nbdouble): 19456	D7(ns): 2023302500	D8(ns): 2023355000	D9(ns): 2023503500
+# height(nbdouble): 19456	 width(nbdouble): 19456	 niter: 2
+	 niter: 2
+size(nbdouble): 378535936	D1(ns): 2353731500	D2(ns): 2353741500	D3(ns): 2353797000	size(nbdouble): 378535936	D1(ns): 2353731500	D2(ns): 2353741500	D3(ns): 2353797000	D4(ns): 2353852000	D5(ns): 2353866500	D6(ns): 2353899000	D7(ns): 2353928500	D8(ns): 2354022000	D9(ns): 2354210500
+# height(nbdouble): 19968	 width(nbdouble): 19968D4(ns): 2353852000	D5(ns): 2353866500	D6(ns): 2353899000	D7(ns): 2353928500	D8(ns): 2354022000	D9(ns): 2354210500
+# height(nbdouble): 19968	 width(nbdouble): 19968	 niter: 2
+	 niter: 2
+size(nbdouble): 398721024	D1(ns): 2246656500	D2(ns): 2247580500	D3(ns): 2247607000	D4(ns): 2247632000	D5(ns): 2247639500	D6(ns): 2247683000size(nbdouble): 398721024	D1(ns): 2246656500	D2(ns): 2247580500	D3(ns): 2247607000	D4(ns): 2247632000	D5(ns): 2247639500	D6(ns): 2247683000	D7(ns): 2247751000	D8(ns): 2247791000	D9(ns): 2247828500
+# height(nbdouble): 20480	 width(nbdouble): 20480	D7(ns): 2247751000	D8(ns): 2247791000	D9(ns): 2247828500
+# height(nbdouble): 20480	 width(nbdouble): 20480	 niter: 2
+	 niter: 2
+size(nbdouble): 419430400	D1(ns): 2604405500	D2(ns): 2605159000	D3(ns): 2606222500	D4(ns): 2606643500	D5(ns): 2606735500	D6(ns): 2606821500	D7(ns): 2607345000	D8(ns): 2608034000	D9(ns): 2608481000
+size(nbdouble): 419430400	D1(ns): 2604405500	D2(ns): 2605159000	D3(ns): 2606222500	D4(ns): 2606643500	D5(ns): 2606735500	D6(ns): 2606821500	D7(ns): 2607345000	D8(ns): 2608034000	D9(ns): 2608481000
+# height(nbdouble): 20992# height(nbdouble): 20992	 width(nbdouble): 20992	 niter: 2
+	 width(nbdouble): 20992	 niter: 2
+size(nbdouble): 440664064	D1(ns): 2481634000	D2(ns): 2482100000	D3(ns): 2482365000	D4(ns): 2482766500	D5(ns): 2483402500	size(nbdouble): 440664064	D1(ns): 2481634000	D2(ns): 2482100000	D3(ns): 2482365000	D4(ns): 2482766500	D5(ns): 2483402500	D6(ns): 2483888000	D7(ns): 2483936000	D8(ns): 2483974000	D9(ns): 2484033500
+D6(ns): 2483888000	D7(ns): 2483936000	D8(ns): 2483974000	D9(ns): 2484033500
+# height(nbdouble): 21504	 width(nbdouble): 21504	 niter: 2
+# height(nbdouble): 21504	 width(nbdouble): 21504	 niter: 2
+size(nbdouble): 462422016	D1(ns): 2868497000	D2(ns): 2869769500	D3(ns): 2871072000	D4(ns): 2872371500size(nbdouble): 462422016	D1(ns): 2868497000	D2(ns): 2869769500	D3(ns): 2871072000	D4(ns): 2872371500	D5(ns): 2873945000	D6(ns): 2874719000	D7(ns): 2875095000	D8(ns): 2875142000	D9(ns): 2875162000
+# height(nbdouble): 22016	 width(nbdouble): 22016	 niter: 2
+	D5(ns): 2873945000	D6(ns): 2874719000	D7(ns): 2875095000	D8(ns): 2875142000	D9(ns): 2875162000
+# height(nbdouble): 22016	 width(nbdouble): 22016	 niter: 2
+size(nbdouble): 484704256	D1(ns): 2730272500	D2(ns): 2730468000	D3(ns): 2731232500	D4(ns): 2731862500	D5(ns): 2731911500	D6(ns): 2731973500	D7(ns): 2732043500	D8(ns): 2732214000size(nbdouble): 484704256	D1(ns): 2730272500	D2(ns): 2730468000	D3(ns): 2731232500	D4(ns): 2731862500	D5(ns): 2731911500	D6(ns): 2731973500	D7(ns): 2732043500	D8(ns): 2732214000	D9(ns): 2732514000
+	D9(ns): 2732514000
+# height(nbdouble): 22528	 width(nbdouble): 22528	 niter: 2
+# height(nbdouble): 22528	 width(nbdouble): 22528	 niter: 2
+size(nbdouble): 507510784	D1(ns): 3153304000	D2(ns): 3153610000	D3(ns): 3154387500	D4(ns): 3155176500	D5(ns): 3155212500	D6(ns): 3155231000	D7(ns): 3155340000size(nbdouble): 507510784	D1(ns): 3153304000	D2(ns): 3153610000	D3(ns): 3154387500	D4(ns): 3155176500	D5(ns): 3155212500	D6(ns): 3155231000	D7(ns): 3155340000	D8(ns): 3155480500	D9(ns): 3155827500
+# height(nbdouble): 23040	 width(nbdouble): 23040		D8(ns): 3155480500	D9(ns): 3155827500
+# height(nbdouble): 23040	 width(nbdouble): 23040	 niter: 2
+ niter: 2
+size(nbdouble): 530841600	D1(ns): 2990977000	D2(ns): 2991634000	D3(ns): 2991683500	D4(ns): 2991693500	D5(ns): 2991756000	size(nbdouble): 530841600	D1(ns): 2990977000	D2(ns): 2991634000	D3(ns): 2991683500	D4(ns): 2991693500	D5(ns): 2991756000	D6(ns): 2991881000	D7(ns): 2991971500	D8(ns): 2992014500	D9(ns): 2992177000
+# DONE (kthxbye)
+D6(ns): 2991881000	D7(ns): 2991971500	D8(ns): 2992014500	D9(ns): 2992177000
+# DONE (kthxbye)

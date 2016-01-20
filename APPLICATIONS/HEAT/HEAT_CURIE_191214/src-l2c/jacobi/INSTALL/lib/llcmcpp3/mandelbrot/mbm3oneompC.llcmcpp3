@@ -1,0 +1,66 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns="http://avalon.inria.fr/llcmcpp3">
+  <process id="M" >
+    <instance id="mbm0" type="llcm_MandelbrotRunMulti">
+      <property id="R0"><value type="complex double">(-1.5,-1)</value></property>
+      <property id="R1"><value type="complex double">(0.5,1)</value></property>
+      <property id="NX"><value type="unsigned">1024</value></property>
+      <property id="NY"><value type="unsigned">1024</value></property>
+      <property id="NBX"><value type="unsigned">2</value></property>
+      <property id="NBY"><value type="unsigned">1</value></property>
+      <property id="DUMP"><value type="unsigned">1</value></property>
+      <property id="CMODE"><value type="string">OMP</value></property>
+      <property id="DMODE"><value type="string">ONE</value></property>
+      <property id="DUMPFILE"><value type="string">/tmp/m.pgm</value></property>
+      <property id="umbmgs"><propref instance="mbr0c" property="pmbmg"/></property>
+      <property id="umbmgs"><propref instance="mbr1c" property="pmbmg"/></property>
+      <property id="ua2dd"><propref instance="d0" property="pa2dd"/></property>
+      <start property="go"/>
+    </instance>
+    <instance id="d0"   type="llcm_Dumper"/>
+    <instance id="mbr0c" type="MandelbrotProxyClient"/>
+    <instance id="mbr1c" type="MandelbrotProxyClient"/>
+  </process>
+
+  <process id="W0">
+    <instance id="mbr0s"   type="MandelbrotProxyServer">
+      <property id="umbmg"><propref instance="mbr0" property="pmbmg"/></property>
+    </instance>
+    <instance id="mbr0" type="llcm_MandelbrotRun">
+      <property id="R0"><value type="complex double">(-1.5,-1)</value></property>
+      <property id="R1"><value type="complex double">(-0.5,1)</value></property>
+      <property id="NX"><value type="unsigned">512</value></property>
+      <property id="NY"><value type="unsigned">1024</value></property>
+      <property id="NBITER"><value type="unsigned">256</value></property>
+      <property id="DUMP"><value type="unsigned">0</value></property>
+      <property id="umb"><propref instance="mb0" property="pmb"/></property>
+    </instance>
+    <instance id="mb0"  type="llcm_MandelbrotSeq">
+    </instance>
+  </process>
+
+  <process id="W1">
+    <instance id="mbr1s"   type="MandelbrotProxyServer">
+      <property id="umbmg"><propref instance="mbr1" property="pmbmg"/></property>
+    </instance>
+    <instance id="mbr1" type="llcm_MandelbrotRun">
+      <property id="R0"><value type="complex double">(-0.5,-1)</value></property>
+      <property id="R1"><value type="complex double">(0.5,1)</value></property>
+      <property id="NX"><value type="unsigned">512</value></property>
+      <property id="NY"><value type="unsigned">1024</value></property>
+      <property id="NBITER"><value type="unsigned">256</value></property>
+      <property id="DUMP"><value type="unsigned">0</value></property>
+      <property id="umb"><propref instance="mb1" property="pmb"/></property>
+    </instance>
+    <instance id="mb1"  type="llcm_MandelbrotSeq">
+    </instance>
+
+  </process>
+
+  <corba>
+    <corbaref uid="mbr0c" uport="ucmbmg" pid="mbr0s" pport="pcmbmg" />
+    <corbaref uid="mbr1c" uport="ucmbmg" pid="mbr1s" pport="pcmbmg" />
+  </corba>
+
+
+</llcmcpp3_cad>

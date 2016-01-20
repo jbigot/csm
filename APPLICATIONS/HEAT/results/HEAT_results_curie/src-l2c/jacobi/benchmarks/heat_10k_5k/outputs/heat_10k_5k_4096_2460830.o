@@ -1,0 +1,27 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 2460830
+Jobname   : heat_10k_5k_4096
+User      : richarje
+Account   : gen7317@standard
+Limits    : time = 1:00 , memory/task = 4000 Mo
+Date      : submit = 19/12/2014 22:12:09 , start = 20/12/2014 04:51:14
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 4096 , cpus/task = 1 , ncpus = 4096 , nodes = 256
+   Nodes=curie[2472-2489,2724-2741,2832-2867,2922-2939,3012-3047,3066-3083,3102-3119,3408-3425,3498-3515,3714-3749,3822-3839,5802-5805] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+2460830       heat_10k_5k_4096          -   4096    256           -     00:00:40     100            -      -  -
+2460830.0     orted                   255    255    255      Cyclic     00:00:36    90.0            -      -  FAILED
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -1,0 +1,385 @@
+The system is: Darwin - 13.4.0 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/local/bin/mpicc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/3.0.2/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/local/bin/mpic++ 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/3.0.2/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1360659488/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1360659488.dir/build.make CMakeFiles/cmTryCompileExec1360659488.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1360659488.dir/testCCompiler.c.o
+/usr/local/bin/mpicc    -o CMakeFiles/cmTryCompileExec1360659488.dir/testCCompiler.c.o   -c /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec1360659488
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1360659488.dir/link.txt --verbose=1
+/usr/local/bin/mpicc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec1360659488.dir/testCCompiler.c.o  -o cmTryCompileExec1360659488  
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1211905570/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1211905570.dir/build.make CMakeFiles/cmTryCompileExec1211905570.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o
+/usr/local/bin/mpicc    -o CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.0/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec1211905570
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1211905570.dir/link.txt --verbose=1
+/usr/local/bin/mpicc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names -v -Wl,-v CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec1211905570   
+Utilisation des specs internes.
+COLLECT_GCC=/usr/local/bin/gcc
+COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/lto-wrapper
+Target: x86_64-apple-darwin13.4.0
+Configuré avec: ../gcc-4.9.1/configure --enable-languages=c++,fortran
+Modèle de thread: posix
+gcc version 4.9.1 (GCC) 
+COMPILER_PATH=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/
+LIBRARY_PATH=./:/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib/:/opt/local/lib/:/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../../:/usr/lib/
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.9.4' '-v' '-o' 'cmTryCompileExec1211905570' '-I' '/usr/local/include' '-L/usr/local/lib' '-mtune=core2'
+ /usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/collect2 -dynamic -arch x86_64 -macosx_version_min 10.9.4 -weak_reference_mismatches non-weak -o cmTryCompileExec1211905570 -L/usr/local/lib -L. -L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib -L/opt/local/lib -L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1 -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o -lmpi -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lSystem -v
+collect2 version 4.9.1
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.9.4 -weak_reference_mismatches non-weak -o cmTryCompileExec1211905570 -L/usr/local/lib -L. -L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib -L/opt/local/lib -L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1 -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o -lmpi -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lSystem -v
+@(#)PROGRAM:ld  PROJECT:ld64-241.8
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7m armv7em
+@(#)PROGRAM:ld  PROJECT:ld64-241.8
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7m armv7em
+Library search paths:
+	/usr/local/lib
+	.
+	/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib
+	/opt/local/lib
+	/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib
+	/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1
+	/usr/local/lib
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec1211905570/fast"]
+  ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1211905570.dir/build.make CMakeFiles/cmTryCompileExec1211905570.dir/build]
+  ignore line: [/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/local/bin/mpicc    -o CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.0/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec1211905570]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1211905570.dir/link.txt --verbose=1]
+  ignore line: [/usr/local/bin/mpicc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names -v -Wl,-v CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec1211905570   ]
+  ignore line: [Utilisation des specs internes.]
+  ignore line: [COLLECT_GCC=/usr/local/bin/gcc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/lto-wrapper]
+  ignore line: [Target: x86_64-apple-darwin13.4.0]
+  ignore line: [Configuré avec: ../gcc-4.9.1/configure --enable-languages=c++,fortran]
+  ignore line: [Modèle de thread: posix]
+  ignore line: [gcc version 4.9.1 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/]
+  ignore line: [LIBRARY_PATH=./:/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib/:/opt/local/lib/:/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../../:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.9.4' '-v' '-o' 'cmTryCompileExec1211905570' '-I' '/usr/local/include' '-L/usr/local/lib' '-mtune=core2']
+  link line: [ /usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/collect2 -dynamic -arch x86_64 -macosx_version_min 10.9.4 -weak_reference_mismatches non-weak -o cmTryCompileExec1211905570 -L/usr/local/lib -L. -L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib -L/opt/local/lib -L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1 -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o -lmpi -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lSystem -v]
+    arg [/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/collect2] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.9.4] ==> ignore
+    arg [-weak_reference_mismatches] ==> ignore
+    arg [non-weak] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec1211905570] ==> ignore
+    arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
+    arg [-L.] ==> ignore
+    arg [-L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib] ==> dir [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib]
+    arg [-L/opt/local/lib] ==> dir [/opt/local/lib]
+    arg [-L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib] ==> dir [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib]
+    arg [-L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1] ==> dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1]
+    arg [-L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../..] ==> dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../..]
+    arg [-search_paths_first] ==> ignore
+    arg [-headerpad_max_install_names] ==> ignore
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTryCompileExec1211905570.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lmpi] ==> lib [mpi]
+    arg [-no_compact_unwind] ==> ignore
+    arg [-lSystem] ==> lib [System]
+    arg [-lgcc_ext.10.5] ==> lib [gcc_ext.10.5]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lSystem] ==> lib [System]
+    arg [-v] ==> ignore
+  Library search paths: [;/usr/local/lib;.;/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib;/opt/local/lib;/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib;/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1;/usr/local/lib;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  remove lib [gcc_ext.10.5]
+  remove lib [gcc]
+  remove lib [System]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib]
+  collapse library dir [/opt/local/lib] ==> [/opt/local/lib]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib]
+  collapse library dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1] ==> [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1]
+  collapse library dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../..] ==> [/usr/local/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [.] ==> [/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib]
+  collapse library dir [/opt/local/lib] ==> [/opt/local/lib]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib]
+  collapse library dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1] ==> [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: [mpi]
+  implicit dirs: [/usr/local/lib;/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib;/opt/local/lib;/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib;/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1;/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c;/usr/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec349731734/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec349731734.dir/build.make CMakeFiles/cmTryCompileExec349731734.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec349731734.dir/testCXXCompiler.cxx.o
+/usr/local/bin/mpic++     -o CMakeFiles/cmTryCompileExec349731734.dir/testCXXCompiler.cxx.o -c /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec349731734
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec349731734.dir/link.txt --verbose=1
+/usr/local/bin/mpic++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec349731734.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec349731734  
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec240976404/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec240976404.dir/build.make CMakeFiles/cmTryCompileExec240976404.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o
+/usr/local/bin/mpic++     -o CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.0/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec240976404
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec240976404.dir/link.txt --verbose=1
+/usr/local/bin/mpic++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names -v -Wl,-v CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec240976404   
+Utilisation des specs internes.
+COLLECT_GCC=/usr/local/bin/g++
+COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/lto-wrapper
+Target: x86_64-apple-darwin13.4.0
+Configuré avec: ../gcc-4.9.1/configure --enable-languages=c++,fortran
+Modèle de thread: posix
+gcc version 4.9.1 (GCC) 
+COMPILER_PATH=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/
+LIBRARY_PATH=./:/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib/:/opt/local/lib/:/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../../:/usr/lib/
+COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.9.4' '-v' '-o' 'cmTryCompileExec240976404' '-I' '/usr/local/include' '-L/usr/local/lib' '-shared-libgcc' '-mtune=core2'
+ /usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/collect2 -dynamic -arch x86_64 -macosx_version_min 10.9.4 -weak_reference_mismatches non-weak -o cmTryCompileExec240976404 -L/usr/local/lib -L. -L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib -L/opt/local/lib -L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1 -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o -lmpi_cxx -lmpi -lstdc++ -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lSystem -v
+collect2 version 4.9.1
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.9.4 -weak_reference_mismatches non-weak -o cmTryCompileExec240976404 -L/usr/local/lib -L. -L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib -L/opt/local/lib -L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1 -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o -lmpi_cxx -lmpi -lstdc++ -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lSystem -v
+@(#)PROGRAM:ld  PROJECT:ld64-241.8
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7m armv7em
+@(#)PROGRAM:ld  PROJECT:ld64-241.8
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7m armv7em
+Library search paths:
+	/usr/local/lib
+	.
+	/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib
+	/opt/local/lib
+	/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib
+	/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1
+	/usr/local/lib
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec240976404/fast"]
+  ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec240976404.dir/build.make CMakeFiles/cmTryCompileExec240976404.dir/build]
+  ignore line: [/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/local/bin/mpic++     -o CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.0/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTryCompileExec240976404]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec240976404.dir/link.txt --verbose=1]
+  ignore line: [/usr/local/bin/mpic++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names -v -Wl,-v CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec240976404   ]
+  ignore line: [Utilisation des specs internes.]
+  ignore line: [COLLECT_GCC=/usr/local/bin/g++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/lto-wrapper]
+  ignore line: [Target: x86_64-apple-darwin13.4.0]
+  ignore line: [Configuré avec: ../gcc-4.9.1/configure --enable-languages=c++,fortran]
+  ignore line: [Modèle de thread: posix]
+  ignore line: [gcc version 4.9.1 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/]
+  ignore line: [LIBRARY_PATH=./:/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib/:/opt/local/lib/:/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/:/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../../:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.9.4' '-v' '-o' 'cmTryCompileExec240976404' '-I' '/usr/local/include' '-L/usr/local/lib' '-shared-libgcc' '-mtune=core2']
+  link line: [ /usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/collect2 -dynamic -arch x86_64 -macosx_version_min 10.9.4 -weak_reference_mismatches non-weak -o cmTryCompileExec240976404 -L/usr/local/lib -L. -L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib -L/opt/local/lib -L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1 -L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o -lmpi_cxx -lmpi -lstdc++ -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lSystem -v]
+    arg [/usr/local/libexec/gcc/x86_64-apple-darwin13.4.0/4.9.1/collect2] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.9.4] ==> ignore
+    arg [-weak_reference_mismatches] ==> ignore
+    arg [non-weak] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec240976404] ==> ignore
+    arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
+    arg [-L.] ==> ignore
+    arg [-L/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib] ==> dir [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib]
+    arg [-L/opt/local/lib] ==> dir [/opt/local/lib]
+    arg [-L/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib] ==> dir [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib]
+    arg [-L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1] ==> dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1]
+    arg [-L/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../..] ==> dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../..]
+    arg [-search_paths_first] ==> ignore
+    arg [-headerpad_max_install_names] ==> ignore
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTryCompileExec240976404.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lmpi_cxx] ==> lib [mpi_cxx]
+    arg [-lmpi] ==> lib [mpi]
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-no_compact_unwind] ==> ignore
+    arg [-lSystem] ==> lib [System]
+    arg [-lgcc_ext.10.5] ==> lib [gcc_ext.10.5]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lSystem] ==> lib [System]
+    arg [-v] ==> ignore
+  Library search paths: [;/usr/local/lib;.;/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib;/opt/local/lib;/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib;/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1;/usr/local/lib;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  remove lib [gcc_ext.10.5]
+  remove lib [gcc]
+  remove lib [System]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib]
+  collapse library dir [/opt/local/lib] ==> [/opt/local/lib]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib]
+  collapse library dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1] ==> [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1]
+  collapse library dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1/../../..] ==> [/usr/local/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [.] ==> [/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib]
+  collapse library dir [/opt/local/lib] ==> [/opt/local/lib]
+  collapse library dir [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib] ==> [/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib]
+  collapse library dir [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1] ==> [/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: [mpi_cxx;mpi;stdc++]
+  implicit dirs: [/usr/local/lib;/Users/hcoullon/Documents/Postdoc/L2C/llcmcpp/INSTALL_LOCAL_L2C/lib;/opt/local/lib;/Users/hcoullon/Documents/Postdoc/L2C/l2c_tutorial/INSTALL_Tutorial/lib;/usr/local/lib/gcc/x86_64-apple-darwin13.4.0/4.9.1;/Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c;/usr/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED succeded with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2092729122/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec2092729122.dir/build.make CMakeFiles/cmTryCompileExec2092729122.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2092729122.dir/src.c.o
+/usr/local/bin/mpicc   -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTryCompileExec2092729122.dir/src.c.o   -c /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec2092729122
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2092729122.dir/link.txt --verbose=1
+/usr/local/bin/mpicc   -DOpenMP_FLAG_DETECTED -fopenmp -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec2092729122.dir/src.c.o  -o cmTryCompileExec2092729122  
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED succeded with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1712171176/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1712171176.dir/build.make CMakeFiles/cmTryCompileExec1712171176.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1712171176.dir/src.cxx.o
+/usr/local/bin/mpic++    -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTryCompileExec1712171176.dir/src.cxx.o -c /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTryCompileExec1712171176
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1712171176.dir/link.txt --verbose=1
+/usr/local/bin/mpic++    -DOpenMP_FLAG_DETECTED -fopenmp -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec1712171176.dir/src.cxx.o  -o cmTryCompileExec1712171176  
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2067942312/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec2067942312.dir/build.make CMakeFiles/cmTryCompileExec2067942312.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2067942312.dir/CheckIncludeFiles.c.o
+/usr/local/bin/mpicc    -o CMakeFiles/cmTryCompileExec2067942312.dir/CheckIncludeFiles.c.o   -c /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec2067942312
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2067942312.dir/link.txt --verbose=1
+/usr/local/bin/mpicc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec2067942312.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec2067942312  
+
+
+Determining if the pthread_create exist passed with the following output:
+Change Dir: /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1870230662/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1870230662.dir/build.make CMakeFiles/cmTryCompileExec1870230662.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1870230662.dir/CheckSymbolExists.c.o
+/usr/local/bin/mpicc    -o CMakeFiles/cmTryCompileExec1870230662.dir/CheckSymbolExists.c.o   -c /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec1870230662
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1870230662.dir/link.txt --verbose=1
+/usr/local/bin/mpicc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec1870230662.dir/CheckSymbolExists.c.o  -o cmTryCompileExec1870230662  
+
+File /Users/hcoullon/Documents/Postdoc/HLCM/examples/examples/src-l2c/jacobi/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

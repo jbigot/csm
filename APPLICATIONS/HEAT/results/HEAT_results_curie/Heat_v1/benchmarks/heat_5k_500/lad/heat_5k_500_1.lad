@@ -1,0 +1,84 @@
+<?xml version='1.0'?>
+<lad xmlns="http://www.inria.fr/avalon/lad">
+<mpi>
+<process>
+<start_property instance="dr0" property="inGo"/>
+<instance type="Driver" id="dr0">
+<property id="width"><value type="uint64">5000</value></property>
+<property id="height"><value type="uint64">5000</value></property>
+<property id="nb_proc"><value type="uint32">1</value></property>
+<property id="structInit">
+<cppref instance="st0" property="services"/>
+</property>
+<property id="driverappGo">
+<cppref instance="dra0" property="inGo"/>
+</property>
+</instance>
+<instance type="DriverApp" id="dra0">
+<property id="dataCompute">
+<cppref instance="d0" property="inGo"/>
+<cppref instance="d1" property="inGo"/>
+</property>
+<property id="timeGo">
+<cppref instance="ti0" property="inGo"/>
+</property>
+<property id="spaceCompute">
+<cppref instance="sp0" property="inGo"/>
+</property>
+</instance>
+<instance type="Structure" id="st0">
+<property id="border_size"><value type="uint16">1</value></property>
+</instance>
+<instance type="Data" id="d0">
+<property id="str">
+<cppref instance="st0" property="services"/>
+</property>
+<property id="initializer">
+<cppref instance="in0" property="initdata"/>
+</property>
+</instance>
+<instance type="Data" id="d1">
+<property id="str">
+<cppref instance="st0" property="services"/>
+</property>
+<property id="initializer">
+<cppref instance="in0" property="initdata"/>
+</property>
+</instance>
+<instance type="Initializer" id="in0">
+<property id="init_val"><value type="double">0</value></property>
+</instance>
+<instance type="Time" id="ti0">
+<property id="iter"><value type="uint16">500</value></property>
+<property id="phaseGo">
+<cppref instance="ph0" property="inGo"/>
+</property>
+</instance>
+<instance type="Phase" id="ph0">
+<property id="dataCompute">
+<cppref instance="d0" property="services"/>
+</property>
+<property id="dataCompute">
+<cppref instance="d1" property="services"/>
+</property>
+<property id="spaceCompute">
+<cppref instance="sp0" property="inGo"/>
+</property>
+</instance>
+<instance type="Space_sk" id="sp0">
+<property id="data1SV">
+<cppref instance="d0" property="services"/>
+</property>
+<property id="data2SV">
+<cppref instance="d1" property="services"/>
+</property>
+</instance>
+</process>
+<communicator>
+<peer instance="d0" property="comm"/>
+</communicator>
+<communicator>
+<peer instance="d1" property="comm"/>
+</communicator>
+</mpi>
+</lad>

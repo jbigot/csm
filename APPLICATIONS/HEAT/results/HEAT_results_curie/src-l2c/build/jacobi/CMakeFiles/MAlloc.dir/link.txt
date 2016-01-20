@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2   -shared -Wl,-soname,libMAlloc.so -o libMAlloc.so CMakeFiles/MAlloc.dir/src/MAlloc/malloc.cpp.o 

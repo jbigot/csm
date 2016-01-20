@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2  -Wl,--export-dynamic   -shared -Wl,-soname,libSpace.so -o libSpace.so CMakeFiles/Space.dir/src/Space/Space.cpp.o /opt/mpi/bullxmpi/1.2.7.2/lib/libmpi_cxx.so /opt/mpi/bullxmpi/1.2.7.2/lib/libmpi.so -ldl -lm -lnuma -lrt -lnsl -lutil -lm -ldl -lnuma -lrt -lnsl -lutil -Wl,-rpath,/opt/mpi/bullxmpi/1.2.7.2/lib: 

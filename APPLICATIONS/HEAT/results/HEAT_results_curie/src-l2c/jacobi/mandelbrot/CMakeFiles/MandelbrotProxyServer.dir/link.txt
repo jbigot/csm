@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++   -bundle -Wl,-headerpad_max_install_names   -o libMandelbrotProxyServer.so CMakeFiles/MandelbrotProxyServer.dir/src/MandelbrotProxyServer/mandelbrotproxyserver.cpp.o CMakeFiles/MandelbrotProxyServer.dir/CorbaMandelbrot.cpp.o -lomniORB4 -lomnithread 

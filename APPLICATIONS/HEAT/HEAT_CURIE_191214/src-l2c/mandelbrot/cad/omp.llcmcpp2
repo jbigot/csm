@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<llcmcpp_cad2>
+  <instance id="mb0" type="llcm_MandelbrotOMP" />
+
+  <!-- <connection uid="_client" uport="u" pid="shw" pport="p" /> -->
+  <value uid="mb0" uport="RX0" type="double" value="-1.5" />
+  <value uid="mb0" uport="RY0" type="double" value="-1" />
+  <value uid="mb0" uport="RX1" type="double" value="0.5" />
+  <value uid="mb0" uport="RY1" type="double" value="1" />
+
+
+  <value uid="mb0" uport="NX" type="unsigned" value="256" />
+  <value uid="mb0" uport="NY" type="unsigned" value="256" />
+
+  <value uid="mb0" uport="NBITER" type="unsigned" value="256" />
+  <value uid="mb0" uport="DUMP" type="unsigned" value="1" />
+  <value uid="mb0" uport="DUMPFILE" type="string" value="/tmp/m.pgm" />
+
+ <invocation id="mb0" port="go" type="Go" /> -->
+
+</llcmcpp_cad2>

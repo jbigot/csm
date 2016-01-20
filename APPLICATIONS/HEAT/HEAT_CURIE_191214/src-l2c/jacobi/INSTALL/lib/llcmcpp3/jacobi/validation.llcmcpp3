@@ -1,0 +1,602 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns="http://avalon.inria.fr/llcmcpp3">
+	<!--(NOMPI)--><mpi>
+		<process><!--(NOMPICLOSE)-->
+			<instance id="xpvalidate_0" type="XPValidate">
+				<property id="verbosity"><value type="uint8">1</value></property>
+				<property id="computers">
+					<propref instance="seqjacobiseq" property="xpcomputer"/>
+					<!--(NOMPI)--><propref instance="mcxp_0" property="xpcomputer"/>
+					<propref instance="mddriver_0" property="xpcomputer"/><!--(NOMPICLOSE)-->
+					<propref instance="ompjacobiomp" property="xpcomputer"/>
+					<propref instance="scxp_0" property="xpcomputer"/>
+					<propref instance="sddriver" property="xpcomputer"/>
+					<propref instance="tcxp" property="xpcomputer"/>
+					<propref instance="tddriver" property="xpcomputer"/>
+				</property>
+				<start property="go"/>
+			</instance>
+			
+			<!-- mpi_connector_4 !-->
+			<instance id="mcconcentrator_0" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">0</value></property>
+				<property id="tile_y"><value type="uint32">1</value></property>
+				<property id="central_check"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+			<instance id="mcxp_0" type="XP">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="name"><value type="string">MpiConnector</value></property>
+				<property id="computerniter"><propref instance="mcjacobiniter_0" property="computerniter"/></property>
+				<property id="memory"><propref instance="mcmem_0" property="memory"/></property>
+				<property id="checkdata"><propref instance="mcconcentrator_0" property="data_checker"/></property>
+			</instance>
+			<instance id="mcmem_0" type="MAlloc"/>
+			<instance id="mcmpibarrier_0" type="MpiBarrier"/>
+			<instance id="mcinit_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mcjacobiniter_0" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="computer"><propref instance="mccore_0" property="computer"/></property>
+				<property id="initialization"><propref instance="mcinit_0" property="initializer"/></property>
+				<property id="exchangeDown"><propref instance="mcexchange_0" property="exchange"/></property>
+				<property id="exchangeRight"><propref instance="mcexchange_1" property="exchange"/></property>
+				<property id="collective"><propref instance="mcmpibarrier_0" property="collective"/></property>
+			</instance>
+			<instance id="mccore_0" type="JacobiCore"/>
+			<instance id="mcexchange_0" type="MPIConnector">
+				<property id="rank"><value type="int16">1</value></property>
+			</instance>
+			<instance id="mcexchange_1" type="MPIConnector">
+				<property id="rank"><value type="int16">1</value></property>
+			</instance>
+			
+			<!-- mpi_driver_4 !-->
+			<instance id="mdconcentrator_0" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">0</value></property>
+				<property id="tile_y"><value type="uint32">0</value></property>
+				<property id="central_check"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+			<instance id="mddriver_0" type="MPIDriver">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="computer"><propref instance="mdcore_0" property="computer"/></property>
+				<property id="initialization"><propref instance="mdinit_0" property="initializer"/></property>
+				<property id="checkdata"><propref instance="mdconcentrator_0" property="data_checker"/></property>
+			</instance>
+			<instance id="mdinit_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mdcore_0" type="JacobiCore"/>
+			
+			<!-- omp !-->
+			<instance id="ompjacobiomp" type="JacobiOMP">
+				<property id="initialization"><propref instance="ompinit" property="initializer"/></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="checkdata"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+			<instance id="ompinit" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			
+			<!-- seq !-->
+			<instance id="seqjacobiseq" type="JacobiSeq">
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="checkdata"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+		
+			<!-- seq_connector !-->
+			<instance id="scxp_0" type="XP">
+				<property id="nb_tiles_x"><value type="uint16">1</value></property>
+				<property id="nb_tiles_y"><value type="uint16">1</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="name"><value type="string">SeqConnector</value></property>
+				<property id="computerniter"><propref instance="scjacobiniter_0" property="computerniter"/></property>
+				<property id="memory"><propref instance="scmem_0" property="memory"/></property>
+				<property id="checkdata"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+			<instance id="scmem_0" type="MAlloc"/>
+			<instance id="scinit_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="scjacobiniter_0" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">1</value></property>
+				<property id="nb_tiles_y"><value type="uint16">1</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="computer"><propref instance="sccore_0" property="computer"/></property>
+				<property id="initialization"><propref instance="scinit_0" property="initializer"/></property>
+			</instance>
+			<instance id="sccore_0" type="JacobiCore"/>
+		
+			<!-- seq_driver !-->
+			<instance id="sddriver" type="SeqDriver">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="computer"><propref instance="sdcore" property="computer"/></property>
+				<property id="initialization"><propref instance="sdinit" property="initializer"/></property>
+				<property id="checkdata"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+			<instance id="sdinit" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="sdcore" type="JacobiCore"/>
+			
+			<!-- thread_connector_4 !-->
+			<instance id="tcxp" type="ThreadXp">
+				<property id="global_nbtiles_x"><value type="uint16">1</value></property>
+				<property id="global_nbtiles_y"><value type="uint16">1</value></property>
+				<property id="global_tile_x"><value type="uint16">0</value></property>
+				<property id="global_tile_y"><value type="uint16">1</value></property>
+				<property id="memory_nbtiles_x"><value type="uint16">2</value></property>
+				<property id="memory_nbtiles_y"><value type="uint16">2</value></property>
+				<property id="name"><value type="string">ThreadConnector</value></property>
+				<property id="computers">
+					<propref instance="tcjacobiniter_0_0" property="computerniter"/>
+					<propref instance="tcjacobiniter_0_1" property="computerniter"/>
+					<propref instance="tcjacobiniter_1_0" property="computerniter"/>
+					<propref instance="tcjacobiniter_1_1" property="computerniter"/>
+				</property>
+				<property id="memory_allocators">
+					<propref instance="tcmem" property="memory"/>
+				</property>
+				<property id="checkdata"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+			<instance id="tcmem" type="MAlloc" />
+			<instance id="tcbarrier" type="LocalBarrier">
+				<property id="nbpeers"><value type="uint32">4</value></property>
+			</instance>
+			
+			<instance id="tcjacobiniter_0_0" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="tcbarrier" property="collective"/></property>
+				<property id="initialization"><propref instance="tcinit_0_0" property="initializer"/></property>
+				<property id="computer"><propref instance="tccore_0_0" property="computer"/></property>
+				<property id="exchangeRight"><propref instance="tcexchange_0_0_1_0" property="exchange1"/></property>
+				<property id="exchangeUp"><propref instance="tcexchange_0_0_0_1" property="exchange1"/></property>
+			</instance>
+			<instance id="tcinit_0_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="tccore_0_0" type="JacobiCore"/>
+			
+			<instance id="tcjacobiniter_0_1" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="tcbarrier" property="collective"/></property>
+				<property id="initialization"><propref instance="tcinit_0_1" property="initializer"/></property>
+				<property id="computer"><propref instance="tccore_0_1" property="computer"/></property>
+				<property id="exchangeRight"><propref instance="tcexchange_0_1_1_1" property="exchange1"/></property>
+				<property id="exchangeDown"><propref instance="tcexchange_0_0_0_1" property="exchange2"/></property>
+			</instance>
+			<instance id="tcinit_0_1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="tccore_0_1" type="JacobiCore"/>
+			
+			<instance id="tcjacobiniter_1_0" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="tcbarrier" property="collective"/></property>
+				<property id="initialization"><propref instance="tcinit_1_0" property="initializer"/></property>
+				<property id="computer"><propref instance="tccore_1_0" property="computer"/></property>
+				<property id="exchangeLeft"><propref instance="tcexchange_0_0_1_0" property="exchange2"/></property>
+				<property id="exchangeUp"><propref instance="tcexchange_1_0_1_1" property="exchange1"/></property>
+			</instance>
+			<instance id="tcinit_1_0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="tccore_1_0" type="JacobiCore"/>
+			
+			<instance id="tcjacobiniter_1_1" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="collective"><propref instance="tcbarrier" property="collective"/></property>
+				<property id="initialization"><propref instance="tcinit_1_1" property="initializer"/></property>
+				<property id="computer"><propref instance="tccore_1_1" property="computer"/></property>
+				<property id="exchangeLeft"><propref instance="tcexchange_0_1_1_1" property="exchange2"/></property>
+				<property id="exchangeDown"><propref instance="tcexchange_1_0_1_1" property="exchange2"/></property>
+			</instance>
+			<instance id="tcinit_1_1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="tccore_1_1" type="JacobiCore"/>
+			
+			<instance id="tcexchange_0_0_1_0" type="PthreadConnectorDual" />
+			<instance id="tcexchange_0_0_0_1" type="PthreadConnectorDual" />
+			<instance id="tcexchange_0_1_1_1" type="PthreadConnectorDual"/>
+			<instance id="tcexchange_1_0_1_1" type="PthreadConnectorDual" />
+			
+			<!-- thread_driver_4 !-->
+			<instance id="tddriver" type="ThreadDriver">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="computers">
+					<propref instance="tdcore0" property="computer"/>
+					<propref instance="tdcore1" property="computer"/>
+					<propref instance="tdcore2" property="computer"/>
+					<propref instance="tdcore3" property="computer"/>
+				</property>
+				<property id="initializations">
+					<propref instance="tdinit0" property="initializer"/>
+					<propref instance="tdinit1" property="initializer"/>
+					<propref instance="tdinit2" property="initializer"/>
+					<propref instance="tdinit3" property="initializer"/>
+				</property>
+				<property id="checkdata"><propref instance="xpvalidate_0" property="checkdata"/></property>
+			</instance>
+			<instance id="tdcore0" type="JacobiCore"/>
+			<instance id="tdinit0" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="tdcore1" type="JacobiCore"/>
+			<instance id="tdinit1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="tdcore2" type="JacobiCore"/>
+			<instance id="tdinit2" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="tdcore3" type="JacobiCore"/>
+			<instance id="tdinit3" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+		<!--(NOMPI)--></process>
+		
+		<process>
+			<instance id="xpvalidate_1" type="XPValidate">
+				<property id="computers">
+					<propref instance="mcxp_1" property="xpcomputer"/>
+					<propref instance="mddriver_1" property="xpcomputer"/>
+				</property>
+				<start property="go"/>
+			</instance><!--(NOMPICLOSE)-->
+			
+			<!-- mpi_connector_4 !-->
+			<!--(NOMPI)--><instance id="mcconcentrator_1" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">1</value></property>
+				<property id="tile_y"><value type="uint32">1</value></property>
+			</instance>
+			<instance id="mcxp_1" type="XP">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="computerniter"><propref instance="mcjacobiniter_1" property="computerniter"/></property>
+				<property id="memory"><propref instance="mcmem_1" property="memory"/></property>
+				<property id="checkdata"><propref instance="mcconcentrator_1" property="data_checker"/></property>
+			</instance>
+			<instance id="mcmem_1" type="MAlloc"/>
+			<instance id="mcmpibarrier_1" type="MpiBarrier"/>
+			<instance id="mcinit_1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mcjacobiniter_1" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">1</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="computer"><propref instance="mccore_1" property="computer"/></property>
+				<property id="initialization"><propref instance="mcinit_1" property="initializer"/></property>
+				<property id="exchangeDown"><propref instance="mcexchange_2" property="exchange"/></property>
+				<property id="exchangeLeft"><propref instance="mcexchange_3" property="exchange"/></property>
+				<property id="collective"><propref instance="mcmpibarrier_1" property="collective"/></property>
+			</instance>
+			<instance id="mccore_1" type="JacobiCore"/>
+			<instance id="mcexchange_2" type="MPIConnector">
+				<property id="rank"><value type="int16">1</value></property>
+			</instance>
+			<instance id="mcexchange_3" type="MPIConnector">
+				<property id="rank"><value type="int16">0</value></property>
+			</instance><!--(NOMPICLOSE)-->
+			
+			<!-- mpi_driver_4 !-->
+			<!--(NOMPI)--><instance id="mdconcentrator_1" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">0</value></property>
+				<property id="tile_y"><value type="uint32">1</value></property>
+			</instance>
+			<instance id="mddriver_1" type="MPIDriver">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="computer"><propref instance="mdcore_1" property="computer"/></property>
+				<property id="initialization"><propref instance="mdinit_1" property="initializer"/></property>
+				<property id="checkdata"><propref instance="mdconcentrator_1" property="data_checker"/></property>
+			</instance>
+			<instance id="mdinit_1" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mdcore_1" type="JacobiCore"/>
+		</process>
+		
+		
+		<process>
+			<instance id="xpvalidate_2" type="XPValidate">
+				<property id="computers">
+					<propref instance="mcxp_2" property="xpcomputer"/>
+					<propref instance="mddriver_2" property="xpcomputer"/>
+				</property>
+				<start property="go"/>
+			</instance><!--(NOMPICLOSE)-->
+			
+			<!-- mpi_connector_4 !-->
+			<!--(NOMPI)--><instance id="mcconcentrator_2" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">0</value></property>
+				<property id="tile_y"><value type="uint32">0</value></property>
+			</instance>
+			<instance id="mcxp_2" type="XP">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="computerniter"><propref instance="mcjacobiniter_2" property="computerniter"/></property>
+				<property id="memory"><propref instance="mcmem_2" property="memory"/></property>
+				<property id="checkdata"><propref instance="mcconcentrator_2" property="data_checker"/></property>
+			</instance>
+			<instance id="mcmem_2" type="MAlloc"/>
+			<instance id="mcmpibarrier_2" type="MpiBarrier"/>
+			<instance id="mcinit_2" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mcjacobiniter_2" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">0</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="computer"><propref instance="mccore_2" property="computer"/></property>
+				<property id="initialization"><propref instance="mcinit_2" property="initializer"/></property>
+				<property id="exchangeUp"><propref instance="mcexchange_4" property="exchange"/></property>
+				<property id="exchangeRight"><propref instance="mcexchange_5" property="exchange"/></property>
+				<property id="collective"><propref instance="mcmpibarrier_2" property="collective"/></property>
+			</instance>
+			<instance id="mccore_2" type="JacobiCore"/>
+			<instance id="mcexchange_4" type="MPIConnector">
+				<property id="rank"><value type="int16">0</value></property>
+			</instance>
+			<instance id="mcexchange_5" type="MPIConnector">
+				<property id="rank"><value type="int16">1</value></property>
+			</instance><!--(NOMPICLOSE)-->
+			
+			<!-- mpi_driver_4 !-->
+			<!--(NOMPI)--><instance id="mdconcentrator_2" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">1</value></property>
+				<property id="tile_y"><value type="uint32">0</value></property>
+			</instance>
+			<instance id="mddriver_2" type="MPIDriver">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="computer"><propref instance="mdcore_2" property="computer"/></property>
+				<property id="initialization"><propref instance="mdinit_2" property="initializer"/></property>
+				<property id="checkdata"><propref instance="mdconcentrator_2" property="data_checker"/></property>
+			</instance>
+			<instance id="mdinit_2" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mdcore_2" type="JacobiCore"/>
+		</process>
+		
+		
+		<process>
+			<instance id="xpvalidate_3" type="XPValidate">
+				<property id="computers">
+					<propref instance="mcxp_3" property="xpcomputer"/>
+					<propref instance="mddriver_3" property="xpcomputer"/>
+				</property>
+				<start property="go"/>
+			</instance><!--(NOMPICLOSE)-->
+			
+			<!-- mpi_connector_4 !-->
+			<!--(NOMPI)--><instance id="mcconcentrator_3" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">1</value></property>
+				<property id="tile_y"><value type="uint32">0</value></property>
+			</instance>
+			<instance id="mcxp_3" type="XP">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="computerniter"><propref instance="mcjacobiniter_3" property="computerniter"/></property>
+				<property id="memory"><propref instance="mcmem_3" property="memory"/></property>
+				<property id="checkdata"><propref instance="mcconcentrator_3" property="data_checker"/></property>
+			</instance>
+			<instance id="mcmem_3" type="MAlloc"/>
+			<instance id="mcmpibarrier_3" type="MpiBarrier"/>
+			<instance id="mcinit_3" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mcjacobiniter_3" type="JacobiCoreNiter">
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="tile_x"><value type="uint16">1</value></property>
+				<property id="tile_y"><value type="uint16">0</value></property>
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="computer"><propref instance="mccore_3" property="computer"/></property>
+				<property id="initialization"><propref instance="mcinit_3" property="initializer"/></property>
+				<property id="exchangeUp"><propref instance="mcexchange_6" property="exchange"/></property>
+				<property id="exchangeLeft"><propref instance="mcexchange_7" property="exchange"/></property>
+				<property id="collective"><propref instance="mcmpibarrier_3" property="collective"/></property>
+			</instance>
+			<instance id="mccore_3" type="JacobiCore"/>
+			<instance id="mcexchange_6" type="MPIConnector">
+				<property id="rank"><value type="int16">0</value></property>
+			</instance>
+			<instance id="mcexchange_7" type="MPIConnector">
+				<property id="rank"><value type="int16">0</value></property>
+			</instance><!--(NOMPICLOSE)-->
+			
+			<!-- mpi_driver_4 !-->
+			<!--(NOMPI)--><instance id="mdconcentrator_3" type="MpiConcentrator">
+				<property id="tile_x"><value type="uint32">1</value></property>
+				<property id="tile_y"><value type="uint32">1</value></property>
+			</instance>
+			<instance id="mddriver_3" type="MPIDriver">
+				<property id="debug"><value type="uint8">0</value></property>
+				<property id="nb_tiles_x"><value type="uint16">2</value></property>
+				<property id="nb_tiles_y"><value type="uint16">2</value></property>
+				<property id="computer"><propref instance="mdcore_3" property="computer"/></property>
+				<property id="initialization"><propref instance="mdinit_3" property="initializer"/></property>
+				<property id="checkdata"><propref instance="mdconcentrator_3" property="data_checker"/></property>
+			</instance>
+			<instance id="mdinit_3" type="DataInitializer" >
+				<property id="top"><value type="double">10</value></property>
+				<property id="bottom"><value type="double">0</value></property>
+				<property id="left"><value type="double">5</value></property>
+				<property id="right"><value type="double">5</value></property>
+				<property id="inside"><value type="double">-10</value></property>
+			</instance>
+			<instance id="mdcore_3" type="JacobiCore"/>
+		</process>
+		
+		<communicator>
+			<peer instance="mcexchange_0" property="comm"/>
+			<peer instance="mcexchange_4" property="comm"/>
+		</communicator>
+		
+		<communicator>
+			<peer instance="mcexchange_1" property="comm"/>
+			<peer instance="mcexchange_3" property="comm"/>
+		</communicator>
+		
+		<communicator>
+			<peer instance="mcexchange_2" property="comm"/>
+			<peer instance="mcexchange_6" property="comm"/>
+		</communicator>
+		
+		<communicator>
+			<peer instance="mcexchange_5" property="comm"/>
+			<peer instance="mcexchange_7" property="comm"/>
+		</communicator>
+		
+		<communicator>
+			<peer instance="mcmpibarrier_0" property="comm"/>
+			<peer instance="mcmpibarrier_1" property="comm"/>
+			<peer instance="mcmpibarrier_2" property="comm"/>
+			<peer instance="mcmpibarrier_3" property="comm"/>
+		</communicator>
+		
+		<communicator>
+			<peer instance="mddriver_0" property="comm"/>
+			<peer instance="mddriver_1" property="comm"/>
+			<peer instance="mddriver_2" property="comm"/>
+			<peer instance="mddriver_3" property="comm"/>
+		</communicator>
+		
+		<communicator>
+			<peer instance="mcconcentrator_0" property="comm"/>
+			<peer instance="mcconcentrator_1" property="comm"/>
+			<peer instance="mcconcentrator_2" property="comm"/>
+			<peer instance="mcconcentrator_3" property="comm"/>
+		</communicator>
+		
+		<communicator>
+			<peer instance="mdconcentrator_0" property="comm"/>
+			<peer instance="mdconcentrator_1" property="comm"/>
+			<peer instance="mdconcentrator_2" property="comm"/>
+			<peer instance="mdconcentrator_3" property="comm"/>
+		</communicator>
+		
+	</mpi><!--(NOMPICLOSE)-->
+</llcmcpp3_cad>

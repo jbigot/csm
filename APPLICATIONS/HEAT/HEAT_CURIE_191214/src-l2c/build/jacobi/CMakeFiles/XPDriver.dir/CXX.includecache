@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../jacobi/include/XPcomputer.h
+stdint.h
+-
+
+/ccc/cont003/home/gen7317/richarje/helene/HEAT/src-l2c/jacobi/src/XPDriver/xpdriver.cpp
+algorithm
+-
+iostream
+-
+vector
+-
+cmath
+-
+llcmcpp/go.h
+-
+llcmcpp/llcmcpp3.h
+-
+stdint.h
+-
+XPcomputer.h
+/ccc/cont003/home/gen7317/richarje/helene/HEAT/src-l2c/jacobi/src/XPDriver/XPcomputer.h
+

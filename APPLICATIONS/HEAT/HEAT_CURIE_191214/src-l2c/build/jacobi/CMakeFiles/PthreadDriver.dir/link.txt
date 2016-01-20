@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O2 -O3 -DNDEBUG   -shared -Wl,-soname,libPthreadDriver.so -o libPthreadDriver.so CMakeFiles/PthreadDriver.dir/src/PthreadDriver/pthreaddriver.cpp.o -lpthread 

@@ -1,0 +1,42 @@
+ Time TOTAL CALCULATION : 623.272
+ Time TOTAL CALCULATION : 623.271
+ Time TOTAL CALCULATION : 623.273
+ Time TOTAL CALCULATION : 623.27
+ Time TOTAL CALCULATION : 623.274
+ Time TOTAL CALCULATION : 623.274
+ Time TOTAL CALCULATION : 623.273
+ Time TOTAL CALCULATION : 623.275
+ Time TOTAL CALCULATION : 623.282
+ Time TOTAL CALCULATION : 623.269
+ Time TOTAL CALCULATION : 623.274
+ Time TOTAL CALCULATION : 623.279
+ Time TOTAL CALCULATION : 623.277
+ Time TOTAL CALCULATION : 623.276
+ Time TOTAL CALCULATION : 623.275
+ Time TOTAL CALCULATION : 623.265
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 2460274
+Jobname   : heat_20k_5k_16
+User      : richarje
+Account   : gen7317@standard
+Limits    : time = 50:00 , memory/task = 4000 Mo
+Date      : submit = 19/12/2014 19:55:38 , start = 19/12/2014 21:48:23
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 1 , ncpus = 16 , nodes = 1
+   Nodes=curie2367 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+2460274       heat_20k_5k_16            -     16      1           -     00:10:28     100            -      -  -
+########## ########## ########## ########## ########## ########## ########## ##########

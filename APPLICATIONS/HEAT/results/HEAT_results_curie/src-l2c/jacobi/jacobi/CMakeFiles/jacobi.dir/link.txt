@@ -1,0 +1,1 @@
+/usr/local/bin/mpic++    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/jacobi.dir/src/jacobi.cpp.o  -o jacobi  

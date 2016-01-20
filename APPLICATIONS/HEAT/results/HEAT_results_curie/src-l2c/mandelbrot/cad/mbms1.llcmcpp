@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<!DOCTYPE llcmcpp_cad>
+
+<llcmcpp_cad xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="/opt/usr/share/adage/xsd/llcmcpp_cad.xsd" >
+
+<ctypes>
+  <ctype id="llcm_MandelbrotRunMulti" dll="libllcm_MandelbrotRunMulti.so" />
+  <ctype id="llcm_MandelbrotRun" dll="libllcm_MandelbrotRun.so" />
+  <ctype id="llcm_MandelbrotSeq" dll="libllcm_MandelbrotSeq.so" />
+  <ctype id="llcm_Dumper" dll="libllcm_Dumper.so" />
+</ctypes>
+
+<instances>
+  <instance id="mbms" ctype="llcm_MandelbrotRunMulti" />
+  <instance id="mbr0" ctype="llcm_MandelbrotRun" />
+  <instance id="mbs0" ctype="llcm_MandelbrotSeq" />
+  <instance id="dump" ctype="llcm_Dumper" />
+</instances>
+
+<connections>
+  <connection uid="mbms" uport="umbmgs" pid="mbr0" pport="pmbmg" />
+  <connection uid="mbr0" uport="umb"    pid="mbs0" pport="pmb" />
+  <connection uid="mbms" uport="ua2dd"  pid="dump" pport="pa2dd" />
+
+  <value uid="mbms" uport="R0" type="complex double" value="(-1.5, -1)" />
+  <value uid="mbms" uport="R1" type="complex double" value="(0.5,1)" />
+  <value uid="mbms" uport="NX" type="unsigned" value="256" />
+  <value uid="mbms" uport="NY" type="unsigned" value="256" />
+  <value uid="mbms" uport="NBITER" type="unsigned" value="256" />
+  <value uid="mbms" uport="DUMP" type="unsigned" value="1" />
+  <value uid="mbms" uport="DUMPFILE" type="string" value="/tmp/m.pgm" />
+
+  <value uid="mbr0" uport="R0" type="complex double" value="(-1.5,-1)" />
+  <value uid="mbr0" uport="R1" type="complex double" value="(0.5,1)" />
+  <value uid="mbr0" uport="NX" type="unsigned" value="256" />
+  <value uid="mbr0" uport="NY" type="unsigned" value="256" />
+  <value uid="mbr0" uport="NBITER" type="unsigned" value="256" />
+  <value uid="mbr0" uport="DUMP" type="unsigned" value="0" />
+</connections>
+
+<invocations>
+ <invocation id="mbr0" port="cc" type="ConfigureComplete" />
+ <invocation id="mbms" port="cc" type="ConfigureComplete" />
+ <invocation id="mbms" port="go" type="Go" />
+</invocations>
+
+</llcmcpp_cad>

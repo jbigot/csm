@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<llcmcpp3_cad xmlns="http://avalon.inria.fr/llcmcpp3">
+	<instance id="xpdriver" type="SimpleXpDriver">
+		<property id="niter"><value type="uint32">100</value></property>
+		<property id="nxp"><value type="uint32">10</value></property>
+		<property id="height"><value type="uint64">3</value></property>
+		<property id="width"><value type="uint64">4</value></property>
+		<property id="computer"><propref instance="driver" property="xpcomputer"/></property>
+		<start property="go"/>
+	</instance>
+	<instance id="driver" type="PthreadDriver">
+		<property id="debug"><value type="uint8">0</value></property>
+		<property id="nb_tiles_x"><value type="uint16">2</value></property>
+		<property id="nb_tiles_y"><value type="uint16">1</value></property>
+		<property id="computers">
+			<propref instance="core0" property="computer"/>
+			<propref instance="core1" property="computer"/>
+		</property>
+		<property id="initializations">
+			<propref instance="init0" property="initializer"/>
+			<propref instance="init1" property="initializer"/>
+		</property>
+		<property id="mybarrier">
+			<propref instance="barrier" property="mb"/>
+		</property>
+	</instance>
+	<instance id="barrier" type="LocalBarrier">
+		<property id="id"><value type="string">LB</value></property>
+		<property id="nbpeers"><value type="uint32">2</value></property>
+	</instance>
+	<instance id="core0" type="JacobiCore"/>
+	<instance id="init0" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+	<instance id="core1" type="JacobiCore"/>
+	<instance id="init1" type="DataInitializer" >
+		<property id="top"><value type="double">10</value></property>
+		<property id="bottom"><value type="double">0</value></property>
+		<property id="left"><value type="double">5</value></property>
+		<property id="right"><value type="double">5</value></property>
+		<property id="inside"><value type="double">-10</value></property>
+	</instance>
+</llcmcpp3_cad>
+
