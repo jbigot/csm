@@ -1,0 +1,51 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 - Time SYNC : 9.3e-05
+1 - Time SYNC : 0.000129
+2 - Time SYNC : 0.000205
+3 - Time SYNC : 0.000207
+0 - Time SYNC : 6.7e-05
+1 - Time SYNC : 3.9e-05
+2 - Time SYNC : 0.000137
+3 - Time SYNC : 0.000176
+0 - Time SYNC : 7.6e-05
+1 - Time SYNC : 5.6e-05
+2 - Time SYNC : 0.000176
+3 - Time SYNC : 0.000164
+0 - Time SYNC : 5e-05
+1 - Time SYNC : 3.4e-05
+2 - Time SYNC : 0.000139
+3 - Time SYNC : 0.000175
+2 Time TOTAL CALCULATION : 0.035171
+3 Time TOTAL CALCULATION : 0.035117
+0 Time TOTAL CALCULATION : 0.035211
+1 Time TOTAL CALCULATION : 0.035182
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4018204
+Jobname   : base_MSL_500_1_4
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 17:00 , memory/task = 4000 Mo
+Date      : submit = 20/01/2016 14:32:11 , start = 20/01/2016 14:45:41
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 4 , cpus/task = 1 , ncpus = 4 , nodes = 1
+   Nodes=curie1552 CPU_IDs=9,11,13,15 Mem=16000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4018204       base_MSL_500_1_4          -      4      1           -     00:00:08     100            -      -  -
+4018204.0     llcmcpp_loader            4      4      1      BBlock     00:00:03    37.5            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

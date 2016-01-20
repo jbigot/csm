@@ -1,0 +1,225 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 compute Klimhd : 1e-06
+0 compute Klimud : 1e-06
+0 compute Klimvd : 1e-06
+0 compute Klimhu : 2e-06
+0 compute Klimuu : 2e-06
+0 compute Klimvu : 2e-06
+0 compute Klimhl : 4e-05
+0 compute Klimul : 2.2e-05
+0 compute Klimvl : 4.1e-05
+0 compute Klimhr : 1e-06
+0 compute Klimur : 1e-06
+0 compute Klimvr : 1e-06
+0 - Time SYNC : 1e-06
+0 compute Khuvh1l : 0.000933
+0 compute Khuvh1r : 0.000689
+0 compute Khuvu1l : 0.001406
+0 compute Khuvu1r : 0.001282
+0 compute Khuvv1l : 0.001405
+0 compute Khuvv1r : 0.001292
+0 compute Khuvz1l : 0.001584
+0 compute Khuvz1r : 0.001559
+0 compute Khuvh2l : 0.000798
+0 compute Khuvh2r : 0.000781
+0 compute Khuvu2l : 0.001516
+0 compute Khuvu2r : 0.001504
+0 compute Khuvv2l : 0.001562
+0 compute Khuvv2r : 0.00158
+0 compute Khuvz2l : 0.001636
+0 compute Khuvz2r : 0.001632
+0 compute Kdelzc2f : 0.000365
+0 compute Kdelzf : 0.000494
+0 compute Kdelzc1f : 0.000354
+0 compute Kdelzf : 0.000408
+0 compute Kbloc1x1 : 0.000643
+0 compute Kbloc1x2 : 0.000565
+0 compute Kbloc1y1 : 0.000642
+0 compute Kbloc1y2 : 0.000563
+0 compute Kbloc1x3 : 0.006216
+0 compute Kbloc1x4 : 0.006281
+0 compute Kbloc1x5 : 0.00633
+0 compute Kbloc1y3 : 0.006224
+0 compute Kbloc1Y4 : 0.006273
+0 compute Kbloc1y4 : 0.00632
+0 compute Kbloc21 : 0.000595
+0 compute Kbloc22 : 0.001332
+0 compute Kbloc23 : 0.00139
+0 compute Kcheck : 0.000309
+0 compute Kcheckus : 0.001032
+0 compute Kcheckvs : 0.00102
+0 compute Klimhd : 0
+0 compute Klimud : 1e-06
+0 compute Klimvd : 0
+0 compute Klimhu : 3e-06
+0 compute Klimuu : 2e-06
+0 compute Klimvu : 1e-06
+0 compute Klimhl : 1.4e-05
+0 compute Klimul : 8e-06
+0 compute Klimvl : 1.5e-05
+0 compute Klimhr : 1e-06
+0 compute Klimur : 1e-06
+0 compute Klimvr : 0
+0 - Time SYNC : 1e-06
+0 compute Khuvh1l : 0.000911
+0 compute Khuvh1r : 0.000694
+0 compute Khuvu1l : 0.001381
+0 compute Khuvu1r : 0.001286
+0 compute Khuvv1l : 0.001393
+0 compute Khuvv1r : 0.001287
+0 compute Khuvz1l : 0.001583
+0 compute Khuvz1r : 0.001559
+0 compute Khuvh2l : 0.00078
+0 compute Khuvh2r : 0.00078
+0 compute Khuvu2l : 0.001506
+0 compute Khuvu2r : 0.001503
+0 compute Khuvv2l : 0.001599
+0 compute Khuvv2r : 0.001577
+0 compute Khuvz2l : 0.001661
+0 compute Khuvz2r : 0.001671
+0 compute Kdelzc2f : 0.000375
+0 compute Kdelzf : 0.000499
+0 compute Kdelzc1f : 0.00036
+0 compute Kdelzf : 0.000412
+0 compute Kbloc1x1 : 0.000648
+0 compute Kbloc1x2 : 0.000562
+0 compute Kbloc1y1 : 0.000648
+0 compute Kbloc1y2 : 0.00056
+0 compute Kbloc1x3 : 0.006231
+0 compute Kbloc1x4 : 0.00628
+0 compute Kbloc1x5 : 0.006332
+0 compute Kbloc1y3 : 0.006268
+0 compute Kbloc1Y4 : 0.0063
+0 compute Kbloc1y4 : 0.006325
+0 compute Kbloc21 : 0.000601
+0 compute Kbloc22 : 0.001327
+0 compute Kbloc23 : 0.001387
+0 compute Kheun1 : 0.000362
+0 compute Kheun2 : 0.000353
+0 compute Kheun3 : 0.000334
+0 compute Klimhd : 1e-06
+0 compute Klimud : 1e-06
+0 compute Klimvd : 1e-06
+0 compute Klimhu : 2e-06
+0 compute Klimuu : 2e-06
+0 compute Klimvu : 2e-06
+0 compute Klimhl : 1.4e-05
+0 compute Klimul : 2.2e-05
+0 compute Klimvl : 3.9e-05
+0 compute Klimhr : 1e-06
+0 compute Klimur : 1e-06
+0 compute Klimvr : 1e-06
+0 - Time SYNC : 1e-06
+0 compute Khuvh1l : 0.000898
+0 compute Khuvh1r : 0.000693
+0 compute Khuvu1l : 0.001415
+0 compute Khuvu1r : 0.001286
+0 compute Khuvv1l : 0.00143
+0 compute Khuvv1r : 0.001289
+0 compute Khuvz1l : 0.00159
+0 compute Khuvz1r : 0.001557
+0 compute Khuvh2l : 0.000782
+0 compute Khuvh2r : 0.000782
+0 compute Khuvu2l : 0.001525
+0 compute Khuvu2r : 0.001515
+0 compute Khuvv2l : 0.001517
+0 compute Khuvv2r : 0.001523
+0 compute Khuvz2l : 0.001635
+0 compute Khuvz2r : 0.001626
+0 compute Kdelzc2f : 0.00037
+0 compute Kdelzf : 0.000494
+0 compute Kdelzc1f : 0.000359
+0 compute Kdelzf : 0.000415
+0 compute Kbloc1x1 : 0.000648
+0 compute Kbloc1x2 : 0.000562
+0 compute Kbloc1y1 : 0.00065
+0 compute Kbloc1y2 : 0.000559
+0 compute Kbloc1x3 : 0.006217
+0 compute Kbloc1x4 : 0.006278
+0 compute Kbloc1x5 : 0.00634
+0 compute Kbloc1y3 : 0.006226
+0 compute Kbloc1Y4 : 0.006271
+0 compute Kbloc1y4 : 0.006321
+0 compute Kbloc21 : 0.000602
+0 compute Kbloc22 : 0.001331
+0 compute Kbloc23 : 0.001414
+0 compute Kcheck : 0.00033
+0 compute Kcheckus : 0.001056
+0 compute Kcheckvs : 0.001046
+0 compute Klimhd : 0
+0 compute Klimud : 0
+0 compute Klimvd : 1e-06
+0 compute Klimhu : 2e-06
+0 compute Klimuu : 2e-06
+0 compute Klimvu : 2e-06
+0 compute Klimhl : 1.5e-05
+0 compute Klimul : 8e-06
+0 compute Klimvl : 1.5e-05
+0 compute Klimhr : 1e-06
+0 compute Klimur : 1e-06
+0 compute Klimvr : 1e-06
+0 - Time SYNC : 1e-06
+0 compute Khuvh1l : 0.000919
+0 compute Khuvh1r : 0.000696
+0 compute Khuvu1l : 0.001407
+0 compute Khuvu1r : 0.001328
+0 compute Khuvv1l : 0.001401
+0 compute Khuvv1r : 0.001288
+0 compute Khuvz1l : 0.001589
+0 compute Khuvz1r : 0.001567
+0 compute Khuvh2l : 0.000781
+0 compute Khuvh2r : 0.000781
+0 compute Khuvu2l : 0.001525
+0 compute Khuvu2r : 0.001511
+0 compute Khuvv2l : 0.001518
+0 compute Khuvv2r : 0.001521
+0 compute Khuvz2l : 0.001632
+0 compute Khuvz2r : 0.001628
+0 compute Kdelzc2f : 0.000368
+0 compute Kdelzf : 0.000492
+0 compute Kdelzc1f : 0.000363
+0 compute Kdelzf : 0.000411
+0 compute Kbloc1x1 : 0.000654
+0 compute Kbloc1x2 : 0.000563
+0 compute Kbloc1y1 : 0.000648
+0 compute Kbloc1y2 : 0.000564
+0 compute Kbloc1x3 : 0.006216
+0 compute Kbloc1x4 : 0.006431
+0 compute Kbloc1x5 : 0.006387
+0 compute Kbloc1y3 : 0.006259
+0 compute Kbloc1Y4 : 0.006352
+0 compute Kbloc1y4 : 0.006354
+0 compute Kbloc21 : 0.000614
+0 compute Kbloc22 : 0.001347
+0 compute Kbloc23 : 0.00139
+0 compute Kheun1 : 0.000368
+0 compute Kheun2 : 0.000355
+0 compute Kheun3 : 0.000336
+0 Time TOTAL CALCULATION : 0.137662
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4017785
+Jobname   : base_MSL_500_1_1
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 17:00 , memory/task = 4000 Mo
+Date      : submit = 20/01/2016 13:37:34 , start = 20/01/2016 13:37:58
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 1 , cpus/task = 1 , ncpus = 1 , nodes = 1
+   Nodes=curie1635 CPU_IDs=0 Mem=4000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4017785       base_MSL_500_1_1          -      1      1           -     00:00:08     100            -      -  -
+4017785.0     llcmcpp_loader            1      1      1      BBlock     00:00:03    37.5            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

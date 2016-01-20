@@ -1,0 +1,91 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+ Time TOTAL CALCULATION : 1.39246
+ Time TOTAL CALCULATION : 1.3925
+ Time TOTAL CALCULATION : 1.39236
+ Time TOTAL CALCULATION : 1.39239
+ Time TOTAL CALCULATION : 1.39234
+ Time TOTAL CALCULATION : 1.39253
+ Time TOTAL CALCULATION : 1.3925
+ Time TOTAL CALCULATION : 1.39243
+ Time TOTAL CALCULATION : 1.3925
+ Time TOTAL CALCULATION : 1.39268
+ Time TOTAL CALCULATION : 1.39232
+ Time TOTAL CALCULATION : 1.39247
+ Time TOTAL CALCULATION : 1.39249
+ Time TOTAL CALCULATION : 1.39262
+ Time TOTAL CALCULATION : 1.3925
+ Time TOTAL CALCULATION : 1.39241
+ Time TOTAL CALCULATION : 1.39252
+ Time TOTAL CALCULATION : 1.39228
+ Time TOTAL CALCULATION : 1.39239
+ Time TOTAL CALCULATION : 1.39245
+ Time TOTAL CALCULATION : 1.3925
+ Time TOTAL CALCULATION : 1.39255
+ Time TOTAL CALCULATION : 1.39256
+ Time TOTAL CALCULATION : 1.39258
+ Time TOTAL CALCULATION : 1.39248
+ Time TOTAL CALCULATION : 1.39248
+ Time TOTAL CALCULATION : 1.39238
+ Time TOTAL CALCULATION : 1.39224
+ Time TOTAL CALCULATION : 1.39247
+ Time TOTAL CALCULATION : 1.39241
+ Time TOTAL CALCULATION : 1.39251
+ Time TOTAL CALCULATION : 1.3925
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3883404
+Jobname   : task2MSL_500_500_32
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 23/12/2015 16:36:24 , start = 23/12/2015 16:36:25
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 2 , ncpus = 64 , nodes = 4
+   Nodes=curie[3057-3060] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3883404       task2MSL_500_500_32       -     64      4           -     00:00:06     100            -      -  -
+3883404.0     llcmcpp_loader           32     64      4      BBlock     00:00:04    66.6     00:00:02   50.0  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

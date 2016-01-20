@@ -1,0 +1,59 @@
+19 Time TOTAL CALCULATION : 1672.54
+7 Time TOTAL CALCULATION : 1672.55
+15 Time TOTAL CALCULATION : 1672.55
+4 Time TOTAL CALCULATION : 1672.55
+6 Time TOTAL CALCULATION : 1672.55
+11 Time TOTAL CALCULATION : 1672.55
+12 Time TOTAL CALCULATION : 1672.55
+5 Time TOTAL CALCULATION : 1672.55
+13 Time TOTAL CALCULATION : 1672.55
+1 Time TOTAL CALCULATION : 1672.55
+8 Time TOTAL CALCULATION : 1672.55
+9 Time TOTAL CALCULATION : 1672.55
+3 Time TOTAL CALCULATION : 1672.55
+2 Time TOTAL CALCULATION : 1672.55
+14 Time TOTAL CALCULATION : 1672.55
+0 Time TOTAL CALCULATION : 1672.55
+10 Time TOTAL CALCULATION : 1672.56
+28 Time TOTAL CALCULATION : 1672.55
+29 Time TOTAL CALCULATION : 1672.55
+27 Time TOTAL CALCULATION : 1672.54
+20 Time TOTAL CALCULATION : 1672.55
+18 Time TOTAL CALCULATION : 1672.55
+23 Time TOTAL CALCULATION : 1672.55
+31 Time TOTAL CALCULATION : 1672.55
+30 Time TOTAL CALCULATION : 1672.55
+22 Time TOTAL CALCULATION : 1672.55
+21 Time TOTAL CALCULATION : 1672.55
+25 Time TOTAL CALCULATION : 1672.55
+16 Time TOTAL CALCULATION : 1672.55
+26 Time TOTAL CALCULATION : 1672.55
+17 Time TOTAL CALCULATION : 1672.55
+24 Time TOTAL CALCULATION : 1672.55
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3979552
+Jobname   : NF_MSL_10k_1k_32
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 34:00 , memory/task = 4000 Mo
+Date      : submit = 14/01/2016 10:56:34 , start = 14/01/2016 22:19:13
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 1 , ncpus = 32 , nodes = 2
+   Nodes=curie[3508-3509] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3979552       NF_MSL_10k_1k_32          -     32      2           -     00:27:59     100            -      -  -
+3979552.0     llcmcpp_loader           32     32      2      BBlock     00:27:58    99.9     00:27:41   98.9  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########
