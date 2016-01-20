@@ -1,5 +1,0 @@
-//#implements=Klimul
-LCMP(Klimul)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, u);
-LEND

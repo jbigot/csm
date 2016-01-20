@@ -1,7 +1,0 @@
-//#implements=timeo
-LCMP(TimeO)
-  L_PROPERTY(int16_t, iter);
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Go, phaseCompute);
-  L_CPP_USE(PhaseOh, phaseInit);
-LEND

@@ -1,8 +1,0 @@
-//#implements=data
-LCMP(Data)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_PROVIDE(Data, services);
-  L_MPI_COMM(comm)
-  L_CPP_USE(Structh,str);
-  L_CPP_USE(Inith,initializer);
-LEND

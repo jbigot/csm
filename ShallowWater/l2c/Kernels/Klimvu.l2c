@@ -1,5 +1,0 @@
-//#implements=Klimvu
-LCMP(Klimvu)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, v);
-LEND

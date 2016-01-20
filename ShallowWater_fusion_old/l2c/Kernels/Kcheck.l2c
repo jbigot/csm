@@ -1,9 +1,0 @@
-//#implements=Kcheck
-LCMP(Kcheck)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, hs);
-  L_CPP_USE(Datah, us);
-  L_CPP_USE(Datah, vs);
-  L_CPP_USE(Datah, qs1);
-  L_CPP_USE(Datah, qs2);
-LEND

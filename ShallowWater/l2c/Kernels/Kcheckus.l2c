@@ -1,7 +1,0 @@
-//#implements=Kcheckus
-LCMP(Kcheckus)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, hs);
-  L_CPP_USE(Datah, us);
-  L_CPP_USE(Datah, qs1);
-LEND

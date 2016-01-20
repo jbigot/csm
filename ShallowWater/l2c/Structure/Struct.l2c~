@@ -1,5 +1,0 @@
-//#implements=structure
-LCMP(Structure)
-  L_PROPERTY(int16_t, border_size);
-  L_CPP_PROVIDE(Structh, services);
-LEND

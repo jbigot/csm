@@ -1,7 +1,0 @@
-//#implements=kernelHeat
-LCMP(KernelHeat)
-  L_CPP_PROVIDE(Go, inGo);
-  //L_CPP_PROVIDE(Kernelh, init);
-  L_CPP_USE(Datah, data1SV);
-  L_CPP_USE(Datah, data2SV);
-LEND

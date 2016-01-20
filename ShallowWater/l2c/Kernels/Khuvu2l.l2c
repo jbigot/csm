@@ -1,9 +1,0 @@
-//#implements=Khuvu2l
-LCMP(Khuvu2l)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, h);
-  L_CPP_USE(Datah, u);
-  L_CPP_USE(Datah, v);
-  L_CPP_USE(Datah, z);
-  L_CPP_USE(Datah, u2l);
-LEND

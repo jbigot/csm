@@ -1,7 +1,0 @@
-//#implements=phaseo
-LCMP(PhaseO)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_PROVIDE(PhaseOh, services);
-  L_CPP_USE(Go, groupCompute);
-  L_CPP_USE(Datah, dataCompute);
-LEND

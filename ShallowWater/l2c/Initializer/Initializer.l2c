@@ -1,4 +1,0 @@
-//#implements=initializer
-LCMP(Initializer)
-  L_CPP_PROVIDE(Inith, initdata);
-LEND
