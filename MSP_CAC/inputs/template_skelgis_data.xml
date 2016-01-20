@@ -1,7 +1,0 @@
-<instance id="${data}_${proc}" type="Data">
-	<property id="str"><cppref instance="st_${proc}" property="services"/></property>
-	<property id="initializer"><cppref instance="in_${proc}" property="initdata"/></property>
-	<property id="border"><value type="uint16">${border}</value></property>
-	<property id="domain"><value type="uint16">${domain}</value></property>
-	<property id="init_val"><value type="double">${init_val}</value></property>
-</instance>
