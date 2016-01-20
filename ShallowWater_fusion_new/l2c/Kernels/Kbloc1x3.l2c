@@ -1,9 +1,0 @@
-//#implements=Kbloc1x3
-LCMP(Kbloc1x3)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, u1l);
-  L_CPP_USE(Datah, u1r);
-  L_CPP_USE(Datah, h1g);
-  L_CPP_USE(Datah, h1d);
-  L_CPP_USE(Datah, f1);
-LEND

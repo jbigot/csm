@@ -1,7 +1,0 @@
-//#implements=structure
-LCMP(StructureSK)
-  L_PROPERTY(int64_t, globW);
-  L_PROPERTY(int64_t, globH);
-  L_PROPERTY(int32_t, nb_proc);
-  L_CPP_PROVIDE(Structh, services);
-LEND

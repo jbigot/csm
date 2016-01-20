@@ -1,7 +1,0 @@
-//#implements=driverapponly
-LCMP(DriverAppOnly)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Go, dataCompute);
-  L_CPP_USE(Datah, dh1);
-  L_CPP_USE(Datah, dh2);
-LEND

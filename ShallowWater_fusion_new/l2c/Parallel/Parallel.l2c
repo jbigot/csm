@@ -1,5 +1,0 @@
-//#implements=parallel
-LCMP(Parallel)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Go, Compute);
-LEND

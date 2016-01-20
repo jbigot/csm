@@ -1,6 +1,0 @@
-//#implements=Kheun1
-LCMP(Kheun1)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, hsa);
-  L_CPP_USE(Datah, h);
-LEND

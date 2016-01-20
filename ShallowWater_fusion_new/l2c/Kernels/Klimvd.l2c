@@ -1,5 +1,0 @@
-//#implements=Klimvd
-LCMP(Klimvd)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, v);
-LEND

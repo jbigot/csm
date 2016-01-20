@@ -1,5 +1,0 @@
-//#implements=Klimhr
-LCMP(Klimhr)
-  L_CPP_PROVIDE(Go, inGo);
-  L_CPP_USE(Datah, h);
-LEND
