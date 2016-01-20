@@ -1,0 +1,68 @@
+#include <iostream>
+#include <llcmcpp/llcmcpp3.h>
+#include <llcmcpp/go.h>
+#include <vector>
+#include <chronometer.hpp>
+#include <mpi.h>
+
+#include "../rdtsc.h"
+
+typedef llcmcpp::Go Go;
+
+using ::std::vector;
+using ::std::cout;
+using ::std::endl;
+
+class Time:virtual public Go
+{
+public:
+  int16_t iter;
+  vector<Go *> phase;
+
+  Time ():iter(0){}
+  ~Time(){}
+
+  void go ()
+  {
+    //cout<<"iter = "<<iter<<endl;
+    //-----Time calculation                                                                                                                                     
+    Chronometer chrono;
+    chrono.start();
+    //-----                                                                                                                                  
+    int mpi_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD,&(mpi_rank));
+
+    phase[0]->go();
+
+    chrono.stop();
+    cout<<mpi_rank<<" Time init CALCULATION : "<<chrono.dureeCalcule()<<endl;
+           
+    Chronometer chrono2;
+    chrono2.start();
+
+    for(int i=0;i<iter;i++)
+    {
+      //std::cout<<mpi_rank<<"========= ITERATION "<<i<<"==========="<<std::endl;
+      for(int j=0;j<phase.size();j++)
+	{
+	  //unsigned long long a,b;
+	  //a=rdtsc();
+	  phase[j]->go();
+	  //b=rdtsc();
+	  //std::cout<<"go in time = "<<b-a<<std::endl;
+	}
+    }
+    //-----Time calculation                                                                                                                                                                              
+    chrono2.stop();
+    cout<<mpi_rank<<" Time TOTAL CALCULATION : "<<chrono2.dureeCalcule()<<endl;
+    //-----*/ 
+  }
+
+  void phaseCompute(Go * port)
+  {
+    phase.push_back(port);
+  }
+  
+};
+
+#include <Time/Time.l2c>

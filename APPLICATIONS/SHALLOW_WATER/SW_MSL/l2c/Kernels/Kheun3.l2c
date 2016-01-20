@@ -1,0 +1,7 @@
+//#implements=Kheun3
+LCMP(Kheun3)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Datah, qsa2);
+  L_CPP_USE(Datah, h);
+  L_CPP_USE(Datah, q2);
+LEND

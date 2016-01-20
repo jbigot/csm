@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for i in `seq 1 10`;
+do
+    ccc_msub NF_MSL_500_100_16.sh
+    ccc_msub NF_MSL_500_100_32.sh
+    ccc_msub NF_MSL_500_100_64.sh
+    ccc_msub NF_MSL_500_100_128.sh
+    ccc_msub NF_MSL_500_100_256.sh
+    ccc_msub NF_MSL_500_100_512.sh
+    ccc_msub NF_MSL_500_100_1024.sh
+    ccc_msub NF_MSL_500_100_2048.sh
+#    ccc_msub NF_MSL_500_100_4096.sh
+done

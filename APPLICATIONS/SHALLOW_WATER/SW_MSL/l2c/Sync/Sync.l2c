@@ -1,0 +1,6 @@
+//#implements=sync
+LCMP(Sync)
+  L_CPP_PROVIDE(Go, inGo);
+  //L_CPP_PROVIDE(Synch, init);
+  L_CPP_USE(Datah, dataCompute);
+LEND

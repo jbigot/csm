@@ -1,0 +1,73 @@
+#####################################################################
+# Input parameters
+#####################################################################
+
+Number of meshes (x-axis)  <Nxcell>:: 1000
+Number of meshes (y-axis)  <Nycell>:: 1000
+Cell size (dx=dy in meter)  <spacing>:: 1
+
+Time of simulation (in seconds) <T>:: 1
+Timestep (in seconds) <dtfix>:: 0.01
+cflfix, value of the cfl  <cflfix>:: 0.8
+Number of interations for each save  <nsave>:: 10
+
+Left Boundary condition   (x = 0)   (1=wall 2=neumann 3=liquid 4=imp_discharge)  <Lbound>:: 1
+Imposed discharge in left bc <left_imp_discharge> :: 0.0005
+Imposed height in left bc (if flow super critical) <left_imp_h>:: 0.005
+
+Right Boundary condition (x = xmax)(1=wall 2=neumann 3=liquid 4=imp_discharge)  <Rbound>:: 1
+Imposed discharge in right bc <right_imp_discharge> :: 0.0005
+Imposed height in right bc (if flow super criti cal) <right_imp_h>:: 0.005
+
+Bottom Boundary condition (y = 0)   (1=wall 2=neumann 3=liquid 4=imp_discharge)  <Bbound>:: 1
+Imposed discharge in bottom  bc <bottom_imp_discharge> :: 0.0005
+Imposed height in bottom bc (if flow super critical) <bottom_imp_h>:: 0.005
+
+Top Boundary condition bc (y = ymax)(1=wall 2=neumann 3=liquid 4=imp_discharge)  <Tbound>:: 1
+Imposed discharge in top bc <top_imp_discharge> :: 0.0005
+Imposed height in top bc (if flow super critical) <top_imp_h>:: 0.005
+
+Order of the scheme (1=order1 2=order2)  <order>:: 2
+
+Numerical flux (1=Rusanov 2=HLL 3=HLL2)  <flux>:: 2
+
+Reconstruction (1=MUSCL 2=ENO 3=ENOmod)  <rec>:: 1
+Limiter (1=Minmod 2=VanAlbada 3=VanLeer)  <lim>:: 1
+AmortENO (Between 0 and 1.)  <amortENO>:: 0.25
+ModifENO (Between 0 and 1.)  <modifENO>:: 0.9
+
+Friction law (1=Manning 2=Darcy-Weisbach)  <fric>:: 1
+Initialisation of Friction (1=file 2=const_coef) <fricinit>:: 2
+Friction coefficient  <friccoef>:: 0.02
+Name of the friction file  <fric_NF>:: bv_Manning.txt
+
+Infiltration model (1=Green-Ampt 2=Green-Ampt-Retension)  <inf>:: 1
+
+Ks, hydraulic conductivity (saturation) of the surface (1=file 2=const_coef) <Ks_init>:: 2
+Ks coefficient  (1.7e-8)  <Kscoef>:: 6
+Name of the Ks file <Ks_NF>:: bv_Ks_9_12.txt
+
+Dteta, water content  (1=file 2=const_coef) <dtheta_init>:: 2
+dtheta coefficient  <dthetacoef>:: 0.07
+Name of the dtheta file <dtheta_NF>:: dtheta_init.txt
+
+Psi, load pressure (1=file 2=const_coef)  <Psi_init>:: 2
+Psi coefficient   <Psicoef>:: 0.15
+Name of the Psi file <Psi_NF>:: Psi_init.txt
+
+Thresold of retension (1=file 2=const_coef)  <retension_init>:: 2
+Retension coefficient   <retensioncoef>:: 0.005
+Name of the retension file <retension_NF>:: bv_retension.txt
+
+Topography (1=file 2=flat)  <topo>:: 2
+Name of the topography file  <topo_NF>:: bv_mnt.txt
+
+Initialization of h (1=file 2:h=0)  <h_init>:: 2
+Name of the h initialization file  <h_NF>:: h_128.bin
+
+Rain (1=file 2=function)  <rain>:: 2
+Name of the rain file  <rain_NF>:: bv_rain.txt
+
+Suffix for the 'Outputs' directory  <suffix_o>:: 
+Format of the Output file (1=vtkCell 2=vtkPoint)  <output_f>:: 2
+
