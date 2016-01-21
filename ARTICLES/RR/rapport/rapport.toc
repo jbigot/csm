@@ -1,8 +1,0 @@
-\contentsline {section}{\numberline {1}Computational model of Multi-Stencil Programs}{1}{section.1}
-\contentsline {subsection}{\numberline {1.1}Time, mesh and data}{1}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}Computations}{3}{subsection.1.2}
-\contentsline {section}{\numberline {2}Parallelization of Multi-Stencil Programs}{5}{section.2}
-\contentsline {subsection}{\numberline {2.1}Data parallelism}{5}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Hybrid parallelism}{6}{subsection.2.2}
-\contentsline {section}{\numberline {3}The Multi-Stencil Language}{7}{section.3}
-\contentsline {section}{\numberline {4}Static Scheduling}{7}{section.4}

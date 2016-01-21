@@ -1,8 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Computational model of Multi-Stencil Programs}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Time, mesh and data}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Computations}{section.1}% 3
-\BOOKMARK [1][-]{section.2}{Parallelization of Multi-Stencil Programs}{}% 4
-\BOOKMARK [2][-]{subsection.2.1}{Data parallelism}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.2}{Hybrid parallelism}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{The Multi-Stencil Language}{}% 7
-\BOOKMARK [1][-]{section.4}{Static Scheduling}{}% 8
