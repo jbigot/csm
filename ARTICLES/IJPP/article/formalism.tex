@@ -73,47 +73,53 @@ In this section are considered three different types of kernel computations, ste
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
-\item A computation domain $D$ is a subpart  a mesh entities group, $D \subset E \in \mathcal{E}$.
+\item A computation domain $D$ is a subpart of a mesh entities group, $D \subset E \in \mathcal{E}$.
 \item The set of computation domains of a numerical simulation is denoted $\mathcal{D}$.
-\item A neighborhood $n$ is a function which for a given entity $e \in E_i$, returns a set of $m$ entities in $E_j$, $n : E_i \rightarrow E_j^m$. One can notice that $i = j$ is possible.
+\item A neighborhood $n$ is a function which for a given entity $e \in E_i$, returns a set of $m$ entities in $E_j$, $n : E_i \rightarrow E_j^m$. One can notice that $i = j$ is possible. Most of the time, such a neighborhood is called a stencil shape.
 \item The set of neihborhood functions in a numerical simulation is denoted $\mathcal{N}$.
-\item A single data is written during a computation and is denoted $w \in \Delta$. Thus, the computation domain of the computation is $D \subset E_w=entity(w)$.
-\item A set of data to read and use in a computation is denoted $R$. Each element of $R$ is a tuple $(r,n)$, where $r \in \Delta$ and $n$ is a neighborhood function such that $n : E_w \rightarrow entity(r)^m$. The neighborhood indicates which entities, on which $r$ is applied, will be read during the computation.
-\item A numerical expression $\text{exp}_{w}: entity(w) \times R^n \rightarrow V_{w}$ is a function which computes the values of the written quantity $w \in \Delta$ for a given entity $e \in entity(w)=E_w$, using a set of input data $R$.
-\item A computation kernel $k$ of a numerical simulation is defined as $c(R,w,\text{exp},D)$, where $R$ is the set of data read, $w \in \Delta$ is the unique data written, $\text{exp}$ is a numerical expression, and $D \in \mathcal{D}$ is the computation domain.
 \end{itemize}
-%\end{mydef}
-%If the number of computations in $\Gamma$ is $card(\Gamma)=n$, such that $\bigcup_{i=0}^{n-1}c_i = \Gamma$, then $\bigcup_{i=0}^{m-1}R_i \cup w_i \subseteq \Delta$.
 
-Most of the time we can dissociate two types of kernel computations.
+\begin{mydef}
+A computation kernel $k$ of a numerical simulation is defined as $k(R,(w,D),comp)$, where 
+\begin{itemize}
+\item $(w,D) \in \Delta \times \mathcal{D}$ is the single data modified by the computation kernel onto a given computation domain. Thus, $w \in \Delta$ and $D \in \mathcal{D}$ is the computation domain on which $w$ is computed, $D \subset E_w=entity(w)$.
+\item $R$ is the set of tuples $(r,n)$, where $r \in \Delta$ and $n \in \mathcal{N}$ is a neighborhood function such that $n : E_w \rightarrow entity(r)^m$. The neighborhood indicates which entities of $r$ will be read in order to compute a single entity of $w$. 
+\item $comp$ is the numerical computation which returns a value from a set of input values, $comp: V^n \rightarrow V$.
+\end{itemize}
+% \item A numerical expression $\text{exp}_{w}: entity(w) \times R^n \rightarrow V_{w}$ is a function which computes the values of the written quantity $w \in \Delta$ for a given entity $e \in entity(w)=E_w$, using a set of input data $R$.
+% \item A computation kernel $k$ of a numerical simulation is defined as $c(R,w,\text{exp},D)$, where $R$ is the set of data read, $w \in \Delta$ is the unique data written, $\text{exp}$ is a numerical expression, and $D \in \mathcal{D}$ is the computation domain.
+% \end{itemize}
+%$R$ is the set of data read, $w \in \Delta$ is the unique data written, $\text{exp}$ is a numerical expression, and $D \in \mathcal{D}$ is the computation domain.
+\end{mydef}
+
+$comp$ represents the actual numerical expression which is computed by a kernel. We can dissociate three types of kernel computations.
 
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
 \item We denote by $identity$ the identity function $x=x$.
-\item A kernel computation $k(R,w,\text{exp},D) \in \Gamma$ is a stencil kernel $\iff \exists (r,n) \in R$ such that $n \neq identity$.
-\item A kernel computation $k(R,w,\text{exp},D) \in \Gamma$ is a local kernel $\iff \forall (r,n) \in R$, $n = identity$.
+\item A kernel computation $k(R,(w,D),comp)$ is a \emph{stencil kernel} $\iff \exists (r,n) \in R$ such that $n \neq identity$.
+\item A kernel computation $k(R,(w,D),comp)$ is a \emph{local kernel} $\iff \forall (r,n) \in R$, $n = identity$.
+\item A kernel computation $k(R,(w,D),comp)$ is a \emph{reduction kernel} if $w$ is a scalar, in other words $\iff dim(mesh(entity(w)))=0$.
 \end{itemize}
 
 \noindent \textbf{Property}
 A kernel for which all data read and written are applied onto a mesh of dimension $0$ is a local kernel.
 
+\medskip
 A reduction computation is a computation which takes data applied onto meshes and returns a data with a dimension reduced to zero, in other words a scalar. A reduction is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be performed during a time iteration. %This last usage is typically done to have a conditionnal branch to choose one computation or another, or to compute a dynamic time step for example.
 
-\medskip
-\noindent \textbf{Definitions}
-%\begin{mydef}
-\begin{itemize}
-\item A reduction computation $r$ of a numerical simulation is defined as $r(R,w,red)$, where $R$ is the set of data read, $w \in \mathcal{S}$ is the scalar written, and $\text{red}$ is an associative reduction function.
-% \item For any $i,j$ such that $r_i \in R$ and $r_j \in R$, if $dim(mesh(r_i))=dim(mesh(r_j))=n$.
-% \item The data written by the reduction $w$ verifies $dim(mesh(w))<n$.
-\item A reduction function $\text{red}: \Delta^n \rightarrow \mathcal{S}$ is an operation which reduces a set of data in $\Delta$ (on it sentities) to a single scalar variable in $\mathcal{S}$. The reduction function must be associative.
-\item The set of $n$ ordered computations (kernel or reduction) of a numerical simulation is denoted $\Gamma = [c_i]_{0 \leq i \leq n-1}$, such that $\forall c_i,c_j \in \Gamma$, if $i \leq j$, then $c_i$ is computed before $c_j$.
-\item Finally, a \textit{multi-stencil program} is defined by the septuplet $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta, \mathcal{S},\Gamma)$.
-\end{itemize}
-%!!!!!!!  est-ce qu'on fusionne le maillage, les entites et les domaines ?????
-%\end{mydef}
+\noindent \textbf{Property}
+Considering a reduction kernel $k(R,(w,D),comp)$, $comp$ must be a binary and associative operation on the type $V$, $comp: V \times V \rightarrow V$.
 
+\noindent \textbf{Definitions}
+\begin{itemize}
+\item The set of $n$ ordered computation kernels of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i \leq j$, then $k_i$ is computed before $k_j$.
+\item Finally, a \textit{multi-stencil program} is defined by the septuplet 
+\begin{equation*}
+\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta, \mathcal{S},\Gamma)
+\end{equation*}
+\end{itemize}
 
 For example, in Figure~\ref{fig:ex1}, assuming that the computation domain (full lines) is denoted $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
 \begin{equation*}
