@@ -20,12 +20,36 @@
 %
 %\documentclass{svjour3}                     % onecolumn (standard format)
 %\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
-\documentclass[smallextended]{svjour3}       % onecolumn (second format)
-%\documentclass[twocolumn]{svjour3}          % twocolumn
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+\documentclass[twocolumn]{svjour3}          % twocolumn
 %
 \smartqed  % flush right qed marks, e.g. at end of proof
 %
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{cite}
+\usepackage{filecontents}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage[ruled,noend]{algorithm2e}
+\usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
+
+\usepackage{todonotes}
+
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{myprop}[theorem]{Proposition}
+% \newenvironment{proof}[1][Proof]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{mydef}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{myth}[1][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\def\pprec{\mathrel{\scalebox{.9}[1]{$\prec$}\mkern-3mu%
+  \scalebox{.4}[1]{$\prec$}\mkern-5.5mu\scalebox{.4}[1]{$\prec$}}}
 %
 % \usepackage{mathptmx}      % use Times fonts if available on your TeX system
 %
@@ -77,27 +101,117 @@ Insert your abstract here.
 %------------------------------------------------------------------------------
 \section{Introduction}
 \label{sect:introduction}
+Contributions :
+\begin{itemize}
+\item Formalism of a multi-stencil program and its parallelization
+\item The Multi-stencil Language: agnostic from the type of mesh and of the choosen implementation
+\item A first implementation of the MSL compiler (static scheduling + fusion + dump to SkelGIS/components)
+\item Evaluation of the different types of parallelism introduced + compiler + fusion
+\end{itemize}
 %------------------------------------------------------------------------------
 \section{Computational model of Multi-Stencil Programs}
 \label{sect:formalism}
+\input{formalism.tex}
+% Formalism :
+% \begin{itemize}
+% \item mesh / mesh entities and groups / computations domains
+% \item data and scalars
+% \item computations : stencil, local and reduction
+% \item Multi-Stencil Program
+% \end{itemize}
 %------------------------------------------------------------------------------
 \section{Parallelization of Multi-Stencil Programs}
 \label{sect:parallelism}
+\input{parallelism.tex}
+% Parallelization formalism :
+% \begin{itemize}
+% \item Data parallelism (introduction of synchronizations)
+% \item Task parallelism (computation of the dependency graph)
+% \end{itemize}
 %------------------------------------------------------------------------------
 \section{The Multi-Stencil Language}
 \label{sect:msl}
+\input{msl.tex}
+% The parallel empty skeleton of the application can be computed automatically from the language :
+% \begin{itemize}
+% \item grammar
+% \item example from the language to the dependency graph
+% \end{itemize}
 %------------------------------------------------------------------------------
 \section{Static Scheduling}
 \label{sect:msp}
-%------------------------------------------------------------------------------
-\section{Component-Based Runtime}
-\label{sect:component}
+\input{msp.tex}
+% From the dependency graph we study a first dump: static scheduling
+% \begin{itemize}
+% \item description of the algorithm to get the binary tree decomposition of a minimal serie-parallel graph
+% \item use of the serie-parallel tree decomposition to detect fusions of kernels
+% \item example (the same one) from the dependency graph to the binary tree
+% \end{itemize}
 %------------------------------------------------------------------------------
 \section{Evaluation}
 \label{sect:eval}
+\begin{itemize}
+\item short description of the implementation (compiler in Python, DDS = SkelGIS, Components)
+\item evaluation of the compiler (execution times of the different steps)
+\item evaluation of the data parallelism (weak/strong scaling)
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/400/median_weak.pdf}}
+  \caption{weak-scaling 400x400 blocks.}
+  \label{fig:mesh}
+\end{center}\end{figure}
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/800/median_weak.pdf}}
+  \caption{weak-scaling 800x800 blocks}
+  \label{fig:mesh}
+\end{center}\end{figure}
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{../results/strong_scaling/10K_1K/median_strong.pdf}}
+  \caption{strong-scaling 10kx10k, 1k iterations}
+  \label{fig:mesh}
+\end{center}\end{figure}
+
+\item evaluation of the fusion
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/fusVSbase.pdf}}
+  \caption{strong scaling 500x500, 200 iterations, with and without fusion}
+  \label{fig:mesh}
+\end{center}\end{figure}
+
+\item evaluation of the hybrid parallelism
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_close_median.pdf}}
+  \caption{MPI only vs MPI+threads with \emph{close} scheduling policy (OpenMP)}
+  \label{fig:mesh}
+\end{center}\end{figure}
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_spread_median.pdf}}
+  \caption{MPI only vs MPI+threads with \emph{spread} scheduling policy (OpenMP)}
+  \label{fig:mesh}
+\end{center}\end{figure}
+
+\item analytic model for the results
+
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/analytic/times.pdf}}
+  \caption{Computation vs communication times in the MPI only application}
+  \label{fig:mesh}
+\end{center}\end{figure}
+
+\end{itemize}
 %------------------------------------------------------------------------------
 \section{Related work}
 \label{sect:rel}
+\begin{itemize}
+\item Lizst, Pochoir, PATUS for optimizations/parallelization of a single stencil kernel + mesh dependent
+\item Halide for pipeline of stencil computations = mesh dependent
+\item Reuse of external solutions as SkelGIS, GA, Lizst, Pochoir etc.
+\end{itemize}
 %------------------------------------------------------------------------------
 \section{Conclusion}
 \label{sect:concl}
@@ -108,11 +222,8 @@ Insert your abstract here.
 %and remove the percent signs.
 %\end{acknowledgements}
 
-% BibTeX users please use one of
-%\bibliographystyle{spbasic}      % basic style, author-year citations
-%\bibliographystyle{spmpsci}      % mathematics and physical sciences
-%\bibliographystyle{spphys}       % APS-like style for physics
-%\bibliography{}   % name your BibTeX data base
+\bibliographystyle{spbasic}
+\bibliography{biblio}
 
 \end{document}
 % end of file template.tex
