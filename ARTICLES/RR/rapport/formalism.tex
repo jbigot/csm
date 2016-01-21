@@ -79,7 +79,7 @@ In this section are considered two different types of computations, a reduction 
 \item The set of neihborhood functions in a numerical simulation is denoted $\mathcal{N}$.
 \item A single data is written during a computation and is denoted $w \in \Delta$. Thus, the computation domain of the computation is $D \subset E_w=entity(w)$.
 \item A set of data to read and use in a computation is denoted $R$. Each element of $R$ is a tuple $(r,n)$, where $r \in \Delta$ and $n$ is a neighborhood function such that $n : E_w \rightarrow entity(r)^m$. The neighborhood indicates which entities, on which $r$ is applied, will be read during the computation.
-\item A numerical expression $\text{exp}_{w}: entity(w) \times R^n \rightarrow V_{w}$ is a function that computes the value of the written quantity $w \in \Delta$ for a given entity $e \in entity(w)=E_w$, using a set of input data $R$.
+\item A numerical expression $\text{exp}_{w}: entity(w) \times R^n \rightarrow V_{w}$ is a function which computes the values of the written quantity $w \in \Delta$ for a given entity $e \in entity(w)=E_w$, using a set of input data $R$.
 \item A computation kernel $k$ of a numerical simulation is defined as $c(R,w,\text{exp},D)$, where $R$ is the set of data read, $w \in \Delta$ is the unique data written, $\text{exp}$ is a numerical expression, and $D \in \mathcal{D}$ is the computation domain.}
 \end{itemize}
 %\end{mydef}

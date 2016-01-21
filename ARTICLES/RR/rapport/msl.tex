@@ -2,10 +2,13 @@
 program ::= "mesh:" meshid 
             "mesh entities:" listmeshent
             "computation domains:" 
-                       listcompdom
+                      listcompdom
             "independent:"
-                       listinde
+                      listinde
+            "stencil shapes:"
+                      liststencil
             "data:" listdata
+            "scalar" listscalar
             listloop
 
 listmeshent ::= meshent listmeshent |  meshent
@@ -13,19 +16,20 @@ listcompdom ::= compdom listcompdom |  compdom
 compdom ::= compdomid "in" listmeshent
 listinde ::= inde listinde |  inde
 inde ::= compdomid "and" compdomid
+liststencil ::= stencil liststencil | stencil
 listdata ::= data listdata |  data
 data ::= dataid "," meshent
+listscalar ::= scalar listscalar | scalar
 
 listloop ::= loop listloop | loop
 loop ::=  "time:" iteration
-          "reductions:" listred
           "computations:" listcomp
           
-iteration ::= num | red
+iteration ::= num | criteria
+criteria ::= scalar "=" criteriaid "(" listscalarread "," listdataread ")"
+listscalarread ::= scalar listscalarread |  scalar
 listcomp ::= comp listcomp |  comp
-comp ::= dataid "[" compdomid "]=" compid "(" listdataread ")"
-listred ::= red listred | red
-red ::= redid "(" listdataread ")"
+comp ::= dataid "[" compdomid "]=" compid "(" listscalarread "," listdataread ")"
 listdataread ::= dataread listdataread |  dataread
 dataread ::= dataid "[" neighborid "]" |  dataid
 \end{filecontents*}
