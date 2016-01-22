@@ -5,25 +5,40 @@
 \label{sect:dataparal}
 In a data parallelization technique, the idea is to split the data on which the program is computed into balanced sub-parts, one for each available resource. The same sequential program can afterwards be applied on each sub-part simultaneously, with some additioinal synchronizations between resources to update the data not computed locally, and thus to guarantee a correct result.
 
-More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta, \mathcal{S},\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As a data is mapped onto the mesh, the set of data $\Delta$ is partitionned the same way than the mesh in $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{sync}$.
+More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta, \mathcal{S},\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As entities and as data are mapped onto the mesh, the set of entities and the set of data $\Delta$ are partitionned the same way than the mesh: $\mathcal{E}=\{\mathcal{E},\dots,\mathcal{E}{p-1}\}$, $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{sync}$.
 
 \begin{mydef}
-\textit{
-For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronisation} is needed between $k_i$ and $k_j$, denoted $k_i \pprec k_j$, if $\exists (r,n) \in R_j$ with $n\neq identity$ ($k_j$ is a stencil computation), and such that $\{w_i\} \subset R_j$. Moreover, the data to update is $\{w_i\} \cap R_j = \{w_i$\}.}
+For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronisation} is needed between $k_i$ and $k_j$, denoted $k_i \pprec k_j$, if $\exists (r_j,n_j) \in R_j$ such that $w_i=r_j$ and $n_j\neq identity$ ($k_j$ is a stencil computation). Moreover, the data to update is $\{w_i\}$.
 \end{mydef}
 
-Actually, a synchronization can only be needed by the data read by a stencil computation (not local), and only if this data has been modified before, which means that it has been written before. This synchronization is needed because a neighborhood function $n \in \mathcal{N}$ of a stencil computation involves values computed on different resources.
+Actually, a synchronization is needed by the data read by a stencil computation (not local), and only if this data has been modified before, which means that it has been written before. This synchronization is needed because a neighborhood function $n \in \mathcal{N}$ of a stencil computation involves values computed on different resources.
 
 \begin{mydef}
-\textit{A synchronization between two computations $k_i \pprec k_j$ is defined as a specific computation $sync(R,w,exp,D)$ where $R=\{w_i\}$, $w=w_i$, $exp=identity$ and $D=\emptyset$.}
-\end{mydef}
-
-\begin{mydef}
-If a synchronization is needed before $k_j$ (on the data $w_i$), $k_j$ is replaced in $\Gamma_{sync}$ by the list
+A synchronization between two computations $k_i \pprec k_j$ is defined as a specific computation 
 \begin{equation*}
-\Gamma_{sync} = [sync(\{w_i\},w_i,identity,\emptyset), k_j]
+sync(S,R,w,comp)
 \end{equation*}
 \end{mydef}
+where $S=\emptyset$, $R=\{(w_i,n_j)\}$, $w=(w_i,n_j)$ and $comp=identity$. In other words, $w_i$ has to be synchronized for the neighborhood $n_j$.
+
+\begin{mydef}
+If $k_i \pprec k_j$, $k_j$ is replaced by the list
+\begin{equation*}
+[sync(\emptyset,\{(w_i,n_j)\},(w_i,n_j),identity), k_j]
+\end{equation*}
+\end{mydef}
+
+When a data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is applied locally on each subset of entities, on each resource, which results in $p$ (number of resources) scalar value, one on each resource. Thus, to perform the final reduction a synchronization is needed to get the $p$ scalars onto a single resource, to finally get the reduction scalar.
+
+\begin{mydef}
+For a reduction kernel $k(S,R,(w,D),comp)$, if we denote by $w^i$, $0 \leq i<p$, the local $w$ computed on the resource $i$, a reduction synchronization is defined as the specific computation 
+\begin{equation*}
+sync(S,R_s,w,comp)
+\end{equation*}
+\end{mydef}
+where, $S=\emptyset$, $R=\{(w^0,entity(w^0)) \dots (w^{p-1},entity(w^{p-1}))\}$ and $w$ and $comp$ are the same than the actual reduction.
+
+One can notice that both types of synchronizations are performed by all resources.
 
 \begin{mydef}
 The concatenation of two ordered lists of respectively $n$ and $m$ computations $l_1=[k_i]_{0 \leq i \leq n-1}$ and $l_2=[c'_i]_{0 \leq i \leq m-1}$ is denoted $l_1 \cdot l_2$ and is equal to a new ordered list $l_3=[c_0,\dots,c_{n-1},c'_0,\dots,c'_{m-1}]$.
@@ -33,9 +48,12 @@ The concatenation of two ordered lists of respectively $n$ and $m$ computations 
 From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{sync}$ is obtained from the call $\Gamma_{sync} = F_{sync}(\Gamma,0)$, where $F_{sync}$ is the recursive function defined as
 \begin{equation*}
 F_{sync}(\Gamma,j) = 
-\begin{cases} 	[\Gamma[j]] \cdot F_{sync}(\Gamma,j+1) & \mbox{if }\forall i<j \mbox{, } k_i \not\pprec k_j\\
-				[sync(\{w_i\},w_i,identity,\emptyset), k_j] \cdot F_{sync}(\Gamma,j+1) & \forall i<j \text{, and }k_i \pprec k_j\}\\
-				[] & \mbox{if }j=|\Gamma|.
+\begin{cases} 	[] \mbox{ if }j=|\Gamma|\\
+				[sync(\emptyset,\{w_i\},w_i,identity,\emptyset), k_j] \cdot F_{sync}(\Gamma,j+1)\\
+				\text{ } \qquad \forall i<j \text{, and }k_i \pprec k_j\\
+				[k_j, sync(\emptyset,,w_j,comp_j)] \cdot F_{sync}(\Gamma,j+1)\\ 
+				\text{ } \qquad \mbox{if } w_j \in \mathcal{S} \text{, and } R_j=\{(r_j,entity(r_j))\}\\
+				[\Gamma[j]] \cdot F_{sync}(\Gamma,j+1) \text{ else}.
 \end{cases}
 \end{equation*}
 \end{mydef}
@@ -56,7 +74,7 @@ F_{sync}(\Gamma,j) =
 
  The final step of this parallelization is to run $\Gamma_{sync}$ on each resource. Thus, for each resource $0 \leq k \leq p-1$ a multi-stencil program, defined by
 \begin{equation}
-\mathcal{MSP}_k(T,\mathcal{M}_k,\mathcal{E},\mathcal{D},\Delta_k, \mathcal{S},\Gamma_{sync}),
+\mathcal{MSP}_k(T,\mathcal{M}_k,\mathcal{E},\mathcal{D},\Delta_k,\mathcal{S},\Gamma_{sync}),
 \end{equation}
 is performed.
 

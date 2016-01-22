@@ -80,8 +80,9 @@ In this section are considered three different types of kernel computations, ste
 \end{itemize}
 
 \begin{mydef}
-A computation kernel $k$ of a numerical simulation is defined as $k(R,(w,D),comp)$, where 
+A computation kernel $k$ of a numerical simulation is defined as $k(S,R,(w,D),comp)$, where 
 \begin{itemize}
+\item $S \in \mathcal{S}$ is the set of scalar to read, 
 \item $(w,D) \in \Delta \times \mathcal{D}$ is the single data modified by the computation kernel onto a given computation domain. Thus, $w \in \Delta$ and $D \in \mathcal{D}$ is the computation domain on which $w$ is computed, $D \subset E_w=entity(w)$.
 \item $R$ is the set of tuples $(r,n)$, where $r \in \Delta$ and $n \in \mathcal{N}$ is a neighborhood function such that $n : E_w \rightarrow entity(r)^m$. The neighborhood indicates which entities of $r$ will be read in order to compute a single entity of $w$. 
 \item $comp$ is the numerical computation which returns a value from a set of input values, $comp: V^n \rightarrow V$.
@@ -98,19 +99,22 @@ $comp$ represents the actual numerical expression which is computed by a kernel.
 %\begin{mydef}
 \begin{itemize}
 \item We denote by $identity$ the identity function $x=x$.
-\item A kernel computation $k(R,(w,D),comp)$ is a \emph{stencil kernel} $\iff \exists (r,n) \in R$ such that $n \neq identity$.
-\item A kernel computation $k(R,(w,D),comp)$ is a \emph{local kernel} $\iff \forall (r,n) \in R$, $n = identity$.
-\item A kernel computation $k(R,(w,D),comp)$ is a \emph{reduction kernel} if $w$ is a scalar, in other words $\iff dim(mesh(entity(w)))=0$.
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{stencil kernel} $\iff \exists (r,n) \in R$ such that $n \neq identity$.
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{local kernel} $\iff \forall (r,n) \in R$, $n = identity$.
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{reduction kernel} $\iff w$ is a scalar, $R=\{(r,n)\}$, and if $n=entity(r)$.
 \end{itemize}
 
 \noindent \textbf{Property}
 A kernel for which all data read and written are applied onto a mesh of dimension $0$ is a local kernel.
 
+\noindent \textbf{Property}
+In a reduction kernel $k(S,R,(w,D),comp)$, $D=entity(w)$ as a single entity exists for a scalar.
+
 \medskip
-A reduction computation is a computation which takes data applied onto meshes and returns a data with a dimension reduced to zero, in other words a scalar. A reduction is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be performed during a time iteration. %This last usage is typically done to have a conditionnal branch to choose one computation or another, or to compute a dynamic time step for example.
+A reduction computation is a computation which takes a single data applied onto a mesh and returns from all its entities a single data with a dimension reduced to zero, in other words a scalar. A reduction is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be performed during a time iteration. %This last usage is typically done to have a conditionnal branch to choose one computation or another, or to compute a dynamic time step for example.
 
 \noindent \textbf{Property}
-Considering a reduction kernel $k(R,(w,D),comp)$, $comp$ must be a binary and associative operation on the type $V$, $comp: V \times V \rightarrow V$.
+Considering a reduction kernel $k(S,R,(w,D),comp)$, $comp$ must be a binary and associative operation on the type $V$, $comp: V \times V \rightarrow V$.
 
 \noindent \textbf{Definitions}
 \begin{itemize}
@@ -154,6 +158,6 @@ exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \label{fig:gspmsp}
 \end{figure}
 
-A stencil program has been formally defined in this section. This formalism is used in the next Section to define two mid-grain parallelization techniques of a multi-stencil program.
+A stencil program has been formally defined in this section. This formalism is used in the next Section to define two parallelization techniques of a multi-stencil program.
 
 
