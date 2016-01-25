@@ -16,10 +16,10 @@ Actually, a synchronization is needed by the data read by a stencil computation 
 \begin{mydef}
 A synchronization between two computations $k_i \pprec k_j$ is defined as a specific computation 
 \begin{equation*}
-k_{sync}(S,R,w,comp)
+k_{sync}(S,R,(w,D),comp)
 \end{equation*}
 \end{mydef}
-where $S=\emptyset$, $R=\{(w_i,n_j)\}$, $w=(w_i,n_j)$ and $comp=identity$. In other words, $w_i$ has to be synchronized for the neighborhood $n_j$.
+where $S=\emptyset$, $R=\{(w_i,\bigcup_{e \in entity(w_i)} n_j(e))\}$, $w=(w_i,\bigcup_{e \in entity(w_i)} n_j(e)))$ and $comp=identity$. In other words, $w_i$ has to be synchronized for the neighborhood $n_j$ for all entities of $w_i$.
 
 \begin{mydef}
 If $k_i \pprec k_j$, $k_j$ is replaced by the list
@@ -28,32 +28,37 @@ If $k_i \pprec k_j$, $k_j$ is replaced by the list
 \end{equation*}
 \end{mydef}
 
-When a data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is applied locally on each subset of entities, on each resource, which results in $p$ (number of resources) scalar value, one on each resource. Thus, to perform the final reduction a synchronization is needed to get the $p$ scalars onto a single resource, to finally get the reduction scalar.
+When data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is applied locally on each subset of entities, on each resource, which results in $p$ (number of resources) scalar values, one on each resource. Thus, to perform the final reduction a synchronization is needed to get the $p$ scalars onto a single resource, to finally get the reduction scalar.
 
 \begin{mydef}
 For a reduction kernel $k(S,R,(w,D),comp)$, if we denote by $w^i$, $0 \leq i<p$, the local $w$ computed on the resource $i$, a reduction synchronization is defined as the specific computation 
 \begin{equation*}
-k_{sync}(S,R_s,w,comp)
+k_{sync}(S,R_s,(w,D),comp)
 \end{equation*}
 \end{mydef}
-where, $S=\emptyset$, $R=\{(w^0,entity(w^0)) \dots (w^{p-1},entity(w^{p-1}))\}$ and $w$ and $comp$ are the same than the actual reduction.
+where, $S=\emptyset$, $R_s=\{(w^0,entity(w^0)) \dots (w^{p-1},entity(w^{p-1}))\}$, and $w$, $D=entity(w)$ and $comp$ are the same than the actual reduction kernel $k$.
 
 One can notice that both types of synchronizations are performed by all resources.
 
 \begin{mydef}
-The concatenation of two ordered lists of respectively $n$ and $m$ computations $l_1=[k_i]_{0 \leq i \leq n-1}$ and $l_2=[c'_i]_{0 \leq i \leq m-1}$ is denoted $l_1 \cdot l_2$ and is equal to a new ordered list $l_3=[c_0,\dots,c_{n-1},c'_0,\dots,c'_{m-1}]$.
+The concatenation of two ordered lists of respectively $n$ and $m$ computations $l_1=[k_i]_{0 \leq i \leq n-1}$ and $l_2=[k'_i]_{0 \leq i \leq m-1}$ is denoted $l_1 \cdot l_2$ and is equal to a new ordered list $l_3=[k_0,\dots,k_{n-1},k'_0,\dots,k'_{m-1}]$.
 \end{mydef}
 
 \begin{mydef}
 From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{sync}$ is obtained from the call $\Gamma_{sync} = F_{sync}(\Gamma,0)$, where $F_{sync}$ is the recursive function defined as
 \begin{equation*}
 F_{sync}(\Gamma,j) = 
-\begin{cases} 	[] \mbox{ if }j=|\Gamma|\\
-				[k_{sync}(\emptyset,\{w_i\},w_i,identity,\emptyset), k_j] \cdot F_{sync}(\Gamma,j+1)\\
+\begin{cases} 	\bullet [] \mbox{ if }j=|\Gamma|\\
+				\bullet [k_{sync}(\emptyset,\\
+				\{(w_i,\bigcup_{e \in entity(w_i)} n_j(e))\},\\
+				(w_i,\bigcup_{e \in entity(w_i)} n_j(e))),\\
+				identity,\emptyset), k_j] \cdot F_{sync}(\Gamma,j+1)\\
 				\text{ } \qquad \forall i<j \text{, and }k_i \pprec k_j\\
-				[k_j, k_{sync}(\emptyset,,w_j,comp_j)] \cdot F_{sync}(\Gamma,j+1)\\ 
+				\bullet [k_j, k_{sync}(\emptyset,\\
+				\{(w^0_j,entity(w^0_j)) \dots (w^{p-1}_j,entity(w^{p-1}_j))\},\\
+				(w_j,entity(w_j)),comp_j)] \cdot F_{sync}(\Gamma,j+1)\\ 
 				\text{ } \qquad \mbox{if } w_j \in \mathcal{S} \text{, and } R_j=\{(r_j,entity(r_j))\}\\
-				[\Gamma[j]] \cdot F_{sync}(\Gamma,j+1) \text{ else}.
+				\bullet [\Gamma[j]] \cdot F_{sync}(\Gamma,j+1) \text{ else}.
 \end{cases}
 \end{equation*}
 \end{mydef}
@@ -84,11 +89,11 @@ For two directed graphs $G(V,A)$ and $G'(V',A')$, the union $(V,A)\cup (V',A')$ 
 \end{mydef}
 
 \begin{mydef}
-From the ordered list $\Gamma_{sync}$ of computation kernels, a directed dependency graph $\Gamma_{dep}(V,A)$ is obtained from the call $T_{dep}(\Gamma_{sync},0)$, where $F_{dep}$ is the recursive function
+From the ordered list $\Gamma_{sync}$ of computation kernels, a directed dependency graph $\Gamma_{dep}(V,A)$ is obtained from the call $F_{dep}(\Gamma_{sync},0)$, where $F_{dep}$ is the recursive function
 \begin{equation*}
 F_{dep}(\Gamma_{sync},j) = 
-\begin{cases} 	(\{\},\{\}) \mbox{ if }j=|\Gamma_{sync}|\\
-				(k_j, \{(\overset{\frown}{k_i,k_j})\mbox{, }\forall i < j \mbox{, } k_i\prec k_j \})\\
+\begin{cases} 	\bullet (\{\},\{\}) \mbox{ if }j=|\Gamma_{sync}|\\
+				\bullet (k_j, \{(\overset{\frown}{k_i,k_j})\mbox{, }\forall i < j \mbox{, } k_i\prec k_j \})\\
 				\text{ } \qquad \cup F_{dep}(\Gamma_{sync},j+1) \mbox{ if }j<|\Gamma_{sync}|
 \end{cases}
 \end{equation*}
@@ -108,7 +113,7 @@ As a result of the hybrid parallelization, each resource $0 \leq m \leq p-1$ per
 \begin{equation*}
 \mathcal{MSP}_m(T,\mathcal{M}_m,\mathcal{E}_m,\mathcal{D}_m,\Delta_m,\Gamma_{dep}).
 \end{equation*}
-The set of computations $\Gamma_{dep}$ is a dependency graph between computations $k_i$ of $\Gamma$ and the synchronization kernels added into $\Gamma_{sync}$. $\Gamma_{dep}$ can be built from the call to 
+The set of computations $\Gamma_{dep}$ is a dependency graph between computations $k_i$ of $\Gamma$ and synchronizations of kernels added into $\Gamma_{sync}$. $\Gamma_{dep}$ can be built from the call to 
 \begin{equation*}
 F_{dep}(F_{sync}(\Gamma,0),0).
 \end{equation*}

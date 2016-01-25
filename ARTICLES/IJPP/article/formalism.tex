@@ -24,9 +24,10 @@ A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, reg
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
-\item An entity $e$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $e\subset (V\cup E)$.
+\item An entity $e$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $e\subset V\cup E$.
 \item A mesh entities group is denoted $E$ such that $E \in \mathcal{P}(V\cup E)$. It represents a set of entities of the same type.
-\item Finally the set of mesh entities groups of a simulation is denoted $\mathcal{E}$.
+\item The set of mesh entities groups of a simulation is denoted $\mathcal{E}$.
+\item Finally, the mesh on which is applied a group of mesh entities $E$ is denoted $mesh(E)$
 \end{itemize}
 %\end{mydef}
 
@@ -52,14 +53,15 @@ This covers the space discretization, however there is also the time dimension w
 
 %$T$ is responsible for the iteration time steps of the numerical simulation. A numerical simulation though does not run forever and must be stopped at some point. Some simulations choose a fix number of time iteration, others compute a \emph{convergence} criteria at the end of each time iteration to determine if the simulation has to continue. A convergence criteria is computed by a reduction computation that will be detailed in the next section.
 
-In a numerical simulation, as a set of scalars can be applied onto a mesh with a nil dimension, a set of data elements, or quantities, can be applied onto meshes of dimension superior or equal to zero. Those quantities represent, as well as scalars, the set of values to compute, or to use, for computations.
+In a numerical simulation, as a set of scalars can be applied onto a mesh with a nil dimension, a set of data elements, or quantities, can be applied onto meshes of dimension superior to zero. Those quantities represent, as well as scalars, the set of values to compute, or to use, for computations.
 
+\medskip
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
-\item \textit{A quantity (or data) is a function $\delta: E_{\delta} \mapsto V_{\delta}$ which associates each entity of a group $e\in E_{\delta}$ to a value $v\in V_{\delta}$ where $V_{\delta}$ is a data type, typically $\mathbb{R}$, $\mathbb{N}$ or $\mathbb{C}$.
+\item A quantity (or data) is a function $\delta: E_{\delta} \mapsto V_{\delta}$ which associates each entity of a group $e\in E_{\delta}$ to a value $v\in V_{\delta}$ where $V_{\delta}$ is a data type, typically $\mathbb{R}$, $\mathbb{N}$ or $\mathbb{C}$.
 \item The set of quantities applied onto the mesh is denoted $\Delta$.
-\item In the rest of this paper, the group of mesh entities on which a quantity $\delta$ is mapped is denoted $entity(\delta)=E_{\delta}$.}
+\item In the rest of this paper, the group of mesh entities on which a quantity $\delta$ is mapped is denoted $entity(\delta)=E_{\delta}$.
 \end{itemize}
 %\end{mydef}
 
@@ -70,6 +72,7 @@ Another option, closer to the applied mathematics domain, would have been to def
 
 In this section are considered three different types of kernel computations, stencil kernels, local kernels, and reduction kernels. 
 
+\medskip
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
@@ -113,9 +116,11 @@ In a reduction kernel $k(S,R,(w,D),comp)$, $D=entity(w)$ as a single entity exis
 \medskip
 A reduction computation is a computation which takes a single data applied onto a mesh and returns from all its entities a single data with a dimension reduced to zero, in other words a scalar. A reduction is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be performed during a time iteration. %This last usage is typically done to have a conditionnal branch to choose one computation or another, or to compute a dynamic time step for example.
 
+\medskip
 \noindent \textbf{Property}
 Considering a reduction kernel $k(S,R,(w,D),comp)$, $comp$ must be a binary and associative operation on the type $V$, $comp: V \times V \rightarrow V$.
 
+\medskip
 \noindent \textbf{Definitions}
 \begin{itemize}
 \item The set of $n$ ordered computation kernels of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i \leq j$, then $k_i$ is computed before $k_j$.
