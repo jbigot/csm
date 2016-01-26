@@ -35,7 +35,8 @@
 \usepackage{listings}
 \usepackage{mathtools, cuted}
 \usepackage{tikz}
-\usepackage[ruled,noend]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
 
 \usepackage{todonotes}
@@ -136,17 +137,25 @@ Contributions :
 The parallel empty skeleton of the application can be computed automatically from the language :
 \begin{itemize}
 \item grammar
-\item example from the language to the dependency graph
+\item example from the language to $\Gamma$
 \end{itemize}
 %------------------------------------------------------------------------------
 \section{Static Scheduling}
 \label{sect:msp}
-%\input{msp.tex}
-From the dependency graph we study a first dump: static scheduling
+\input{msp.tex}
+% From the dependency graph we study a first dump: static scheduling
+% \begin{itemize}
+% \item description of the algorithm to get the binary tree decomposition of a minimal serie-parallel graph
+% \item use of the serie-parallel tree decomposition to detect fusions of kernels
+% \item example (the same one) from the dependency graph to the binary tree
+% \end{itemize}
+%------------------------------------------------------------------------------
+\section{MSL Compiler}
+\label{sect:comp}
+\input{compiler.tex}
 \begin{itemize}
-\item description of the algorithm to get the binary tree decomposition of a minimal serie-parallel graph
-\item use of the serie-parallel tree decomposition to detect fusions of kernels
-\item example (the same one) from the dependency graph to the binary tree
+\item Overall algrotihm~\ref{alg:compiler}
+\item Big example from the language to the static sheduling/optimization~\ref{fig:example}
 \end{itemize}
 %------------------------------------------------------------------------------
 \section{Evaluation}
@@ -223,7 +232,7 @@ From the dependency graph we study a first dump: static scheduling
 %and remove the percent signs.
 %\end{acknowledgements}
 
-\bibliographystyle{spbasic}
+\bibliographystyle{plain}
 \bibliography{biblio}
 
 \end{document}

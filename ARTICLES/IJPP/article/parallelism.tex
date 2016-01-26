@@ -5,7 +5,7 @@
 \label{sect:dataparal}
 In a data parallelization technique, the idea is to split the data on which the program is computed into balanced sub-parts, one for each available resource. The same sequential program can afterwards be applied on each sub-part simultaneously, with some additioinal synchronizations between resources to update the data not computed locally, and thus to guarantee a correct result.
 
-More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\Delta, \mathcal{S},\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As entities and as data are mapped onto the mesh, the set of entities and the set of data $\Delta$ are partitionned the same way than the mesh: $\mathcal{E}=\{\mathcal{E},\dots,\mathcal{E}{p-1}\}$, $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{sync}$.
+More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\mathcal{N},\Delta, \mathcal{S},\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As entities and as data are mapped onto the mesh, the set of entities and the set of data $\Delta$ are partitionned the same way than the mesh: $\mathcal{E}=\{\mathcal{E},\dots,\mathcal{E}{p-1}\}$, $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{sync}$.
 
 \begin{mydef}
 For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronisation} is needed between $k_i$ and $k_j$, denoted $k_i \pprec k_j$, if $\exists (r_j,n_j) \in R_j$ such that $w_i=r_j$ and $n_j\neq identity$ ($k_j$ is a stencil computation). Moreover, the data to update is $\{w_i\}$.
@@ -66,7 +66,7 @@ F_{sync}(\Gamma,j) =
 
  The final step of this parallelization is to run $\Gamma_{sync}$ on each resource. Thus, for each resource $0 \leq m \leq p-1$ a multi-stencil program, defined by
 \begin{equation}
-\mathcal{MSP}_m(T,\mathcal{M}_m,\mathcal{E}_m,\mathcal{D}_m,\Delta_m,\mathcal{S},\Gamma_{sync}),
+\mathcal{MSP}_m(T,\mathcal{M}_m,\mathcal{E}_m,\mathcal{D}_m,\mathcal{N},\Delta_m,\mathcal{S},\Gamma_{sync}),
 \end{equation}
 is performed.
 
@@ -111,7 +111,7 @@ $\Gamma_{dep}$ is built from $\Gamma_{sync}$ which is an ordered and sequential 
 
 As a result of the hybrid parallelization, each resource $0 \leq m \leq p-1$ perform a multi-stencil program, defined by
 \begin{equation*}
-\mathcal{MSP}_m(T,\mathcal{M}_m,\mathcal{E}_m,\mathcal{D}_m,\Delta_m,\Gamma_{dep}).
+\mathcal{MSP}_m(T,\mathcal{M}_m,\mathcal{E}_m,\mathcal{D}_m,\mathcal{N},\Delta_m,\Gamma_{dep}).
 \end{equation*}
 The set of computations $\Gamma_{dep}$ is a dependency graph between computations $k_i$ of $\Gamma$ and synchronizations of kernels added into $\Gamma_{sync}$. $\Gamma_{dep}$ can be built from the call to 
 \begin{equation*}

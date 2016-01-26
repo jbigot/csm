@@ -30,9 +30,7 @@ loop ::=  "time:" iteration
           "computations:" listcomp
           
 iteration ::= num | criteria
-criteria ::= scalar "=" criteriaid "(" 
-                    listscalarread "," 
-                    listdataread ")"
+criteria ::= criteriaid "(" listscalarread ")"
 listscalarread ::= scalar listscalarread 
                           |  scalar
 listcomp ::= comp listcomp |  comp
@@ -42,15 +40,14 @@ comp ::= dataid "[" compdomid "]="
                     listdataread ")"
 listdataread ::= dataread listdataread 
                           |  dataread
-dataread ::= dataid "[" neighborid "]" 
+dataread ::= dataid "[" stencil "]" 
               |  dataid
 \end{filecontents*}
 
-\begin{figure}[t]
+\begin{figure}[!h]
   \hspace{5mm}
-  \begin{minipage}[t]{\textwidth}
-    %  \subfloat[\label{fig:grammar}]
-    {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left,linewidth=.87\textwidth]{grammar.txt}}   
+  \begin{minipage}[!h]{0.5\textwidth}
+    {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=right]{grammar.txt}}   
     \caption{Grammar of the Multi-Stencil Language. \label{fig:grammar}}
   \end{minipage}
 \end{figure}
