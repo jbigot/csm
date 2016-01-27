@@ -84,8 +84,8 @@ Using MSL, it is possible to ask for data parallelization of the application, or
 \begin{algorithmic}[1]
 \Procedure{$F_{fus}$} {$TSP(V,E)$}
 \For {$(k_i,k_j) \in V^2$}
-\If {$type(k_i)=type(k_j)=comp$}
 \If {parent($k_i$)==parent($k_j$)}
+\If {$type(k_i)=type(k_j)=comp$}
 \If {parent($k_i$)==$S$}
 \If {$D_i==D_j$}
 \\propose the fusion $k_{i;j}$
@@ -108,8 +108,6 @@ We are not arguing that such a simple fusion algorithm could be as good as compl
 \item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are, by construction, data dependant. As a result, what is written by the first one is read by the second one. Thus, at least one data is common to those computations (the one written by $k_i$). Thus, if the computation domains verify $D_i=D_j$, the fusion of $k_i$ and $k_j$ will decrease cache misses.
 \item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $P$ in TSP are not, by construction, data dependant. However, if the computation domains verify $D_i=D_j$, and if $R_i \cap R_j \neq \emptyset$ cache misses could also be decreased by the fusion $k_{i;j}$.
 \end{itemize}
-
-\todo{solve order problem in $\Gamma_{dep}$ and $TSP$}
 
 %--------------------
 \subsection{Overall example}

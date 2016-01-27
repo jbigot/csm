@@ -20,6 +20,7 @@ listinde ::= inde listinde |  inde
 inde ::= compdomid "and" compdomid
 liststencil ::= stencil liststencil 
                         | stencil
+stencil ::= stencilid "from" meshent "to" meshent
 listdata ::= data listdata |  data
 data ::= dataid "," meshent
 listscalar ::= scalar listscalar 
@@ -35,9 +36,9 @@ listscalarread ::= scalar listscalarread
                           |  scalar
 listcomp ::= comp listcomp |  comp
 comp ::= dataid "[" compdomid "]=" 
-                    compid "(" 
-                    listscalarread "," 
-                    listdataread ")"
+                    compid "({" 
+                    listscalarread "},{" 
+                    listdataread "})"
 listdataread ::= dataread listdataread 
                           |  dataread
 dataread ::= dataid "[" stencil "]" 
@@ -49,5 +50,50 @@ dataread ::= dataid "[" stencil "]"
   \begin{minipage}[!h]{0.5\textwidth}
     {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=right]{grammar.txt}}   
     \caption{Grammar of the Multi-Stencil Language. \label{fig:grammar}}
+  \end{minipage}
+\end{figure}
+
+\begin{filecontents*}{exmsl.txt}
+mesh : cart
+mesh entities : cell, edgex
+computation domains :
+  d1 in cell
+  d2 in edgex
+independent :
+  d1 and d2
+stencil shapes : 
+  n1 from cell to cell
+  n2 from cell to edgex
+  n3 from edgex to cell
+data :
+  A,cell
+  B,cell
+  C,edgex
+  D,cell
+  E,edgex
+  F,cell
+  G,cell
+  H,edgex
+  I,cell
+  J,cell
+scalar : mu, tau
+time : 500
+computations :
+  B[d1] = k0({tau},{A})
+  C[d2] = k1({},{B[n2]})
+  D[d1] = k2({},{C})
+  E[d2] = k3({},{C})
+  F[d1] = k4({},{D,C[n3]})
+  G[d1] = k0({mu,tau},{E})
+  H[d2] = k6({},{F})
+  I[d1] = k7({},{G,H})
+  J[d1] = k8({mu},{I[n1]})
+\end{filecontents*}
+
+\begin{figure}[!h]
+  \hspace{5mm}
+  \begin{minipage}[!h]{0.4\textwidth}
+    {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left]{exmsl.txt}}   
+    \caption{Example of program using the Multi-Stencil Language. \label{fig:exmsl}}
   \end{minipage}
 \end{figure}
