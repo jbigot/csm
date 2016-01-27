@@ -1,4 +1,4 @@
-In this section we argue that the graphs $\Gamma_{dep}$, previously defined, can be transformed to a minimal series-parallel directed acyclic graph. As a result, this graphs can be represented as a binary tree of parallel and series compositions of sub-graphs, also called \emph{binary decomposition tree}~\cite{Valdes:1979:RSP:800135.804393}. The obtained binary tree is a static scheduling of $\Gamma_{dep}$ and can also be used to optimize the code including data parallelism only.
+In this section we argue that the graphs $\Gamma_{dep}$, previously defined, can be transformed to a minimal series-parallel directed acyclic graph. As a result, this graph can be represented as a binary tree of parallel and series compositions of sub-graphs, also called \emph{binary decomposition tree}~\cite{Valdes:1979:RSP:800135.804393}. The obtained binary tree is a valid static scheduling of $\Gamma_{dep}$ and can also be used to optimize the code including data parallelism only.
 
 %--------------------
 \subsection{Minimal series-parallel DAG}
@@ -6,12 +6,12 @@ In this section we argue that the graphs $\Gamma_{dep}$, previously defined, can
 A vertex $v$ of a DAG $G$ is a \emph{source} if no edge of $G$ enters $v$. Similarly, a vertex $v$ is a \emph{sink} if no edge of $G$ leaves $v$. 
 \end{mydef}
 
-In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the class of minimal series-parallel DAGs (SPD).
+In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the class of minimal series-parallel DAGs (MSPD).
 
 \begin{mydef}Minimal Series Parallel DAG
 \begin{itemize}
-\item The DAG having a single vertex and no edges is SPD.
-\item If $G_1=(V_1,E_1)$ and $G_2=(V_2,E_2)$ are two SPD DAGs, so is either of the DAGs constructed by the following operations:
+\item The DAG having a single vertex and no edges is MSPD.
+\item If $G_1=(V_1,E_1)$ and $G_2=(V_2,E_2)$ are two MSPD DAGs, so is either of the DAGs constructed by the following operations:
 \begin{itemize}
 \item Parallel composition: $G_p=(V_1\cup V_2,E_1\cup E_2)$.
 \item Series composition: $G_s=(V_1\cup V_2,E_1\cup E_2\cup (N_1 \times R_2))$, where $N_1$ is the set of sinks of $G_1$ and $R_2$ is the set of sources of $G_2$.
@@ -19,57 +19,26 @@ In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the clas
 \end{itemize}
 \end{mydef}
 
-Finally, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have identified a forbidden shape, or subgraph, called $N$ and represented in Figure~\ref{fig:over}, such that 
-
-A possible definition of a N-Shape is
+Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have identified a forbidden shape, or subgraph, called $N$ and represented in Figure~\ref{fig:over}. A possible definition of a N-Shape is
 \begin{mydef}
-For two vertices $v_1$ and $v_2$ of a DAG which have a Lowest Common Ancestor $v_{lca}$, for all $v_p$ which is either a parent vertex of $v_1$ or $v_2$ and which is different from $v_{lca}$, a N-Shape is formed by the induced subgraph containing vertices $v_1$, $v_2$, $v_{lca}$ and $v_p$.
+For two vertices $v_1$ and $v_2$ of a DAG which have a Lowest Common Ancestor $v_{lca}$. For all $v_p$ which is either a parent vertex of $v_1$ or $v_2$ and which is different from $v_{lca}$, a N-Shape is formed by the induced subgraph containing vertices $v_1$, $v_2$, $v_{lca}$ and $v_p$.
 \end{mydef}
 
 \begin{myth}
-The transitive reduction of a DAG $G$ is SPD if and only if it does not contain $N$ as an induced subgraph.
+The transitive reduction of a DAG $G$ is MSPD if and only if it does not contain $N$ as an induced subgraph.
 \end{myth}
 
+\begin{proof} \cite{Valdes:1979:RSP:800135.804393} \end{proof}
+
 \begin{myprop}
-The transitive reduction of $\Gamma_{dep}$ is not SPD. Actually, it is possible in a multi-stencil program to have a set of computations such that their dependencies form the forbidden $N$ subgraph.
+The transitive reduction of $\Gamma_{dep}$ is not MSPD.
 \end{myprop}
 
 \begin{proof}
-Considering four computation kernels $k_0$, $k_1$, $k_2$ and $k_3$ of a $\mathcal{MSP}$ such that $k_0 \prec k_1$, $k_2 \prec k_1$ and $k_2 \prec k_3$ are verified. Thus, the \emph{zigzag} relation $k_0 \prec k_1 \succ k_2 \prec k_3$ which form a forbidden subgraph of a SPD is found in $\Gamma_{dep}$.
+Actually, it is possible in a multi-stencil program to have a set of computations such that their dependencies form the forbidden $N$ subgraph. Considering four computation kernels $k_0$, $k_1$, $k_2$ and $k_3$ of a $\mathcal{MSP}$ such that $k_0 \prec k_1$, $k_2 \prec k_1$ and $k_2 \prec k_3$ are verified. Thus, the \emph{zigzag} relation $k_0 \prec k_1 \succ k_2 \prec k_3$ which form a forbidden subgraph of a MSPD is found in $\Gamma_{dep}$.
 \end{proof}
 
-To remove the forbidden N-shapes from $\Gamma_{dep}=(V,E)$, we have chosen to apply an over-constraint with the relation $k_0 \prec k_3$, such that a complete bipartite graph is created for the sub-dag, and can be translated to a series-parallel decomposition as illustrated in Figure~\ref{fig:allover}. The algorithm is inspired from the one proposed by~\cite{Mitchell:2004:CMV:1082101.1082117}, and is described in Algorithm~\ref{alg:nshape}. We precisely describe how we find edges to add to get rid of N-Shapes. One can notice that another solution would have been to remove the extra-edge from the N-Shape instead of adding one~\cite{}. However, we have chosen to exactly keep dependencies computed in $\Gamma_{dep}$, to not approximate the static scheduling. Finally, algorithm proposed by~\cite{Bender200575} to find a Lowest Common Ancestor in a DAG (in $\mathcal{O}(|V|^3)$, could have been also used.
-
-The first step of Algorithm~\ref{alg:nshape} is to create a new DAG $\Gamma_{dep}'$ from $\Gamma_{dep}$, such that vertices having exactly one source and one destination in $\Gamma_{dep}$ is not added to $\Gamma_{dep}'$. This step is called $RTV(\Gamma_{dep})$ (line 2) and is done in $\mathcal{O}(|V|)$. The second step is to get source vertices in $\Gamma_{dep}'$. The third step calls $BFSnshape$ (line 4). This procedure is based on a Breadth First Search recursive algorithm (in $\mathcal{O}(|V|+|E|)$) and takes as input a list of source vertices $sources$, $\Gamma_{dep}$ and $\Gamma_{dep}'$. At each recursive call the induced sub-graph of $\Gamma_{dep}'$ containing $sources$ vertices and the list of their successors $successors(sources)$ is created and called $SG$. If this sub-graph $SG$ is connected and is not a complete bipartite graph, the algorithm make the subgraph $SG$ complete by adding needed edges into $\Gamma_{dep}'$ (line 12 in $\mathcal{O}(|V|^2$). The algorithm also add same edges to $\Gamma_{dep}$ (line 13). Finally, line 5, the transitive closure of $\Gamma_{dep}$ is computed.
-
-\begin{algorithm}
-\caption{Remove N-Shapes}
-\label{alg:nshape}
-\begin{algorithmic}[1]
-\Procedure{removeNSH} {$\Gamma_{dep}$}
-\\$\Gamma_{dep}'$ = RTV($\Gamma_{dep}$)
-\\$sources$ = sources($\Gamma_{dep}'$)
-\\BFSnshape($sources$,$\Gamma_{dep}'$,$\Gamma_{dep}$)
-\\TC($\Gamma_{dep}$)
-\EndProcedure
-
-\Procedure{BFSnshape} {$sources$, $\Gamma_{dep}'$, $\Gamma_{dep}$}
-\\$successors$ = successors($sources$)
-\\$SG$ = subgraph($sources \cup successors$)
-\If{isconnected($SG$)}
-\If{! complete($SG$)}
-\\addedges($\Gamma_{dep}'$)
-\\addedges($\Gamma_{dep}$)
-\\BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
-\EndIf
-\If{! isconnected($SG$)}
-\\BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
-\EndIf
-\EndIf
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
+To remove the forbidden N-shapes from $\Gamma_{dep}=(V,E)$, we have chosen to apply an over-constraint with the relation $k_0 \prec k_3$, such that a complete bipartite graph is created for the sub-dag, and can be translated to a series-parallel decomposition, as illustrated in Figure~\ref{fig:allover}. 
 
 \begin{figure}[h!]
 \begin{center}
@@ -122,13 +91,45 @@ The first step of Algorithm~\ref{alg:nshape} is to create a new DAG $\Gamma_{dep
 \end{center}
 \end{figure}
 
-After these over-constraints are applied, $\Gamma_{dep}$ is a SPD. As a result, the binary tree decomposition algorithm of Valdes \& Al can be applied on $\Gamma_{dep}$ to get a static scheduling of the multi-stencil program.
+The algorithm is inspired from the one proposed by~\cite{Mitchell:2004:CMV:1082101.1082117}, and is described in Algorithm~\ref{alg:nshape}. We precisely describe how we find edges to add to get rid of N-Shapes. One can notice that another solution would have been to remove the extra-edge from the N-Shape instead of adding one~\cite{}. However, we have chosen to exactly keep dependencies computed in $\Gamma_{dep}$, to not approximate the static scheduling. Finally, algorithm proposed by~\cite{Bender200575} to find a Lowest Common Ancestor in a DAG (in $\mathcal{O}(|V|^3)$, could have been also used.
+
+The first step of Algorithm~\ref{alg:nshape} is to create a new DAG $\Gamma_{dep}'$ from $\Gamma_{dep}$, such that vertices having exactly one source and one destination in $\Gamma_{dep}$ is not added to $\Gamma_{dep}'$, and its source and destination vertices are directly linked by an edge. This step is called $RTV(\Gamma_{dep})$ (line 2) and is done in $\mathcal{O}(|V|)$. The second step is to get root vertices in $\Gamma_{dep}'$. The third step calls $BFSnshape$ (line 4). This procedure is based on a Breadth First Search recursive algorithm (in $\mathcal{O}(|V|+|E|)$) and takes as input a list of source vertices $sources$, $\Gamma_{dep}$ and $\Gamma_{dep}'$. At each recursive call the induced sub-graph of $\Gamma_{dep}'$ containing $sources$ vertices and the list of their successors $successors(sources)$ is created and called $SG$. If this sub-graph $SG$ is connected and is not a complete bipartite graph, the algorithm make the subgraph $SG$ complete by adding needed edges into $\Gamma_{dep}'$ (line 12 in $\mathcal{O}(|V|^2$). The algorithm also add same edges to $\Gamma_{dep}$ (line 13). Finally, line 5, the transitive closure of $\Gamma_{dep}$ is computed.
+
+\begin{algorithm}
+\caption{Remove N-Shapes}
+\label{alg:nshape}
+\begin{algorithmic}[1]
+\Procedure{removeNSH} {$\Gamma_{dep}$}
+\\$\Gamma_{dep}'$ = RTV($\Gamma_{dep}$)
+\\$sources$ = roots($\Gamma_{dep}'$)
+\\BFSnshape($sources$,$\Gamma_{dep}'$,$\Gamma_{dep}$)
+\\TC($\Gamma_{dep}$)
+\EndProcedure
+
+\Procedure{BFSnshape} {$sources$, $\Gamma_{dep}'$, $\Gamma_{dep}$}
+\\$successors$ = successors($sources$)
+\\$SG$ = subgraph($sources \cup successors$)
+\If{isconnected($SG$)}
+\If{! complete($SG$)}
+\\addedges($\Gamma_{dep}'$)
+\\addedges($\Gamma_{dep}$)
+\\BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
+\EndIf
+\If{! isconnected($SG$)}
+\\BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
+\EndIf
+\EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+After these over-constraints are applied, $\Gamma_{dep}$ is MSPD. As a result, the binary tree decomposition algorithm of Valdes \& Al can be applied on $\Gamma_{dep}$ to get a static scheduling of the multi-stencil program.
 
 %--------------------
 \subsection{Series-parallel binary tree decomposition}
-A \emph{binary decomposition tree} is a tree having a leaf for each vertex of the SPD DAG it represents, and whose internal nodes are labelled $S$ or $P$ to indicate respectively the series or parallel composition of the SPD sub-DAGs represented by the subtrees rooted at $S$ or $P$. 
+A \emph{binary decomposition tree} is a tree where each leaf is a vertex of the MSPD DAG it represents, and whose internal nodes are labelled $S$ or $P$ to indicate respectively the series or parallel composition of sub-trees.
 
-Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have also proposed a linear algorithm to know if a DAG is SPD and, if it is, to decompose it to its associated binary decomposition tree. This algorithm is based on the duality of the class of SPD DAGs, with the class of \emph{Two Terminal Series Parallel} DAGs (TTSP) from which a binary tree decomposition can be performed in linear time. 
+Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have also proposed a linear algorithm to know if a DAG is MSPD and, if it is, to decompose it to its associated binary decomposition tree. This algorithm is based on the duality of the class of MSPD DAGs, with the class of \emph{Two Terminal Series Parallel} DAGs (TTSP) from which a binary tree decomposition can be performed in linear time. 
 
 \begin{mydef}
 The \emph{line digraph} of a digraph (directed graph) $G$ is a digraph $L(G)$ that has:
@@ -143,21 +144,21 @@ The \emph{line digraph} of a digraph (directed graph) $G$ is a digraph $L(G)$ th
 \item A digraph consisting of two vertices joined by a single edge is TTSP.
 \item If $G_1$ and $G_2$ are TTSP digraphs, so is the digraph obtained by either of the following operations:
 \begin{itemize}
-\item \emph{Two terminal parallel composition}: identify the sourc of $G_1$ with the source of $G_2$ and the sink of $G_1$ with the sink of $G_2$.
+\item \emph{Two terminal parallel composition}: identify the source of $G_1$ with the source of $G_2$ and the sink of $G_1$ with the sink of $G_2$.
 \item \emph{Two terminal series composition}: identify the sink of $G_1$ with the source of $G_2$.
 \end{itemize}
 \end{itemize}
 \end{mydef}
 
 \begin{myth}
-If the DAG $G$ is a SPD graph, its \emph{inverse line DAG} $L^{-1}(G)$ is TTSP.
+If the DAG $G$ is a MSPD graph, its \emph{inverse line DAG} $L^{-1}(G)$ is TTSP.
 \end{myth}
 
 It has to be indicated that for a DAG $G$, $L^{-1}(G)$ is not unique. Thus, in the work of Valdes \& Al, and in this work, $L^{-1}(G)$ will refer to the unique digraph having a single source and a single sink whose line digraph is $L(L^{-1}(G))=G$.
 
 Once the removal of N-Shapes has been applied onto $\Gamma_{dep}$, the linear series-parallel tree decomposition can be applied following the algorithm of~\cite{Valdes:1979:RSP:800135.804393}, called in this paper $BDT(L^{-1}(\Gamma_{dep}))$.
 
-The binary decomposition tree algorithm is based on the fact that the decomposition can be obtained as a byproduct of a reduction process on $L^{-1}(\Gamma_{dep})$, which is TTSP. In order to obtain the decomposition, Valdes \& Al associate a label with each edge of the digraph being reduced. Initially the label of each edge is a trivial binary tree consisting of a single node. As the reduction process introduces new edges the rules of Figure~\ref{fig:rules} are used to compute the binary trees used to label them. The algorithm ends when the TTSP graph is reduced to its minimum, i.e.\ two vertices and a single edge between them.
+The binary decomposition tree algorithm is based on the fact that the decomposition can be obtained as a byproduct of a reduction process on $L^{-1}(\Gamma_{dep})$, which is TTSP. In order to obtain the decomposition, Valdes \& Al associate a label with each edge of the digraph being reduced. Initially the label of each edge is a trivial binary tree consisting of a single node. As the reduction process introduces new edges the rules of Figure~\ref{fig:rules} are used to compute the binary trees used to label them. The sequencial composition rule keep the order $T_1$ then $T_2$. The algorithm ends when the TTSP graph is reduced to its minimum, i.e.\ two vertices and a single edge between them.
 
 \begin{figure}[h!]
 \captionsetup[subfigure]{labelformat=empty}
@@ -230,6 +231,7 @@ $\Rightarrow$
 \end{center}
 \end{figure}
 
+We have explained in this section how a valid static scheduling of $\Gamma_{dep}$ can be built using existing graph transformations of the MSPD class. In the next section, the overall compiler algorithm and a complete example is given.
 
 
 

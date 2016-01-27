@@ -1,7 +1,7 @@
 %--------------------
 \subsection{Overall compiler algorithm}
 
-The overall compiler algorithm is represented in Algorithm~\ref{alg:compiler}. First, the parsing of the input file (written with the MSL language) gave enough information to build $\Gamma$, the ordered list of computations. Second, $\Gamma_{sync}$ and $\Gamma_{dep}$ can be built from $\Gamma$ using the recursive functions $F_{sync}$ and $F_{dep}$. Third, N-Shapes are removed from $\Gamma_{dep}$ to get a SPD graph, and to be able to create its serie-parallel binary tree decomposition $TSP$.
+The overall compiler algorithm is represented in Algorithm~\ref{alg:compiler}. First, the parsing of the input file (written with the MSL language) gave enough information to build $\Gamma$, the ordered list of computations. Second, $\Gamma_{sync}$ and $\Gamma_{dep}$ can be built from $\Gamma$ using the recursive functions $F_{sync}$ and $F_{dep}$. Third, N-Shapes are removed from $\Gamma_{dep}$ to get a MSPD graph, and to be able to create its serie-parallel binary tree decomposition $TSP$ (line 6). Lines 7 to 9 are explained in the next section. Finally a dump of $TSP$ is performed by the compiler and will be described in Section~\ref{sect:eval}.
 
 \begin{algorithm}
 \caption{MSL Compiler}
@@ -22,33 +22,42 @@ The overall compiler algorithm is represented in Algorithm~\ref{alg:compiler}. F
 \end{algorithmic}
 \end{algorithm}
 
-Lines 7 to 9 are explained bellow.
-
 %--------------------
 \subsection{Canonical form and fusions}
 
-\todo{à améliorer}
-
-The serie-parallel binary tree decomposition $TSP$ obtained from $BDT(L^{-1}(\Gamma_{dep}))$ can be reduced to its canonical form which consists in recursively merging successive $S$ vertices or successive $P$ vertices following these rules:
+The serie-parallel binary tree decomposition $TSP$ obtained from $BDT(L^{-1}(\Gamma_{dep}))$ can be reduced to its canonical form which consists in recursively merging successive $S$ vertices or successive $P$ vertices.
 
 \medskip
-\noindent \textbf{Definitions}
+\noindent \textbf{Definitions} For a tree $T(V,E)$
 %\begin{mydef}
 \begin{itemize}
-\item We denote $root(T)$, the function which returns the root vertex of the tree $T$.
-\item We denote as a sequence sub-tree $T(V,E)$ and a parallel sub-tree $T(V,E)$ sub-trees for which the root vertex respectively verifies $type(root(T))=S$ or $type(root(T))=P$.
+\item we denote $root(T)$, the function which returns the root vertex of the tree $T$;
+\item we denote $type(v)$ with $v \in V$ the function which returns the type of a vertex $v$. This type is either $S$, $P$, $comp$ or $sync$;
 \item We denote $replace(E,v_1,v_2)$, the function which replaces for all edges of the set $E$, $v_1$ by $v_2$.
-\item A sequence of sequence is a sequence if the order is kept. Thus for two sequence sub-trees $T_1$ and $T_2$, if $T_2 \in V_1$, $T_1$ can be replaced by 
-\begin{equation*}
-T_1'(V_1 \setminus root(T_2),E_1 \cup replace(E_2,root(T_2),root(T_1)))
-\end{equation*}
-\item A parallel sub-tree of parallel sub-tree is a parallel sub-tree in any order. Thus for two parallel sub-trees $T_1$ and $T_2$, if $T_2 \in V_1$, $T_1$ can be replaced by 
-\begin{equation*}
-T_1'(V_1 \setminus root(T_2),E_1 \cup replace(E_2,root(T_2),root(T_1)))
-\end{equation*}
 \end{itemize}
 
-These reductions applied recursively on the serie-parallel binary tree decomposition of $\Gamma_{dep}$ produce the canonical serie-parallel tree decomposition $TSP = F_{tsp}(TSP,root(TSP),successors(root(TSP))$. The recursive function $F_{tsp}$ is based on a Depth First Search algorithm and defined by Algorithm~\ref{alg:tsp}.
+\begin{mydef}
+We denote as a sequence or parallel sub-tree $T(V,E)$ sub-trees for which the root vertex respectively verifies $type(root(T))=S$ or $type(root(T))=P$.
+\end{mydef}
+
+\begin{myth}
+\begin{itemize}
+\item A sequence of sequence is a sequence if the order is kept. Thus for two sequence sub-trees $T_i$ and $T_j$, if $T_j \in V_i$, $T_i$ can be replaced by 
+\begin{equation*}
+T_i'(V_i \setminus root(T_j),E_i \cup replace(E_j,root(T_j),root(T_i)))
+\end{equation*}
+\item A parallel sub-tree of parallel sub-tree is a parallel sub-tree in any order. Thus for two parallel sub-trees $T_i$ and $T_j$, if $T_j \in V_i$, $T_i$ can be replaced by 
+\begin{equation*}
+T_i'(V_i \setminus root(T_j),E_i \cup replace(E_j,root(T_j),root(T_i)))
+\end{equation*}
+\end{itemize}
+\end{myth}
+
+These reductions applied recursively on the serie-parallel binary tree decomposition of $\Gamma_{dep}$ produce the canonical serie-parallel tree decomposition 
+\begin{equation*}
+TSP = F_{tsp}(TSP,root(TSP),successors(root(TSP)).
+\end{equation*}
+The recursive function $F_{tsp}$ is based on a Depth First Search algorithm and defined by Algorithm~\ref{alg:tsp}, where $E_{rooted(s)}$ represents the set of edges of the sub-tree rooted by the vertex $s$.
 
 \begin{algorithm}
 \caption{$F_{tsp}$}
@@ -67,7 +76,7 @@ These reductions applied recursively on the serie-parallel binary tree decomposi
 \end{algorithmic}
 \end{algorithm}
 
-Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized stencil codes, but to produces the parallel pattern of the application, building the $TSP$ tree make available an easy optimization when the data parallelization technique is the only one used. This optimization consists in proposing a valid merge of some computation kernels in a single space loop. As a result, the user can use this valid fusion of kernels or not when implementing those. The fusion function $F_{fus}$ is described in Algorithm~\ref{alg:fus}, where $parent(k)$ returns the parent vertex of $k$ in the tree, and $iscomp(k)$ indicates if the vertex is a computation kernel. If the kernel $k$ is a synchronization kernel or $S$ or $P$, $iscomp(k)$ returns False.
+Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized stencil codes, but to produces the parallel pattern of the application, building the $TSP$ tree make available an easy optimization when the data parallelization technique is the only one used. This optimization consists in proposing a valid merge of some computation kernels inside a single space loop. As a result, the user can use this valid fusion of kernels or not when implementing those. The fusion function $F_{fus}$ is described in Algorithm~\ref{alg:fus}, where $parent(k)$ returns the parent vertex of $k$ in the tree, and where $k_{i;j}$ represents the fusion of $k_i$ and $k_j$ keeping the sequential order $i;j$ if $i$ is computed before $j$ in $TSP$.
 
 \begin{algorithm}
 \caption{$F_{fus}$}
@@ -75,7 +84,7 @@ Using MSL, it is possible to ask for data parallelization of the application, or
 \begin{algorithmic}[1]
 \Procedure{$F_{fus}$} {$TSP(V,E)$}
 \For {$(k_i,k_j) \in V^2$}
-\If {$iscomp(k_i)$ and $iscomp(k_j$)}
+\If {$type(k_i)=type(k_j)=comp$}
 \If {parent($k_i$)==parent($k_j$)}
 \If {parent($k_i$)==$S$}
 \If {$D_i==D_j$}
@@ -94,10 +103,10 @@ Using MSL, it is possible to ask for data parallelization of the application, or
 \end{algorithmic}
 \end{algorithm}
 
-We are not arguing that such a simple fusion algorithm could be as good as complex cache optimizations which can be found in stencil DSLs for example. However, this fusion takes place at a different level and can bring performance improvments as it will be illustrated in Section~\ref{sect:eval}. This algorithm relies on very simple statements:
+We are not arguing that such a simple fusion algorithm could be as good as complex cache optimization techniques which can be found in stencil DSLs for example~\cite{spaaTangCKLL11}. However, this fusion takes place at a different level and can bring performance improvments as it will be illustrated in Section~\ref{sect:eval}. This fusion algorithm relies on very simple statements:
 \begin{itemize}
-\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are, by construction, data dependant. As a result, what is written by the first one is read by the second one. Thus, at least one data is common to those computations (the one written by $k_i$). The fusion of $k_i$ and $k_j$ will decrease cache misses.
-\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $P$ in TSP are not, by construction, data dependant. However, if $R_i \cap R_j \neq \emptyset$ cache misses could also be decreased by the fusion $k_{i;j}$.
+\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are, by construction, data dependant. As a result, what is written by the first one is read by the second one. Thus, at least one data is common to those computations (the one written by $k_i$). Thus, if the computation domains verify $D_i=D_j$, the fusion of $k_i$ and $k_j$ will decrease cache misses.
+\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $P$ in TSP are not, by construction, data dependant. However, if the computation domains verify $D_i=D_j$, and if $R_i \cap R_j \neq \emptyset$ cache misses could also be decreased by the fusion $k_{i;j}$.
 \end{itemize}
 
 \todo{solve order problem in $\Gamma_{dep}$ and $TSP$}
