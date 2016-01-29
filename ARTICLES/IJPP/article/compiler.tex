@@ -8,16 +8,16 @@ The overall compiler algorithm is represented in Algorithm~\ref{alg:compiler}. F
 \label{alg:compiler}
 \begin{algorithmic}[1]
 \Procedure{compileMSL} {file}
-\\$\Gamma$ = parser(file)
-\\$\Gamma_{sync} = F_{sync}(\Gamma,0)$
-\\$\Gamma_{dep} = F_{dep}(\Gamma_{sync},0)$
-\\removeNSH($\Gamma_{dep}$)
-\\$TSP = BDT(L^{-1}(\Gamma_{dep}))$
-\\$TSP = F_{tsp}(TSP,root(TSP))$
+\State $\Gamma$ = parser(file)
+\State $\Gamma_{sync} = F_{sync}(\Gamma,0)$
+\State $\Gamma_{dep} = F_{dep}(\Gamma_{sync},0)$
+\State removeNSH($\Gamma_{dep}$)
+\State $TSP = BDT(L^{-1}(\Gamma_{dep}))$
+\State $TSP = F_{tsp}(TSP,root(TSP))$
 \If {data parallel}
-\\$TSP = F_{tsp}(TSP)$
+\State $TSP = F_{tsp}(TSP)$
 \EndIf
-\\dump(TSP)
+\State dump(TSP)
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
@@ -66,9 +66,11 @@ The recursive function $F_{tsp}$ is based on a Depth First Search algorithm and 
 \Procedure{$F_{tsp}$} {$TSP$,root,succ}
 \For {$s \in succ$}
 \If {type($s$)=$S$ or type($s$)=$P$}
-\\$F_{tsp}(TSP,s,successors(s))$
+\State $F_{tsp}(TSP,s,successors(s))$
 \If {type($s$)=type(root)}
-\\$TSP = (V_{tsp} \setminus s,E_{tsp} \cup replace(E_{rooted(s)},s,root))$
+\State $V_{tsp} = V_{tsp} \setminus s$
+\State $E_{tsp} = E_{tsp} \cup replace(E_{rooted(s)},s,root)$
+\State $TSP = (V_{tsp},E_{tsp})$
 \EndIf
 \EndIf
 \EndFor
@@ -76,7 +78,7 @@ The recursive function $F_{tsp}$ is based on a Depth First Search algorithm and 
 \end{algorithmic}
 \end{algorithm}
 
-Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized stencil codes, but to produces the parallel pattern of the application, building the $TSP$ tree make available an easy optimization when the data parallelization technique is the only one used. This optimization consists in proposing a valid merge of some computation kernels inside a single space loop. As a result, the user can use this valid fusion of kernels or not when implementing those. The fusion function $F_{fus}$ is described in Algorithm~\ref{alg:fus}, where $parent(k)$ returns the parent vertex of $k$ in the tree, and where $k_{i;j}$ represents the fusion of $k_i$ and $k_j$ keeping the sequential order $i;j$ if $i$ is computed before $j$ in $TSP$.
+Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized stencil codes, but to produces the parallel pattern of the application, building the $TSP$ tree make available an easy optimization when the data parallelization technique is the only one used. This optimization consists in proposing a valid merge of some computation kernels inside a single space loop. As a result, the user can use this valid fusion of kernels or not when implementing those. The fusion function $F_{fus}$ is described in Algorithm~\ref{alg:fus}, where $parent(k)$ returns the parent vertex of $k$ in the tree, and where $k_{i;j}^{fus}$ represents the fusion of $k_i$ and $k_j$ keeping the sequential order $i;j$ if $i$ is computed before $j$ in $TSP$.
 
 \begin{algorithm}
 \caption{$F_{fus}$}
@@ -88,12 +90,11 @@ Using MSL, it is possible to ask for data parallelization of the application, or
 \If {$type(k_i)=type(k_j)=comp$}
 \If {parent($k_i$)==$S$}
 \If {$D_i==D_j$}
-\\propose the fusion $k_{i;j}$
+\State propose the fusion $k_{i;j}^{fus}$
 \EndIf
-\EndIf
-\If {parent($k_i$)==$P$}
+\ElsIf {parent($k_i$)==$P$}
 \If {$D_i==D_j$ and $R_i \cap R_j \neq \emptyset$}
-\\propose the fusion $k_{i;j}$
+\State propose the fusion $k_{i;j}^{fus}$
 \EndIf
 \EndIf
 \EndIf
@@ -106,11 +107,24 @@ Using MSL, it is possible to ask for data parallelization of the application, or
 We are not arguing that such a simple fusion algorithm could be as good as complex cache optimization techniques which can be found in stencil DSLs for example~\cite{spaaTangCKLL11}. However, this fusion takes place at a different level and can bring performance improvments as it will be illustrated in Section~\ref{sect:eval}. This fusion algorithm relies on very simple statements:
 \begin{itemize}
 \item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are, by construction, data dependant. As a result, what is written by the first one is read by the second one. Thus, at least one data is common to those computations (the one written by $k_i$). Thus, if the computation domains verify $D_i=D_j$, the fusion of $k_i$ and $k_j$ will decrease cache misses.
-\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $P$ in TSP are not, by construction, data dependant. However, if the computation domains verify $D_i=D_j$, and if $R_i \cap R_j \neq \emptyset$ cache misses could also be decreased by the fusion $k_{i;j}$.
+\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $P$ in TSP are not, by construction, data dependant. However, if the computation domains verify $D_i=D_j$, and if $R_i \cap R_j \neq \emptyset$ cache misses could also be decreased by the fusion $k_{i;j}^{fus}$.
 \end{itemize}
 
 %--------------------
 \subsection{Overall example}
+
+MSL code~\ref{fig:exmsl}. 
+\begin{equation*}
+\Gamma = [k_0,k_1,k_2,k_3,k_4,k_0,k_6,k_7,k_8]
+\end{equation*}
+
+\begin{equation*}
+\Gamma_{sync} = [k_0,k_{0;1}^{sync},k_1,k_2,k_3,k_{1;4}^{sync},k_4,k_0,k_6,k_7,k_{7;8}^{sync},k_8]
+\end{equation*}
+
+where $k_{0;1}^{sync}$... 
+
+$\Gamma_{dep}$~\ref{} and $L^{-1}(\Gamma_{dep})$~\ref{}
 
 % Using those additional reduction rules, the binary series-parallel tree decomposition can be computed in linear time. 
 A complete example of reduction is given in Figure~\ref{fig:example}. The initial $\Gamma_{hybrid}$ DAG and its inverse line graph are given first, followed by the set of reductions. The label of the final single edge corresponds to the binary tree decomposition of the initial $\Gamma_{hybrid}$ graph. 
@@ -121,18 +135,18 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
 % INITIAL GRAPH
 \subfloat[]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[] (c0) at (0,0) {$c_0$};
-   \node[] (star1) at (1,0) {$*_1$};
-   \node[] (c1) at (2,0) {$c_1^*$};
-   \node[] (c2) at (3,0.5) {$c_2$};
-   \node[] (star4) at (3,1.5) {$*_4$};
-   \node[] (c3) at (3,-0.5) {$c_3$};
-   \node[] (c4) at (4,0.5) {$c_4^*$};
-   \node[] (c5) at (4,-0.5) {$c_5$};
-   \node[] (c6) at (5,0.5) {$c_6$};
-   \node[] (c7) at (6,0) {$c_7$};
-   \node[] (star8) at (7,0) {$*_8$};
-   \node[] (c8) at (8,0) {$c_8^*$};
+   \node[] (c0) at (0,0) {$k_0$};
+   \node[] (star1) at (1,0) {$k_{0;1}^{sync}$};
+   \node[] (c1) at (2,0) {$k_1$};
+   \node[] (c2) at (3,0.5) {$k_2$};
+   \node[] (star4) at (3,1.5) {$k_{1;4}^{sync}$};
+   \node[] (c3) at (3,-0.5) {$k_3$};
+   \node[] (c4) at (4,0.5) {$k_4$};
+   \node[] (c5) at (4,-0.5) {$k_5$};
+   \node[] (c6) at (5,0.5) {$k_6$};
+   \node[] (c7) at (6,0) {$k_7$};
+   \node[] (star8) at (7,0) {$k_{7;8}^{sync}$};
+   \node[] (c8) at (8,0) {$k_8$};
  
   \path[->]
     (c0) edge node {} (star1)
@@ -167,21 +181,27 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
    \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (9,0) {};
  
   \path[->]
-    (c0s) edge node [above] {$c_0$} (c0d)
-    (c0d) edge node [above] {$*_1$} (star1d)
-    (star1d) edge node [above] {$c_1^*$} (c1d)
-    (c1d) edge node [above] {$c_2$} (c2d)
-          edge node [above] {$c_3$} (c3d)
-          edge [bend left=80] node [above] {$*_4$} (c2d)
-    (c2d) edge node [above] {$c_4^*$} (c4d)
-    (c4d) edge node [above] {$c_6$} (c6d)
-    (c6d) edge node [above] {$c_7$} (c7d)
-    (c7d) edge node [above] {$c_8$} (star8d)
-    (star8d) edge node [above] {$c_8$} (c8d)
-    (c3d) edge node [above] {$c_5$} (c6d);
+    (c0s) edge node [above] {$k_0$} (c0d)
+    (c0d) edge node [above] {$k_{0;1}^{sync}$} (star1d)
+    (star1d) edge node [above] {$k_1$} (c1d)
+    (c1d) edge node [above] {$k_2$} (c2d)
+          edge node [above] {$k_3$} (c3d)
+          edge [bend left=80] node [above] {$k_{1;4}^{sync}$} (c2d)
+    (c2d) edge node [above] {$k_4$} (c4d)
+    (c4d) edge node [above] {$k_6$} (c6d)
+    (c6d) edge node [above] {$k_7$} (c7d)
+    (c7d) edge node [above] {$k_{7;8}^{sync}$} (star8d)
+    (star8d) edge node [above] {$k_8$} (c8d)
+    (c3d) edge node [above] {$k_0$} (c6d);
   \end{tikzpicture}
 }
-\\
+\end{center}
+\caption{$\Gamma_{dep}$ and $L^{-1}(\Gamma_{dep})$}
+\label{fig:dep}
+\end{figure}
+
+\begin{figure}[ht!]
+\begin{center}
 % TRANSFORMATIONS
 \subfloat[]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
@@ -196,26 +216,26 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
    %reduction c0 c1
    \node[] (s0) at (1.5,0.5) {$\mathcal{S}$};
    \node[] (s1) at (1,1.5) {$\mathcal{S}$};
-   \node[] (c0) at (0.5,2.5) {$c_0$};
-   \node[] (star1) at (1.5,2.5) {$*_1$};
-   \node[] (c1) at (2,1.5) {$c_1^*$};
+   \node[] (c0) at (0.5,2.5) {$k_0$};
+   \node[] (star1) at (1.5,2.5) {$k_{0;1}^{sync}$};
+   \node[] (c1) at (2,1.5) {$k_1$};
    
    %reduction c7 c8
    \node[] (s2) at (7.5,0.5) {$\mathcal{S}$};
    \node[] (s3) at (7,1.5) {$\mathcal{S}$};
-   \node[] (c7) at (6.5,2.5) {$c_7$};
-   \node[] (star8) at (7.5,2.5) {$*_8$};
-   \node[] (c8) at (8,1.5) {$c_8$};
+   \node[] (c7) at (6.5,2.5) {$k_7$};
+   \node[] (star8) at (7.5,2.5) {$k_{7;8}^{sync}$};
+   \node[] (c8) at (8,1.5) {$k_8$};
  
   \path[->]
     (c0s) edge node {} (c1d)
-    (c1d) edge node [above] {$c_2$} (c2d)
-          edge node [above] {$c_3$} (c3d)
-          edge [bend left=80] node [above] {$*_4$} (c2d)
-    (c2d) edge node [above] {$c_4^*$} (c4d)
-    (c4d) edge node [above] {$c_6$} (c6d)
+    (c1d) edge node [above] {$k_2$} (c2d)
+          edge node [above] {$k_3$} (c3d)
+          edge [bend left=80] node [above] {$k_{1;4}^{sync}$} (c2d)
+    (c2d) edge node [above] {$k_4$} (c4d)
+    (c4d) edge node [above] {$k_6$} (c6d)
     (c6d) edge node [above] {} (c8d)
-    (c3d) edge node [above] {$c_5$} (c6d)
+    (c3d) edge node [above] {$k_0$} (c6d)
 
     %reduction c0 c1
     (s0) edge node {} (s1)
@@ -242,32 +262,32 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
    %reduction c0 c1
    \node[] (s0) at (1.5,0.5) {$\mathcal{S}$};
    \node[] (s1) at (1,1.5) {$\mathcal{S}$};
-   \node[] (c0) at (0.5,2.5) {$c_0$};
-   \node[] (star1) at (1.5,2.5) {$*_1$};
-   \node[] (c1) at (2,1.5) {$c_1^*$};
+   \node[] (c0) at (0.5,2.5) {$k_0$};
+   \node[] (star1) at (1.5,2.5) {$k_{0;1}^{sync}$};
+   \node[] (c1) at (2,1.5) {$k_1$};
    
    %reduction c7 c8
    \node[] (s2) at (7.5,0.5) {$\mathcal{S}$};
    \node[] (s3) at (7,1.5) {$\mathcal{S}$};
-   \node[] (c7) at (6.5,2.5) {$c_7$};
-   \node[] (star8) at (7.5,2.5) {$*_8$};
-   \node[] (c8) at (8,1.5) {$c_8$};
+   \node[] (c7) at (6.5,2.5) {$k_7$};
+   \node[] (star8) at (7.5,2.5) {$k_{7;8}^{sync}$};
+   \node[] (c8) at (8,1.5) {$k_8$};
 
    %reduction c3 c5
    \node[] (s5) at (4.5,-2) {$\mathcal{S}$};
-   \node[] (c3) at (4,-1) {$c_3$};
-   \node[] (c5) at (5,-1) {$c_5$};
+   \node[] (c3) at (4,-1) {$k_3$};
+   \node[] (c5) at (5,-1) {$k_0$};
 
    %reduction c2 *4
    \node[] (p0) at (3.5,1) {$\mathcal{P}$};
-   \node[] (c2) at (3,2) {$c_2$};
-   \node[] (star4) at (4,2) {$*_4$};
+   \node[] (c2) at (3,2) {$k_2$};
+   \node[] (star4) at (4,2) {$k_{1;4}^{sync}$};
  
   \path[->]
     (c0s) edge node {} (c1d)
     (c1d) edge node [above] {} (c2d)
-    (c2d) edge node [above] {$c_4^*$} (c4d)
-    (c4d) edge node [above] {$c_6$} (c6d)
+    (c2d) edge node [above] {$k_4$} (c4d)
+    (c4d) edge node [above] {$k_6$} (c6d)
     (c6d) edge node [above] {} (c8d)
     (c1d) edge [bend right] node [above] {} (c6d)
 
@@ -292,12 +312,11 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
   \end{tikzpicture}
 }
 \end{center}
-\caption{Big example}
-\label{fig:example}
+\caption{Sequence and parallel rules applications}
+\label{fig:SP}
 \end{figure}
 
 \begin{figure}[ht!]
-\ContinuedFloat
 \begin{center}
 \subfloat[]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
@@ -309,30 +328,30 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
    %reduction c0 c1
    \node[] (s0) at (1.5,0.5) {$\mathcal{S}$};
    \node[] (s1) at (1,1.5) {$\mathcal{S}$};
-   \node[] (c0) at (0.5,2.5) {$c_0$};
-   \node[] (star1) at (1.5,2.5) {$*_1$};
-   \node[] (c1) at (2,1.5) {$c_1^*$};
+   \node[] (c0) at (0.5,2.5) {$k_0$};
+   \node[] (star1) at (1.5,2.5) {$k_{0;1}^{sync}$};
+   \node[] (c1) at (2,1.5) {$k_1$};
    
    %reduction c7 c8
    \node[] (s2) at (7.5,0.5) {$\mathcal{S}$};
    \node[] (s3) at (7,1.5) {$\mathcal{S}$};
-   \node[] (c7) at (6.5,2.5) {$c_7$};
-   \node[] (star8) at (7.5,2.5) {$*_8$};
-   \node[] (c8) at (8,1.5) {$c_8$};
+   \node[] (c7) at (6.5,2.5) {$k_7$};
+   \node[] (star8) at (7.5,2.5) {$k_{7;8}^{sync}$};
+   \node[] (c8) at (8,1.5) {$k_8$};
 
    %reduction c3 c5
    \node[] (s5) at (4.5,-2) {$\mathcal{S}$};
-   \node[] (c3) at (4,-1) {$c_3$};
-   \node[] (c5) at (5,-1) {$c_5$};
+   \node[] (c3) at (4,-1) {$k_3$};
+   \node[] (c5) at (5,-1) {$k_0$};
 
    %reduction c2 c6
    \node[] (s6) at (4.5,1) {$\mathcal{S}$};
    \node[] (p0) at (3.5,2) {$\mathcal{P}$};
-   \node[] (c2) at (3,3) {$c_2$};
-   \node[] (star4) at (4,3) {$*_4$};
+   \node[] (c2) at (3,3) {$k_2$};
+   \node[] (star4) at (4,3) {$k_{1;4}^{sync}$};
    \node[] (s7) at (5.5,2) {$\mathcal{S}$};
-   \node[] (c4) at (5,3) {$c_4^*$};
-   \node[] (c6) at (6,3) {$c_6$};
+   \node[] (c4) at (5,3) {$k_4$};
+   \node[] (c6) at (6,3) {$k_6$};
  
   \path[->]
     (c0s) edge node {} (c1d)
@@ -376,30 +395,30 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
    %reduction c0 c1
    \node[] (s0) at (1.5,0.5) {$\mathcal{S}$};
    \node[] (s1) at (1,1.5) {$\mathcal{S}$};
-   \node[] (c0) at (0.5,2.5) {$c_0$};
-   \node[] (star1) at (1.5,2.5) {$*_1$};
-   \node[] (c1) at (2,1.5) {$c_1^*$};
+   \node[] (c0) at (0.5,2.5) {$k_0$};
+   \node[] (star1) at (1.5,2.5) {$k_{0;1}^{sync}$};
+   \node[] (c1) at (2,1.5) {$k_1$};
    
    %reduction c7 c8
    \node[] (s2) at (7.5,0.5) {$\mathcal{S}$};
    \node[] (s3) at (7,1.5) {$\mathcal{S}$};
-   \node[] (c7) at (6.5,2.5) {$c_7$};
-   \node[] (star8) at (7.5,2.5) {$*_8$};
-   \node[] (c8) at (8,1.5) {$c_8$};
+   \node[] (c7) at (6.5,2.5) {$k_7$};
+   \node[] (star8) at (7.5,2.5) {$k_{7;8}^{sync}$};
+   \node[] (c8) at (8,1.5) {$k_8$};
 
    \node[] (p1) at (4.5,0.5) {$\mathcal{P}$};
    %reduction c3 c5
    \node[] (s5) at (5.5,1.5) {$\mathcal{S}$};
-   \node[] (c3) at (5,2.5) {$c_3$};
-   \node[] (c5) at (6,2.5) {$c_5$};
+   \node[] (c3) at (5,2.5) {$k_3$};
+   \node[] (c5) at (6,2.5) {$k_0$};
    %reduction c2 c6
    \node[] (s6) at (3.5,1.5) {$\mathcal{S}$};
    \node[] (p0) at (2.8,2.5) {$\mathcal{P}$};
-   \node[] (c2) at (2.3,3.5) {$c_2$};
-   \node[] (star4) at (3.3,3.5) {$*_4$};
+   \node[] (c2) at (2.3,3.5) {$k_2$};
+   \node[] (star4) at (3.3,3.5) {$k_{1;4}^{sync}$};
    \node[] (s7) at (4.2,2.5) {$\mathcal{S}$};
-   \node[] (c4) at (3.8,3.5) {$c_4^*$};
-   \node[] (c6) at (4.8,3.5) {$c_6$};
+   \node[] (c4) at (3.8,3.5) {$k_4$};
+   \node[] (c6) at (4.8,3.5) {$k_6$};
  
   \path[->]
     (c0s) edge node {} (c1d)
@@ -444,30 +463,30 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
    %reduction c0 c1
    \node[] (s0) at (1.5,2.5) {$\mathcal{S}$};
    \node[] (s1) at (1,3.5) {$\mathcal{S}$};
-   \node[] (c0) at (0.5,4.5) {$c_0$};
-   \node[] (star1) at (1.5,4.5) {$*_1$};
-   \node[] (c1) at (2,3.5) {$c_1^*$};
+   \node[] (c0) at (0.5,4.5) {$k_0$};
+   \node[] (star1) at (1.5,4.5) {$k_{0;1}^{sync}$};
+   \node[] (c1) at (2,3.5) {$k_1$};
    
    %reduction c7 c8
    \node[] (s2) at (7.5,1.5) {$\mathcal{S}$};
    \node[] (s3) at (7,2.5) {$\mathcal{S}$};
-   \node[] (c7) at (6.5,3.5) {$c_7$};
-   \node[] (star8) at (7.5,3.5) {$*_8$};
-   \node[] (c8) at (8,2.5) {$c_8$};
+   \node[] (c7) at (6.5,3.5) {$k_7$};
+   \node[] (star8) at (7.5,3.5) {$k_{7;8}^{sync}$};
+   \node[] (c8) at (8,2.5) {$k_8$};
 
    \node[] (p1) at (4.5,2.5) {$\mathcal{P}$};
    %reduction c3 c5
    \node[] (s5) at (5.5,3.5) {$\mathcal{S}$};
-   \node[] (c3) at (5,4.5) {$c_3$};
-   \node[] (c5) at (6,4.5) {$c_5$};
+   \node[] (c3) at (5,4.5) {$k_3$};
+   \node[] (c5) at (6,4.5) {$k_0$};
    %reduction c2 c6
    \node[] (s6) at (3.5,3.5) {$\mathcal{S}$};
    \node[] (p0) at (2.8,4.5) {$\mathcal{P}$};
-   \node[] (c2) at (2.3,5.5) {$c_2$};
-   \node[] (star4) at (3.3,5.5) {$*_4$};
+   \node[] (c2) at (2.3,5.5) {$k_2$};
+   \node[] (star4) at (3.3,5.5) {$k_{1;4}^{sync}$};
    \node[] (s7) at (4.2,4.5) {$\mathcal{S}$};
-   \node[] (c4) at (3.8,5.5) {$c_4^*$};
-   \node[] (c6) at (4.8,5.5) {$c_6$};
+   \node[] (c4) at (3.8,5.5) {$k_4$};
+   \node[] (c6) at (4.8,5.5) {$k_6$};
  
   \path[->]
     (c0s) edge node {} (c8d)
@@ -504,7 +523,7 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
   \end{tikzpicture}
 }
 \end{center}
-\caption{Big example}
+\caption{Rest of sequence and parallel rules.}
 \label{fig:example}
 \end{figure}
 

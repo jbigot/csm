@@ -96,16 +96,19 @@ A computation kernel $k$ of a numerical simulation is defined as $k(S,R,(w,D),co
 %$R$ is the set of data read, $w \in \Delta$ is the unique data written, $\text{exp}$ is a numerical expression, and $D \in \mathcal{D}$ is the computation domain.
 \end{mydef}
 
-$comp$ represents the actual numerical expression which is computed by a kernel. We can dissociate three types of kernel computations.
+$comp$ represents the actual numerical expression which is computed by a kernel. We can dissociate four types of kernel computations.
 
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
 \item We denote by $identity$ the identity function $x=x$.
-\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{stencil kernel} $\iff \exists (r,n) \in R$ such that $n \neq identity$.
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{stencil kernel} $\iff \exists (r,n) \in R$ such that $n \neq identity$ and if $\exists (r,n)$ with $r=w$ then $n=identity$.
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{boundary kernel} $\iff \exists (r,n) \in R$ such that $r=w$ and such that $n \neq identity$.
 \item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{local kernel} $\iff \forall (r,n) \in R$, $n = identity$.
 \item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{reduction kernel} $\iff w$ is a scalar, $R=\{(r,n)\}$, and if $n=entity(r)$.
 \end{itemize}
+
+In our formalism, it is forbidden for a stencil kernel to find $(r,n) \in R$ for which $r=w$ and $n \neq identity$. Actually, if such a property is possible implicit numerical schemes are needed into the simulation. Such a scheme is not a stencil and is over the scope of this paper. The problem does not happened for local kernels as $\forall (r,n) \in R$, $n = identity$. Computations for which this property is authorized are boundary kernels only. This type of kernel is a particular case as it commputes boundary conditions, which represents what should happened outside the space domain but still impact stencil kernels at the next time step.
 
 \noindent \textbf{Property}
 A kernel for which all data read and written are applied onto a mesh of dimension $0$ is a local kernel.

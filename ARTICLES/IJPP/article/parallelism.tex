@@ -16,27 +16,27 @@ Actually, a synchronization is needed by the data read by a stencil computation 
 \begin{mydef}
 A synchronization between two computations $k_i \pprec k_j$ is defined as a specific computation 
 \begin{equation*}
-k_{sync}(S,R,(w,D),comp)
+k_{i,j}^{sync}(S,R,(w,D),comp)
 \end{equation*}
 \end{mydef}
-where $S=\emptyset$, $R=\{(w_i,\bigcup_{e \in entity(w_i)} n_j(e))\}$, $w=(w_i,\bigcup_{e \in entity(w_i)} n_j(e)))$ and $comp=identity$. In other words, $w_i$ has to be synchronized for the neighborhood $n_j$ for all entities of $w_i$.
+where $S=\emptyset$, $R=\{(w_i,\bigcup_{e \in D_i} n_j(e))\}$, $w=(w_i,\bigcup_{e \in D_i} n_j(e)))$ and $comp=identity$. In other words, $w_i$ has to be synchronized for the neighborhood $n_j$ for all entities of $w_i$.
 
 \begin{mydef}
 If $k_i \pprec k_j$, $k_j$ is replaced by the list
 \begin{equation*}
-[k_{sync}(\emptyset,\{(w_i,n_j)\},(w_i,n_j),identity), k_j]
+[k_{i,j}^{sync}, k_j]
 \end{equation*}
 \end{mydef}
 
 When data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is applied locally on each subset of entities, on each resource, which results in $p$ (number of resources) scalar values, one on each resource. Thus, to perform the final reduction a synchronization is needed to get the $p$ scalars onto a single resource, to finally get the reduction scalar.
 
 \begin{mydef}
-For a reduction kernel $k(S,R,(w,D),comp)$, if we denote by $w^i$, $0 \leq i<p$, the local $w$ computed on the resource $i$, a reduction synchronization is defined as the specific computation 
+For a reduction kernel $k_j(S_j,R_j,(w_j,D_j),comp)$, if we denote by $w^r$, $0 \leq r<p$, the local $w$ computed on the resource $r$, a reduction synchronization is defined as the specific computation 
 \begin{equation*}
-k_{sync}(S,R_s,(w,D),comp)
+k_{j}^{sync}(S,R,(w,D),comp)
 \end{equation*}
 \end{mydef}
-where, $S=\emptyset$, $R_s=\{(w^0,entity(w^0)) \dots (w^{p-1},entity(w^{p-1}))\}$, and $w$, $D=entity(w)$ and $comp$ are the same than the actual reduction kernel $k$.
+where, $S=\emptyset$, $R=\{(w^0,entity(w^0)) \dots (w^{p-1},entity(w^{p-1}))\}$, and $w=w_i$, $D=entity(w)=D_i$ and $comp=comp_i$.
 
 One can notice that both types of synchronizations are performed by all resources.
 
@@ -45,22 +45,59 @@ The concatenation of two ordered lists of respectively $n$ and $m$ computations 
 \end{mydef}
 
 \begin{mydef}
-From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{sync}$ is obtained from the call $\Gamma_{sync} = F_{sync}(\Gamma,0)$, where $F_{sync}$ is the recursive function defined as
-\begin{equation*}
-F_{sync}(\Gamma,j) = 
-\begin{cases} 	\bullet [] \mbox{ if }j=|\Gamma|\\
-				\bullet [k_{sync}(\emptyset,\\
-				\{(w_i,\bigcup_{e \in entity(w_i)} n_j(e))\},\\
-				(w_i,\bigcup_{e \in entity(w_i)} n_j(e))),\\
-				identity,\emptyset), k_j] \cdot F_{sync}(\Gamma,j+1)\\
-				\text{ } \qquad \forall i<j \text{, and }k_i \pprec k_j\\
-				\bullet [k_j, k_{sync}(\emptyset,\\
-				\{(w^0_j,entity(w^0_j)) \dots (w^{p-1}_j,entity(w^{p-1}_j))\},\\
-				(w_j,entity(w_j)),comp_j)] \cdot F_{sync}(\Gamma,j+1)\\ 
-				\text{ } \qquad \mbox{if } w_j \in \mathcal{S} \text{, and } R_j=\{(r_j,entity(r_j))\}\\
-				\bullet [\Gamma[j]] \cdot F_{sync}(\Gamma,j+1) \text{ else}.
-\end{cases}
-\end{equation*}
+From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{sync}$ is obtained from the call $\Gamma_{sync} = F_{sync}(\Gamma,0)$, where $F_{sync}$ is the recursive function defined in Algorithm~\ref{alg:sync}.
+
+\begin{algorithm}
+\caption{$F_{sync}$ recursive function}
+\label{alg:sync}
+\begin{algorithmic}[1]
+\Procedure{$F_{sync}$} {$\Gamma$,$j$}
+\State $k_j = \Gamma[j]$
+\State $list = []$
+\If {$j=|\Gamma|$}
+\State return $list$
+\ElsIf {$\exists (r_j,n_j) \in R_j$ such that $n_j\neq identity$}
+\For {$0 \leq i<j$}
+\State $k_i = \Gamma[i]$
+\If {$k_i \pprec k_j$}
+\State $S = \emptyset$
+\State $R = \{(w_i,\bigcup_{e \in D_i} n_j(e))\}$
+\State $(w,D) = (w_i,\bigcup_{e \in D_i} n_j(e)))$
+\State $comp = identity$
+\State $list.[k_{i;j}^{sync}(S,R,(w,D),comp)$
+\State break
+\EndIf
+\EndFor
+\State $list \cdot [k_j]$
+\ElsIf {$w_j \in \mathcal{S} \text{, and } R_j=\{(r_j,entity(r_j))\}$}
+\State $S = \emptyset$
+\State $R = \{(w^0_j,entity(w^0_j)) \dots (w^{p-1}_j,entity(w^{p-1}_j))\}$
+\State $(w,D) = (w_j,entity(w_j))$
+\State $comp = comp_j$
+\State $list.[k_j, k_{j}^{sync}(S,R,(w,D),comp)]$
+\Else
+\State $list.[k_j]$
+\EndIf
+\State return $list \cdot F_{sync}(\Gamma,j+1)$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+% \begin{equation*}
+% F_{sync}(\Gamma,j) = 
+% \begin{cases} 	\bullet [] \mbox{ if }j=|\Gamma|\\
+% 				\bullet [k_{sync}(\emptyset,\\
+% 				\{(w_i,\bigcup_{e \in entity(w_i)} n_j(e))\},\\
+% 				(w_i,\bigcup_{e \in entity(w_i)} n_j(e))),\\
+% 				identity,\emptyset), k_j] \cdot F_{sync}(\Gamma,j+1)\\
+% 				\text{ } \qquad \forall i<j \text{, and }k_i \pprec k_j\\
+% 				\bullet [k_j, k_{sync}(\emptyset,\\
+% 				\{(w^0_j,entity(w^0_j)) \dots (w^{p-1}_j,entity(w^{p-1}_j))\},\\
+% 				(w_j,entity(w_j)),comp_j)] \cdot F_{sync}(\Gamma,j+1)\\ 
+% 				\text{ } \qquad \mbox{if } w_j \in \mathcal{S} \text{, and } R_j=\{(r_j,entity(r_j))\}\\
+% 				\bullet [\Gamma[j]] \cdot F_{sync}(\Gamma,j+1) \text{ else}.
+% \end{cases}
+% \end{equation*}
 \end{mydef}
 
 
@@ -74,15 +111,23 @@ is performed.
 \subsection{Hybrid parallelism}
 A task parallelization technique is a technique to transform a program as a dependency graph of different tasks. A dependency graph exhibits parallel tasks, or on the contrary sequential execution of tasks. Such a dependency graph can directly be given to a dynamic scheduler, or can be statically scheduled. In this paper, we introduce task parallelism by building the dependency graph between computations of the sequential list $\Gamma_{sync}$ (which itself take into account data parallelism).
 
+% \begin{mydef}
+% For two computations domains $D_i$ and $D_j$ both subsets of the same entities group $E$. We say that $D_i$ and $D_j$ are independent, denoted $D_i \oplus D_j$, if and only if $D_i \cap D_j = \emptyset$.
+% \end{mydef}
+
 \begin{mydef}
-For two computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i < j$, it is said that $k_j$ is data dependant from $k_i$, denoted $k_i\prec k_j$, if $w_i \in R_j$. In this case, $k_i$ has to be computed before $k_j$. The binary relation $k_i\prec k_j$ represents a \textit{dependency}.
+For two computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i < j$ and such that neither $k_i$ or $k_j$ are boundary kernels, it is said that $k_j$ is data read/write dependant from $k_i$, denoted $k_i \prec_{rw} k_j$, if $w_i \in R_j$. In this case, $k_i$ has to be computed before $k_j$. The binary relation $k_i \prec_{rw} k_j$ represents a \textit{dependency}.
+\end{mydef}
+
+\begin{mydef}
+For two computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i < j$, it is said that $k_j$ is data write dependant from $k_i$, denoted $k_i \prec_{w} k_j$, if $w_i = w_j$ and $D_i \cap D_j \neq \emptyset$. In this case, $k_i$ also has to be computed before $k_j$. The binary relation $k_i \prec_{w} k_j$ represents a \textit{dependency}.
 \end{mydef}
 
 \begin{mydef}
 A directed acyclic graph (DAG) $G(V,A)$ is a graph where the edges are directed from a source to a destination vertex and where, following the direction of edges, no cycle can be found from a vertex $u$ to itself. A directed edge is called an arc, and for two vertices $v,u \in V$ an arc from $u$ to $v$ is denoted $(\overset{\frown}{u,v}) \in A$.
 \end{mydef}
 
-From an ordered list of computations $\Gamma_{sync}$, a directed dependency graph $\Gamma_{dep}(V,A)$ can be built finding all pairs of computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i<j$, such that $k_i \prec k_j$. 
+From an ordered list of computations $\Gamma_{sync}$, a directed dependency graph $\Gamma_{dep}(V,A)$ can be built finding all pairs of computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i<j$, such that $k_i \prec_{rw} k_j$ or $k_i \prec_w k_j$. 
 
 \begin{mydef}
 For two directed graphs $G(V,A)$ and $G'(V',A')$, the union $(V,A)\cup (V',A')$ is defined as the union of each set $(V\cup V', A \cup A')$.
@@ -90,13 +135,36 @@ For two directed graphs $G(V,A)$ and $G'(V',A')$, the union $(V,A)\cup (V',A')$ 
 
 \begin{mydef}
 From the ordered list $\Gamma_{sync}$ of computation kernels, a directed dependency graph $\Gamma_{dep}(V,A)$ is obtained from the call $F_{dep}(\Gamma_{sync},0)$, where $F_{dep}$ is the recursive function
-\begin{equation*}
-F_{dep}(\Gamma_{sync},j) = 
-\begin{cases} 	\bullet (\{\},\{\}) \mbox{ if }j=|\Gamma_{sync}|\\
-				\bullet (k_j, \{(\overset{\frown}{k_i,k_j})\mbox{, }\forall i < j \mbox{, } k_i\prec k_j \})\\
-				\text{ } \qquad \cup F_{dep}(\Gamma_{sync},j+1) \mbox{ if }j<|\Gamma_{sync}|
-\end{cases}
-\end{equation*}
+
+\begin{algorithm}
+\caption{$F_{dep}$ recursive function}
+\label{alg:sync}
+\begin{algorithmic}[1]
+\Procedure{$F_{dep}$} {$\Gamma_{sync}$,$j$}
+\State $k_j = \Gamma_{sync}[j]$
+\If {$j=|\Gamma_{sync}|$}
+\State return $(\{\},\{\})$
+\ElsIf {$j<|\Gamma_{sync}|$}
+\State $G=(\{\},\{\})$
+\For {$0 \leq i<j$}
+\State $k_i = \Gamma_{sync}[i]$
+\If {$k_i \prec_{rw} k_j$ or $k_i \prec_{w} k_j$}
+\State $G = G \cup (k_j, \{(\overset{\frown}{k_i,k_j} \})$
+\EndIf
+\EndFor
+\State return $G \cup F_{dep}(\Gamma_{sync},j+1)$
+\EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+% \begin{equation*}
+% F_{dep}(\Gamma_{sync},j) = 
+% \begin{cases} 	\bullet (\{\},\{\}) \mbox{ if }j=|\Gamma_{sync}|\\
+% 				\bullet (k_j, \{(\overset{\frown}{k_i,k_j})\mbox{, }\forall i < j \mbox{, } k_i\prec k_j \})\\
+% 				\text{ } \qquad \cup F_{dep}(\Gamma_{sync},j+1) \mbox{ if }j<|\Gamma_{sync}|
+% \end{cases}
+% \end{equation*}
 \end{mydef}
 
 This constructive function is possible because the input is an ordered list. Actually, if $k_i\prec k_j$ then $i<j$. As a result, $k_i$ is already in $V$ when the arc $(\overset{\frown}{k_i,k_j})$ is built. 

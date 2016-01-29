@@ -100,23 +100,22 @@ The first step of Algorithm~\ref{alg:nshape} is to create a new DAG $\Gamma_{dep
 \label{alg:nshape}
 \begin{algorithmic}[1]
 \Procedure{removeNSH} {$\Gamma_{dep}$}
-\\$\Gamma_{dep}'$ = RTV($\Gamma_{dep}$)
-\\$sources$ = roots($\Gamma_{dep}'$)
-\\BFSnshape($sources$,$\Gamma_{dep}'$,$\Gamma_{dep}$)
-\\TC($\Gamma_{dep}$)
+\State $\Gamma_{dep}'$ = RTV($\Gamma_{dep}$)
+\State $sources$ = roots($\Gamma_{dep}'$)
+\State BFSnshape($sources$,$\Gamma_{dep}'$,$\Gamma_{dep}$)
+\State TC($\Gamma_{dep}$)
 \EndProcedure
 
 \Procedure{BFSnshape} {$sources$, $\Gamma_{dep}'$, $\Gamma_{dep}$}
-\\$successors$ = successors($sources$)
-\\$SG$ = subgraph($sources \cup successors$)
+\State $successors$ = successors($sources$)
+\State $SG$ = subgraph($sources \cup successors$)
 \If{isconnected($SG$)}
 \If{! complete($SG$)}
-\\addedges($\Gamma_{dep}'$)
-\\addedges($\Gamma_{dep}$)
-\\BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
-\EndIf
-\If{! isconnected($SG$)}
-\\BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
+\State addedges($\Gamma_{dep}'$)
+\State addedges($\Gamma_{dep}$)
+\State BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
+\ElsIf{! isconnected($SG$)}
+\State BFSnshape($successors$, $\Gamma_{dep}'$, $\Gamma_{dep}$)
 \EndIf
 \EndIf
 \EndProcedure
