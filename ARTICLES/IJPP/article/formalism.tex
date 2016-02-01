@@ -1,6 +1,8 @@
 To numerically solve a set of PDEs, iterative methods (finite difference, finite volume or finite element methods) are frequently used to approximate the solution through a discretized (step by step) phenomena. Thus, the continuous time and space domains are discretized so that a set of numerical computations are iteratively (time discretization) applied onto a mesh (space discretization). In other words, the PDEs are transformed to a set of numerical computations applied at each time step on elements of the discretized space domain. Among those numerical computations are found a set of numerical schemes, also called \textit{stencil computations}, a set of auxiliary computations also called \emph{local computations}, and finally a set of \emph{reductions} to reduce a bunch of values to a single scalar value.
 This section gives formal definitions of what we call a \textit{stencil program} and its computations. Then, the different mid-grain parallelization techniques which can be applied on such program, are presented.
 
+We denote stencil kernels discretized explicit numerical schemes which involve neighborhood computations, whatever the type of space discrtization is (mesh).
+
 %-------------------------------------
 \subsection{Time, mesh and data}
 
@@ -25,13 +27,13 @@ A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, reg
 %\begin{mydef}
 \begin{itemize}
 \item An entity $e$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $e\subset V\cup E$.
-\item A mesh entities group is denoted $E$ such that $E \in \mathcal{P}(V\cup E)$. It represents a set of entities of the same type.
+\item A group of mesh entities is denoted $E$ such that $E \in \mathcal{P}(V\cup E)$. It represents a set of entities of the same type.
 \item The set of mesh entities groups of a simulation is denoted $\mathcal{E}$.
 \item Finally, the mesh on which is applied a group of mesh entities $E$ is denoted $mesh(E)$
 \end{itemize}
 %\end{mydef}
 
-For example, in a 2D Cartesian mesh an entity could be a cell, made of four vertices and four edges, or simply a vertex. As a result a group of cells and a group of vertices could be defined in $\mathcal{E}$. %This type can be defined as the sets containing exactly four vertices and four edges connected as a cycle. Another type of entities simply are the vertices ($V$) and can be defined as all singletons formed of a single vertex of $V$.
+For example, in a 2D Cartesian mesh an entity could be a cell, made of four vertices and four edges, or simply a vertex. As a result, a group of cells and a group of vertices could be defined in $\mathcal{E}$. %This type can be defined as the sets containing exactly four vertices and four edges connected as a cycle. Another type of entities simply are the vertices ($V$) and can be defined as all singletons formed of a single vertex of $V$.
 
 \medskip
 This covers the space discretization, however there is also the time dimension which has to be discretized in the simulation.
@@ -59,24 +61,24 @@ In a numerical simulation, as a set of scalars can be applied onto a mesh with a
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
-\item A quantity (or data) is a function $\delta: E_{\delta} \mapsto V_{\delta}$ which associates each entity of a group $e\in E_{\delta}$ to a value $v\in V_{\delta}$ where $V_{\delta}$ is a data type, typically $\mathbb{R}$, $\mathbb{N}$ or $\mathbb{C}$.
+\item A quantity (or data) is a function $\delta: E_{\delta} \mapsto V_{\delta}$ which associates each entity of a group $e\in E_{\delta}$ to a value $v\in V_{\delta}$ where $V_{\delta}$ is a primitive data type, typically $\mathbb{R}$, $\mathbb{N}$ or $\mathbb{C}$.
 \item The set of quantities applied onto the mesh is denoted $\Delta$.
 \item In the rest of this paper, the group of mesh entities on which a quantity $\delta$ is mapped is denoted $entity(\delta)=E_{\delta}$.
 \end{itemize}
 %\end{mydef}
 
-Another option, closer to the applied mathematics domain, would have been to define $\delta$ as the function over $E_{\delta} \times T$; however the approach chosen for now in this work is to let the user be aware of the number of data he is using and what exactly for.
+Another option, closer to the applied mathematics domain, would have been to define $\delta$ as the function over $E_{\delta} \times T$. In this case a single quantity would represents all its occurences over time steps. This solution could be investigated in future work, however the approach chosen for now is to let the user be aware of the number of data he is using and what exactly for.
 
 %-----------------------
 \subsection{Computations}
 
-In this section are considered three different types of kernel computations, stencil kernels, local kernels, and reduction kernels. 
+In this section are considered four different types of kernel computations, stencil kernels, boundary kernels, local kernels, and reduction kernels. 
 
 \medskip
 \noindent \textbf{Definitions}
 %\begin{mydef}
 \begin{itemize}
-\item A computation domain $D$ is a subpart of a mesh entities group, $D \subset E \in \mathcal{E}$.
+\item A computation domain $D$ is a subpart of a mesh entities group, $D \subseteq E \in \mathcal{E}$.
 \item The set of computation domains of a numerical simulation is denoted $\mathcal{D}$.
 \item A neighborhood $n$ is a function which for a given entity $e \in E_i$, returns a set of $m$ entities in $E_j$, $n : E_i \rightarrow E_j^m$. One can notice that $i = j$ is possible. Most of the time, such a neighborhood is called a stencil shape.
 \item The set of neihborhood functions in a numerical simulation is denoted $\mathcal{N}$.
@@ -86,9 +88,9 @@ In this section are considered three different types of kernel computations, ste
 A computation kernel $k$ of a numerical simulation is defined as $k(S,R,(w,D),comp)$, where 
 \begin{itemize}
 \item $S \in \mathcal{S}$ is the set of scalar to read, 
-\item $(w,D) \in \Delta \times \mathcal{D}$ is the single data modified by the computation kernel onto a given computation domain. Thus, $w \in \Delta$ and $D \in \mathcal{D}$ is the computation domain on which $w$ is computed, $D \subset E_w=entity(w)$.
+\item $(w,D) \in \Delta \times \mathcal{D}$ is the single data modified by the computation kernel onto a given computation domain. Thus, $w \in \Delta$ and $D \in \mathcal{D}$ is the computation domain on which $w$ is computed, $D \subseteq E_w=entity(w)$.
 \item $R$ is the set of tuples $(r,n)$, where $r \in \Delta$ and $n \in \mathcal{N}$ is a neighborhood function such that $n : E_w \rightarrow entity(r)^m$. The neighborhood indicates which entities of $r$ will be read in order to compute a single entity of $w$. 
-\item $comp$ is the numerical computation which returns a value from a set of input values, $comp: V^n \rightarrow V$.
+\item $comp$ is the numerical computation which returns a value from a set of $n$ input values, $comp: V^n \rightarrow V$.
 \end{itemize}
 % \item A numerical expression $\text{exp}_{w}: entity(w) \times R^n \rightarrow V_{w}$ is a function which computes the values of the written quantity $w \in \Delta$ for a given entity $e \in entity(w)=E_w$, using a set of input data $R$.
 % \item A computation kernel $k$ of a numerical simulation is defined as $c(R,w,\text{exp},D)$, where $R$ is the set of data read, $w \in \Delta$ is the unique data written, $\text{exp}$ is a numerical expression, and $D \in \mathcal{D}$ is the computation domain.
@@ -108,7 +110,7 @@ $comp$ represents the actual numerical expression which is computed by a kernel.
 \item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{reduction kernel} $\iff w$ is a scalar, $R=\{(r,n)\}$, and if $n=entity(r)$.
 \end{itemize}
 
-In our formalism, it is forbidden for a stencil kernel to find $(r,n) \in R$ for which $r=w$ and $n \neq identity$. Actually, if such a property is possible implicit numerical schemes are needed into the simulation. Such a scheme is not a stencil and is over the scope of this paper. The problem does not happened for local kernels as $\forall (r,n) \in R$, $n = identity$. Computations for which this property is authorized are boundary kernels only. This type of kernel is a particular case as it commputes boundary conditions, which represents what should happened outside the space domain but still impact stencil kernels at the next time step.
+In our formalism, it is forbidden for a stencil kernel to find $(r,n) \in R$ for which $r=w$ and $n \neq identity$. Actually, if such a property was permitted, implicit numerical schemes would be needed into the simulation, which involves linear solvers. Such a scheme is not a stencil and is over the scope of this paper. The problem does not happened for local kernels as $\forall (r,n) \in R$, $n = identity$. Computations for which this property is authorized are boundary kernels only. This type of kernel is a particular case as it commputes boundary conditions, which represents what should happened outside the space domain but still impact stencil kernels at the next time step.
 
 \noindent \textbf{Property}
 A kernel for which all data read and written are applied onto a mesh of dimension $0$ is a local kernel.
@@ -117,7 +119,7 @@ A kernel for which all data read and written are applied onto a mesh of dimensio
 In a reduction kernel $k(S,R,(w,D),comp)$, $D=entity(w)$ as a single entity exists for a scalar.
 
 \medskip
-A reduction computation is a computation which takes a single data applied onto a mesh and returns from all its entities a single data with a dimension reduced to zero, in other words a scalar. A reduction is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be performed during a time iteration. %This last usage is typically done to have a conditionnal branch to choose one computation or another, or to compute a dynamic time step for example.
+A reduction computation is a computation which reads a single data applied onto a mesh and returns from all its entities a single scalar (mesh with a dimension reduced to zero). A reduction is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be used during a time iteration. %This last usage is typically done to have a conditionnal branch to choose one computation or another, or to compute a dynamic time step for example.
 
 \medskip
 \noindent \textbf{Property}
@@ -126,7 +128,7 @@ Considering a reduction kernel $k(S,R,(w,D),comp)$, $comp$ must be a binary and 
 \medskip
 \noindent \textbf{Definitions}
 \begin{itemize}
-\item The set of $n$ ordered computation kernels of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i \leq j$, then $k_i$ is computed before $k_j$.
+\item The set of $n$ ordered computation kernels of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i < j$, then $k_i$ is computed before $k_j$.
 \item Finally, a \textit{multi-stencil program} is defined by the octuplet 
 \begin{equation*}
 \mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\mathcal{N},\Delta, \mathcal{S},\Gamma)
@@ -135,17 +137,17 @@ Considering a reduction kernel $k(S,R,(w,D),comp)$, $comp$ must be a binary and 
 
 For example, in Figure~\ref{fig:ex1}, assuming that the computation domain (full lines) is denoted $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
 \begin{equation*}
-R: \{(B,n1)\}, \quad w: A, \quad d: dc1,
+R: \{(B,n1)\}, \quad w: A, \quad D: dc1,
 \end{equation*}
 \begin{equation*}
-exp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
+comp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
 \end{equation*}
 On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel is defined as:
 \begin{equation*}
-R: \{(C,n2),(A,identity)\}, \quad w: A, \quad d: dc2,
+R: \{(C,n2),(A,identity)\}, \quad w: A, \quad D: dc2,
 \end{equation*}
 \begin{equation*}
-exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
+comp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
 
 \begin{figure}
@@ -167,5 +169,7 @@ exp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{figure}
 
 A stencil program has been formally defined in this section. This formalism is used in the next Section to define two parallelization techniques of a multi-stencil program.
+
+One can note that all definitions given in this section are not dependent from the topology of the mesh. This property will be kept in the rest of this paper to propose the mesh-agnostic MSL language.
 
 

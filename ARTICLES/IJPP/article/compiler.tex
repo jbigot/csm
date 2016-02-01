@@ -1,7 +1,7 @@
 %--------------------
 \subsection{Overall compiler algorithm}
 
-The overall compiler algorithm is represented in Algorithm~\ref{alg:compiler}. First, the parsing of the input file (written with the MSL language) gave enough information to build $\Gamma$, the ordered list of computations. Second, $\Gamma_{sync}$ and $\Gamma_{dep}$ can be built from $\Gamma$ using the recursive functions $F_{sync}$ and $F_{dep}$. Third, N-Shapes are removed from $\Gamma_{dep}$ to get a MSPD graph, and to be able to create its serie-parallel binary tree decomposition $TSP$ (line 6). Lines 7 to 9 are explained in the next section. Finally a dump of $TSP$ is performed by the compiler and will be described in Section~\ref{sect:eval}.
+The overall compiler algorithm is represented in Algorithm~\ref{alg:compiler}. First, the parsing of the input file (written with the MSL language) gave enough information to build $\Gamma$, the ordered list of computation kernels. Second, $\Gamma_{sync}$ and $\Gamma_{dep}$ can be built from $\Gamma$ using the recursive functions $F_{sync}$ and $F_{dep}$. Third, N-Shapes are removed from $\Gamma_{dep}$ to get a MSPD graph, and to be able to create its serie-parallel binary tree decomposition $TSP$ (line 6). Lines 7 to 9 are explained in the next section. Finally a dump of $TSP$ is performed by the compiler and will be described in Section~\ref{sect:eval}.
 
 \begin{algorithm}
 \caption{MSL Compiler}
@@ -41,16 +41,17 @@ We denote as a sequence or parallel sub-tree $T(V,E)$ sub-trees for which the ro
 \end{mydef}
 
 \begin{myth}
-\begin{itemize}
-\item A sequence of sequence is a sequence if the order is kept. Thus for two sequence sub-trees $T_i$ and $T_j$, if $T_j \in V_i$, $T_i$ can be replaced by 
+A sequence of sequence is a sequence if the order is kept. Thus for two sequence sub-trees $T_i$ and $T_j$, if $T_j \in successors(root(T_i))$, $T_i$ can be replaced by 
 \begin{equation*}
 T_i'(V_i \setminus root(T_j),E_i \cup replace(E_j,root(T_j),root(T_i)))
 \end{equation*}
-\item A parallel sub-tree of parallel sub-tree is a parallel sub-tree in any order. Thus for two parallel sub-trees $T_i$ and $T_j$, if $T_j \in V_i$, $T_i$ can be replaced by 
+\end{myth}
+
+\begin{myth}
+A parallel sub-tree of parallel sub-tree is a parallel sub-tree in any order. Thus for two parallel sub-trees $T_i$ and $T_j$, if $T_j \in successors(root(T_i))$, $T_i$ can be replaced by 
 \begin{equation*}
 T_i'(V_i \setminus root(T_j),E_i \cup replace(E_j,root(T_j),root(T_i)))
 \end{equation*}
-\end{itemize}
 \end{myth}
 
 These reductions applied recursively on the serie-parallel binary tree decomposition of $\Gamma_{dep}$ produce the canonical serie-parallel tree decomposition 
@@ -113,27 +114,33 @@ We are not arguing that such a simple fusion algorithm could be as good as compl
 %--------------------
 \subsection{Overall example}
 
-MSL code~\ref{fig:exmsl}. 
+Figure~\ref{fig:exmsl} gives an example of $\mathcal{MSP}$ program. From this example, and using a very simple parser, the following ordered list of computation kernels can be extracted, including all information on mesh, entities, computation domains and data:
 \begin{equation*}
 \Gamma = [k_0,k_1,k_2,k_3,k_4,k_0,k_6,k_7,k_8]
 \end{equation*}
 
+From this ordered list of computation kernels $\Gamma$ and included information, synchronizations can be automatically detected from the call to $F_{sync}(\Gamma,0)$ to get the synchronized ordered list of kernels:
+
 \begin{equation*}
-\Gamma_{sync} = [k_0,k_{0;1}^{sync},k_1,k_2,k_3,k_{1;4}^{sync},k_4,k_0,k_6,k_7,k_{7;8}^{sync},k_8]
+\Gamma_{sync} = [k_0,k_{0;1}^{sync},k_1,k_2,k_3,k_{1;4}^{sync},k_4,k_0,k_6,k_7,k_{7;8}^{sync},k_8],
 \end{equation*}
 
-where $k_{0;1}^{sync}$... 
+\begin{subequations}
+where
+\begin{align}
+        k_{0;1}^{sync}=(\emptyset,\{(B,\bigcup_{e \in D_0} nce(e))\},(B,\bigcup_{e \in D_0} nce(e)),identity),\\
+        k_{1;4}^{sync}=(\emptyset,\{(C,\bigcup_{e \in D_1} nec(e))\},(C,\bigcup_{e \in D_1} nec(e)),identity),\\
+        k_{7;8}^{sync}=(\emptyset,\{(I,\bigcup_{e \in D_7} ncc(e))\},(I,\bigcup_{e \in D_7} ncc(e)),identity).
+\end{align}
+\end{subequations}
 
-$\Gamma_{dep}$~\ref{} and $L^{-1}(\Gamma_{dep})$~\ref{}
-
-% Using those additional reduction rules, the binary series-parallel tree decomposition can be computed in linear time. 
-A complete example of reduction is given in Figure~\ref{fig:example}. The initial $\Gamma_{hybrid}$ DAG and its inverse line graph are given first, followed by the set of reductions. The label of the final single edge corresponds to the binary tree decomposition of the initial $\Gamma_{hybrid}$ graph. 
+From $\Gamma_{sync}$, the dependency DAG can be built. For example, as $k_0$ computes $B$ and $k_1$ reads $B$, $k_0$ and $k_1$ becomes vertices of $\Gamma_{dep}$, and an arc $(\overset{\frown}{k_0,k_1})$ is added to $\Gamma_{dep}$. The overall $\Gamma_{dep}$ built from the call to $F_{dep}(\Gamma_{sync},0)$ is drawn in Figure~\ref{fig:depdep}. $L^{-1}(\Gamma_{dep})$ also represented in Figure~\ref{fig:depline} is the line digraph of $\Gamma_{dep}$.
 
 %====BIG EXAMPLE
 \begin{figure}[ht!]
 \begin{center}
 % INITIAL GRAPH
-\subfloat[]{
+\subfloat[$\Gamma_{dep}$\label{fig:depdep}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[] (c0) at (0,0) {$k_0$};
    \node[] (star1) at (1,0) {$k_{0;1}^{sync}$};
@@ -166,7 +173,7 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
 }
 \\
 % INVERSE LINE GRAPH
-\subfloat[]{
+\subfloat[$L^{-1}(\Gamma_{dep})$\label{fig:depline}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
    \node[circle,draw=black,fill=black,scale=0.3] (c0d) at (1,0) {};
@@ -200,10 +207,12 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
 \label{fig:dep}
 \end{figure}
 
+Figure~\ref{fig:SPS} illustrates two binary tree decomposition following the sequence rule of Figure~\ref{fig:rules}. This rule is first applied to $k_0$ and $k_{0;1}^{sync}$, then to the resulting tree to $k_1$. The same is applied onto $k_7$ and $k_{7;8}^{sync}$ and then to the resulting tree to $k_8$. In Figure~\ref{fig:SPP} the parallel rule of Figure~\ref{fig:rules} is applied onto $k_{1;4}^{sync}$ and $k_2$.
+
 \begin{figure}[ht!]
 \begin{center}
 % TRANSFORMATIONS
-\subfloat[]{
+\subfloat[Sequence rule applied onto $k_0$ $k_{0;1}^{sync}$ and $k_1$, and onto $k_7$ $k_{7;8}^{sync}$ and $k_8$\label{fig:SPS}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
    \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (3,0) {};
@@ -250,7 +259,7 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
   \end{tikzpicture}
 }
 \\
-\subfloat[]{
+\subfloat[Parallel rule applied onto $k_{1;4}^{sync}$ and $k_2$\label{fig:SPP}]{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
    \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (3,0) {};
@@ -316,9 +325,11 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
 \label{fig:SP}
 \end{figure}
 
+Finally, the rest of the successive transformations, following rules of Figure~\ref{fig:rules}, are illustrated in Figure~\ref{fig:example} until a single edge is reach which ends the algorithm.
+
 \begin{figure}[ht!]
 \begin{center}
-\subfloat[]{
+\subfloat{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
    \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (3,0) {};
@@ -385,7 +396,7 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
   \end{tikzpicture}
 }
 \\
-\subfloat[]{
+\subfloat{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
    \node[circle,draw=black,fill=black,scale=0.3] (c1d) at (3,0) {};
@@ -452,7 +463,7 @@ A complete example of reduction is given in Figure~\ref{fig:example}. The initia
   \end{tikzpicture}
 }
 \\
-\subfloat[]{
+\subfloat{
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[circle,draw=black,fill=black,scale=0.3] (c0s) at (0,0) {};
    \node[circle,draw=black,fill=black,scale=0.3] (c8d) at (9,0) {};

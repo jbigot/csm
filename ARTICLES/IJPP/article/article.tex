@@ -219,8 +219,10 @@ The parallel empty skeleton of the application can be computed automatically fro
 \section{Related work}
 \label{sect:rel}
 \begin{itemize}
-\item Lizst, Pochoir, PATUS for optimizations/parallelization of a single stencil kernel + mesh dependent
-\item Halide for pipeline of stencil computations = mesh dependent
+\item Cartesian meshes : Pochoir, PATUS for optimizations/parallelization of a single stencil kernel
+\item Unstructured meshes : Lizst for optimizations/parallelization of a single stencil kernel
+\item Halide for pipeline of stencil computations in image (Cartesian) = mesh dependent
+\item SYCL same Halide mais mesh dependent
 \item Reuse of external solutions as SkelGIS, GA, Lizst, Pochoir etc.
 \end{itemize}
 %------------------------------------------------------------------------------
