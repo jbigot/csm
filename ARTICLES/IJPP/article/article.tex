@@ -20,8 +20,8 @@
 %
 %\documentclass{svjour3}                     % onecolumn (standard format)
 %\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
-%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
-\documentclass[twocolumn]{svjour3}          % twocolumn
+\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+%\documentclass[twocolumn]{svjour3}          % twocolumn
 %
 \smartqed  % flush right qed marks, e.g. at end of proof
 %
@@ -72,7 +72,7 @@
 
 %\titlerunning{Short form of title}        % if too long for running head
 
-\author{Helene Coullon         \and
+\author{Helene Coullon \and
         Christian Perez \and
         Julien Bigot
 }
@@ -80,9 +80,7 @@
 %\authorrunning{Short form of author list} % if too long for running head
 
 \institute{Helene Coullon \and Christian Perez \at
-              INRIA \\
-              46 Allée d'Italie\\
-              69007 Lyon\\
+              INRIA, ENS Lyon, 46 Allée d'Italie, 69007 Lyon\\
               \email{helene.coullon@inria.fr}
            \and
            Julien Bigot \at
@@ -115,31 +113,14 @@ Contributions :
 \section{Computational model of Multi-Stencil Programs}
 \label{sect:formalism}
 \input{formalism.tex}
-% Formalism :
-% \begin{itemize}
-% \item mesh / mesh entities and groups / computations domains
-% \item data and scalars
-% \item computations : stencil, local and reduction
-% \item Multi-Stencil Program
-% \end{itemize}
-%------------------------------------------------------------------------------
-\section{Parallelization of Multi-Stencil Programs}
-\label{sect:parallelism}
-\input{parallelism.tex}
-% Parallelization formalism :
-% \begin{itemize}
-% \item Data parallelism (introduction of synchronizations)
-% \item Task parallelism (computation of the dependency graph)
-% \end{itemize}
 %------------------------------------------------------------------------------
 \section{The Multi-Stencil Language}
 \label{sect:msl}
 \input{msl.tex}
-The parallel empty skeleton of the application can be computed automatically from the language :
-\begin{itemize}
-\item grammar
-\item example from the language to $\Gamma$
-\end{itemize}
+%------------------------------------------------------------------------------
+\section{Parallelization of Multi-Stencil Programs}
+\label{sect:parallelism}
+\input{parallelism.tex}
 %------------------------------------------------------------------------------
 \section{Static Scheduling}
 \label{sect:msp}
