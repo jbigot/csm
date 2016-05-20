@@ -105,7 +105,7 @@ Such a definition of a computation kernel offers a large panel of different comp
 \item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{stencil kernel} if $\exists (r,n) \in R$ such that $n \neq identity$ .
 \item A \emph{boundary kernel} is a kernel $k(S,R,(w,D),comp)$ where $D$ is a specific computation domain at the border of entities, and which does not intersect with any other computation domain.
 \item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{local kernel} if $\forall (r,n) \in R$, $n = identity$.
-\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{reduction kernel} if $w$ is a scalar, $D=\emptyset$, $R=\{(r,n)\}$ with $n=entity(r)$, and $comp$ is a reduction operation (usually $+$, $-$, $*$, $max$, $min$ etc.).
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{reduction kernel} if $w$ is a scalar.%, $D=\emptyset$, $R=\{(r,n)\}$ with $n=entity(r)$, and $comp$ is a reduction operation (usually $+$, $-$, $*$, $max$, $min$ etc.).
 \end{itemize}
 
 %In our formalism, it is forbidden for a stencil kernel to find $(r,n) \in R$ for which $r=w$ and $n \neq identity$. Actually, if such a property was permitted, implicit numerical schemes would be needed into the simulation, which involves linear solvers. Such a scheme is not a stencil and is over the scope of this paper. The problem does not happened for local kernels as $\forall (r,n) \in R$, $n = identity$. Computations for which this property is authorized are boundary kernels only. This type of kernel is a particular case as it commputes boundary conditions, which represents what should happened outside the space domain but still impact stencil kernels at the next time step.

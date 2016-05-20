@@ -5,21 +5,37 @@
 \label{sect:dataparal}
 In a data parallelization technique, the idea is to split quantities on which the program is computed into balanced sub-parts, one for each available resource. The same sequential program can afterwards be applied on each sub-part simultaneously, with some additioinal synchronizations between resources to update the data not computed locally, and thus to guarantee a correct result.
 
-More formally, the data parallelization of a multi-stencil program $\mathcal{MSP}(T,\mathcal{M},\mathcal{E},\mathcal{D},\mathcal{N},\Delta, \mathcal{S},\Gamma)$ consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. As entities and as data are mapped onto the mesh, the set of entities and the set of data $\Delta$ are partitionned the same way than the mesh: $\mathcal{E}=\{\mathcal{E},\dots,\mathcal{E}{p-1}\}$, $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{sync}$.
+\medskip
+More formally, the data parallelization of a multi-stencil program 
+\begin{equation*}
+\mathcal{MSP}(\mathcal{M},\Phi,\mathcal{D},\mathcal{N},\Delta, \mathcal{S},T,\Gamma)
+\end{equation*}
+
+consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{} and is not adressed by this paper. 
+
+As entities and quantities are mapped onto the mesh, the set of groups of mesh entities and the set of quantities $\Delta$ are partitionned the same way than the mesh: $\Phi=\{\Phi_0,\dots,\Phi_{p-1}\}$, $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. 
+
+The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{sync}$.
 
 \begin{mydef}
-For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronisation} is needed between $k_i$ and $k_j$, denoted $k_i \pprec k_j$, if $\exists (r_j,n_j) \in R_j$ such that $w_i=r_j$ and $n_j\neq identity$ ($k_j$ is a stencil computation). Moreover, the data to update is $\{w_i\}$.
+For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronisation} is needed between $k_i$ and $k_j$, denoted $k_i \pprec k_j$, if $\exists (r_j,n_j) \in R_j$ such that $w_i=r_j$ and $n_j\neq identity$ ($k_j$ is a stencil computation). The quantity to synchronise is $\{w_i\}$.
 \end{mydef}
 
-Actually, a synchronization is needed by the data read by a stencil computation (not local), if this data has been modified before, which means that it has been written before. This synchronization is needed because a neighborhood function $n \in \mathcal{N}$ of a stencil computation involves values computed on different resources.
+Actually, a synchronization is needed by the quantity read by a stencil computation (not local), if this quantity has been modified before, which means that it has been written before. This synchronization is needed because a neighborhood function $n \in \mathcal{N}$ of a stencil computation involves values computed on different resources.
+
+However, as a multi-stencil program is an iterative program, computations which happen after $k_j$ at the time iteration $t$ have also been computed before $k_j$ at the previous time iteration $t-1$. For this reason another case of synchronization has to be defined.
+
+\begin{mydef}
+For $n$ the number of computations in $\Gamma$ and $j<n$, if $\exists (r_j,n_j) \in R_j$ such that $n_j\neq identity$ and for all $i<j$, $k_i \not \pprec k_j$, a \textit{synchronisation} is needed between $k_l$ and $k_j$, where $j<l<n$, denoted $k_l \pprec k_j$, if $w_l=r_j$. The quantity to synchronise is $\{w_l\}$.
+\end{mydef}
 
 \begin{mydef}
 A synchronization between two computations $k_i \pprec k_j$ is defined as a specific computation 
 \begin{equation*}
-k_{i,j}^{sync}(S,R,(w,D),comp)
+k_{i,j}^{sync}(S,R,(w,D),comp), 
 \end{equation*}
+where $S=\emptyset$, $R=\{(r,n)\}=\{(w_i,n_j \in \mathcal{N}\}$, $(w,D)=(w_i,\bigcup_{\phi \in D_j} n_j(\phi)))$ and $comp=identity$. In other words, $w_i$ has to be synchronized for the neighborhood $n_j$ for all entities of $D_j$.
 \end{mydef}
-where $S=\emptyset$, $R=\{(w_i,\bigcup_{e \in D_i} n_j(e))\}$, $w=(w_i,\bigcup_{e \in D_i} n_j(e)))$ and $comp=identity$. In other words, $w_i$ has to be synchronized for the neighborhood $n_j$ for all entities of $w_i$.
 
 \begin{mydef}
 If $k_i \pprec k_j$, $k_j$ is replaced by the list
@@ -28,15 +44,15 @@ If $k_i \pprec k_j$, $k_j$ is replaced by the list
 \end{equation*}
 \end{mydef}
 
-When data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is first applied locally on each subset of entities, on each resource. This results in $p$ (number of resources) scalar values. Thus, to perform the final reduction a synchronization is needed to get the $p$ scalars onto each resource. The final reduction step is applied such that each resource get the result scalar.
+When data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is first applied locally on each subset of entities, on each resource. This results in $p$ (number of resources) scalar values. Thus, to perform the final reduction, a set of synchronizations are needed to get the final reduction scalar. As most parallelism libraries (MPI, OpenMP) already propose a reduction synchronization with its own optimizations, we simply choose to replace the reduction computation by itself anotated by $red$.
 
 \begin{mydef}
-For a reduction kernel $k_j(S_j,R_j,(w_j,D_j),comp)$, if we denote by $w^r$, $0 \leq r<p$, the local scalar $w$ computed on the resource $r$, a reduction synchronization is defined as the specific computation 
-\begin{equation*}
-k_{j}^{sync}(S,R,(w,D),comp)
-\end{equation*}
+A reduction kernel $k_j(S_j,R_j,(w_j,D_j),comp)$, where $w$ is a scalar, is replaced by $k^{red}_j(S_j,R_j,(w_j,D_j),comp)$. %if we denote by $w^r$, $0 \leq r<p$, the local scalar $w$ computed on the resource $r$, a reduction synchronization is defined as the specific computation 
+% \begin{equation*}
+% k_{j}^{sync}(S,R,(w,D),comp)
+% \end{equation*}
 \end{mydef}
-where, $S=\emptyset$, $R=\{(w^0,entity(w^0)) \dots (w^{p-1},entity(w^{p-1}))\}$, and $w=w_i$, $D=entity(w)=D_i$ and $comp=comp_i$.
+% where, $S=\emptyset$, $R=\{(w^0,entity(w^0)) \dots (w^{p-1},entity(w^{p-1}))\}$, and $w=w_i$, $D=entity(w)=D_i$ and $comp=comp_i$.
 
 One can notice that both types of synchronizations are performed by all resources.
 
@@ -45,24 +61,10 @@ The concatenation of two ordered lists of respectively $n$ and $m$ computations 
 \end{mydef}
 
 \begin{mydef}
-From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{sync}$ is obtained from the call $\Gamma_{sync} = F_{sync}(\Gamma,0)$, where $F_{sync}$ is the recursive function defined in Algorithm~\ref{alg:sync}.
-
-% \begin{equation*}
-% F_{sync}(\Gamma,j) = 
-% \begin{cases} 	\bullet [] \mbox{ if }j=|\Gamma|\\
-% 				\bullet [k_{sync}(\emptyset,\\
-% 				\{(w_i,\bigcup_{e \in entity(w_i)} n_j(e))\},\\
-% 				(w_i,\bigcup_{e \in entity(w_i)} n_j(e))),\\
-% 				identity,\emptyset), k_j] \cdot F_{sync}(\Gamma,j+1)\\
-% 				\text{ } \qquad \forall i<j \text{, and }k_i \pprec k_j\\
-% 				\bullet [k_j, k_{sync}(\emptyset,\\
-% 				\{(w^0_j,entity(w^0_j)) \dots (w^{p-1}_j,entity(w^{p-1}_j))\},\\
-% 				(w_j,entity(w_j)),comp_j)] \cdot F_{sync}(\Gamma,j+1)\\ 
-% 				\text{ } \qquad \mbox{if } w_j \in \mathcal{S} \text{, and } R_j=\{(r_j,entity(r_j))\}\\
-% 				\bullet [\Gamma[j]] \cdot F_{sync}(\Gamma,j+1) \text{ else}.
-% \end{cases}
-% \end{equation*}
+From the ordered list of computation $\Gamma$, a new synchronized ordered list $\Gamma_{sync}$ is obtained from the call $\Gamma_{sync} = F_{sync}(\Gamma,0)$, where $F_{sync}$ is the recursive function defined in Algorithm~\ref{alg:sync}.
 \end{mydef}
+
+Algorithm~\ref{alg:sync} follows previous definitions to include synchronizations into $\Gamma$.
 
 \begin{algorithm}
 \caption{$F_{sync}$ recursive function}
@@ -74,23 +76,35 @@ From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{sync}
 \If {$j=|\Gamma|$}
 \State return $list$
 \ElsIf {$\exists (r_j,n_j) \in R_j$ such that $n_j\neq identity$}
+\For {all $(r_j,n_j) \in R_j$ such that $n_j\neq identity$}
+\State found = false
 \For {$0 \leq i<j$}
 \State $k_i = \Gamma[i]$
 \If {$k_i \pprec k_j$}
+\State found = true
 \State $S = \emptyset$
-\State $R = \{(w_i,\bigcup_{e \in D_i} n_j(e))\}$
-\State $(w,D) = (w_i,\bigcup_{e \in D_i} n_j(e)))$
+\State $R = \{(w_i,n_j)\}$
+\State $(w,D) = (w_i,\bigcup_{\phi \in D_j} n_j(\phi)))$
 \State $comp = identity$
-\State $list.[k_{i;j}^{sync}(S,R,(w,D),comp)$
+\State $list.[k_{i;j}^{sync}(S,R,(w,D),comp)]$
 \EndIf
 \EndFor
-\State $list \cdot [k_j]$
-\ElsIf {$w_j \in \mathcal{S} \text{, and } R_j=\{(r_j,entity(r_j))\}$}
+\If {!found}
+\For {$j<i\leq n$}
+\State $k_i = \Gamma[i]$
+\If {$k_i \pprec k_j$}
 \State $S = \emptyset$
-\State $R = \{(w^0_j,entity(w^0_j)) \dots (w^{p-1}_j,entity(w^{p-1}_j))\}$
-\State $(w,D) = (w_j,entity(w_j))$
-\State $comp = comp_j$
-\State $list.[k_j, k_{j}^{sync}(S,R,(w,D),comp)]$
+\State $R = \{(w_i,n_j)\}$
+\State $(w,D) = (w_i,\bigcup_{\phi \in D_j} n_j(\phi)))$
+\State $comp = identity$
+\State $list.[k_{i;j}^{sync}(S,R,(w,D),comp)]$
+\EndIf
+\EndFor
+\EndIf
+\State $list \cdot [k_j]$
+\EndFor
+\ElsIf {$w_j \in \mathcal{S}$}
+\State $list.[k^{red}_j]$
 \Else
 \State $list.[k_j]$
 \EndIf
@@ -102,7 +116,7 @@ From the ordered list of computation $\Gamma$, a new ordered list $\Gamma_{sync}
 
  The final step of this parallelization is to run $\Gamma_{sync}$ on each resource. Thus, for each resource $0 \leq r \leq p-1$ a multi-stencil program, defined by
 \begin{equation}
-\mathcal{MSP}_r(T,\mathcal{M}_r,\mathcal{E}_r,\mathcal{D}_r,\mathcal{N},\Delta_r,\mathcal{S},\Gamma_{sync}),
+\mathcal{MSP}_r(\mathcal{M}_r,\Phi_r,\mathcal{D}_r,\mathcal{N},\Delta_r,\mathcal{S},T,\Gamma_{sync}),
 \end{equation}
 is performed.
 
@@ -110,32 +124,32 @@ is performed.
 \subsection{Hybrid parallelism}
 A task parallelization technique is a technique to transform a program as a dependency graph of different tasks. A dependency graph exhibits parallel tasks, or on the contrary sequential execution of tasks. Such a dependency graph can directly be given to a dynamic scheduler, or can statically be scheduled. In this paper, we introduce task parallelism by building the dependency graph between kernels of the sequential list $\Gamma_{sync}$. Thus, as $\Gamma_{sync}$ takes into account data parallelism, we introduce hybrid parallelism.
 
-% \begin{mydef}
-% For two computations domains $D_i$ and $D_j$ both subsets of the same entities group $E$. We say that $D_i$ and $D_j$ are independent, denoted $D_i \oplus D_j$, if and only if $D_i \cap D_j = \emptyset$.
-% \end{mydef}
-
 \begin{mydef}
-For two computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i < j$ and such that neither $k_i$ or $k_j$ are boundary kernels, it is said that $k_j$ is data read/write dependant from $k_i$, denoted $k_i \prec_{rw} k_j$, if $w_i \in R_j$. In this case, $k_i$ has to be computed before $k_j$. The binary relation $k_i \prec_{rw} k_j$ represents a \textit{dependency}.
+For two computations $k_i$ and $k_j$, with $i < j$, it is said that $k_j$ is dependant from $k_i$ with a \emph{read after write}, denoted $k_i \prec_{raw} k_j$, if $w_i \in R_j$. In this case, $k_i$ has to be computed before $k_j$. The binary relation $k_i \prec_{raw} k_j$ represents a \textit{dependency}.
 \end{mydef}
 
 \begin{mydef}
-For two computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i < j$, it is said that $k_j$ is data write dependant from $k_i$, denoted $k_i \prec_{w} k_j$, if $w_i = w_j$ and $D_i \cap D_j \neq \emptyset$. In this case, $k_i$ also has to be computed before $k_j$. The binary relation $k_i \prec_{w} k_j$ represents a \textit{dependency}.
+For two computations $k_i$ and $k_j$, with $i < j$, it is said that $k_j$ is dependant from $k_i$ with a \emph{write after write}, denoted $k_i \prec_{waw} k_j$, if $w_i = w_j$ and $D_i \cap D_j \neq \emptyset$. In this case, $k_i$ also has to be computed before $k_j$. The binary relation $k_i \prec_{waw} k_j$ represents a \textit{dependency}.
 \end{mydef}
-
-Those definitions are close to traditionnal read/write dependencies. However, specific conditions due to the specific domain can be introduced, such as the condition on boundary kernels, and conditions on the computation domain.
 
 \begin{mydef}
-A directed acyclic graph (DAG) $G(V,A)$ is a graph where the edges are directed from a source to a destination vertex and where, following the direction of edges, no cycle can be found from a vertex $u$ to itself. A directed edge is called an arc, and for two vertices $v,u \in V$ an arc from $u$ to $v$ is denoted $(\overset{\frown}{u,v}) \in A$.
+For two computations $k_i$ and $k_j$, with $i < j$, it is said that $k_j$ is dependant from $k_i$ with a \emph{write after read}, denoted $k_i \prec_{war} k_j$, if $w_j \in R_i$. In this case, $k_i$ also has to be computed before $k_j$ is started so that values read by $k_i$ are relevant. The binary relation $k_i \prec_{war} k_j$ represents a \textit{dependency}.
 \end{mydef}
 
-From an ordered list of computations $\Gamma_{sync}$, a directed dependency graph $\Gamma_{dep}(V,A)$ can be built finding all pairs of computations $k_i(S_i,R_i,(w_i,D_i),comp_i)$ and $k_j(S_j,R_j,(w_j,D_j),comp_j)$, with $i<j$, such that $k_i \prec_{rw} k_j$ or $k_i \prec_w k_j$. 
+Those definitions are known as \emph{data hazards classification}. However, a specific condition on the computation domain, due to the specific domain of multi-stencils, is introduced for the write after write case.
+
+\begin{mydef}
+A directed acyclic graph (DAG) $G(V,A)$ is a graph where the edges are directed from a source to a destination vertex, and where, by following edges direction, no cycle can be found from a vertex $u$ to itself. A directed edge is called an arc, and for two vertices $v,u \in V$ an arc from $u$ to $v$ is denoted $(\overset{\frown}{u,v}) \in A$.
+\end{mydef}
+
+From an ordered list of computations $\Gamma_{sync}$, a directed dependency graph $\Gamma_{dep}(V,A)$ can be built finding all pairs of computations $k_i$ and $k_j$, with $i<j$, such that $k_i \prec_{raw} k_j$ or $k_i \prec_{waw} k_j$ or $k_i \prec_{war} k_j$. 
 
 \begin{mydef}
 For two directed graphs $G(V,A)$ and $G'(V',A')$, the union $(V,A)\cup (V',A')$ is defined as the union of each set $(V\cup V', A \cup A')$.
 \end{mydef}
 
 \begin{mydef}
-From the ordered list $\Gamma_{sync}$ of computation kernels, a directed dependency graph $\Gamma_{dep}(V,A)$ is obtained from the call $F_{dep}(\Gamma_{sync},0)$, where $F_{dep}$ is the recursive function defined in Algorithm~\ref{alg:dep}.
+From the synchronized ordered list of computation kernels $\Gamma_{sync}$, the dependency graph of the computations $\Gamma_{dep}(V,A)$ is obtained from the call $F_{dep}(\Gamma_{sync},0)$, where $F_{dep}$ is the recursive function defined in Algorithm~\ref{alg:dep}.
 
 % \begin{equation*}
 % F_{dep}(\Gamma_{sync},j) = 
@@ -158,7 +172,7 @@ From the ordered list $\Gamma_{sync}$ of computation kernels, a directed depende
 \State $G=(\{\},\{\})$
 \For {$0 \leq i<j$}
 \State $k_i = \Gamma_{sync}[i]$
-\If {$k_i \prec_{rw} k_j$ or $k_i \prec_{w} k_j$}
+\If {$k_i \prec_{raw} k_j$ or $k_i \prec_{waw} k_j$ or $k_i \prec_{war} k_j$}
 \State $G = G \cup (k_j, \{(\overset{\frown}{k_i,k_j} \})$
 \EndIf
 \EndFor
@@ -168,7 +182,9 @@ From the ordered list $\Gamma_{sync}$ of computation kernels, a directed depende
 \end{algorithmic}
 \end{algorithm}
 
-This constructive function is possible because the input is an ordered list. Actually, if $k_i\prec k_j$ then $i<j$. As a result, $k_i$ is already in $V$ when the arc $(\overset{\frown}{k_i,k_j})$ is built. 
+This constructive function is possible because the input is an ordered list. Actually, if $k_i\prec k_j$ then $i<j$. As a result, $k_i$ is already in $V$ when the arc $(\overset{\frown}{k_i,k_j})$ is built.
+
+One can notice that $\Gamma_{dep}$ is the dependency graph of the computations of a multi-stencil program, but it only takes into account a single time iteration. By representing more formally time iterations, a complete dependency graph of the simulation could be built. This is a possible extension of this work.
 
 \begin{myprop}
 The directed graph $\Gamma_{dep}$ is an acyclic graph.
@@ -180,7 +196,7 @@ The directed graph $\Gamma_{dep}$ is an acyclic graph.
 
 As a result of the hybrid parallelization, each resource $0 \leq r \leq p-1$ perform a multi-stencil program, defined by
 \begin{equation*}
-\mathcal{MSP}_r(T,\mathcal{M}_r,\mathcal{E}_r,\mathcal{D}_r,\mathcal{N},\Delta_r,\Gamma_{dep}).
+\mathcal{MSP}_r(\mathcal{M}_r,\Phi_r,\mathcal{D}_r,\mathcal{N},\Delta_r,T,\Gamma_{dep}).
 \end{equation*}
 The set of computations $\Gamma_{dep}$ is a dependency graph between computation kernels $k_i$ of $\Gamma$ and synchronizations of kernels added into $\Gamma_{sync}$. $\Gamma_{dep}$ can be built from the call to 
 \begin{equation*}
