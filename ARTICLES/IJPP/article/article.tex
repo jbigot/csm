@@ -122,88 +122,80 @@ Contributions :
 \label{sect:parallelism}
 \input{parallelism.tex}
 %------------------------------------------------------------------------------
-\section{Static Scheduling}
+\section{Static Scheduling and performance model}
 \label{sect:msp}
 \input{msp.tex}
-% From the dependency graph we study a first dump: static scheduling
-% \begin{itemize}
-% \item description of the algorithm to get the binary tree decomposition of a minimal serie-parallel graph
-% \item use of the serie-parallel tree decomposition to detect fusions of kernels
-% \item example (the same one) from the dependency graph to the binary tree
-% \end{itemize}
 %------------------------------------------------------------------------------
-\section{MSL Compiler}
+\section{Implementation}
 \label{sect:comp}
 \input{compiler.tex}
-% \begin{itemize}
-% \item Overall algrotihm~\ref{alg:compiler}
-% \item Big example from the language to the static sheduling/optimization~\ref{fig:example}
-% \end{itemize}
 %------------------------------------------------------------------------------
 \section{Evaluation}
 \label{sect:eval}
 \begin{itemize}
-\item short description of the implementation (compiler in Python, DDS = SkelGIS, Components)
 \item evaluation of the compiler (execution times of the different steps)
 \item evaluation of the data parallelism (weak/strong scaling)
-
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/400/median_weak.pdf}}
-  \caption{weak-scaling 400x400 blocks.}
-  \label{fig:mesh}
-\end{center}\end{figure}
-
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/800/median_weak.pdf}}
-  \caption{weak-scaling 800x800 blocks}
-  \label{fig:mesh}
-\end{center}\end{figure}
-
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/strong_scaling/10K_1K/median_strong.pdf}}
-  \caption{strong-scaling 10kx10k, 1k iterations}
-  \label{fig:mesh}
-\end{center}\end{figure}
-
-\item evaluation of the fusion
-
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/fusVSbase.pdf}}
-  \caption{strong scaling 500x500, 200 iterations, with and without fusion}
-  \label{fig:mesh}
-\end{center}\end{figure}
-
-\item evaluation of the hybrid parallelism
-
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_close_median.pdf}}
-  \caption{MPI only vs MPI+threads with \emph{close} scheduling policy (OpenMP)}
-  \label{fig:mesh}
-\end{center}\end{figure}
-
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_spread_median.pdf}}
-  \caption{MPI only vs MPI+threads with \emph{spread} scheduling policy (OpenMP)}
-  \label{fig:mesh}
-\end{center}\end{figure}
-
-\item analytic model for the results
-
-\begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/analytic/times.pdf}}
-  \caption{Computation vs communication times in the MPI only application}
-  \label{fig:mesh}
-\end{center}\end{figure}
-
+\item evaluation of fusions
+\item evaluation of the hybrid performance
+\item validation of the performance model
 \end{itemize}
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/400/median_weak.pdf}}
+%   \caption{weak-scaling 400x400 blocks.}
+%   \label{fig:mesh}
+% \end{center}\end{figure}
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/800/median_weak.pdf}}
+%   \caption{weak-scaling 800x800 blocks}
+%   \label{fig:mesh}
+% \end{center}\end{figure}
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{8cm}{!}{\includegraphics{../results/strong_scaling/10K_1K/median_strong.pdf}}
+%   \caption{strong-scaling 10kx10k, 1k iterations}
+%   \label{fig:mesh}
+% \end{center}\end{figure}
+
+% \item evaluation of the fusion
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/fusVSbase.pdf}}
+%   \caption{strong scaling 500x500, 200 iterations, with and without fusion}
+%   \label{fig:mesh}
+% \end{center}\end{figure}
+
+% \item evaluation of the hybrid parallelism
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_close_median.pdf}}
+%   \caption{MPI only vs MPI+threads with \emph{close} scheduling policy (OpenMP)}
+%   \label{fig:mesh}
+% \end{center}\end{figure}
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_spread_median.pdf}}
+%   \caption{MPI only vs MPI+threads with \emph{spread} scheduling policy (OpenMP)}
+%   \label{fig:mesh}
+% \end{center}\end{figure}
+
+% \item analytic model for the results
+
+% \begin{figure}[!h]\begin{center}
+%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/analytic/times.pdf}}
+%   \caption{Computation vs communication times in the MPI only application}
+%   \label{fig:mesh}
+% \end{center}\end{figure}
+
+% \end{itemize}
 %------------------------------------------------------------------------------
 \section{Related work}
 \label{sect:rel}
 \begin{itemize}
-\item Cartesian meshes : Pochoir, PATUS for optimizations/parallelization of a single stencil kernel
-\item Unstructured meshes : Lizst for optimizations/parallelization of a single stencil kernel
-\item Halide for pipeline of stencil computations in image (Cartesian) = mesh dependent
-\item SYCL same Halide mais mesh dependent
+\item stencil compilers cartesian : Pochoir, PATUS for optimizations/parallelization of a single stencil kernel
+\item stencil compilers unstructured meshes : Lizst for optimizations/parallelization of a single stencil kernel
+\item Halide and Nabla for pipeline of stencil computations in image (Cartesian) = mesh dependent
 \item Reuse of external solutions as SkelGIS, GA, Lizst, Pochoir etc.
 \end{itemize}
 %------------------------------------------------------------------------------

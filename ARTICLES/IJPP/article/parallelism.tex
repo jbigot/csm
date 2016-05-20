@@ -120,6 +120,24 @@ Algorithm~\ref{alg:sync} follows previous definitions to include synchronization
 \end{equation}
 is performed.
 
+\paragraph{\textbf{Example}} Figure~\ref{fig:exmsl} gives an example of $\mathcal{MSP}$ program. From this example, the following ordered list of computation kernels can be extracted:
+\begin{equation*}
+\Gamma = [k_0,k_1,k_2,k_3,k_4,k_0,k_6,k_7,k_8]
+\end{equation*}
+From this ordered list of computation kernels $\Gamma$, and from the rest of the multi-stencil program, synchronizations can be automatically detected from the call to $F_{sync}(\Gamma,0)$ to get the synchronized ordered list of kernels:
+\begin{equation}
+\Gamma_{sync} = [k_0,k_{0;1}^{sync},k_1,k_2,k_3,k_{1;4}^{sync},k_4,k_0,k_6,k_7,k_{7;8}^{sync},k_8],
+\label{eq:exsync}
+\end{equation}
+\begin{subequations}
+where
+\begin{align}
+        k_{0;1}^{sync}=(\emptyset,\{(B,nce)\},(B,\cup_{\phi \in D_1} nce(\phi)),identity),\\
+        k_{1;4}^{sync}=(\emptyset,\{(C,nec)\},(C,\cup_{\phi \in D_4} nec(\phi)),identity),\\
+        k_{7;8}^{sync}=(\emptyset,\{(I,ncc)\},(I,\cup_{\phi \in D_8} ncc(\phi)),identity).
+\end{align}
+\end{subequations}
+
 %------------------------------
 \subsection{Hybrid parallelism}
 A task parallelization technique is a technique to transform a program as a dependency graph of different tasks. A dependency graph exhibits parallel tasks, or on the contrary sequential execution of tasks. Such a dependency graph can directly be given to a dynamic scheduler, or can statically be scheduled. In this paper, we introduce task parallelism by building the dependency graph between kernels of the sequential list $\Gamma_{sync}$. Thus, as $\Gamma_{sync}$ takes into account data parallelism, we introduce hybrid parallelism.
@@ -203,3 +221,39 @@ The set of computations $\Gamma_{dep}$ is a dependency graph between computation
 F_{dep}(F_{sync}(\Gamma,0),0).
 \end{equation*}
 
+\paragraph{\textbf{Example}} Figure~\ref{fig:exmsl} gives an example of $\mathcal{MSP}$ program. From $\Gamma_{sync}$ that has been built in Equation~\ref{eq:exsync}, the dependency DAG can be built. For example, as $k_0$ computes $B$ and $k_1$ reads $B$, $k_0$ and $k_1$ becomes vertices of $\Gamma_{dep}$, and an arc $(\overset{\frown}{k_0,k_1})$ is added to $\Gamma_{dep}$. The overall $\Gamma_{dep}$ built from the call to $F_{dep}(\Gamma_{sync},0)$ is drawn in Figure~\ref{fig:depdep}.
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (c0) at (0,0) {$k_0$};
+   \node[] (star1) at (1,0) {$k_{0;1}^{sync}$};
+   \node[] (c1) at (2,0) {$k_1$};
+   \node[] (c2) at (3,0.5) {$k_2$};
+   \node[] (star4) at (3,1.5) {$k_{1;4}^{sync}$};
+   \node[] (c3) at (3,-0.5) {$k_3$};
+   \node[] (c4) at (4,0.5) {$k_4$};
+   \node[] (c5) at (4,-0.5) {$k_5$};
+   \node[] (c6) at (5,0.5) {$k_6$};
+   \node[] (c7) at (6,0) {$k_7$};
+   \node[] (star8) at (7,0) {$k_{7;8}^{sync}$};
+   \node[] (c8) at (8,0) {$k_8$};
+ 
+  \path[->]
+    (c0) edge node {} (star1)
+    (star1) edge node {} (c1)
+    (c1) edge node {} (c2)
+         edge node {} (c3)
+         edge node {} (star4)
+    (star4) edge node {} (c4)
+    (c2) edge node {} (c4)
+    (c4) edge node {} (c6)
+    (c3) edge node {} (c5)
+    (c5) edge node {} (c7)
+    (c6) edge node {} (c7)
+    (c7) edge node {} (star8)
+    (star8) edge node {} (c8);
+  \end{tikzpicture}
+\caption{$\Gamma_{dep}$ of the example of program of Figure~\ref{fig:exmsl}}
+\label{fig:depdep}
+\end{center}
+\end{figure}
