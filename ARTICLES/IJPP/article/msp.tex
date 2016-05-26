@@ -118,6 +118,7 @@ After these over-constraints are applied, $\Gamma_{dep}$ is MSPD. Valdes \& Al~\
 
 %--------------------
 \subsection{Performance model}
+\label{sect:perfs}
 
 In this subsection are introduced two performance model, one for the data parallelization technique, and one for the hybrid data and task parallelization technique, both previously explained.
 
@@ -201,12 +202,14 @@ We search the point where the data parallelization is less efficient than the hy
 This happens when
 \begin{equation}
 T_{COM1} \geq T_{COM2} + T_{task}
+\label{eq:hyb}
 \end{equation}
 
 This performance model will be validated and will help to explain results the Section~\ref{sect:eval}.
 
 %--------------------
 \subsection{Fusion optimization}
+\label{sect:fusion}
 
 Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized stencil codes, but to produces the parallel pattern of the application, building the $TSP$ tree make available an easy optimization when the data parallelization technique is the only one used. This optimization consists in proposing a valid merge of some computation kernels inside a single space loop. As a result, the user can use this valid fusion of kernels or not when implementing those. 
 

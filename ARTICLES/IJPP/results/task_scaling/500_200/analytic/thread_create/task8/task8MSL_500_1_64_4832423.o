@@ -1,0 +1,283 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+46 Thread create : 0.000223
+0 Thread create : 0.000235
+1 Thread create : 0.000242
+34 Thread create : 0.000212
+2 Thread create : 0.000238
+6 Thread create : 0.000243
+8 Thread create : 0.000246
+4 Thread create : 0.000236
+14 Thread create : 0.000238
+13 Thread create : 0.000271
+54 Thread create : 0.000235
+49 Thread create : 0.00025
+47 Thread create : 0.000217
+58 Thread create : 0.00023
+42 Thread create : 0.000244
+56 Thread create : 0.000233
+36 Thread create : 0.000234
+20 Thread create : 0.000233
+52 Thread create : 0.000225
+29 Thread create : 0.000259
+50 Thread create : 0.000231
+25 Thread create : 0.00026
+38 Thread create : 0.000235
+32 Thread create : 0.00025
+30 Thread create : 0.000252
+44 Thread create : 0.000228
+62 Thread create : 0.00023
+10 Thread create : 0.000242
+61 Thread create : 0.000254
+35 Thread create : 0.000234
+40 Thread create : 0.000228
+23 Thread create : 0.000258
+27 Thread create : 0.000245
+3 Thread create : 0.000262
+7 Thread create : 0.000236
+9 Thread create : 0.000261
+5 Thread create : 0.000276
+15 Thread create : 0.000278
+16 Thread create : 0.000233
+12 Thread create : 0.000233
+19 Thread create : 0.000261
+55 Thread create : 0.000241
+48 Thread create : 0.000221
+59 Thread create : 0.000263
+43 Thread create : 0.000239
+57 Thread create : 0.000265
+37 Thread create : 0.000255
+21 Thread create : 0.000263
+53 Thread create : 0.000263
+28 Thread create : 0.000234
+51 Thread create : 0.00026
+24 Thread create : 0.000233
+39 Thread create : 0.000255
+33 Thread create : 0.000257
+31 Thread create : 0.000251
+45 Thread create : 0.000236
+63 Thread create : 0.000242
+11 Thread create : 0.000269
+60 Thread create : 0.000222
+41 Thread create : 0.000266
+22 Thread create : 0.000239
+26 Thread create : 0.000225
+17 Thread create : 0.000265
+18 Thread create : 0.000237
+0 Thread create : 4e-06
+2 Thread create : 4e-06
+1 Thread create : 4e-06
+17 Thread create : 3e-06
+12 Thread create : 3e-06
+47 Thread create : 3e-06
+58 Thread create : 3e-06
+42 Thread create : 3e-06
+56 Thread create : 3e-06
+50 Thread create : 7e-06
+39 Thread create : 3e-06
+10 Thread create : 4e-06
+23 Thread create : 3e-06
+3 Thread create : 3e-06
+7 Thread create : 3e-06
+8 Thread create : 3e-06
+4 Thread create : 4e-06
+15 Thread create : 2e-06
+16 Thread create : 4e-06
+13 Thread create : 3e-06
+18 Thread create : 3e-06
+54 Thread create : 3e-06
+48 Thread create : 4e-06
+46 Thread create : 3e-06
+59 Thread create : 4e-06
+43 Thread create : 3e-06
+57 Thread create : 3e-06
+36 Thread create : 4e-06
+20 Thread create : 4e-06
+52 Thread create : 3e-06
+28 Thread create : 3e-06
+51 Thread create : 2e-06
+24 Thread create : 3e-06
+38 Thread create : 2e-06
+32 Thread create : 8e-06
+31 Thread create : 3e-06
+44 Thread create : 6e-06
+63 Thread create : 4e-06
+11 Thread create : 3e-06
+61 Thread create : 3e-06
+34 Thread create : 3e-06
+40 Thread create : 2e-06
+22 Thread create : 2e-06
+26 Thread create : 3e-06
+6 Thread create : 3e-06
+9 Thread create : 3e-06
+5 Thread create : 4e-06
+14 Thread create : 2e-06
+19 Thread create : 4e-06
+55 Thread create : 5e-06
+49 Thread create : 3e-06
+37 Thread create : 2e-06
+21 Thread create : 2e-06
+53 Thread create : 4e-06
+29 Thread create : 3e-06
+25 Thread create : 3e-06
+33 Thread create : 3e-06
+30 Thread create : 5e-06
+45 Thread create : 3e-06
+62 Thread create : 2e-06
+60 Thread create : 3e-06
+35 Thread create : 3e-06
+41 Thread create : 3e-06
+27 Thread create : 3e-06
+7 Time TOTAL CALCULATION : 0.000656
+15 Time TOTAL CALCULATION : 0.00065
+31 Time TOTAL CALCULATION : 0.000652
+23 Time TOTAL CALCULATION : 0.000654
+1 Time TOTAL CALCULATION : 0.000741
+8 Time TOTAL CALCULATION : 0.000742
+4 Time TOTAL CALCULATION : 0.000734
+13 Time TOTAL CALCULATION : 0.000741
+55 Time TOTAL CALCULATION : 0.000652
+48 Time TOTAL CALCULATION : 0.000643
+47 Time TOTAL CALCULATION : 0.000666
+58 Time TOTAL CALCULATION : 0.000653
+56 Time TOTAL CALCULATION : 0.00065
+53 Time TOTAL CALCULATION : 0.000655
+50 Time TOTAL CALCULATION : 0.000654
+39 Time TOTAL CALCULATION : 0.000659
+32 Time TOTAL CALCULATION : 0.000742
+63 Time TOTAL CALCULATION : 0.000644
+60 Time TOTAL CALCULATION : 0.000648
+3 Time TOTAL CALCULATION : 0.000733
+0 Time TOTAL CALCULATION : 0.000803
+6 Time TOTAL CALCULATION : 0.000714
+9 Time TOTAL CALCULATION : 0.00074
+5 Time TOTAL CALCULATION : 0.000735
+14 Time TOTAL CALCULATION : 0.000744
+16 Time TOTAL CALCULATION : 0.000717
+12 Time TOTAL CALCULATION : 0.000753
+18 Time TOTAL CALCULATION : 0.000741
+54 Time TOTAL CALCULATION : 0.000662
+49 Time TOTAL CALCULATION : 0.000646
+46 Time TOTAL CALCULATION : 0.000749
+59 Time TOTAL CALCULATION : 0.000652
+42 Time TOTAL CALCULATION : 0.000744
+57 Time TOTAL CALCULATION : 0.000651
+36 Time TOTAL CALCULATION : 0.000744
+20 Time TOTAL CALCULATION : 0.000737
+52 Time TOTAL CALCULATION : 0.000658
+28 Time TOTAL CALCULATION : 0.000728
+51 Time TOTAL CALCULATION : 0.000649
+24 Time TOTAL CALCULATION : 0.000741
+38 Time TOTAL CALCULATION : 0.000745
+33 Time TOTAL CALCULATION : 0.000742
+30 Time TOTAL CALCULATION : 0.000741
+44 Time TOTAL CALCULATION : 0.000744
+62 Time TOTAL CALCULATION : 0.000646
+10 Time TOTAL CALCULATION : 0.00074
+61 Time TOTAL CALCULATION : 0.000658
+34 Time TOTAL CALCULATION : 0.000742
+40 Time TOTAL CALCULATION : 0.000735
+22 Time TOTAL CALCULATION : 0.000744
+26 Time TOTAL CALCULATION : 0.000745
+2 Time TOTAL CALCULATION : 0.000746
+17 Time TOTAL CALCULATION : 0.00074
+19 Time TOTAL CALCULATION : 0.000734
+43 Time TOTAL CALCULATION : 0.000741
+37 Time TOTAL CALCULATION : 0.000749
+21 Time TOTAL CALCULATION : 0.000742
+29 Time TOTAL CALCULATION : 0.000734
+25 Time TOTAL CALCULATION : 0.000741
+45 Time TOTAL CALCULATION : 0.000744
+11 Time TOTAL CALCULATION : 0.000731
+35 Time TOTAL CALCULATION : 0.000748
+41 Time TOTAL CALCULATION : 0.00075
+27 Time TOTAL CALCULATION : 0.000745
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4832423
+Jobname   : task8MSL_500_1_64
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 24/05/2016 09:27:50 , start = 24/05/2016 09:30:31
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 8 , ncpus = 512 , nodes = 32
+   Nodes=curie[1694,1717,1722,1731,1733-1734,1750,1771-1772,1780,4542-4546,4548-4554,4556-4557,4559,4669,4673-4677,4679] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4832423       task8MSL_500_1_64         -    512     32           -     00:00:08     100            -      -  -
+4832423.0     llcmcpp_loader           64    512     32      BBlock     00:00:06    75.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

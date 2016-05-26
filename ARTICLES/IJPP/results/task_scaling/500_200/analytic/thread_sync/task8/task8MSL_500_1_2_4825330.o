@@ -1,0 +1,83 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 Thread sync : 2e-06
+1 Thread sync : 3e-06
+0 Thread sync : 0.001556
+1 Thread sync : 0.001553
+0 Thread sync : 0.000241
+1 Thread sync : 0.000247
+0 Thread sync : 0.00034
+1 Thread sync : 0.00034
+0 Thread sync : 0.003136
+1 Thread sync : 0.003168
+1 Thread sync : 0.000697
+0 Thread sync : 0.000711
+1 Thread sync : 0.000532
+0 Thread sync : 0.000518
+0 Thread sync : 0.001554
+1 Thread sync : 0.001555
+0 Thread sync : 0.000251
+1 Thread sync : 0.000249
+1 Thread sync : 0.000342
+0 Thread sync : 0.000386
+0 Thread sync : 0.003113
+1 Thread sync : 0.003161
+1 Thread sync : 0.000717
+0 Thread sync : 0.000741
+1 Thread sync : 0.000149
+0 Thread sync : 0.000149
+1 Thread sync : 8e-06
+0 Thread sync : 2e-06
+0 Thread sync : 0.001562
+1 Thread sync : 0.001557
+0 Thread sync : 0.000243
+1 Thread sync : 0.00027
+0 Thread sync : 0.000336
+1 Thread sync : 0.000331
+0 Thread sync : 0.003146
+1 Thread sync : 0.003116
+0 Thread sync : 0.000688
+1 Thread sync : 0.000691
+0 Thread sync : 0.00052
+1 Thread sync : 0.000521
+0 Thread sync : 0.001558
+1 Thread sync : 0.001561
+0 Thread sync : 0.000244
+1 Thread sync : 0.000271
+0 Thread sync : 0.000346
+1 Thread sync : 0.000341
+1 Thread sync : 0.003122
+0 Thread sync : 0.003203
+1 Thread sync : 0.000734
+0 Thread sync : 0.000732
+0 Thread sync : 0.000147
+1 Thread sync : 0.000149
+0 Time TOTAL CALCULATION : 0.013616
+1 Time TOTAL CALCULATION : 0.013708
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4825330
+Jobname   : task8MSL_500_1_2
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 23/05/2016 18:17:42 , start = 23/05/2016 18:32:14
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 2 , cpus/task = 8 , ncpus = 16 , nodes = 1
+   Nodes=curie2178 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4825330       task8MSL_500_1_2          -     16      1           -     00:00:05     100            -      -  -
+4825330.0     llcmcpp_loader            2     16      1      BBlock     00:00:03    60.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -40,7 +40,7 @@ MPI_DOUBLE utilisé
 src/Assembly/Assembly.cpp :
 =====================================
 
-Ce composant est nécessaire à la version L2CLIGHT
+Ce composant est nécessaire à la version L2CLIGHT (utilisée pour le weak et strong scaling)
 Il créée directement les composants et les communications.
 Il est directement utilisé dans l2c.git/base/src/llcmcpp_loader.cpp
 

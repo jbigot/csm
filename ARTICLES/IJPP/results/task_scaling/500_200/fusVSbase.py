@@ -38,8 +38,8 @@ matplotlib.rcParams.update({'font.size': 16})
 
 plt1 = np.log2(cores)
 
-p2 = plt.bar(plt1, itsMSLF, color='b', alpha=0.75,label='With fusion') #yerr=[errminMSLF,errmaxMSLF],
-p1 = plt.bar(plt1, itsMSL, color='r', alpha=0.75,label='Without fusion') #yerr=[errminMSL,errmaxMSL], 
+p2 = plt.bar(plt1, itsMSLF, color='b', alpha=0.75,label='With fusion', align='center') #yerr=[errminMSLF,errmaxMSLF],
+p1 = plt.bar(plt1, itsMSL, color='r', alpha=0.75,label='Without fusion', align='center') #yerr=[errminMSL,errmaxMSL], 
 
 plt.xticks(plt1, ('1', '2', '4', '8', '16','32','64','128'))
 
