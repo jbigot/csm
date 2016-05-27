@@ -1,3 +1,4 @@
+%--------------- MSP/TSP
 @inproceedings{Valdes:1979:RSP:800135.804393,
  author = {Valdes, Jacobo and Tarjan, Robert E. and Lawler, Eugene L.},
  title = {The Recognition of Series Parallel Digraphs},
@@ -13,7 +14,6 @@
  publisher = {ACM},
  address = {New York, NY, USA},
 }
-
 @inproceedings{Mitchell:2004:CMV:1082101.1082117,
  author = {Mitchell, Margaret},
  title = {Creating Minimal Vertex Series Parallel Graphs from Directed Acyclic Graphs},
@@ -30,7 +30,6 @@
  address = {Darlinghurst, Australia, Australia},
  keywords = {directed acyclic graph, graph decomposition, minimal vertex series parallel, parallelism, preservation of partial order},
 } 
-
 @article{Bender200575,
 title = "Lowest common ancestors in trees and directed acyclic graphs ",
 journal = "Journal of Algorithms ",
@@ -49,7 +48,6 @@ keywords = "Range minimum query (RMQ)",
 keywords = "Shortest path",
 keywords = "Cartesian tree ",
 }
-
 @TECHREPORT{Schoenmakers95anew,
     author = {Berry Schoenmakers},
     title = {A new algorithm for the recognition of series parallel graphs},
@@ -57,6 +55,7 @@ keywords = "Cartesian tree ",
     year = {1995}
 }
 
+%---------------L2C and components
 @article{l2c,
 year={2014},
 issn={0010-485X},
@@ -72,7 +71,6 @@ author={Bigot, Julien and Hou, Zhengxiong and Pérez, Christian and Pichon, Vinc
 pages={1115-1130},
 language={English}
 }
-
 @techreport{bigot:inria-00388508,
   TITLE = {{Increasing Reuse in Component Models through Genericity}},
   AUTHOR = {Bigot, Julien and P{\'e}rez, Christian},
@@ -86,7 +84,6 @@ language={English}
   HAL_ID = {inria-00388508},
   HAL_VERSION = {v1},
 }
-
 @book{Szyperski:2002:CSB:515228,
  author = {Szyperski, Clemens},
  title = {Component Software: Beyond Object-Oriented Programming},
@@ -97,6 +94,7 @@ language={English}
  address = {Boston, MA, USA},
 }
 
+%--------------- Stencils DSL
 @inproceedings{spaaTangCKLL11,
   author = {Tang, Y. and Chowdhury, R.A. and Kuszmaul, B.C. and Luk, C-K and Leiserson, C.E.},
   booktitle = {{SPAA}},
@@ -110,4 +108,87 @@ language={English}
   title = {{The pochoir stencil compiler.}},
   url = {http://dblp.uni-trier.de/db/conf/spaa/spaa2011.html#TangCKLL11},
   year = 2011
+}
+@inproceedings{citeulike12258902,
+    author = {Christen, M. and Schenk, O. and Burkhart, H.},
+    booktitle = {{Parallel \& Distributed Processing Symposium (IPDPS), 2011 IEEE International}},
+    doi = {10.1109/ipdps.2011.70},
+    institution = {Dept. of Math. \& Comput. Sci., Univ. of Basel, Basel, Switzerland},
+    isbn = {978-1-61284-372-8},
+    issn = {1530-2075},
+    keywords = {auto\_tuner, stencil},
+    month = may,
+    pages = {676--687},
+    posted-at = {2013-04-11 16:24:30},
+    priority = {2},
+    publisher = {IEEE},
+    title = {{PATUS: A Code Generation and Autotuning Framework for Parallel Iterative Stencil Computations on Modern Microarchitectures}},
+    url = {http://dx.doi.org/10.1109/ipdps.2011.70},
+    year = {2011}
+}
+@inproceedings{Ragan-Kelley:2013:HLC:2491956.2462176,
+ author = {Ragan-Kelley, J. and Barnes, C. and Adams, A. and Paris, S. and Durand, F. and Amarasinghe, S.},
+ title = {Halide: A Language and Compiler for Optimizing Parallelism, Locality, and Recomputation in Image Processing Pipelines},
+ booktitle = {Proceedings of the 34th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+ series = {PLDI '13},
+ year = {2013},
+ isbn = {978-1-4503-2014-6},
+ location = {Seattle, Washington, USA},
+ pages = {519--530},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2491956.2462176},
+ doi = {10.1145/2491956.2462176},
+ acmid = {2462176},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {autotuning, compiler, domain specific language, gpu, image processing, locality, optimization, parallelism, redundant computation, vectorization},
+}
+@inproceedings{Camier:2015:IPP:2820083.2820107,
+ author = {Camier, Jean-Sylvain},
+ title = {Improving Performance Portability and Exascale Software Productivity with the \&Nabla; Numerical Programming Language},
+ booktitle = {Proceedings of the 3rd International Conference on Exascale Applications and Software},
+ series = {EASC '15},
+ year = {2015},
+ isbn = {978-0-9926615-1-9},
+ location = {Edinburgh, UK},
+ pages = {126--131},
+ numpages = {6},
+ url = {http://dl.acm.org/citation.cfm?id=2820083.2820107},
+ acmid = {2820107},
+ publisher = {University of Edinburgh},
+ address = {Edinburgh, Scotland, UK},
+} 
+@inproceedings{DeVito:2011:LDS:2063384.2063396,
+ author = {DeVito, Zachary and Joubert, Niels and Palacios, Francisco and Oakley, Stephen and Medina, Montserrat and Barrientos, Mike and Elsen, Erich and Ham, Frank and Aiken, Alex and Duraisamy, Karthik and Darve, Eric and Alonso, Juan and Hanrahan, Pat},
+ title = {Liszt: A Domain Specific Language for Building Portable Mesh-based PDE Solvers},
+ booktitle = {Proceedings of 2011 International Conference for High Performance Computing, Networking, Storage and Analysis},
+ series = {SC '11},
+ year = {2011},
+ isbn = {978-1-4503-0771-0},
+ location = {Seattle, Washington},
+ pages = {9:1--9:12},
+ articleno = {9},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2063384.2063396},
+ doi = {10.1145/2063384.2063396},
+ acmid = {2063396},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {compiler analysis and program transformations, programming and runtime environments for high performance and high throughput computing},
+}
+@inproceedings{Schmitt:2014:EDL:2691166.2691171,
+ author = {Schmitt, C. and Kuckuk, S. and Hannig, F. and K\"{o}stler, H. and Teich, J.},
+ title = {ExaSlang: A Domain-specific Language for Highly Scalable Multigrid Solvers},
+ booktitle = {Proceedings of the Fourth International Workshop on Domain-Specific Languages and High-Level Frameworks for High Performance Computing},
+ series = {WOLFHPC '14},
+ year = {2014},
+ isbn = {978-1-4799-7020-9},
+ location = {New Orleans, Louisiana},
+ pages = {42--51},
+ numpages = {10},
+ url = {http://dx.doi.org/10.1109/WOLFHPC.2014.11},
+ doi = {10.1109/WOLFHPC.2014.11},
+ acmid = {2691171},
+ publisher = {IEEE Press},
+ address = {Piscataway, NJ, USA},
 }

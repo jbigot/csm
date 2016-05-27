@@ -117,6 +117,10 @@ Contributions :
 \item Evaluation of the different types of parallelism introduced + compiler + fusion
 \end{itemize}
 %------------------------------------------------------------------------------
+\section{Related work}
+\label{sect:rel}
+\input{related.tex}
+%------------------------------------------------------------------------------
 \section{Computational model of Multi-Stencil Programs}
 \label{sect:formalism}
 \input{formalism.tex}
@@ -140,15 +144,6 @@ Contributions :
 \section{Evaluation}
 \label{sect:eval}
 \input{evaluation.tex}
-%------------------------------------------------------------------------------
-\section{Related work}
-\label{sect:rel}
-\begin{itemize}
-\item stencil compilers cartesian : Pochoir, PATUS for optimizations/parallelization of a single stencil kernel
-\item stencil compilers unstructured meshes : Lizst for optimizations/parallelization of a single stencil kernel
-\item Halide and Nabla for pipeline of stencil computations in image (Cartesian) = mesh dependent
-\item Reuse of external solutions as SkelGIS, GA, Lizst, Pochoir etc.
-\end{itemize}
 %------------------------------------------------------------------------------
 \section{Conclusion}
 \label{sect:concl}
