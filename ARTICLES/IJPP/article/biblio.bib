@@ -192,3 +192,127 @@ language={English}
  publisher = {IEEE Press},
  address = {Piscataway, NJ, USA},
 }
+
+%--------------- Navier-Stokes
+@ARTICLE{Ferrari2004,
+  author = {Ferrari, S. and Saleri, F.},
+  title = {A new two-dimensional shallow water model including pressure effects
+  and slow varying bottom topography},
+  journal = {M2AN Math. Model. Numer. Anal.},
+  year = {2004},
+  volume = {38},
+  pages = {211-234},
+  number = {2},
+  owner = {le},
+  timestamp = {2012.01.17}
+}
+%-------------- SkelGIS
+@article{CPE:CPE3494,
+  TITLE = {{The SIPSim implicit parallelism model and the SkelGIS library}},
+  AUTHOR = {Coullon, H. and Limet, S.},
+  URL = {https://hal.archives-ouvertes.fr/hal-01149418},
+  JOURNAL = {{Concurrency and Computation: Practice and Experience}},
+  PUBLISHER = {{John Wiley and Sons}},
+  issn = {1532-0634},
+  url = {http://dx.doi.org/10.1002/cpe.3494},
+  doi = {10.1002/cpe.3494},
+  YEAR = {2015},
+  DOI = {10.1002/cpe.3494},
+  KEYWORDS = {mplicit parallelism ;  parallel library ;  SkelGIS ;  MPI ;  scientific simulations ;  Cartesian mesh ;  network ;  shallow water equations ;  heat equation ;  arterial blood flow simulation}
+}
+@inproceedings{DBLP:conf/europar/CoullonL14,
+  author    = {H{\'{e}}l{\`{e}}ne Coullon and
+               S{\'{e}}bastien Limet},
+  title     = {Implementation and Performance Analysis of SkelGIS for Network Mesh-Based
+               Simulations},
+  booktitle = {Euro-Par 2014 Parallel Processing - 20th International Conference,
+               Porto, Portugal, August 25-29, 2014. Proceedings},
+  pages     = {439--450},
+  year      = {2014},
+  url       = {http://dx.doi.org/10.1007/978-3-319-09873-9_37},
+  doi       = {10.1007/978-3-319-09873-9_37},
+}
+@inproceedings{DBLP:conf/ieeehpcs/HeleneS13,
+  author    = {H{\'{e}}l{\`{e}}ne Coullon and
+               S{\'{e}}bastien Limet},
+  title     = {Algorithmic skeleton library for scientific simulations: SkelGIS},
+  booktitle = {International Conference on High Performance Computing {\&} Simulation,
+               {HPCS} 2013, Helsinki, Finland, July 1-5, 2013},
+  pages     = {429--436},
+  year      = {2013},
+  url       = {http://dx.doi.org/10.1109/HPCSim.2013.6641450},
+  doi       = {10.1109/HPCSim.2013.6641450},
+}
+
+%-------------------- MPI and OpenMP
+@inproceedings{Graham2009MSE,
+ author = {Graham, R.L.},
+ title = {{The MPI 2.2 Standard and the Emerging MPI 3 Standard}},
+ booktitle = {Proceedings of the 16th European PVM/MPI Users' Group Meeting on Recent Advances in Parallel Virtual Machine and Message Passing Interface},
+ year = {2009},
+ isbn = {978-3-642-03769-6},
+ location = {Espoo, Finland},
+ pages = {2--2},
+ numpages = {1},
+ url = {http://dx.doi.org/10.1007/978-3-642-03770-2_2},
+ doi = {10.1007/978-3-642-03770-2_2},
+ acmid = {1612211},
+ publisher = {Springer-Verlag},
+ address = {Berlin, Heidelberg},
+}
+@ARTICLE{660313, 
+author={Dagum, L. and Menon, R.}, 
+journal={Computational Science Engineering, IEEE}, 
+title={OpenMP: an industry standard API for shared-memory programming}, 
+year={1998}, 
+month={Jan}, 
+volume={5}, 
+number={1}, 
+pages={46-55}, 
+keywords={application program interfaces;parallel programming;shared memory systems;software portability;software reviews;software standards;Fortran;Fortran 90;Fortran 95;Fortran compiler;OpenMP;X3H5 concepts;allocatables;callable runtime library;callable runtime library routines;coarse grain parallelism;compiler directives;environment variables;industry standard API;pointers;shared memory parallelism;shared memory programming;ANSI standards;Coherence;Computer architecture;Hardware;Message passing;Parallel processing;Parallel programming;Power system modeling;Scalability;Software systems}, 
+doi={10.1109/99.660313}, 
+ISSN={1070-9924},}
+
+%--------------------- StarPU and XKaapi
+%XKaapi
+@inproceedings{Gautier:2013:XRS:2510661.2511383,
+ author = {Gautier, T. and Lima, J.V.F. and Maillard, N. and Raffin, B.},
+ title = {XKaapi: A Runtime System for Data-Flow Task Programming on Heterogeneous Architectures},
+ booktitle = {Proceedings of the 2013 IEEE 27th International Symposium on Parallel and Distributed Processing},
+ series = {IPDPS '13},
+ year = {2013},
+ isbn = {978-0-7695-4971-2},
+ pages = {1299--1308},
+ numpages = {10},
+ url = {http://dx.doi.org/10.1109/IPDPS.2013.66},
+ doi = {10.1109/IPDPS.2013.66},
+ acmid = {2511383},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+ keywords = {High Performance Computing, Data-Flow task model, Heterogeneous architectures, Locality Aware Work Stealing, Dense Linear Algebra},
+} 
+% starPU
+@article{Augonnet2011,
+    title = {{StarPU: a unified platform for task scheduling on heterogeneous multicore architectures}},
+    author = {Augonnet, C. and Thibault, S. and Namyst, R. and Wacrenier, P-A.},
+    journal = {{Concurrency and Computation: Practice and Experience}},
+    volume = {23},
+    number = {2},
+    pages = {187--198},
+    year = {2011}
+}
+
+%-------------------- PamPA
+@inproceedings{lachat:hal-00768916,
+  TITLE = {{PaMPA: Parallel Mesh Partitioning and Adaptation}},
+  AUTHOR = {Lachat, C{\'e}dric and Pellegrini, Fran{\c c}ois and Dobrzynski, C{\'e}cile},
+  URL = {https://hal.inria.fr/hal-00768916},
+  BOOKTITLE = {{21st International Conference on Domain Decomposition Methods (DD21)}},
+  ADDRESS = {Rennes, France},
+  ORGANIZATION = {{INRIA Rennes-Bretagne-Atlantique}},
+  YEAR = {2012},
+  MONTH = Jun,
+  KEYWORDS = {Parallel computing ; Data structures ; Unstructured mesh ; Remeshing},
+  HAL_ID = {hal-00768916},
+  HAL_VERSION = {v1},
+}
