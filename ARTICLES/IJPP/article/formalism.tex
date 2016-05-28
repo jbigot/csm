@@ -1,11 +1,20 @@
-To numerically solve a set of PDEs, iterative methods (finite difference, finite volume or finite element methods) are frequently used to approximate the solution through a discretized (step by step) phenomena. Thus, the continuous time and space domains are discretized so that a set of numerical computations are iteratively (time discretization) applied onto a mesh (space discretization). In other words, the PDEs are transformed to a set of numerical computations applied at each time step on elements of the discretized space domain. Among those numerical computations are found a set of numerical schemes, also called \textit{stencil computations}, a set of auxiliary computations also called \emph{local computations}, and finally a set of \emph{reductions} to reduce a bunch of values to a single scalar value. In the rest of this paper, we denote a \emph{stencil kernel} as a discretized explicit numerical schemes which involve neighborhood computations, whatever the type of space discretization is (mesh).
+Some approaches to numerically solve partial differential equations (PDEs) are based on direct iterative methods (\textit{e.g.} finite difference, finite volume or finite element methods).
+They approximate the solution through a discretized process where the continuous time and space domains are discretized and numerical computations are iteratively (time discretization) applied onto a mesh (space discretization).
+%In other words, the PDEs are transformed to a set of numerical computations applied at each time step on elements of the discretized space domain.
+While the computations can have various forms, we focus on three categories.
+\emph{Stencil} computations involve access to neighbor values only (the concept of neighborhood depending on the space discretization used).
+\emph{Local} computations depend on the computed location only (this can be seen as a stencil of size one).
+Finally, \emph{reductions} enable to transform values mapped on the mesh to a single scalar value.
 
-This section gives a complete formal description of what we call a \textit{stencil program} and its computations. In this paper, the proposed language MSL (Multi-Stencil Language) does not depend on the type of space discretization used. Thus, some details given in the following sections, are usefull to understand the domain but do not have to be kept in mind to understand the Multi-Stencil Language. As a result, at the end of each subsection a summary of what is usefull to understand the language is given.
+This section gives a complete formal description of what we call a \textit{stencil program} and its computations.
+The proposed language MSL (Multi-Stencil Language) does not depend on the type of space discretization used.
+Thus, some details given in the following sections, are useful to understand the domain but do not have to be kept in mind to understand the Multi-Stencil Language.
+% As a result, at the end of each subsection a summary of what is useful to understand the language is given.
 
 %-------------------------------------
 \subsection{Time, mesh and data}
 
-$\Omega=\mathbb{R}^n$ is the continuous space domain of a numerical simulation. %For example, if $n=3$, any geographic point on earth could be represented in this space in a given geographic coordinate system.
+$\Omega$ is the continuous space domain of a numerical simulation (typically $\mathbb{R}^n$). %For example, if $n=3$, any geographic point on earth could be represented in this space in a given geographic coordinate system.
 A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $\Omega$ of a set of PDEs and is defined as follows.
 
 \begin{mydef}
@@ -19,59 +28,48 @@ A mesh is a connected undirected graph $\mathcal{M}=(V,E)$, where $V\subset \Ome
 \begin{mydef}
 The dimension of a mesh $\mathcal{M}=(V,E)$ applied onto $\Omega=\mathbb{R}^n$ is denoted $dim(\mathcal{M})=n$.
 \end{mydef}
-A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) as illustrated in Figure~\ref{fig:mesh1}. One can notice that more than one type of mesh is also possible inside a single simulation. For example, an hybrid mesh can be defined as an unstructured mesh composed itself of a Cartesian mesh inside each of its vertices. Multi-grid numerical methods is another example. However, in this paper a single mesh simulation is addressed.
+A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) as illustrated in Figure~\ref{fig:mesh1}. One can notice that more than one type of mesh is also possible inside a single simulation. For example, an hybrid mesh can be defined as an unstructured mesh composed itself of a Cartesian mesh inside each of its vertices.
+% Multi-grid numerical methods is another example. %JB: pas vraiment...
+However in this paper, only single mesh simulations are addressed.
 
 \medskip
-\noindent \textbf{Definitions (mesh)}
-%\begin{mydef}
-\begin{itemize}
-\item An entity $\phi$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $\phi\subset V\cup E$.
-\item A group of mesh entities, denoted $\mathcal{G}$, is a set of mesh entities which are composed of the same topology and types of elements in $V\cup E$.
-\item The set of mesh entities groups of a simulation is denoted $\Phi$.
-\item Finally, the mesh on which is applied a group of mesh entities $\mathcal{G}$ is denoted $mesh(\mathcal{G})$
-\end{itemize}
-%\end{mydef}
 
-For example, in a 2D Cartesian mesh an entity could be a cell, made of four vertices and four edges, or simply a vertex. As a result, a group of cells and a group of vertices could be defined in $\Phi$. %This type can be defined as the sets containing exactly four vertices and four edges connected as a cycle. Another type of entities simply are the vertices ($V$) and can be defined as all singletons formed of a single vertex of $V$.
+\begin{mydefs}[Definitions (mesh)]
+\item An \textit{entity} $\phi$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $\phi\subset V\cup E$.
+\item A \textit{group of mesh entities} denoted $\mathcal{G} \in \mathcal{P}(V\cup E)$ represents a set of entities of the same topology and the mesh of a group is denoted $mesh(\mathcal{G})$, \textit{i.e.} $\mathcal{G} \in \mathcal{P}(V\cup E) \Leftrightarrow mesh(\mathcal{G})=(V,E)$
+\item The \textit{set of entities groups} used in a simulation is denoted $\Phi$.
+\end{mydefs}
+
+For example, in a 2D Cartesian mesh, a group of entities made of four vertices and four edges each could form the cells.
+Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$.
+Both groups would then be part of $Phi$.
 
 \medskip
-This covers the space discretization, however there is also the time dimension which has to be discretized to perform a numerical simulation.
 
-\begin{mydef}
-We denote a scalar as a numerical variable. The set of scalars is denoted $\mathcal{S}$.
+\begin{mydef}%[Definitions (time)]
+The finite sequence $T: (t_n)_{n\in\llbracket 0, Tmax \rrbracket}$ represents the discretization of the continuous time domain $\mathcal{T}=\mathbb{R}$.
+To each discrete time step $n$, it associates a time value $t_n\in\mathcal{T}$.
 \end{mydef}
 
-\medskip
-\noindent \textbf{Definitions (time)}
-%\begin{mydef}
-\begin{itemize}
-\item $\mathcal{T}=\mathbb{R}$ is the continuous time domain of a numerical simulation.
-\item The discretization of the continuous time domain $\mathcal{T}$ is denoted as the pair $T(\Delta t,conv)$.
-\begin{itemize}
-\item $\Delta t \in \mathcal{S}$ represents the time interval of the numerical simulation, such that for a current time iteration $t_i$, the next time iteration is $t_{i+1} = t_i + \Delta t$.
-\item $conv:\mathcal{S}^n \rightarrow bool$ is a function which returns a boolean from a set of scalar variables. This function represents the convergence criteria of the simulation. 
-\end{itemize}
-\end{itemize}
-
-At a given time step, the convergence criteria is evaluated such that if $conv$ returns $true$ the next time step $t_{i+1} = t_i + \Delta t$ can start. Otherwise the simulation ends. For example, the simplest $conv$ is typically to have two scalars: $t$ the time, and a constant number of iterations denoted $it$. At each time step $\Delta t=1$, and $conv$ returns the boolean expression $t<it$.
-%\end{mydef}
-
-In a numerical simulation, a scalar can be associated to each entity of the mesh. In such a case, a single variable is used and is denoted a quantity.
-%A quantityas a set of scalars can be applied onto a mesh with a nil dimension, a set of data elements, or quantities, can be applied onto meshes of dimension superior to zero. Those quantities represent, as well as scalars, the set of values to compute, or to use, for computations.
+The time discretization can be as simple as a constant time-step with a fixed number of steps.
+It can however also be defined by recursion with a both the time-step and the number of steps depending on the data variables (see definitions below).
 
 \medskip
-\noindent \textbf{Definitions (quantity)}
-%\begin{mydef}
-\begin{itemize}
-\item A quantity represents a variable applied onto a group of mesh entities $\mathcal{G}$.
-\item The set of quantities applied onto the mesh is denoted $\Delta$.
-\item In the rest of this paper, the group of mesh entities on which a quantity $\delta$ is mapped is denoted $entity(\delta)=\mathcal{G}_{\delta}$.
-\end{itemize}
-%\end{mydef}
 
-Another option, closer to the applied mathematics domain, would have been to apply a quantity to each entity of a group $\mathcal{G}$, but also to each time iteration. In this case a single quantity would represents all its occurences over time steps. This solution could be investigated in future work, however the approach chosen in this work is to let the user be aware of the number of data he is using and what exactly for.
+\begin{mydefs}[Definitions (quantity)]
+\item $\mathbb{V}=\Delta\cup\mathcal{S}$ is the set of \emph{variables} or \emph{quantities}.
+\item $\Delta$ are the \textit{mesh variables} that to each entity of a group and time-step associates a value $\delta: \mathcal{G}\times T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
+\item The group of entities a quantity is mapped on is denoted $entity(\delta)=\mathcal{G}$.
+\item $\mathcal{S}$ are the \textit{scalar variables} that to each time-step associates a value $s: T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
+\item Amongst the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria whose value is $0$ except at the last iteration where it is 1 $\forall t\in \llbracket 0, Tmax-1 \rrbracket conv(t)=1, conv(Tmax)=1$.
+\end{mydefs}
 
-\paragraph{\textbf{Summary}} In this subsection have been presented the general formalism of what is a mesh, its entities and groups of entities, of how the time is discretized, and finally of what is a scalar and a quantity. The language presented in this paper, the Multi-Stencil Language, offers a simple way to describe a numerical simulation while being able to automatically extract parallelism. Its aim is to be mesh-agnostic, thus to not have details about the topology of the mesh which is an implementation problem. As a result the details about the mesh topology is not needed in the rest of this paper.
+%For example, the simplest $conv$ is typically to have two scalars: $t$ the time, and a constant number of iterations denoted $it$.
+%At each time step $\Delta t=1$, and $conv$ returns the boolean expression $t<it$.
+
+\medskip
+
+This section has presented the general formalism of what is a mesh, its entities and groups of entities, of how the time is discretized, and finally of what is a scalar and a quantity. The language presented in this paper, the Multi-Stencil Language, offers a simple way to describe a numerical simulation while being able to automatically extract parallelism. Its aim is to be mesh-agnostic, thus to not have details about the topology of the mesh which is an implementation problem. As a result the details about the mesh topology is not needed in the rest of this paper.
 
 %-----------------------
 \subsection{Computations}
@@ -79,14 +77,12 @@ Another option, closer to the applied mathematics domain, would have been to app
 In this section are considered four different types of kernel computations, stencil kernels, boundary kernels, local kernels, and reduction kernels. 
 
 \medskip
-\noindent \textbf{Definitions}
-%\begin{mydef}
-\begin{itemize}
+\begin{mydefs}
 \item A computation domain $D$ is a subpart of a mesh entities group, $D \subseteq \mathcal{G} \in \Phi$.
 \item The set of computation domains of a numerical simulation is denoted $\mathcal{D}$.
 \item A neighborhood $n$ is a function which for a given entity $\phi \in \mathcal{G}_i$, returns a set of $m$ entities in $\mathcal{G}_j$, $n : \mathcal{G}_i \rightarrow \mathcal{G}_j^m$. One can notice that $i = j$ is possible. Most of the time, such a neighborhood is called a \emph{stencil shape}.
 \item The set of neihborhood functions in a numerical simulation is denoted $\mathcal{N}$.
-\end{itemize}
+\end{mydefs}
 
 \begin{mydef}
 A computation kernel $k$ of a numerical simulation is defined as $k(S,R,(w,D),comp)$, where 
