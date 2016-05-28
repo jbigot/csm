@@ -36,7 +36,7 @@ However in this paper, only single mesh simulations are addressed.
 
 \begin{mydefs}[Definitions (mesh)]
 \item An \textit{entity} $\phi$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $\phi\subset V\cup E$.
-\item A \textit{group of mesh entities} denoted $\mathcal{G} \in \mathcal{P}(V\cup E)$ represents a set of entities of the same topology and the mesh of a group is denoted $mesh(\mathcal{G})$, \textit{i.e.} $\mathcal{G} \in \mathcal{P}(V\cup E) \Leftrightarrow mesh(\mathcal{G})=(V,E)$
+\item A \textit{group of mesh entities} $\mathcal{G} \in \mathcal{P}(V\cup E)$ represents a set of entities of the same topology and the mesh of a group is denoted $mesh(\mathcal{G})$, \textit{i.e.} $\mathcal{G} \in \mathcal{P}(V\cup E) \Leftrightarrow mesh(\mathcal{G})=(V,E)$
 \item The \textit{set of entities groups} used in a simulation is denoted $\Phi$.
 \end{mydefs}
 
@@ -46,9 +46,9 @@ Both groups would then be part of $Phi$.
 
 \medskip
 
-\begin{mydef}%[Definitions (time)]
+\begin{mydef}[Definitions (time)]
 The finite sequence $T: (t_n)_{n\in\llbracket 0, Tmax \rrbracket}$ represents the discretization of the continuous time domain $\mathcal{T}=\mathbb{R}$.
-To each discrete time step $n$, it associates a time value $t_n\in\mathcal{T}$.
+To each discrete time step $n\in\llbracket 0, Tmax \rrbracket$, it associates a time value $t_n\in\mathcal{T}$.
 \end{mydef}
 
 The time discretization can be as simple as a constant time-step with a fixed number of steps.
@@ -59,7 +59,7 @@ It can however also be defined by recursion with a both the time-step and the nu
 \begin{mydefs}[Definitions (quantity)]
 \item $\mathbb{V}=\Delta\cup\mathcal{S}$ is the set of \emph{variables} or \emph{quantities}.
 \item $\Delta$ are the \textit{mesh variables} that to each entity of a group and time-step associates a value $\delta: \mathcal{G}\times T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
-\item The group of entities a quantity is mapped on is denoted $entity(\delta)=\mathcal{G}$.
+\item The group of entities a variable is mapped on is denoted $entity(\delta)=\mathcal{G}$.
 \item $\mathcal{S}$ are the \textit{scalar variables} that to each time-step associates a value $s: T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
 \item Amongst the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria whose value is $0$ except at the last iteration where it is 1 $\forall t\in \llbracket 0, Tmax-1 \rrbracket conv(t)=1, conv(Tmax)=1$.
 \end{mydefs}
@@ -69,7 +69,10 @@ It can however also be defined by recursion with a both the time-step and the nu
 
 \medskip
 
-This section has presented the general formalism of what is a mesh, its entities and groups of entities, of how the time is discretized, and finally of what is a scalar and a quantity. The language presented in this paper, the Multi-Stencil Language, offers a simple way to describe a numerical simulation while being able to automatically extract parallelism. Its aim is to be mesh-agnostic, thus to not have details about the topology of the mesh which is an implementation problem. As a result the details about the mesh topology is not needed in the rest of this paper.
+This section has presented the general formalism of what is a mesh, its entities and groups of entities, of how the time is discretized, and finally of what is a scalar and a quantity.
+The language presented in this paper, the Multi-Stencil Language, offers a simple way to describe a numerical simulation while being able to automatically extract parallelism.
+Its aim is to be mesh-agnostic, thus to not have details about the topology of the mesh which is an implementation problem.
+As a result the details about the mesh topology are not needed in the rest of this paper.
 
 %-----------------------
 \subsection{Computations}
