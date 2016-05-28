@@ -32,8 +32,8 @@ class CAC_Compiler:
 		self.templateFile = open(tfile,'r')
 		self.dataTempFile = open(dfile,'r')
 		self.nb_proc = 1
-		#self.dump_type = "hybrid"
-		self.dump_type = "data_base"
+		self.dump_type = "hybrid"
+		#self.dump_type = "data_base"
 		#self.dump_type = "data_fusion"
 	#-----------------------
 	
@@ -41,13 +41,13 @@ class CAC_Compiler:
 	def compile(self):
 	#-----------------------
 		# from msp file to series-parallel tree decomposition
-		#tstart = datetime.now()
-		#print tstart
+		tstart = datetime.now()
+		print tstart
 		self.msp_to_tsp()
-		#tend = datetime.now()
-		#print tend
+		tend = datetime.now()
+		print tend
 		# from TSP to l2C component assembly
-		self.dump()
+		#self.dump()
 	#-----------------------
 
 	#-----------------------
@@ -55,18 +55,33 @@ class CAC_Compiler:
 	#-----------------------
 		# parse the input file
 		print "Read msp file"
+		tstart = datetime.now()
+		print tstart
 		self.read_dsl()
+		tend = datetime.now()
+		print tend
 		#compute gamma data : do not separate updates
 		print "Compute Gamma data"
+		tstart = datetime.now()
+		print tstart
 		self.gamma_data_seq()
+		tend = datetime.now()
+		print tend
 		# compute gamma data : separate updates
 		#self.gamma_data()
 		
 		if self.dump_type != "data_base":
 			# compute gamma hybrid
 			print "Compute Gamma hybrid"
+			tstart = datetime.now()
+			print tstart
 			self.gamma_hyb()
+			tend = datetime.now()
+			print tend
 			# first transitive reduction
+			print "Compute TSP"
+			tstart = datetime.now()
+			print tstart
 			print "Compute transitive reduction"
 			self.transitive_reduction(self.gamma)
 			##### DRAW
@@ -115,6 +130,9 @@ class CAC_Compiler:
 			
 			# self.orders from self.canonic
 			self.orders = nx.get_node_attributes(self.canonic,'order')
+
+			tend = datetime.now()
+			print tend
 			
 			##### DRAW
 			saveGraph(self.canonic,"./outputs/canonic.dot")
@@ -322,7 +340,7 @@ class CAC_Compiler:
 	#-----------------------
 	# recursive BFS by successors
 	# take a source set of nodes, and their successors
-	# if sources have common successors and that the subgraph is not complete bipartite, make it complete + transitive reduction
+	# if sources have common successors and that the subgraph is not complete bipartite, make it complete
 	# longest part of the compiler
 	#-----------------------
 	def remove_nshape(self,sources):
@@ -356,7 +374,7 @@ class CAC_Compiler:
 				#print "not connected"
 				self.remove_nshape(successors)
 			else :
-				# if the graph is connected and is not complete, make it complete, transitive reduction, and recursive call
+				# if the graph is connected and is not complete, make it complete, and recursive call
 				if not self.is_complete(len(sources),len(successors),subgraph):
 					#print "Make complete the subgraph from sources"
 					self.make_complete(sources,successors)

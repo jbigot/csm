@@ -41,6 +41,13 @@
 \usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
 
 \usepackage{todonotes}
+\usepackage{url}
+\usepackage{xspace}
+
+\newcommand{\fix}[1]{\todo[inline,color=red!80]{#1}}
+\newcommand{\cf}{\emph{cf.}\xspace}
+\newcommand{\ie}{\emph{i.e.,}\xspace}
+\newcommand{\llc}{L\textsuperscript{2}C\xspace}
 
 %\newtheorem{theorem}{Theorem}[section]
 \newtheorem{myprop}[theorem]{Proposition}
@@ -75,8 +82,8 @@
 %\titlerunning{Short form of title}        % if too long for running head
 
 \author{Helene Coullon \and
-        Christian Perez \and
-        Julien Bigot
+        Julien Bigot \and
+        Christian Perez
 }
 
 %\authorrunning{Short form of author list} % if too long for running head
@@ -134,63 +141,7 @@ Contributions :
 %------------------------------------------------------------------------------
 \section{Evaluation}
 \label{sect:eval}
-\begin{itemize}
-\item evaluation of the compiler (execution times of the different steps)
-\item evaluation of the data parallelism (weak/strong scaling)
-\item evaluation of fusions
-\item evaluation of the hybrid performance
-\item validation of the performance model
-\end{itemize}
-
-% \begin{figure}[!h]\begin{center}
-%   \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/400/median_weak.pdf}}
-%   \caption{weak-scaling 400x400 blocks.}
-%   \label{fig:mesh}
-% \end{center}\end{figure}
-
-% \begin{figure}[!h]\begin{center}
-%   \resizebox{8cm}{!}{\includegraphics{../results/weak_scaling/800/median_weak.pdf}}
-%   \caption{weak-scaling 800x800 blocks}
-%   \label{fig:mesh}
-% \end{center}\end{figure}
-
-% \begin{figure}[!h]\begin{center}
-%   \resizebox{8cm}{!}{\includegraphics{../results/strong_scaling/10K_1K/median_strong.pdf}}
-%   \caption{strong-scaling 10kx10k, 1k iterations}
-%   \label{fig:mesh}
-% \end{center}\end{figure}
-
-% \item evaluation of the fusion
-
-% \begin{figure}[!h]\begin{center}
-%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/fusVSbase.pdf}}
-%   \caption{strong scaling 500x500, 200 iterations, with and without fusion}
-%   \label{fig:mesh}
-% \end{center}\end{figure}
-
-% \item evaluation of the hybrid parallelism
-
-% \begin{figure}[!h]\begin{center}
-%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_close_median.pdf}}
-%   \caption{MPI only vs MPI+threads with \emph{close} scheduling policy (OpenMP)}
-%   \label{fig:mesh}
-% \end{center}\end{figure}
-
-% \begin{figure}[!h]\begin{center}
-%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_spread_median.pdf}}
-%   \caption{MPI only vs MPI+threads with \emph{spread} scheduling policy (OpenMP)}
-%   \label{fig:mesh}
-% \end{center}\end{figure}
-
-% \item analytic model for the results
-
-% \begin{figure}[!h]\begin{center}
-%   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/analytic/times.pdf}}
-%   \caption{Computation vs communication times in the MPI only application}
-%   \label{fig:mesh}
-% \end{center}\end{figure}
-
-% \end{itemize}
+\input{evaluation.tex}
 %------------------------------------------------------------------------------
 \section{Related work}
 \label{sect:rel}

@@ -1,0 +1,139 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 Thread sync : 1e-06
+2 Thread sync : 3e-06
+1 Thread sync : 3e-06
+3 Thread sync : 3e-06
+0 Thread sync : 0.000769
+1 Thread sync : 0.000768
+2 Thread sync : 0.000769
+1 Thread sync : 8.6e-05
+3 Thread sync : 0.000774
+0 Thread sync : 0.000101
+2 Thread sync : 9e-05
+1 Thread sync : 0.000146
+3 Thread sync : 8.6e-05
+0 Thread sync : 0.000147
+2 Thread sync : 0.000145
+3 Thread sync : 0.000146
+1 Thread sync : 0.001545
+2 Thread sync : 0.00155
+3 Thread sync : 0.001548
+0 Thread sync : 0.001738
+1 Thread sync : 0.000265
+3 Thread sync : 0.000263
+2 Thread sync : 0.000262
+0 Thread sync : 0.000264
+3 Thread sync : 0.000265
+1 Thread sync : 0.000299
+2 Thread sync : 0.000267
+0 Thread sync : 0.000256
+0 Thread sync : 0.000766
+2 Thread sync : 0.000767
+1 Thread sync : 0.000774
+0 Thread sync : 0.000103
+3 Thread sync : 0.000763
+1 Thread sync : 9.8e-05
+1 Thread sync : 0.000146
+3 Thread sync : 9.5e-05
+0 Thread sync : 0.000189
+2 Thread sync : 9.8e-05
+3 Thread sync : 0.000145
+2 Thread sync : 0.000148
+3 Thread sync : 0.001545
+1 Thread sync : 0.001555
+2 Thread sync : 0.001552
+0 Thread sync : 0.001752
+2 Thread sync : 0.000257
+1 Thread sync : 0.000263
+1 Thread sync : 7.9e-05
+3 Thread sync : 0.000258
+1 Thread sync : 3e-06
+0 Thread sync : 0.000249
+2 Thread sync : 7.8e-05
+0 Thread sync : 7.8e-05
+3 Thread sync : 7.6e-05
+0 Thread sync : 1.1e-05
+2 Thread sync : 3e-06
+3 Thread sync : 2e-06
+0 Thread sync : 0.000772
+2 Thread sync : 0.000768
+1 Thread sync : 0.000768
+1 Thread sync : 9.8e-05
+3 Thread sync : 0.000767
+0 Thread sync : 0.000111
+2 Thread sync : 0.000102
+1 Thread sync : 0.000146
+3 Thread sync : 9.4e-05
+0 Thread sync : 0.000189
+2 Thread sync : 0.000144
+3 Thread sync : 0.000145
+1 Thread sync : 0.00155
+2 Thread sync : 0.001553
+3 Thread sync : 0.001549
+0 Thread sync : 0.001767
+1 Thread sync : 0.000248
+2 Thread sync : 0.000251
+3 Thread sync : 0.000251
+0 Thread sync : 0.000252
+2 Thread sync : 0.000271
+1 Thread sync : 0.00026
+3 Thread sync : 0.00027
+0 Thread sync : 0.000297
+1 Thread sync : 0.000764
+0 Thread sync : 0.000772
+2 Thread sync : 0.000764
+0 Thread sync : 9.3e-05
+1 Thread sync : 9.9e-05
+3 Thread sync : 0.000761
+0 Thread sync : 0.000146
+3 Thread sync : 9.4e-05
+1 Thread sync : 0.000164
+2 Thread sync : 9.8e-05
+3 Thread sync : 0.000145
+2 Thread sync : 0.000145
+0 Thread sync : 0.001552
+3 Thread sync : 0.001546
+2 Thread sync : 0.001548
+1 Thread sync : 0.001765
+0 Thread sync : 0.000252
+2 Thread sync : 0.000252
+0 Thread sync : 8.3e-05
+3 Thread sync : 0.000249
+0 Time TOTAL CALCULATION : 0.006883
+2 Thread sync : 7.9e-05
+2 Time TOTAL CALCULATION : 0.007118
+1 Thread sync : 0.00026
+3 Thread sync : 7.9e-05
+3 Time TOTAL CALCULATION : 0.007115
+1 Thread sync : 7.8e-05
+1 Time TOTAL CALCULATION : 0.007357
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4825319
+Jobname   : task8MSL_500_1_4
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 23/05/2016 18:17:19 , start = 23/05/2016 18:25:44
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 4 , cpus/task = 8 , ncpus = 32 , nodes = 2
+   Nodes=curie[5516-5517] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4825319       task8MSL_500_1_4          -     32      2           -     00:00:11     100            -      -  -
+4825319.0     llcmcpp_loader            4     32      2      BBlock     00:00:03    27.2            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

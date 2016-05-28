@@ -109,8 +109,8 @@ for i in cores:
 
 #plt.loglog(cores, relatives_its, 'r--', label='Ideal', basex=2,basey=2)
 plt.loglog(cores, relatives_its2, 'b--', label='Ideal', basex=2,basey=2)
-plt.loglog(cores, itsMSL, 'b-+', label='SkelGIS + MSL', basex=2,basey=2)
-plt.loglog(cores, itsSK, 'r-x', label='SkelGIS + sync', basex=2,basey=2)
+plt.loglog(cores, itsMSL, 'b-+', label='MSL + SkelGIS', basex=2,basey=2)
+plt.loglog(cores, itsSK, 'r-x', label='SkelGIS', basex=2,basey=2)
 legend = plt.legend(loc='upper left', shadow=True)
 plt.grid(True, which="both", linestyle="dotted")
 plt.xlabel('cores')
@@ -145,8 +145,8 @@ for i in cores:
 
 #plt.loglog(cores, relatives_its, 'r--', label='Ideal', basex=2,basey=2)
 plt.loglog(cores, relatives_its2, 'b--', label='Ideal', basex=2,basey=2)
-plt.loglog(cores, itsMSL, 'b-+', label='SkelGIS + MSL', basex=2,basey=2)
-plt.loglog(cores, itsSK, 'r-x', label='SkelGIS + sync', basex=2,basey=2)
+plt.loglog(cores, itsMSL, 'b-+', label='MSL + SkelGIS', basex=2,basey=2)
+plt.loglog(cores, itsSK, 'r-x', label='SkelGIS', basex=2,basey=2)
 legend = plt.legend(loc='upper left', shadow=True)
 plt.grid(True, which="both", linestyle="dotted")
 plt.xlabel('cores')

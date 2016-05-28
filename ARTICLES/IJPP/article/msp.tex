@@ -2,6 +2,7 @@ In this section we detail a static scheduling of $\Gamma_{dep}$ by using minimal
 
 %--------------------
 \subsection{Series-Parallel graph}
+\label{sect:tsp}
 
 In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the class of Minimal Series-Parallel DAGs (MSPD). Such a graph can be decomposed as a serie-parallel tree, denoted $TSP$, where each leaf is a vertex of the MSPD DAG it represents, and whose internal nodes are labelled $S$ or $P$ to indicate respectively the series or parallel composition of sub-trees. Such a tree can be considered as a fork-join model and as a static scheduling.
 
@@ -117,9 +118,98 @@ After these over-constraints are applied, $\Gamma_{dep}$ is MSPD. Valdes \& Al~\
 
 %--------------------
 \subsection{Performance model}
+\label{sect:perfs}
+
+In this subsection are introduced two performance model, one for the data parallelization technique, and one for the hybrid data and task parallelization technique, both previously explained.
+
+The performance model of a data parallelization technique is inspired from the Bulk Synchronous Parallel model. Actually data parallelization technique consider that each process has its own part of the domain. Thus the performance model reveals that the computation time is the sum of the reference sequential time divided by the number of processes, and of the time spent in communications between processes. Thus, for
+\begin{itemize}
+\item $T_{SEQ}$ the sequential reference time, 
+\item $P$ the total number of processes, 
+\item $T_{COM}$ the communications time, 
+\end{itemize}
+the total computation time is
+\begin{equation}
+T = \frac{T_{SEQ}}{P} + T_{COM}.
+\end{equation}
+
+% The time spent into communications between MPI processes can be represented as the time spent to send data onto the network and the time spent to synchronize processes. Thus, for
+% \begin{itemize}
+% \item $S$ the total number of bytes sent during the simulation
+% \item $T_s$ the time to send one byte
+% \item $N_{COM}$ the number of communication steps
+% \item $Sync$ the time to synchronize two MPI processes for communications
+% \end{itemize}
+% the communication time is
+% \begin{equation*}
+% T_{COM} = S \times T_s + N_{COM} \times Sync.
+% \end{equation*}
+
+Thus, when the number of processes $P$ increase in data parallelization, the performance model limit is $T_{COM}$
+\begin{equation}
+\lim\limits_{P \rightarrow +\infty} T = T_{COM}.
+\end{equation}
+
+As a result, the critical point for performance is when $T_{COM} \geq \frac{T_{SEQ}}{P}$, which happens naturally in data parallelization as $T_{COM}$ will increase with the number of processes, and $\frac{T_{SEQ}}{P}$ decrease with the number of processes.
+
+This limitation is always true, but can be delayed by different strategies. First, it is possible to perform communications through the network while computations are performed simultaneously. Second, it is possible to introduce another kind of parallelization, task parallelization. Thus, for the same total number of processes, only a part of them are used for data parallelization, and the rest are used for task parallelism. As a result, $\frac{T_{SEQ}}{P}$ will continue to decrease but $T_{COM}$ will increase later. This second strategy is the one studied in the following hybrid performance model.
+
+For an hybrid (data and task) parallelization technique, and for
+\begin{itemize}
+\item $P_{data}$ the number of processes used for data parallelization,
+\item $P_{task}$ the number of processes used for task parallelization,
+\item such that $P = P_{data} \times P_{task}$ is the total number of processes used,
+\item $T_{task}$ the overhead time due to task parallelization technique,
+\item and $F_{task}$ the task parallelization degree of the application,
+\end{itemize}
+the total computation time is
+\begin{equation}
+T = \frac{T_{SEQ}}{P_{data} \times F_{task}} + T_{COM} + T_{task}
+\end{equation}
+
+The time overhead due to task parallelization can be represented as the time spent to create a pool of threads and the time spent to synchronize those threads. Thus, for
+\begin{itemize}
+\item $T_{cr}$ the total time to create the pool of threads (may happened more than once), 
+\item $T_{sync}$ the total time spent to synchronize threads, 
+\end{itemize}
+the overhead is
+\begin{equation*}
+T_{task} = T_{cr} + T_{sync}.
+\end{equation*}
+
+The task parallelization degree of the application $F_{task}$ is the limitation of a task parallelization technique. As explained before, a task parallelization technique is based on the dependency graph of the application. Thus, this dependency graph must expose enough parallelism for the number of available threads. For this performance model we consider that 
+\begin{equation*}
+F_{task} = P_{task}.
+\end{equation*}
+However, the upper bound of $F_{task}$ is constrained by the dependency graph of the application and by the time spent in each task.
+
+\medskip
+As a result when $P_{data}$ is small a data parallelization technique may be more efficient, while an hybrid parallelization could be interesting at some point to improve performance. The question asked here is when is it interesting to use hybrid parallelization.
+
+To answer this question lets consider the two parallelization techniques, data only and hybrid. We denote
+\begin{itemize}
+\item $P_{data1}$ the total number of processes entirely used by the data only parallelization,
+\item $P_{data2}$ the number of processes used for data parallelization in the hybrid parallelization,
+\item and $P_{task}$ the number of processes used for task parallelization in the hybrid parallelization,
+\item such that $P_{data1} = P_{data2} \times P_{task}$.
+\end{itemize}
+
+We search the point where the data parallelization is less efficient than the hybrid parallelization. Thus, 
+\begin{equation*}
+\frac{T_{SEQ}}{P_{data1}} + T_{COM1} \geq \frac{T_{SEQ}}{P_{data2} \times P_{task}} + T_{COM2} + T_{task}.
+\end{equation*}
+
+This happens when
+\begin{equation}
+T_{COM1} \geq T_{COM2} + T_{task}
+\label{eq:hyb}
+\end{equation}
+
+This performance model will be validated and will help to explain results the Section~\ref{sect:eval}.
 
 %--------------------
 \subsection{Fusion optimization}
+\label{sect:fusion}
 
 Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized stencil codes, but to produces the parallel pattern of the application, building the $TSP$ tree make available an easy optimization when the data parallelization technique is the only one used. This optimization consists in proposing a valid merge of some computation kernels inside a single space loop. As a result, the user can use this valid fusion of kernels or not when implementing those. 
 
