@@ -27,10 +27,11 @@
 %
 \usepackage{graphicx}
 \usepackage{amsmath}
-\usepackage{amssymb}
+\usepackage{amssymb, stmaryrd}
 \usepackage{subfig}
 \usepackage{caption}
 \usepackage{cite}
+\usepackage{enumitem}
 \usepackage{filecontents}
 \usepackage{listings}
 \usepackage{mathtools, cuted}
@@ -49,6 +50,7 @@
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newenvironment{myth}[1][Theorem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{mydefs}[1][Definitions]{\par\medskip\noindent\textbf{#1}\nopagebreak\begin{itemize}[noitemsep,topsep=.25\topsep]}{\end{itemize}}
 
 \def\pprec{\mathrel{\scalebox{.9}[1]{$\prec$}\mkern-3mu%
   \scalebox{.4}[1]{$\prec$}\mkern-5.5mu\scalebox{.4}[1]{$\prec$}}}
