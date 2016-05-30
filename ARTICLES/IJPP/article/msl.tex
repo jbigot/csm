@@ -27,7 +27,8 @@ loop ::=  "time:" iteration
           "computations:" listcomp
 iteration ::= num | scalar
 listcomp ::= comp listcomp |  comp
-comp ::= quantityid "[" compdomid "]" "=" compid "(" listread ")"
+comp ::= written "=" compid "(" listread ")"
+written ::= quantityid "[" compdomid "]" | scalar
 listread ::= dataread listread | dataread
 dataread ::= quantityid "[" stencilid "]" |  quantityid | scalar
 \end{filecontents*}
@@ -86,28 +87,27 @@ computations :
 
 \item The \texttt{mesh entities} keyword (Fig.\ref{fig:grammar},~l.2) introduces identifiers for the groups of entities $\mathcal{G}\in\Phi$. For example \texttt{cell} or \texttt{edgex} in Fig.\ref{fig:exmsl},~l.2. Again, this is for reference only as the compiler does not rely on the mesh topology.
 
-\item The \texttt{computation domains} keyword (Fig.\ref{fig:grammar},~l.3) introduces identifiers for the computation domains $D\in\mathcal{D}$. For example \texttt{d1} and \texttt{d2} in Fig.\ref{fig:exmsl},~l.4-5. For reference, each domain is associated to a group of entities (Fig.\ref{fig:grammar},~l.15) such as \texttt{cell} for \texttt{d1} in Fig.\ref{fig:exmsl},~l.4.
+\item The \texttt{computation domains} keyword (Fig.\ref{fig:grammar},~l.3) introduces identifiers for the computation domains $D\in\mathcal{D}$. For example \texttt{d1} and \texttt{d2} in Fig.\ref{fig:exmsl},~l.4-5. For reference, each domain is associated to a group of entities (Fig.\ref{fig:grammar},~l.12) such as \texttt{cell} for \texttt{d1} in Fig.\ref{fig:exmsl},~l.4.
 
-\item The \texttt{independent} keyword (Fig.\ref{fig:grammar},~l.5) offers a way to declare that computation domains do not overlap Such as \texttt{d1} and \texttt{d2} in  Fig.\ref{fig:exmsl},~l.7. This is used by the compiler to compute dependencies between computations.
+\item The \texttt{independent} keyword (Fig.\ref{fig:grammar},~l.4) offers a way to declare that computation domains do not overlap Such as \texttt{d1} and \texttt{d2} in  Fig.\ref{fig:exmsl},~l.7. This is used by the compiler to compute dependencies between computations.
 
-\item The \texttt{stencil} keyword (Fig.\ref{fig:grammar},~l.7) introduces identifiers for $n\in\mathcal{N}$, the stencil shapes. For each shape, the source and destination group of entities (Fig.\ref{fig:grammar},~l.19) are specified. For example \texttt{nec} in Fig.\ref{fig:exmsl},~l.11 associates \texttt{cell} entities to each \texttt{edgex} entity.
+\item The \texttt{stencil shapes} keyword (Fig.\ref{fig:grammar},~l.5) introduces identifiers for $n\in\mathcal{N}$, the stencil shapes. For each shape, the source and destination group of entities (Fig.\ref{fig:grammar},~l.16) are specified. For example \texttt{nec} in Fig.\ref{fig:exmsl},~l.11 associates \texttt{cell} entities to each \texttt{edgex} entity.
 
-\item The \texttt{quantities} keyword (Fig.\ref{fig:grammar},~l.9) introduces identifiers for $\delta\in\Delta$, the quantities with the group of entities they are mapped on (Fig.\ref{fig:grammar},~l.21). For example the quantities \texttt{C} and \texttt{H} are mapped on \texttt{edgex} entities.
+\item The \texttt{quantities} keyword (Fig.\ref{fig:grammar},~l.6) introduces identifiers for $\delta\in\Delta$, the quantities with the group of entities they are mapped on (Fig.\ref{fig:grammar},~l.16). For example the quantities \texttt{C} and \texttt{H} are mapped on \texttt{edgex} entities.
 
-\item The \texttt{scalar} keyword (Fig.\ref{fig:grammar},~l.10) introduces identifiers for $s\in\mathcal{S}$, the scalars. For example \texttt{mu} and \texttt{tau} in Fig.\ref{fig:exmsl},~l.15. 
+\item The \texttt{scalar} keyword (Fig.\ref{fig:grammar},~l.7) introduces identifiers for $s\in\mathcal{S}$, the scalars. For example \texttt{mu} and \texttt{tau} in Fig.\ref{fig:exmsl},~l.15. 
 
-\item Finally, the last part (Fig.\ref{fig:grammar},~l.11) introduce the computations steps. Each step is made of two parts:
+\item Finally, the last part (Fig.\ref{fig:grammar},~l.8) introduce the computations loops. Each loop is made of two parts:
 \begin{itemize}
-\item the \texttt{time} keyword introduces $conv$, the convergence criteria either as a number of iterations (Fig.\ref{fig:grammar},~l.27) or as a function of scalars (Fig.\ref{fig:grammar},~l.28). 500 iterations are for example specified in Fig.\ref{fig:exmsl},~l.16,
-\item the \texttt{computations} keyword (Fig.\ref{fig:grammar},~l.26) introduces identifiers for the computation $k\in\Gamma=(S,R,(w,D),comp)$.
+\item the \texttt{time} keyword (Fig.\ref{fig:grammar},~l.22) introduces $conv$, the convergence criteria either as a number of iterations or as ${0,1}$ valued scalar (Fig.\ref{fig:grammar},~l.24), for example 500 iterations are specified in Fig.\ref{fig:exmsl},~l.16,
+\item the \texttt{computations} keyword (Fig.\ref{fig:grammar},~l.23) introduces identifiers for the computation $k\in\Gamma=(S,R,(w,D),comp)$.
 \end{itemize}
 
-\item each computation (Fig.\ref{fig:grammar},~l.31) specifies:
+\item each computation (Fig.\ref{fig:grammar},~l.26) specifies:
 \begin{itemize}
  \item the quantity $w$ written and its domain $D$, for example in Fig.\ref{fig:exmsl},~l.22, kernel \texttt{k4} computes the quantity \texttt{F} on domain \texttt{d1},
  \item the read scalars $S$ and mesh quantities with their associated stencil shape $R$, for example in Fig.\ref{fig:exmsl},~l.16, \texttt{k4} reads \texttt{C} with the shape \texttt{nce} and \texttt{D} with the default \textit{identity} shape, it uses no scalar.
 \end{itemize}
-
 \end{enumerate}
 
 One can notice that in the example of Figure~\ref{fig:exmsl}, there are no (reduction) kernel associated to the scalars.
