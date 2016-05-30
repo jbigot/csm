@@ -152,23 +152,9 @@ A \textit{multi-stencil program} is defined by the octuplet
 % As a result, and as already described, details about the topology of the mesh, which is an implementation problem, is not used into the language.
 % Moreover, in a computation kernel $k(S,R,(w,D),comp)$, $comp$ is not used by the language.
 
-\paragraph{\textbf{Example}}
-For example, in Figure~\ref{fig:ex1}, assuming that the computation domain (full lines) is denoted $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
-\begin{equation*}
-R: \{(B,n1)\}, \quad w: A, \quad D: dc1,
-\end{equation*}
-\begin{equation*}
-comp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
-\end{equation*}
-On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel is defined as:
-\begin{equation*}
-R: \{(C,n2),(A,identity)\}, \quad w: A, \quad D: dc2,
-\end{equation*}
-\begin{equation*}
-comp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
-\end{equation*}
 
-\begin{figure}
+\paragraph{\textbf{Example}}
+\begin{figure}[ht]
 \begin{center}
 \subfloat[Mesh and mesh domains.\label{fig:meshbase}]{
 \resizebox{8cm}{!}{\includegraphics{./images/mesh.pdf}}
@@ -185,6 +171,20 @@ comp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \caption{(a) a Cartesian mesh and two kind of mesh entities, (b) an example of stencil kernel on cells, (c) an example of stencil kernel on two different entities of the mesh.}
 \label{fig:gspmsp}
 \end{figure}
+For example, in Figure~\ref{fig:ex1}, assuming that the computation domain (full lines) is denoted $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
+\begin{equation*}
+R: \{(B,n1)\}, \quad w: A, \quad D: dc1,
+\end{equation*}
+\begin{equation*}
+comp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
+\end{equation*}
+On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel is defined as:
+\begin{equation*}
+R: \{(C,n2),(A,identity)\}, \quad w: A, \quad D: dc2,
+\end{equation*}
+\begin{equation*}
+comp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
+\end{equation*}
 
 A stencil program has been formally defined in this section. This formalism is used in the next Section to define two parallelization techniques of a multi-stencil program.
 
