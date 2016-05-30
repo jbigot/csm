@@ -1,44 +1,68 @@
 %--------------------
-\subsection{Overall compiler algorithm}
+%The multi-stencil language is a descriptive language. MSL follows a light grammar which extracts information needed to build an empty parallel pattern of a numerical simulation (a multi-stencil program), also called an empty parallel skeleton of the simulation. From the language grammar are automatically detected where synchronizations are needed in order to apply a data parallelization technique, and how computations are dependent from each other to apply a task parallelization technique.
 
-The overall compiler algorithm is represented in Algorithm~\ref{alg:compiler}. First, the parsing of the input file (written with the MSL language) gave enough information to build $\Gamma$, the ordered list of computation kernels. Second, $\Gamma_{sync}$ and $\Gamma_{dep}$ can be built from $\Gamma$ using the recursive functions $F_{sync}$ and $F_{dep}$. Third, N-Shapes are removed from $\Gamma_{dep}$ to get a MSPD graph, and to be able to create its serie-parallel binary tree decomposition $TSP$ (line 6). If only a data parallelization has been chosen, Line 8 performs the fusion of kernels. Finally a dump of $TSP$ is performed by the compiler. Implementation choices of the dump are described in the next subsection.
+%The multi-stencil language splits the simulation description from its implementation concerns. For this reason, the multi-stencil language is mesh-agnostic, which means that no information on the actual topology of the mesh is given by the user. For this reason too, no numerical code is asked to the user. Those implementation concerns are deported to a second phase where other languages or libraries can be used. This phase is called the \emph{dump} in the overall compiler algorithm.
 
-\begin{algorithm}
-\caption{MSL Compiler}
-\label{alg:compiler}
-\begin{algorithmic}[1]
-\Procedure{compileMSL} {file}
-\State $\Gamma$ = parser(file)
-\State $\Gamma_{sync} = F_{sync}(\Gamma,0)$
-\State $\Gamma_{dep} = F_{dep}(\Gamma_{sync},0)$
-\State removeNSH($\Gamma_{dep}$)
-\State $TSP = F_{tsp}(TSP,root(TSP))$
-\If {data parallel}
-\State $TSP = F_{fus}(TSP)$
-\EndIf
-\State dump(TSP)
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+The MSL compiler takes a file written in the grammar described in Section~\ref{sect:msl} as input and generates an application skeleton.
+In this skeleton, the user still has to fill the functions corresponding to the various computation kernels.
+The overall behavior of the compiler is as follow: %presented in Algorithm~\ref{alg:compiler}.
+\begin{enumerate}
+ \item it parses the input file and generates $\Gamma$, the list of computation kernels,
+ \item from $\Gamma$, it builds $\Gamma_{sync}$, the list including synchronizations for data parallelism using Algorithm $F_{sync}$ introduced in Section~\ref{sect:parallelism},
+ \item from $\Gamma_{sync}$, it builds $\Gamma_{dep}$, the DAG supporting hybrid parallelism using Algorithm $F_{dep}$ introduced in Section~\ref{sect:parallelism},
+ \item it then removes the N-Shapes from $\Gamma_{dep}$ to get a MSPD graph, and generates its serie-parallel binary tree decomposition $TSP$,
+ \item it performs the fusion of kernels in $TSP$ if required,
+ \item finally it dumps an application structure matching $TSP$.
+% Implementation choices of the dump are described in the next subsection.
+\end{enumerate}
+
+%JB: un enumerate me semble suffisant
+% \begin{algorithm}
+% \caption{MSL Compiler}
+% \label{alg:compiler}
+% \begin{algorithmic}[1]
+% \Procedure{compileMSL} {file}
+% \State $\Gamma$ = parser(file)
+% \State $\Gamma_{sync} = F_{sync}(\Gamma,0)$
+% \State $\Gamma_{dep} = F_{dep}(\Gamma_{sync},0)$
+% \State removeNSH($\Gamma_{dep}$)
+% \State $TSP = F_{tsp}(TSP,root(TSP))$
+% \If {data parallel}
+% \State $TSP = F_{fus}(TSP)$
+% \EndIf
+% \State dump(TSP)
+% \EndProcedure
+% \end{algorithmic}
+% \end{algorithm}
 
 %--------------------
-\subsection{Implementation choices}
+% \subsection{Implementation choices}
 
-The multi-stencil language is a descriptive language. MSL follows a light grammar which extracts information needed to build an empty parallel pattern of a numerical simulation (a multi-stencil program), also called an empty parallel skeleton of the simulation. From the language grammar are automatically detected where synchronizations are needed in order to apply a data parallelization technique, and how computations are dependent from each other to apply a task parallelization technique.
+The abstract definition of MSL enables to use a very wide range of languages for the dump.
+In this paper, we use a compiler that targets the Low Level Components~\cite{l2c} (\llc), a component model for C++ supporting high-performance applications.
+Similar to classes in object-oriented models, components specify the services they provide, but in addition they also specify the services they require.
+This enables to build applications by assembling components in a second phase through the matching of requirements of some components with the services provided by others.
+In the case of MSL, this makes it possible to clearly separate in distinct components the features that are implemented:
+\begin{itemize}
+ \item by reusing the same code every-time such as for the time iteration logic,
+ \item by generating some code that depends on $TSP$ and thus from the input file such as for the task parallelism logic,
+ \item or by letting the user fill-in an empty skeleton component such as for the computation kernels.
+\end{itemize}
+By enforcing the use of well defined interfaces in the generated code, \llc makes it easier to replace an implementation by another to reconsider an implementation choice.
+It also simplifies the potential addition of new features to MSL or the coupling of MSL with another domain-specific language for example.
 
-The multi-stencil language splits the simulation description from its implementation concerns. For this reason, the multi-stencil language is mesh-agnostic, which means that no information on the actual topology of the mesh is given by the user. For this reason too, no numerical code is asked to the user. Those implementation concerns are deported to a second phase where other languages or libraries can be used. This phase is called the \emph{dump} in the overall compiler algorithm.
+The two main other choices in the code generation concern the technologies used for the data and task parallelizations.
+For the data-parallelization, we rely on SkelGIS, a C++ embedded DSL~\cite{CPE:CPE3494} which offers distributed data structures (meshes) for numerical simulations, and programming interfaces to easily write codes using them.
+SkelGIS is implemented over MPI~\cite{Graham2009MSE} and can therefore be used on distributed memory architectures such as clusters.
+Two kind of meshes are offered by SkelGIS: \textbf{a)} a distributed two dimensional Cartesian mesh~\cite{DBLP:conf/ieeehpcs/HeleneS13}, and \textbf{b)} a distributed graph of Cartesian meshes (hybrid mesh)~\cite{DBLP:conf/europar/CoullonL14}.
+The use of different back-ends for data-parallelism such as for example the distributed unstructured mesh proposed by PaMPA~\cite{lachat:hal-00768916} will be the subject of future work.
 
-In this paper, the MSL dump has been implemented using two existing languages, SkelGIS and OpenMP.
+For the task parallelism, we use OpenMP~\cite{660313}.
+OpenMP targets shared-memory platforms only, but the degree of task-parallelism is typically much lower than that of data parallelism.
+With the increasing number of cores of current machines this has not proved to be a problem in our experience.
+While the version 4 of OpenMP has introduced explicit support for tasks, our implementation only requires version 3 whose fork-join model is well suited for the static scheduling introduced in Section~\ref{sect:msp}.
+The use of dynamic schedulers such as provided by libgomp\footnote{\url{https://gcc.gnu.org/projects/gomp/}}, StarPU~\cite{Augonnet2011}, or XKaapi~\cite{Gautier:2013:XRS:2510661.2511383} to directly execute the DAG will be the subject of some future work.
 
-SkelGIS is a C++ embedded language~\cite{CPE:CPE3494} which offers distributed data structures for numerical simulations, and programming interfaces to easily write codes using them. The code produced by SkelGIS uses MPI (message Passing Interface~\cite{Graham2009MSE}). Thus, this code can be used on distributed memory architectures such as clusters of machines. The distributed data structures offered by SkelGIS are, first, a distributed two dimensional Cartesian mesh~\cite{DBLP:conf/ieeehpcs/HeleneS13}, and second, a distributed graph of Cartesian meshes (hybrid mesh)~\cite{DBLP:conf/europar/CoullonL14}. SkelGIS is used in this paper for the dump of MSL and more precisely to produce the code associated to the data parallelization technique.
-
-OpenMP~\cite{660313} is a language based on directives added to C/C++ or Fortran. Those directives offers a way to take advantage of shared memory architectures such as multi-processors, multi-cores, many-cores or even GPUs (in OpenMP 4.0). Among other available directives, some of them offer the possibility to manage a pool of threads and to produce a task parallel program. In this paper OpenMP is used in its version 3.0, which means that we do not take advantage of the dynamic schedulers available for OpenMP 4.0 such as libgomp~\footnote{\url{https://gcc.gnu.org/projects/gomp/}}, StarPU~\cite{Augonnet2011}, or XKaapi~\cite{Gautier:2013:XRS:2510661.2511383}. Those dynamic schedulers will be the subject of future work. In this paper, however, is evaluated the performance of the static scheduling introduced in Section~\ref{sect:msp}.
-
-The dump step of the MSL compiler automatically generates an hybrid code which uses the SkelGIS Cartesian distributed data structure and an OpenMP static scheduling generated from the algorithm previously described in Section~\ref{sect:tsp}. To facilitate the maintainability of this hybrid code, a component-based programming model is used, the Low Level Component Model~\cite{l2c} (\llc). 
-
-A component is a piece of code equivalent to a class in object-oriented programming, but which exposes not only provided methods, but also methods used from other components. Such programming models increase maintainability, productivity and code-reuse.
-
-The advantage of using such models in MSL is to clearly separate the code responsible for data parallelization from the code responsible for the static scheduling of tasks. Moreover, one component is generated for each computation kernel which was described by the user in its MSL description. As a result, the user simply has to fill those components without any knowledge on the rest of the generated code. To fill its computation kernels, the user must use programming interfaces proposed by SkelGIS.
-
-One can notice that MSL could use different languages as it is mesh-agnostic. For example, a future work is to use the distributed unstructured mesh proposed by PaMPA~\cite{lachat:hal-00768916}. Moreover, MSL could use pthreads instead of OpenMP to manage the static scheduling.
-
+As a result, the MSL compiler generates an hybrid code which uses both SkelGIS and OpenMP.
+It also generates empty components where the user must provide local sequential implementations of the kernels using well defined interfaces of the component to iterate over the local data subdomain.
+The following section will evaluate this compiler as well as the code it generates.
