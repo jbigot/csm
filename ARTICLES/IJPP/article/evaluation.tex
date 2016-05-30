@@ -1,4 +1,4 @@
-This section presents evaluations of the work presented in this paper. First, the compiler is evaluated. Second, the data prallelization technique is evaluated, as well as the fusion optimization, and compared to a full SkelGIS program. Third, the hybrid parallelization (data and task) is evaluated and validates the performance model detailed in Section~\ref{sect:tsp}.
+This section presents evaluations of the work presented in this paper. First, the compiler is evaluated. Second, the data parallelization and fusion optimization are evaluated and compared to a full SkelGIS program. Third, the hybrid parallelization (data and task) is evaluated to validate the performance model detailed in Section~\ref{sect:tsp}.
 
 All evaluations presented in this section are based on a real case study, the shallow-Water Equations. Navier-Stokes Equations is a well known set of partial differential equations in fluid dynamics to simulate a flow evolution in time. At the University of Orl\'eans, France, the MAPMO laboratory works on a software, called FullSWOF2D\footnote{\url{http://www.univ-orleans.fr/mapmo/soft/FullSWOF/}}, which solves the Shallow-Water Equations obtained from the three dimensional Navier-Stokes equations, by averaging on the vertical direction~\cite{Ferrari2004}. Those equations are solved using a two-dimensional Cartesian discretization of the space domain, and a finite volume numerical methods more described in~\cite{CPE:CPE3494}. We have developed a MSL version of FullSWOF2D that contains 3~mesh entities, 7~computation domains, 48~data and 98~computations (32~stencil kernels and 66~local kernels).
 
@@ -6,6 +6,7 @@ All evaluations presented in this section are based on a real case study, the sh
 \subsection{Compiler}
 
 The series-parallel tree decomposition $TSP$ of this simulation, extracted by the MSL compiler, is composed of 17~sequence nodes and 18~parallel nodes. Table~\ref{fig:freq} represents the number of time a given level of parallelism, \ie the number of tasks to perform concurrently, is observed in the final tree. One can notice that the level of task parallelism extracted from the Shallow water equations is limited by two sequential parts in the application (level 1). Moreover, a level of 16~parallel tasks is reached two times, and five times for the fourth level.
+This means that if two threads are dedicated to task parallelism, two parts of the code at least will not take advantage of this and that no part of the code would benefit from more than 16 threads.
 
 \begin{table}[!h]
  \begin{center}
