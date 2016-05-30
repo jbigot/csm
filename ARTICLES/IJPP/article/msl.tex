@@ -1,61 +1,38 @@
-From the fomalism detailed in the previous section, the Multi-Stencil Language and its grammar can already be given. The reason why this grammar is sufficient to automatically extract parallelism will be explained in the next section.
-
-\medskip
-The grammar of the Multi-Stencil Language is given in Figure~\ref{fig:grammar}. A Multi-Stencil program is composed of eight parts. 
-
-\begin{enumerate}
-\item The first part represents the mesh of the simulation $\mathcal{M}$. As a single mesh is for now supported by the language, and as the topology of the mesh is not needed by the language compiler, \textit{meshid} (line 1) is a terminal symbol of the grammar. 
-\item The second part (line 2) represents the set of groups of mesh entities needed by the simulation $\Phi$. It is defined as a list of groups $\mathcal{G}$. Again, as mesh entities are defined using the topology of the mesh, a group of mesh entities \textit{group} (defined line 13) is a terminal symbol of the grammar.
-\item The third part (lines 3 and 4) represents the set of computation domains of the simulation $\mathcal{D}$. It is defined as a list of domains, each one defined (lines 14 and 15) as a subpart of a group of mesh entities, using the symbol "in".
-\item The fourth part (lines 5 and 6) of the program is linked to the third one. It offers a way to declare that two computation domains are independants (lines 16 and 17). Two given computation domains $D_1$ and $D_2$ are independants if and only if $D_1 \cap D_2 = \emptyset$. It uses the symbol "and" to describe that $D_1$ and $D_2$ are independants.
-\item The fith part (lines 7 and 8) represents the set of stencil shapes used by the simulation $\mathcal{N}$. A stencil shape (lines 18 and 19) is defined as a function "from" a group of mesh entities "to" another group of mesh entities.
-\item The sixth part (line 9) represents the set of quantities of the simulation $\Delta$. It is composed of a list of quantities (lines 20 and 21) for which each line (line 22) begins with a group of mesh entities and a list of \textit{quanityid} which are applied onto the given group.
-\item The seventh part (line 10) represents the set of scalars of the simulation $\mathcal{S}$. Each scalar (line 23) is a terminal symbol.
-\item Finally, the eith part (line 11) represents the simulation computations. It is composed of a list of loop (line 24). Each \textit{loop} (line 25) is composed of a \textit{time} loop composed of \textit{iteration} (which represents $T$), and of a set of \textit{computations} (which represents $\Gamma$).
-\begin{itemize}
-\item A time loop, denoted \textit{iteration} in the grammar, can be a numerical constant value, \textit{num}, which directly indicates the number of time iterations, or a convergence \textit{criteria}. The \textit{criteria} symbol represents the function $conv:\mathcal{S}^n \rightarrow bool$ of the formalism. To define a criteria the terminal \textit{criteriaid} has to be set, and between bracket are indicated a list of scalars to read.
-\item Each computation of the list of \textit{computations} follows the information of the formalism $k(S,R,(w,D),comp)$ except the $comp$ function which is an implementation concern. To be more easy to write the syntax is different though.
-\end{itemize}
-\end{enumerate}
+From the formalism detailed in the previous section, the Multi-Stencil Language and its grammar can already be given.
+This grammar is sufficient to automatically extract parallelism from the program as will be explained in the next section.
 
 \begin{filecontents*}{grammar.txt}
 program ::= "mesh:" meshid 
             "mesh entities:" listgroup
-            "computation domains:" 
-                      listcompdom
-            "independent:"
-                      listinde
-            "stencil shapes:"
-                      liststencil
+            "computation domains:" listcompdom
+            "independent:" listinde
+            "stencil shapes:" liststencil
             "quantities:" listquantities
             "scalar" listscalar
             listloop
 
-listgroup ::= group listgroup |  group
-listcompdom ::= compdom listcompdom |  compdom
-compdom ::= compdomid "in" group
-listinde ::= inde listinde |  inde
+listgroup ::= groupid "," listgroup | groupid
+listcompdom ::= compdom listcompdom | compdom
+compdom ::= compdomid "in" groupid
+listinde ::= inde listinde | inde
 inde ::= compdomid "and" compdomid
 liststencil ::= stencil liststencil | stencil
-stencil ::= stencilid "from" group "to" group
-listquantities ::= data listquantities |  quantity
-quantity ::= group listquantityid
-listquantityid ::= quantityid listquantityid |  quantityid
-listscalar ::= scalar listscalar | scalar
+stencil ::= stencilid "from" groupid "to" groupid
+listquantities ::= quantity listquantities |  quantity
+quantity ::= groupid listquantityid
+listquantityid ::= quantityid "," listquantityid |  quantityid
+listscalar ::= scalarid "," listscalar | scalarid
 listloop ::= loop listloop | loop
 loop ::=  "time:" iteration
           "computations:" listcomp
-iteration ::= num | criteria
-criteria ::= criteriaid "(" listscalarread ")"
-listscalarread ::= scalar listscalarread |  scalar
+iteration ::= num | scalar
 listcomp ::= comp listcomp |  comp
-comp ::= dataid "[" compdomid "]=" compid "({"listscalarread
-                                          "},{"listdataread "})"
-listdataread ::= dataread listdataread |  dataread
-dataread ::= dataid "[" stencil "]" |  dataid
+comp ::= quantityid "[" compdomid "]" "=" compid "(" listread ")"
+listread ::= dataread listread | dataread
+dataread ::= quantityid "[" stencilid "]" |  quantityid | scalar
 \end{filecontents*}
 
-\begin{figure}[!h]
+\begin{figure}[hbt]
   \hspace{5mm}
   \begin{minipage}[!h]{0.98\textwidth}
     {\lstinputlisting[basicstyle=\small,mathescape,frame=single,language=Python,numbers=left]{grammar.txt}}   
@@ -63,7 +40,8 @@ dataread ::= dataid "[" stencil "]" |  dataid
   \end{minipage}
 \end{figure}
 
-\paragraph{\textbf{Example}} To give a better idea of a multi-stencil program, a short example is given in Figure~\ref{fig:exmsl}. In this example, the mesh is called \textit{cart}. Two groups of mesh entities are defined \textit{cell} and \textit{edgex}. As previously explained, it is not needed in the grammar to give details on the topology of the mesh and the group of mesh entities. Two computation domains are given, \textit{d1} is a subpart of the entities of the group \textit{cell}, and \textit{d2} is a subpart of the entities of the group \textit{edgex}. It is declared that \textit{d1} and \textit{d2} are independant. Three stencil shapes are given. The second one for example \textit{nce} returns mesh entities of the group \textit{edgex} from an entity of the group \textit{cell}. Eight quantities are applied onto the group \textit{cell}, and two onto the group \textit{edgex}. Two scalars are defined, \textit{mu} and \textit{tau}. The time loop will iterate 500 times. Finally, nine computations are declared. For example, the computation \textit{k8} write the quantity \textit{J} onto the computation domain \textit{d1} by reading the scalar \textit{mu} and the quantity \textit{I} with a stencil shape \textit{n1}.
+The grammar of the Multi-Stencil Language is given in Figure~\ref{fig:grammar} and an example is provided in Figure~\ref{fig:exmsl}.
+A Multi-Stencil program is composed of eight parts.
 
 \begin{filecontents*}{exmsl.txt}
 mesh : cart
@@ -83,15 +61,15 @@ quantities :
 scalar : mu, tau
 time : 500
 computations :
-  B[d1] = k0({tau},{A})
-  C[d2] = k1({},{B[n2]})
-  D[d1] = k2({},{C})
-  E[d1] = k3({},{C})
-  F[d1] = k4({},{D,C[n3]})
-  G[d1] = k0({mu,tau},{E})
-  H[d2] = k6({},{F})
-  I[d1] = k7({},{G,H})
-  J[d1] = k8({mu},{I[n1]})
+  B[d1] = k0(tau,A)
+  C[d2] = k1(B[nec])
+  D[d1] = k2(C)
+  E[d1] = k3(C)
+  F[d1] = k4(D,C[nce])
+  G[d1] = k0(mu,tau,E)
+  H[d2] = k6(F)
+  I[d1] = k7(G,H)
+  J[d1] = k8(mu,I[ncc])
 \end{filecontents*}
 
 \begin{figure}[!h]
@@ -102,6 +80,45 @@ computations :
   \end{minipage}
 \end{figure}
 
-The aim of the Multi-Stencil Language is to offer a way to describe a numerical simulation based on explicit numerical schemes. The language is mesh-agnostic as no information is asked to the user about the actual topology of the mesh. Moreover, information that is usefull for the implementation is also split from the MSL description. For this reason, the language grammar is simple. 
+\begin{enumerate}
 
-In the next section will be shown how parallelization can be extracted from this simple language and how an empty parallel skeleton of the application can be generated, introducing implementation concerns in a second phase.
+\item The \texttt{mesh} keyword (Fig.\ref{fig:grammar},~l.1) introduces a identifier for $\mathcal{M}$, the single mesh of the simulation. For example \texttt{cart} in Fig.\ref{fig:exmsl},~l.1. Since the language is independent of the mesh topology, this is not used by the compiler and present for reference only. 
+
+\item The \texttt{mesh entities} keyword (Fig.\ref{fig:grammar},~l.2) introduces identifiers for the groups of entities $\mathcal{G}\in\Phi$. For example \texttt{cell} or \texttt{edgex} in Fig.\ref{fig:exmsl},~l.2. Again, this is for reference only as the compiler does not rely on the mesh topology.
+
+\item The \texttt{computation domains} keyword (Fig.\ref{fig:grammar},~l.3) introduces identifiers for the computation domains $D\in\mathcal{D}$. For example \texttt{d1} and \texttt{d2} in Fig.\ref{fig:exmsl},~l.4-5. For reference, each domain is associated to a group of entities (Fig.\ref{fig:grammar},~l.15) such as \texttt{cell} for \texttt{d1} in Fig.\ref{fig:exmsl},~l.4.
+
+\item The \texttt{independent} keyword (Fig.\ref{fig:grammar},~l.5) offers a way to declare that computation domains do not overlap Such as \texttt{d1} and \texttt{d2} in  Fig.\ref{fig:exmsl},~l.7. This is used by the compiler to compute dependencies between computations.
+
+\item The \texttt{stencil} keyword (Fig.\ref{fig:grammar},~l.7) introduces identifiers for $n\in\mathcal{N}$, the stencil shapes. For each shape, the source and destination group of entities (Fig.\ref{fig:grammar},~l.19) are specified. For example \texttt{nec} in Fig.\ref{fig:exmsl},~l.11 associates \texttt{cell} entities to each \texttt{edgex} entity.
+
+\item The \texttt{quantities} keyword (Fig.\ref{fig:grammar},~l.9) introduces identifiers for $\delta\in\Delta$, the quantities with the group of entities they are mapped on (Fig.\ref{fig:grammar},~l.21). For example the quantities \texttt{C} and \texttt{H} are mapped on \texttt{edgex} entities.
+
+\item The \texttt{scalar} keyword (Fig.\ref{fig:grammar},~l.10) introduces identifiers for $s\in\mathcal{S}$, the scalars. For example \texttt{mu} and \texttt{tau} in Fig.\ref{fig:exmsl},~l.15. 
+
+\item Finally, the last part (Fig.\ref{fig:grammar},~l.11) introduce the computations steps. Each step is made of two parts:
+\begin{itemize}
+\item the \texttt{time} keyword introduces $conv$, the convergence criteria either as a number of iterations (Fig.\ref{fig:grammar},~l.27) or as a function of scalars (Fig.\ref{fig:grammar},~l.28). 500 iterations are for example specified in Fig.\ref{fig:exmsl},~l.16,
+\item the \texttt{computations} keyword (Fig.\ref{fig:grammar},~l.26) introduces identifiers for the computation $k\in\Gamma=(S,R,(w,D),comp)$.
+\end{itemize}
+
+\item each computation (Fig.\ref{fig:grammar},~l.31) specifies:
+\begin{itemize}
+ \item the quantity $w$ written and its domain $D$, for example in Fig.\ref{fig:exmsl},~l.22, kernel \texttt{k4} computes the quantity \texttt{F} on domain \texttt{d1},
+ \item the read scalars $S$ and mesh quantities with their associated stencil shape $R$, for example in Fig.\ref{fig:exmsl},~l.16, \texttt{k4} reads \texttt{C} with the shape \texttt{nce} and \texttt{D} with the default \textit{identity} shape, it uses no scalar.
+\end{itemize}
+
+\end{enumerate}
+
+One can notice that in the example of Figure~\ref{fig:exmsl}, there are no (reduction) kernel associated to the scalars.
+In this case, the scalars are in fact constants.
+One can also notice that the computation to execute for each kernel is not specified.
+This is indeed not handled by MSL that only generates a skeleton of the application.
+It can then be specified elsewhere by referencing the identifier chosen here.
+
+% To give a better idea of a multi-stencil program, a short example is given in Figure~\ref{fig:exmsl}. In this example, the mesh is called \textit{cart}. Two groups of mesh entities are defined \textit{cell} and \textit{edgex}. As previously explained, it is not needed in the grammar to give details on the topology of the mesh and the group of mesh entities. Two computation domains are given, \textit{d1} is a subpart of the entities of the group \textit{cell}, and \textit{d2} is a subpart of the entities of the group \textit{edgex}. It is declared that \textit{d1} and \textit{d2} are independant. Three stencil shapes are given. The second one for example \textit{nce} returns mesh entities of the group \textit{edgex} from an entity of the group \textit{cell}. Eight quantities are applied onto the group \textit{cell}, and two onto the group \textit{edgex}. Two scalars are defined, \textit{mu} and \textit{tau}. The time loop will iterate 500 times. Finally, nine computations are declared. For example, the computation \textit{k8} write the quantity \textit{J} onto the computation domain \textit{d1} by reading the scalar \textit{mu} and the quantity \textit{I} with a stencil shape \textit{n1}.
+
+% The aim of the Multi-Stencil Language is to offer a way to describe a numerical simulation based on explicit numerical schemes. The language is mesh-agnostic as no information is asked to the user about the actual topology of the mesh. Moreover, information that is usefull for the implementation is also split from the MSL description. For this reason, the language grammar is simple. 
+
+This section has introduced the grammar of MSL.
+The next section will show how parallelization can be extracted from this simple language and how an empty parallel skeleton of the application can be generated. %, introducing implementation concerns in a second phase.
