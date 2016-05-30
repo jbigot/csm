@@ -36,12 +36,14 @@ matplotlib.rcParams.update({'font.size': 16})
 
 # print(widths)
 
+width = 0.3
+
 plt1 = np.log2(cores)
 
-p2 = plt.bar(plt1, itsMSLF, color='b', alpha=0.75,label='With fusion', align='center') #yerr=[errminMSLF,errmaxMSLF],
-p1 = plt.bar(plt1, itsMSL, color='r', alpha=0.75,label='Without fusion', align='center') #yerr=[errminMSL,errmaxMSL], 
+p2 = plt.bar(plt1, itsMSLF,width, color='b', alpha=0.75,label='With fusion')#, align='center') #yerr=[errminMSLF,errmaxMSLF],
+p1 = plt.bar(plt1+width, itsMSL,width, color='r', alpha=0.75,label='Without fusion')#, align='center') #yerr=[errminMSL,errmaxMSL], 
 
-plt.xticks(plt1, ('1', '2', '4', '8', '16','32','64','128'))
+plt.xticks(plt1+width, ('1', '2', '4', '8', '16','32','64','128'))
 
 legend = plt.legend(loc='upper left', shadow=True,prop={'size':12})
 plt.grid(True, which="both", linestyle="dotted")

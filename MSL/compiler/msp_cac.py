@@ -79,34 +79,53 @@ class CAC_Compiler:
 			tend = datetime.now()
 			print tend
 			# first transitive reduction
-			print "Compute TSP"
+			print "Compute transitive reduction"
 			tstart = datetime.now()
 			print tstart
-			print "Compute transitive reduction"
 			self.transitive_reduction(self.gamma)
+			tend = datetime.now()
+			print tend
+
 			##### DRAW
 			saveGraph(self.gamma,"./outputs/trans.dot")
 			# compute sources/roots of self.gamma
 			self.sources()
 			#compute leaves of self.gamma
 			self.getleaves()
+
 			# remove N shapes
 			print "Remove Nshapes"
+			tstart = datetime.now()
+			print tstart
 			#self.nshape = self.gamma.copy()
 			self.nshape = self.gamma
 			self.level = 0
 			#self.remove_nshapefromleaves(self.allleaves)
 			self.remove_nshape(self.sources)
+			tend = datetime.now()
+			print tend
+
+			print "Compute transitive reduction"
+			tstart = datetime.now()
+			print tstart
 			self.transitive_reduction(self.nshape)
+			tend = datetime.now()
+			print tend
 			##### DRAW
 			saveGraph(self.nshape,"./outputs/nshape.dot")
 			
 			# series-parallel tree decomposition
 			print "Compute series-parallel decomposition"
+			tstart = datetime.now()
+			print tstart
 			self.tsp()
+			tend = datetime.now()
+			print tend
 			
 			# canonical form
 			print "Compute canonical form"
+			tstart = datetime.now()
+			print tstart
 			self.canonic = nx.DiGraph()
 			labels = nx.get_node_attributes(self.toReduce[self.startEdge],'label')
 			nodes = self.toReduce[self.startEdge].nodes()
