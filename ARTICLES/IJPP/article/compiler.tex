@@ -42,26 +42,26 @@ The abstract definition of MSL enables to use a very wide range of languages for
 In this paper, we use a compiler that targets the Low Level Components~\cite{l2c} (\llc), a component model for C++ supporting high-performance applications.
 Similar to classes in object-oriented models, components specify the services they provide, but in addition they also specify the services they require.
 This enables to build applications by assembling components in a second phase through the matching of requirements of some components with the services provided by others.
-In the case of MSL, this makes it possible to clearly separate in distinct components the features that are implemented:
+In the case of MSL, this assembly of components offers a way to clearly separate in distinct components the features that are implemented:
 \begin{itemize}
- \item by reusing the same code every-time such as for the time iteration logic,
- \item by generating some code that depends on $TSP$ and thus from the input file such as for the task parallelism logic,
- \item or by letting the user fill-in an empty skeleton component such as for the computation kernels.
+ \item by reusing the same code more than once, such as for the time iteration logic,
+ \item by generating some code that depends on $TSP$ and thus from the input file, such as for the task parallelism logic,
+ \item or by letting the user fill-in an empty skeleton component, such as for the computation kernels.
 \end{itemize}
-By enforcing the use of well defined interfaces in the generated code, \llc makes it easier to replace an implementation by another to reconsider an implementation choice.
-It also simplifies the potential addition of new features to MSL or the coupling of MSL with another domain-specific language for example.
+By enforcing the use of well defined interfaces in the generated code, \llc makes easier the substitution of an implementation by another, for example to reconsider an implementation choice.
+It also simplifies the addition of new features to MSL or the coupling of MSL with another domain-specific language, for example.
 
-The two main other choices in the code generation concern the technologies used for the data and task parallelizations.
+The two main other choices in the code generation concern the technologies used for data and task parallelizations.
 For the data-parallelization, we rely on SkelGIS, a C++ embedded DSL~\cite{CPE:CPE3494} which offers distributed data structures (meshes) for numerical simulations, and programming interfaces to easily write codes using them.
 SkelGIS is implemented over MPI~\cite{Graham2009MSE} and can therefore be used on distributed memory architectures such as clusters.
 Two kind of meshes are offered by SkelGIS: \textbf{a)} a distributed two dimensional Cartesian mesh~\cite{DBLP:conf/ieeehpcs/HeleneS13}, and \textbf{b)} a distributed graph of Cartesian meshes (hybrid mesh)~\cite{DBLP:conf/europar/CoullonL14}.
-The use of different back-ends for data-parallelism such as for example the distributed unstructured mesh proposed by PaMPA~\cite{lachat:hal-00768916} will be the subject of future work.
+The use of different back-ends for data-parallelism, such as for example the distributed unstructured mesh proposed by PaMPA~\cite{lachat:hal-00768916}, will be the subject of future work.
 
 For the task parallelism, we use OpenMP~\cite{660313}.
 OpenMP targets shared-memory platforms only, but the degree of task-parallelism is typically much lower than that of data parallelism.
-With the increasing number of cores of current machines this has not proved to be a problem in our experience.
+With the increasing number of cores of current machines this has not proved to be a problem in our experience. % LN : ?
 While the version 4 of OpenMP has introduced explicit support for tasks, our implementation only requires version 3 whose fork-join model is well suited for the static scheduling introduced in Section~\ref{sect:msp}.
-The use of dynamic schedulers such as provided by libgomp\footnote{\url{https://gcc.gnu.org/projects/gomp/}}, StarPU~\cite{Augonnet2011}, or XKaapi~\cite{Gautier:2013:XRS:2510661.2511383} to directly execute the DAG will be the subject of some future work.
+The use of dynamic schedulers such as provided by libgomp\footnote{\url{https://gcc.gnu.org/projects/gomp/}}, StarPU~\cite{Augonnet2011}, or XKaapi~\cite{Gautier:2013:XRS:2510661.2511383} to directly execute the DAG $\Gamma_{dep}$ will be the subject of some future work.
 
 As a result, the MSL compiler generates an hybrid code which uses both SkelGIS and OpenMP.
 It also generates empty components where the user must provide local sequential implementations of the kernels using well defined interfaces of the component to iterate over the local data subdomain.
