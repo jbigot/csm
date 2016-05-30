@@ -51,12 +51,14 @@
 
 %\newtheorem{theorem}{Theorem}[section]
 \newtheorem{myprop}[theorem]{Proposition}
+\newtheorem{mydef}[theorem]{Definition}
+\newtheorem{myth}[theorem]{Theorem}
 % \newenvironment{proof}[1][Proof]{\begin{trivlist}
 % \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-\newenvironment{mydef}[1][Definition]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-\newenvironment{myth}[1][Theorem]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{mydef}[1][Definition]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{myth}[1][Theorem]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newenvironment{mydefs}[1][Definitions]{\par\medskip\noindent\textbf{#1}\nopagebreak\begin{itemize}[noitemsep,topsep=.25\topsep]}{\end{itemize}}
 
 \def\pprec{\mathrel{\scalebox{.9}[1]{$\prec$}\mkern-3mu%
@@ -81,15 +83,12 @@
 
 %\titlerunning{Short form of title}        % if too long for running head
 
-\author{Helene Coullon \and
-        Julien Bigot \and
-        Christian Perez
-}
+\author{H\'el\`ene Coullon \and Julien Bigot \and Christian Perez}
 
 %\authorrunning{Short form of author list} % if too long for running head
 
-\institute{Helene Coullon \and Christian Perez \at
-              INRIA, ENS Lyon, 46 Allée d'Italie, 69007 Lyon\\
+\institute{H\'el\`ene Coullon \and Christian Perez \at
+              INRIA, LIP, ENS Lyon, 46 Allée d'Italie, 69364 Lyon Cedex 07, France\\
               \email{helene.coullon@inria.fr}
            \and
            Julien Bigot \at
@@ -104,8 +103,9 @@
 \maketitle
 
 \begin{abstract}
-Insert your abstract here.
-\keywords{First keyword \and Second keyword \and More}
+As the computation power of modern high performance architectures increases, their heterogeneity and complexity also become more important. One of the big challenges of exascale is to get programming models which gives access to high performance computing (HPC) to many scientists and not only to a few HPC specialists. One relevant solution to ease parallel programming for scientists is Domain Specific Language (DSL). However, one problem to avoid with DSLs is to not design a new DSL each time a new domain or a new problem has to be solved. This phenomenon happens for stencil-based numerical simulations, for which a large number of languages has been proposed without code reuse between them. The Multi-Stencil Language (MSL) presented in this paper is a language common to any kind of mesh used into a stencil-based numerical simulation. It is said that MSL is mesh-agnostic. Actually, from the description of a numerical simulation, MSL produces an empty parallel pattern, or skeleton, of the simulation which will be filled using other existing parallel languages and libraries. Thus, MSL, by finding a common language for different kinds of stencil-based simulation, facilitates code reuse. MSL is evaluated on a real case simulation which solves shallow-water equations. It is shown that MSL does not introduce overheads on data parallelism up to 16.384 cores, and that the hybrid parallelism (data and task) introduced improves performance of the simulation.
+
+\keywords{Domain Specific Language (DSL) \and stencil \and numerical simulation \and mesh-agnostic \and data parallelism \and task parallelism \and scheduling \and MPI \and OpenMP}
 \end{abstract}
 
 %------------------------------------------------------------------------------
@@ -143,6 +143,7 @@ Insert your abstract here.
 %------------------------------------------------------------------------------
 \section{Conclusion}
 \label{sect:concl}
+\input{conclusion.tex}
 %------------------------------------------------------------------------------
 
 %\begin{acknowledgements}
