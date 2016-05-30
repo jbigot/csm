@@ -65,4 +65,5 @@ The use of dynamic schedulers such as provided by libgomp\footnote{\url{https://
 
 As a result, the MSL compiler generates an hybrid code which uses both SkelGIS and OpenMP.
 It also generates empty components where the user must provide local sequential implementations of the kernels using well defined interfaces of the component to iterate over the local data subdomain.
+These implementations can of course be written by hand, but ideally one should also be able to generate them using a stencil compiler such as Pochoir or POTUS thus enabling the combinations of approaches used by those compilers.
 The following section will evaluate this compiler as well as the code it generates.
