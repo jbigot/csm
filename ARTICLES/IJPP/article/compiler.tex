@@ -58,12 +58,12 @@ Two kind of meshes are offered by SkelGIS: \textbf{a)} a distributed two dimensi
 The use of different back-ends for data-parallelism, such as for example the distributed unstructured mesh proposed by PaMPA~\cite{lachat:hal-00768916}, will be the subject of future work.
 
 For the task parallelism, we use OpenMP~\cite{660313}.
-OpenMP targets shared-memory platforms only, but the degree of task-parallelism is typically much lower than that of data parallelism.
-With the increasing number of cores of current machines this has not proved to be a problem in our experience. % LN : ?
+OpenMP targets shared-memory platforms only. However, as the level of parallelism introduced by task parallelism technique is low compared to data parallelism, shared-memory, or intra-node parallelism is a good architecture choice for task parallelism.% but the degree of task-parallelism is typically much lower than that of data parallelism.
+%With the increasing number of cores of current machines this has not proved to be a problem in our experience. % LN : ?
 While the version 4 of OpenMP has introduced explicit support for tasks, our implementation only requires version 3 whose fork-join model is well suited for the static scheduling introduced in Section~\ref{sect:msp}.
 The use of dynamic schedulers such as provided by libgomp\footnote{\url{https://gcc.gnu.org/projects/gomp/}}, StarPU~\cite{Augonnet2011}, or XKaapi~\cite{Gautier:2013:XRS:2510661.2511383} to directly execute the DAG $\Gamma_{dep}$ will be the subject of some future work.
 
 As a result, the MSL compiler generates an hybrid code which uses both SkelGIS and OpenMP.
 It also generates empty components where the user must provide local sequential implementations of the kernels using well defined interfaces of the component to iterate over the local data subdomain.
-These implementations can of course be written by hand, but ideally one should also be able to generate them using a stencil compiler such as Pochoir or POTUS thus enabling the combinations of approaches used by those compilers.
+These implementations can of course be written by hand, but ideally one should also be able to generate them using a stencil compiler such as Pochoir or PATUS thus enabling the combinations of approaches used by those compilers.
 The following section will evaluate this compiler as well as the code it generates.
