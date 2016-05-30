@@ -31,7 +31,7 @@ The dimension of a mesh $\mathcal{M}=(V,E)$ applied onto $\Omega=\mathbb{R}^n$ i
 \end{mydef}
 A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) as illustrated in Figure~\ref{fig:mesh1}. One can notice that more than one type of mesh is also possible inside a single simulation. For example, an hybrid mesh can be defined as an unstructured mesh composed itself of a Cartesian mesh inside each of its vertices.
 % Multi-grid numerical methods is another example. %JB: pas vraiment...
-However in this paper, only single mesh simulations are addressed.
+However in this paper, single mesh simulations are addressed.
 
 \medskip
 
@@ -41,19 +41,18 @@ However in this paper, only single mesh simulations are addressed.
 \item The \textit{set of entities groups} used in a simulation is denoted $\Phi$.
 \end{mydefs}
 
-For example, in a 2D Cartesian mesh, a group of entities made of four vertices and four edges each could form the cells.
-Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$.
-Both groups would then be part of $Phi$.
+For example, in a 2D Cartesian mesh, a group of entities where each entity is made of four vertices and four edges could form the cells.
+Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$. Both groups, then, would be part of $\Phi$.
 
 \medskip
 
 \begin{mydef}[Definitions (time)]
-The finite sequence $T: (t_n)_{n\in\llbracket 0, Tmax \rrbracket}$ represents the discretization of the continuous time domain $\mathcal{T}=\mathbb{R}$.
-To each discrete time-step $n\in\llbracket 0, Tmax \rrbracket$, it associates a time value $t_n\in\mathcal{T}$.
+The finite sequence $T: (t_n)_{n\in\llbracket 0, T_{max} \rrbracket}$ represents the discretization of the continuous time domain $\mathcal{T}=\mathbb{R}$.
+To each discrete time-step $n\in\llbracket 0, T_{max} \rrbracket$, it associates a time value $t_n\in\mathcal{T}$.
 \end{mydef}
 
 The time discretization can be as simple as a constant time-step with a fixed number of steps.
-It can however also be defined by recursion with a both the time-step and the number of steps depending on the data variables (see definitions below).
+It can, however, also be defined by recursion with both the time-step and the number of steps depending on the data variables (see definitions below).
 
 \medskip
 
@@ -61,8 +60,8 @@ It can however also be defined by recursion with a both the time-step and the nu
 \item $\mathbb{V}=\Delta\cup\mathcal{S}$ is the set of \emph{variables} or \emph{quantities}.
 \item $\Delta$ are the \textit{mesh variables} that to each entity of a group and time-step associates a value $\delta: \mathcal{G}\times T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
 \item The group of entities a variable is mapped on is denoted $entity(\delta)=\mathcal{G}$.
-\item $\mathcal{S}$ are the \textit{scalar variables} that to each time-step associates a value $s: T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
-\item Amongst the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria whose value is $0$ except at the last step where it is 1 $\forall t\in \llbracket 0, Tmax-1 \rrbracket conv(t)=1, conv(Tmax)=1$.
+\item $\mathcal{S}$ are the \textit{scalar variables} that to each time-step associates a value $s: T\mapsto \mathcal{V}_\delta$ where $\mathcal{V}_{\delta}$ is a value type.
+\item Amongst the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria whose value is $0$ except at the last step where it is 1. Thus, $\forall t\in \llbracket 0, T_{max-1} \rrbracket$, $conv(t)=1$, and $conv(T_{max})=1$.
 \end{mydefs}
 
 %For example, the simplest $conv$ is typically to have two scalars: $t$ the time, and a constant number of iterations denoted $it$.
@@ -77,7 +76,7 @@ These details will therefore not be needed in the remaining of the paper.
 %-----------------------
 \subsection{Computations}
 
-In this section four different types of kernel computations are considered: stencil kernels, boundary kernels, local kernels, and reduction kernels.
+%In this section four different types of kernel computations are considered: stencil kernels, boundary kernels, local kernels, and reduction kernels.
 
 \medskip
 \begin{mydefs}
@@ -92,7 +91,7 @@ A computation kernel $k$ of a numerical simulation is defined as $k=(S,R,(w,D),c
 \item $S \in \mathcal{S}$ is the set of scalar to read,
 \item $(w,D) \in \Delta \times \mathcal{D}$ is the single data written by the kernel:
 \begin{itemize}
-  \item $w$ is the single quantity modified by the computation kernel,
+  \item $w$ is the single quantity (variable) modified by the computation kernel,
   \item $D$ is the computation domain on which $w$ is computed, $D \subseteq entity(w)$,
 \end{itemize}
 \item $R \in \Delta \times \mathcal{N}$ is the set of tuples $(r,n)$ representing the data read where
@@ -100,7 +99,7 @@ A computation kernel $k$ of a numerical simulation is defined as $k=(S,R,(w,D),c
   \item $r$ is a quantity read by the kernel to compute $w$,
   \item $n : entity(w) \rightarrow entity(r)^m$ is a neighborhood function that indicates whose values of $r$ are read to compute $w$.
 \end{itemize}
-\item $comp$ is the numerical computation which returns a value from a set of $n$ input values, $comp: V^n \rightarrow V$, where $V$ is typically $\mathbb{N}$, $\mathbb{Z}$, or $\mathbb{R}$. $comp$ represents the actual numerical expression which is computed by a kernel.
+\item $comp$ is the numerical computation which returns a value from a set of $n$ input values, $comp: \mathcal{V}_i^n \rightarrow \mathcal{V}_j$, where $\mathcal{V}_i$ and $\mathcal{V}_j$ are value types. Thus, $comp$ represents the actual numerical expression which is computed by a kernel.
 \end{itemize}
 \end{mydef}
 
@@ -114,7 +113,7 @@ Such a definition of a computation kernel covers a large panel of different comp
 \item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{local kernel} if $\forall (r,n) \in R$, $n = identity$.
 \item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{reduction kernel} if $w$ is a scalar.%, $D=\emptyset$, $R=\{(r,n)\}$ with $n=entity(r)$, and $comp$ is a reduction operation (usually $+$, $-$, $*$, $max$, $min$ etc.).
 \end{itemize}
-Since we only consider explicit numerical schemes in this paper, a kernel can not write the same quantity it reads, except locally, \textit{i.e.} $(w,n) \in R\Rightarrow n=identity$
+Since we only consider explicit numerical schemes in this paper, a kernel can not write the same quantity it reads, except locally, \textit{i.e.} if $\exists (w,n) \in R\Rightarrow n=identity$
 
 %In this paper only explicit numerical schemes are considered, thus if we denote by $identity$ the identity function, we have $w \not\in R$ except if $w=(r,identity)$.
 
@@ -129,7 +128,7 @@ Since we only consider explicit numerical schemes in this paper, a kernel can no
 %\medskip
 %A reduction computation is a computation which reads a single data applied onto a mesh and returns from all its entities a single scalar (mesh with a dimension reduced to zero). 
 
-A reduction is typically used to compute the convergence criteria of the time loop of the simulation. Occasionally reductions can also be used during a time iteration.
+A reduction is typically used to compute the convergence criteria of the time loop of the simulation. %Occasionally reductions can also be used to compute other scalars.
 
 % \medskip
 % \noindent \textbf{Property}
@@ -186,8 +185,9 @@ R: \{(C,n2),(A,identity)\}, \quad w: A, \quad D: dc2,
 comp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
 
+\medskip
 A stencil program has been formally defined in this section. This formalism is used in the next Section to define two parallelization techniques of a multi-stencil program.
 
-One can note that all definitions given in this section are not dependent from the topology of the mesh. This property will be kept in the rest of this paper to propose the mesh-agnostic MSL language.
+One can note that all definitions given in this section are independent from the topology of the mesh. This property will be kept in the rest of this paper to propose the mesh-agnostic MSL language.
 
 
