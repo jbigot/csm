@@ -42,7 +42,7 @@ However in this paper, single mesh simulations are addressed.
 \end{mydefs}
 
 For example, in a 2D Cartesian mesh, a group of entities where each entity is made of four vertices and four edges could form the cells.
-Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$. Both groups, then, would be part of $\Phi$.
+Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$. Both groups, then, would be part of $\Phi$. This example is illustrated in Figure~\ref{fig:ex1}.
 
 \medskip
 
@@ -155,19 +155,20 @@ A \textit{multi-stencil program} is defined by the octuplet
 \paragraph{\textbf{Example}}
 \begin{figure}[ht]
 \begin{center}
-\subfloat[Mesh and mesh domains.\label{fig:meshbase}]{
+\subfloat[Mesh and two groups of mesh entities.\label{fig:meshbase}]{
 \resizebox{8cm}{!}{\includegraphics{./images/mesh.pdf}}
 }\\
 \hspace{10pt}
-\subfloat[4-neighborhood stencil.\label{fig:ex1}]{
+\subfloat[A is computed with a 4-neighborhood stencil applied on B. A is computed onto a computation domain which does not include all entities of the group.\label{fig:ex1}]{
 \resizebox{5cm}{!}{\includegraphics{./images/stencil1.pdf}}
 }
 \vspace{20pt}
-\subfloat[4-neighborhood stencil.\label{fig:ex2}]{
+\hspace{10 pt}
+\subfloat[A is computed with a 2-neighborhood stencil applied on C. A is computed onto a computation domain includes all entities of the group.\label{fig:ex2}]{
 \resizebox{5cm}{!}{\includegraphics{./images/stencil2.pdf}}
 }
 \end{center}
-\caption{(a) a Cartesian mesh and two kind of mesh entities, (b) an example of stencil kernel on cells, (c) an example of stencil kernel on two different entities of the mesh.}
+\caption{(a) a Cartesian mesh and two kind of groups of mesh entities, (b) an example of stencil kernel on cells, (c) an example of stencil kernel on two different entities of the mesh.}
 \label{fig:gspmsp}
 \end{figure}
 For example, in Figure~\ref{fig:ex1}, assuming that the computation domain (full lines) is denoted $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
