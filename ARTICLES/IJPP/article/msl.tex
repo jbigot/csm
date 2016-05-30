@@ -7,8 +7,8 @@ program ::= "mesh:" meshid
             "computation domains:" listcompdom
             "independent:" listinde
             "stencil shapes:" liststencil
-            "quantities:" listquantities
-            "scalar" listscalar
+            "mesh quantities:" listquantities
+            "scalars" listscalar
             listloop
 
 listgroup ::= groupid "," listgroup | groupid
@@ -56,10 +56,10 @@ stencil shapes :
   ncc from cell to cell
   nce from cell to edgex
   nec from edgex to cell
-quantities :
+mesh quantities :
   cell A,B,D,E,F,G,I,J
   edgex C,H
-scalar : mu, tau
+scalars : mu, tau
 time : 500
 computations :
   B[d1] = k0(tau,A)
@@ -93,9 +93,9 @@ computations :
 
 \item The \texttt{stencil shapes} keyword (Fig.\ref{fig:grammar},~l.5) introduces identifiers for $n\in\mathcal{N}$, the stencil shapes. For each shape, the source and destination group of entities (Fig.\ref{fig:grammar},~l.16) are specified. For example \texttt{nec} in Fig.\ref{fig:exmsl},~l.11 associates \texttt{cell} entities to each \texttt{edgex} entity.
 
-\item The \texttt{quantities} keyword (Fig.\ref{fig:grammar},~l.6) introduces identifiers for $\delta\in\Delta$, the quantities with the group of entities they are mapped on (Fig.\ref{fig:grammar},~l.16). For example the quantities \texttt{C} and \texttt{H} are mapped on \texttt{edgex} entities.
+\item The \texttt{mesh quantities} keyword (Fig.\ref{fig:grammar},~l.6) introduces identifiers for $\delta\in\Delta$, the quantities with the group of entities they are mapped on (Fig.\ref{fig:grammar},~l.16). For example the quantities \texttt{C} and \texttt{H} are mapped on \texttt{edgex} entities.
 
-\item The \texttt{scalar} keyword (Fig.\ref{fig:grammar},~l.7) introduces identifiers for $s\in\mathcal{S}$, the scalars. For example \texttt{mu} and \texttt{tau} in Fig.\ref{fig:exmsl},~l.15. 
+\item The \texttt{scalars} keyword (Fig.\ref{fig:grammar},~l.7) introduces identifiers for $s\in\mathcal{S}$, the scalars. For example \texttt{mu} and \texttt{tau} in Fig.\ref{fig:exmsl},~l.15. 
 
 \item Finally, the last part (Fig.\ref{fig:grammar},~l.8) introduces the computations loops. Each loop is made of two parts:
 \begin{itemize}
