@@ -133,6 +133,7 @@ p2 = plt.bar(plt1, COMPmedian,width, color='b', alpha=0.75,label='Computations')
 p1 = plt.bar(plt1+width, COMMmedian, width, color='r', alpha=0.75,label='Communications') 
 
 plt.xticks(plt1+width, ('1', '2', '4', '8', '16','32','64','128','256','512','1024','2048'))
+plt.ylim(ymin=0.0001)
 
 legend = plt.legend(loc='upper center', shadow=True,prop={'size':12})
 plt.grid(True, which="both", linestyle="dotted")
