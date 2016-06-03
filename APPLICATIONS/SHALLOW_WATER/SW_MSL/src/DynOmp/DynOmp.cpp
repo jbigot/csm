@@ -129,7 +129,12 @@ public:
   Go * heun2;
   Go * heun3;
 
-  //dummies variables to create dependencies
+  DynOmp (){}
+  ~DynOmp (){}
+
+  void go ()
+  {
+    //dummies variables to create dependencies
   float * h,u,v,z,hs,us,vs,hsa,usa,vsa,q1,q2,qs1,qs2;
   float * f1,f2,f3,g1,g2,g3,h1d,h1g,h1l,h1r,h2d,h2g,h2l,h2r;
   float * delz1,delz2,delzc1,delzc2,qsa1,qsa2;
@@ -139,11 +144,6 @@ public:
   float * hs1,vs1,us1,hs2,us2,vs2,hs3,us3,vs3,hs4,us4,vs4;
   float * hsc,usc,vsc;
 
-  DynOmp (){}
-  ~DynOmp (){}
-
-  void go ()
-  {
 #pragma omp parallel proc_bind(close)
     {
 #pragma omp master
@@ -157,29 +157,29 @@ public:
       //waw, raw and war should be true when domains are dependent only, otherwise the dependency does not exist
       //in practice only waw is like this
       //---------------------------------
-      #pragma omp task untied depend(in:) depend(out:h1) final(1)
+      #pragma omp task untied depend(out:h1) final(1)
       limhd0->go();
-      #pragma omp task untied depend(in:) depend(out:u1) final(1)
+      #pragma omp task untied depend(out:u1) final(1)
       limud0->go();
-      #pragma omp task untied depend(in:) depend(out:v1) final(1)
+      #pragma omp task untied depend(out:v1) final(1)
       limvd0->go();
-      #pragma omp task untied depend(in:) depend(out:h2) final(1)
+      #pragma omp task untied depend(out:h2) final(1)
       limhl0->go();
-      #pragma omp task untied depend(in:) depend(out:u2) final(1)
+      #pragma omp task untied depend(out:u2) final(1)
       limul0->go();
-      #pragma omp task untied depend(in:) depend(out:v2) final(1)
+      #pragma omp task untied depend(out:v2) final(1)
       limvl0->go();
-      #pragma omp task untied depend(in:) depend(out:h3) final(1)
+      #pragma omp task untied depend(out:h3) final(1)
       limhu0->go();
-      #pragma omp task untied depend(in:) depend(out:u3) final(1)
+      #pragma omp task untied depend(out:u3) final(1)
       limuu0->go();
-      #pragma omp task untied depend(in:) depend(out:v3) final(1)
+      #pragma omp task untied depend(out:v3) final(1)
       limvu0->go();
-      #pragma omp task untied depend(in:) depend(out:h4) final(1)
+      #pragma omp task untied depend(out:h4) final(1)
       limhr0->go();
-      #pragma omp task untied depend(in:) depend(out:u4) final(1)
+      #pragma omp task untied depend(out:u4) final(1)
       limur0->go();
-      #pragma omp task untied depend(in:) depend(out:v4) final(1)
+      #pragma omp task untied depend(out:v4) final(1)
       limvr0->go();
       #pragma omp task untied depend(in:h1,u1,v1,h2,u2,v2,h3,u3,v3,h4,u4,v4) depend(out:h,u,v) final(1)
       sync0->go();
