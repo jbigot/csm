@@ -71,11 +71,11 @@ public:
 
   Go * checkus0;
   Go * checkvs0;
+
   Go * limhd1;
   Go * limhl1;
   Go * limhr1;
   Go * limhu1;
-
   Go * limud1;
   Go * limvd1;
   Go * limul1;
@@ -280,17 +280,45 @@ public:
       checkus0->go();
       #pragma omp task untied final(1)
       checkvs0->go();
+
+      #pragma omp task untied final(1)
+      limhd1->go();
+      #pragma omp task untied final(1)
+      limud1->go();
+      #pragma omp task untied final(1)
+      limvd1->go();
       #pragma omp task untied final(1)
       limhl1->go();
       #pragma omp task untied final(1)
-      limhr1->go();
+      limul1->go();
+      #pragma omp task untied final(1)
+      limvl1->go();
       #pragma omp task untied final(1)
       limhu1->go();
       #pragma omp task untied final(1)
-      limhd1->go();
-      //}
-
+      limuu1->go();
+      #pragma omp task untied final(1)
+      limvu1->go();
+      #pragma omp task untied final(1)
+      limhr1->go();
+      #pragma omp task untied final(1)
+      limur1->go();
+      #pragma omp task untied final(1)
+      limvr1->go();
+      //    }
       #pragma omp taskwait
+
+      // #pragma omp task untied final(1)
+      // limhl1->go();
+      // #pragma omp task untied final(1)
+      // limhr1->go();
+      // #pragma omp task untied final(1)
+      // limhu1->go();
+      // #pragma omp task untied final(1)
+      // limhd1->go();
+      // //}
+
+      // #pragma omp taskwait
 
       // #pragma omp master
 	//{
