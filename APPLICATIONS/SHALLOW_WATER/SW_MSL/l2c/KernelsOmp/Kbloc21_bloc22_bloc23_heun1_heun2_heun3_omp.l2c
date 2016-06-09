@@ -1,0 +1,34 @@
+//#implements=Kbloc21_bloc22_bloc23_heun1_heun2_heun3
+LCMP(Kbloc21_bloc22_bloc23_heun1_heun2_heun3)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Datah, h); //heun
+  L_CPP_USE(Datah, us);
+  L_CPP_USE(Datah, vs);
+  L_CPP_USE(Datah, hs);
+  L_CPP_USE(Datah, q1); //heun
+  L_CPP_USE(Datah, q2); //heun
+  L_CPP_USE(Datah, h1g);
+  L_CPP_USE(Datah, h1d);
+  L_CPP_USE(Datah, h1l);
+  L_CPP_USE(Datah, h1r);
+  L_CPP_USE(Datah, h2g);
+  L_CPP_USE(Datah, h2d);
+  L_CPP_USE(Datah, h2l);
+  L_CPP_USE(Datah, h2r);
+  L_CPP_USE(Datah, delzc1);
+  L_CPP_USE(Datah, delzc2);
+  L_CPP_USE(Datah, f1);
+  L_CPP_USE(Datah, f2);
+  L_CPP_USE(Datah, f3);
+  L_CPP_USE(Datah, g1);
+  L_CPP_USE(Datah, g2);
+  L_CPP_USE(Datah, g3);
+  L_CPP_USE(Datah, rainm); //not used
+  L_CPP_USE(Datah, mcf); //not used
+  L_CPP_USE(Datah, qs1);
+  L_CPP_USE(Datah, qs2);
+  L_CPP_USE(Datah, Rain); //not used
+  L_CPP_USE(Datah, hsa);
+  L_CPP_USE(Datah, qsa1);
+  L_CPP_USE(Datah, qsa2);
+LEND

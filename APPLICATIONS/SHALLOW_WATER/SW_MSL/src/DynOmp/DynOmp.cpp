@@ -144,7 +144,7 @@ public:
   float * hs1,vs1,us1,hs2,us2,vs2,hs3,us3,vs3,hs4,us4,vs4;
   float * hsc,usc,vsc;
 
-#pragma omp parallel proc_bind(close)
+#pragma omp parallel proc_bind(close) default(shared)
     {
 #pragma omp master
     {

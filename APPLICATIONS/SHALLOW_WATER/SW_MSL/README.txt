@@ -29,6 +29,38 @@ Deux versions possibles :
 1- politique d'ordonnancement close
 2- politique d'ordonnancement spread
 
+Comme on peut s'y attendre ce n'est pas intéressant car trop peu de tâches
+
+=====================================
+src/DynOmp/DynOmp.cpp :
+=====================================
+
+Scheduling dynamique openmp 4.x
+Deux versions possibles :
+1- politique d'ordonnancement close
+2- politique d'ordonnancement spread
+
+=====================================
+src/Kernels :
+=====================================
+
+Tous les kernels classiques qui utilise le Controller (SkelGIS)
+include/controller.hpp
+On y trouve les kernel sans fusion et avec fusion.
+Ceux avec fusion sont notés avec le nom de chaque kernel séparé par _
+exemple : Kbloc1y1_bloc1y2.cpp
+
+=====================================
+src/KernelsOmp :
+=====================================
+
+Tous les kernels avec une boucle openMP for
+Différentes politiques possibles : schedule(static,chunk) / schedule(static) / schedule(dynamic,chunk) / schedule(dynamic)
+On y trouve les kernel sans fusion et avec fusion.
+Les noms terminent par _omp
+Ceux avec fusion sont notés avec le nom de chaque kernel séparé par _
+exemple : Kbloc1y1_bloc1y2_omp.cpp
+
 =====================================
 include/libskelgis/comunications.hpp :
 =====================================

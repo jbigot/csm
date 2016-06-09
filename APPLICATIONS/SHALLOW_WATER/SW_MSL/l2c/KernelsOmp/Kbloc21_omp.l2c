@@ -1,0 +1,8 @@
+//#implements=Kbloc21
+LCMP(Kbloc21)
+  L_CPP_PROVIDE(Go, inGo);
+  L_CPP_USE(Datah, h);
+  L_CPP_USE(Datah, f1);
+  L_CPP_USE(Datah, g1);
+  L_CPP_USE(Datah, hs);
+LEND
