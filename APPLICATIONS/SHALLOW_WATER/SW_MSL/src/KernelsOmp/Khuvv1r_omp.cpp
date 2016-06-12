@@ -40,20 +40,21 @@ public:
     double hl,hr;
 
     int64_t yy1 = cv1r.start();
+    int64_t xx,yy,x,xx1;
 
 //dynamic also possible
 #pragma omp parallel for shared(ch,cv,cv1r) private(yy,xx,yy1,xx1,x,dh1,dh2,dv1,dv2,hl,hr) schedule (static, CHUNK)
-    for(int64_t yy = ch.start(); yy<ch.height();yy++)
+    for(yy = ch.start(); yy<ch.height();yy++)
     {
-      int64_t x = ch.start();
+      x = ch.start();
       dh1 = ch(x-1,yy)-ch(x-2,yy);
       dv1 = cv(x-1,yy)-cv(x-2,yy);
       dh2 = ch(x,yy)-ch(x-1,yy);
       dv2 = cv(x,yy)-cv(x-1,yy);
       hr = ch(x-1,yy)+0.5*Minmod(dh1,dh2);
 
-      int64_t xx1 = cv1r.start();
-      for(int64_t xx = ch.start()+1;xx<ch.width()-1; xx++)
+      xx1 = cv1r.start();
+      for(xx = ch.start()+1;xx<ch.width()-1; xx++)
       {
         dh1 = dh2;
         dv1 = dv2;

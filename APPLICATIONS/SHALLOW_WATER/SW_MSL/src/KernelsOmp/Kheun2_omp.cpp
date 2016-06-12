@@ -33,12 +33,14 @@ public:
 
     int64_t yyq=cq1.start();
 
+    int64_t xx,yy,xxq;
+
 //dynamic also possible
 #pragma omp parallel for shared(cqsa1,ch,cq1) private(yy,xx,xxq,yyq) schedule (static, CHUNK)
-    for(int64_t yy = ch.start(); yy<ch.height();yy++)
+    for(yy = ch.start(); yy<ch.height();yy++)
     {
-      int64_t xxq=cq1.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++)
+      xxq=cq1.start();
+      for(xx = ch.start();xx<ch.width(); xx++)
       {
         cq1(xxq,yyq)=0.5*(cq1(xxq,yyq)+cqsa1(xxq,yyq));
         xxq++;

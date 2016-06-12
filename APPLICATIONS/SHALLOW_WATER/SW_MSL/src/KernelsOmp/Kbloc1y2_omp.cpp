@@ -37,11 +37,13 @@ public:
     Controller<double> cdelz2(delz2);
     Controller<double> ch2d(h2d);
 
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(ch2r,cdelz2,ch2d) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = ch2r.start(); yy<ch2r.height();yy++)
+    for(yy = ch2r.start(); yy<ch2r.height();yy++)
     {
-      for(int64_t xx = ch2r.start();xx<ch2r.width(); xx++)
+      for(xx = ch2r.start();xx<ch2r.width(); xx++)
       {
         ch2d(xx,yy)=max(0.,ch2r(xx,yy)-max(0.,-cdelz2(xx,yy)));
       }

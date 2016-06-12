@@ -31,11 +31,13 @@ public:
     //cout<<"====START Kcheck===="<<endl;
     Controller<double> chs(hs);
 
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(chs) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = chs.start(); yy<chs.height();yy++)
+    for(yy = chs.start(); yy<chs.height();yy++)
     {
-      for(int64_t xx = chs.start();xx<chs.width(); xx++)
+      for(xx = chs.start();xx<chs.width(); xx++)
       {
         if(chs(xx,yy)<he_ca)
         {

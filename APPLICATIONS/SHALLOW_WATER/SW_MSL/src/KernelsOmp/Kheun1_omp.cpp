@@ -29,12 +29,14 @@ public:
     Controller<double> chsa(hsa);
     Controller<double> ch(h);
 
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(chsa,ch) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = ch.start(); yy<ch.height();yy++)
+    for(yy = ch.start(); yy<ch.height();yy++)
     {
       //int64_t xxq=cq1.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++)
+      for(xx = ch.start();xx<ch.width(); xx++)
       {
         ch(xx,yy)=0.5*(ch(xx,yy)+chsa(xx,yy));
       }

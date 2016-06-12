@@ -43,13 +43,15 @@ public:
     int64_t yy1=cf1.start();
     int64_t yy2=cg1.start();
 
+    int64_t xx,yy,xx1,xx2;
+
 //dynamic also possible
 #pragma omp parallel for shared(ch,cf1,cg1,chs) private(yy,xx,yy1,yy2,xx1,xx2) schedule (static, CHUNK)
-    for(int64_t yy = ch.start(); yy<ch.height();yy++)
+    for(yy = ch.start(); yy<ch.height();yy++)
     {
-      int64_t xx1=cf1.start();
-      int64_t xx2=cg1.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++)
+      xx1=cf1.start();
+      xx2=cg1.start();
+      for(xx = ch.start();xx<ch.width(); xx++)
       {
         chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1));
         xx1++;

@@ -31,10 +31,12 @@ public:
     Controller<double> cz1r(z1r);
     Controller<double> cdelzc1(delzc1);
 
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(cz1l,cz1r,cdelzc1) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = cdelzc1.start(); yy<cdelzc1.height();yy++)
-       for(int64_t xx = cdelzc1.start();xx<cdelzc1.width(); xx++)
+    for(yy = cdelzc1.start(); yy<cdelzc1.height();yy++)
+       for(xx = cdelzc1.start();xx<cdelzc1.width(); xx++)
           cdelzc1(xx,yy) = cz1r(xx+1,yy) - cz1l(xx,yy);
   }
 

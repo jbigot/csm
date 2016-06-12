@@ -99,14 +99,16 @@ public:
     int64_t yy1=cf1.start();
     int64_t yy2=cg1.start();
 
+    int64_t xx,yy,xxq,xx1,xx2;
+
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu,cv,ch1g,ch1d,ch1l,ch1r,ch2g,ch2d,ch2l,ch2r,cdelzc1,cdelzc2,cf1,cf2,cf3,cg1,cg2,cg3,chs,cqs1,cqs2,cq1,cq2,chh,cqq1,cqq2) private(yy,xx,yyq,yy1,yy2,xxq,xx1,xx2) schedule (static, CHUNK)
-    for(int64_t yy = ch.start(); yy<ch.height();yy++)
+    for(yy = ch.start(); yy<ch.height();yy++)
     {
-      int64_t xxq=cq1.start();
-      int64_t xx1=cf1.start();
-      int64_t xx2=cg1.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++)
+      xxq=cq1.start();
+      xx1=cf1.start();
+      xx2=cg1.start();
+      for(xx = ch.start();xx<ch.width(); xx++)
       {
         chs(xx,yy) = ch(xx,yy)-tx*(cf1(xx1+1,yy1)-cf1(xx1,yy1))-ty*(cg1(xx2,yy2)-cg1(xx2,yy2+1)) ;//+ cRain(xxq,yyq)*dt;
         cqs1(xxq,yyq) = cq1(xxq,yyq)-tx*(cf2(xx1+1,yy1)-cf2(xx1,yy1)+grav_dem*(ch1d(xx1,yy1)*ch1d(xx1,yy1)-ch1r(xx1,yy1)*ch1r(xx1,yy1)

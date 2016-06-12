@@ -33,11 +33,13 @@ public:
     
     //std::cout<<"max xx="<<ch.width()<<" et max yy="<<ch.height()<<std::endl;
 
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu,cv) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+    for(yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
       {
-	     for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+	     for(xx = ch.startWidth();xx<ch.width(); xx++)
 	     {
 	     	ch(xx,yy) = ch(xx+1,yy);
         cu(xx,yy) = -cu(xx+1,yy);

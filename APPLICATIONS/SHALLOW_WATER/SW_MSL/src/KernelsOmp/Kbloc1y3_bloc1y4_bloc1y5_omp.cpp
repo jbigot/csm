@@ -49,11 +49,14 @@ public:
     Controller<double> cg2(g2);
     Controller<double> cg3(g3);
 
+    int64_t xx,yy;
+    double c,cd,qd,qg;
+
 //dynamic also possible
 #pragma omp parallel for shared(cu2l,cu2r,cv2l,cv2r,ch2g,ch2d,cg1,cg2,cg3) private(yy,xx,c,cd,qd,qg) schedule (static, CHUNK)
-    for(int64_t yy = cu2l.start(); yy<cu2l.height();yy++)
+    for(yy = cu2l.start(); yy<cu2l.height();yy++)
     {
-      for(int64_t xx = cu2l.start();xx<cu2l.width(); xx++)
+      for(xx = cu2l.start();xx<cu2l.width(); xx++)
       {
         if (ch2g(xx,yy)<=0. && ch2d(xx,yy)<=0.)
         {
@@ -63,10 +66,10 @@ public:
         }
         else
         {
-          double c = max(fabs(cu2l(xx,yy))+sqrt(grav*ch2g(xx,yy)),fabs(cu2r(xx,yy))+sqrt(grav*ch2d(xx,yy)));
-          double cd = c*0.5;
-          double qd = cu2r(xx,yy)*ch2d(xx,yy);
-          double qg = cu2l(xx,yy)*ch2g(xx,yy);
+          c = max(fabs(cu2l(xx,yy))+sqrt(grav*ch2g(xx,yy)),fabs(cu2r(xx,yy))+sqrt(grav*ch2d(xx,yy)));
+          cd = c*0.5;
+          qd = cu2r(xx,yy)*ch2d(xx,yy);
+          qg = cu2l(xx,yy)*ch2g(xx,yy);
           cg1(xx,yy)=(qg+qd)*0.5-cd*(ch2d(xx,yy)-ch2g(xx,yy));
           cg2(xx,yy)=((cu2l(xx,yy)*qg)+(grav_dem*ch2g(xx,yy)*ch2g(xx,yy))+(cu2r(xx,yy)*qd)+(grav_dem*ch2d(xx,yy)*ch2d(xx,yy)))*0.5-cd*(qd-qg);
           cg3(xx,yy)=(qg*cv2l(xx,yy)+qd*cv2r(xx,yy))*0.5-cd*(ch2d(xx,yy)*cv2r(xx,yy)-ch2g(xx,yy)*cv2l(xx,yy));

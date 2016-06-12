@@ -61,10 +61,11 @@ public:
     int64_t y = ch.start();
     int64_t yy2 = ch2r.start();
     int64_t xx2 = ch2r.start();
+    int64_t xx,yy,yy2l,yy2r,xx2l,xx2r;
 
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu,cv,cz,ch2r,cu2r,cv2r,cz2r) private(yy,xx,xx2,yy2,dh1,dh2,du1,du2,dv1,dv2,dz1,dz2,hr,hl) schedule (static, CHUNK)
-    for(int64_t xx = ch.start();xx<ch.width(); xx++)
+    for(xx = ch.start();xx<ch.width(); xx++)
     {
       dh1 = ch(xx,y-1)-ch(xx,y);
       du1 = cu(xx,y-1)-cu(xx,y);
@@ -85,16 +86,16 @@ public:
     }
 
     //other lines
-    int64_t yy2l = ch2l.start();
-    int64_t yy2r = ch2r.start()+1;
+    yy2l = ch2l.start();
+    yy2r = ch2r.start()+1;
 
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu,cv,cz,ch2l,ch2r,cu2l,cu2r,cv2l,cv2r,cz2r,cz2l) private(yy,xx,yy2l,yy2r,xx2l,xx2r,dh1,dh2,du1,du2,dv1,dv2,dz1,dz2,hr,hl) schedule (static, CHUNK)
-    for(int64_t yy = ch.start()+1; yy<ch.height()-1;yy++)
+    for(yy = ch.start()+1; yy<ch.height()-1;yy++)
     {
-      int64_t xx2l = ch2l.start();
-      int64_t xx2r = ch2r.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++)
+      xx2l = ch2l.start();
+      xx2r = ch2r.start();
+      for(xx = ch.start();xx<ch.width(); xx++)
       {
         dh1 = ch(xx,yy)-ch(xx,yy+1);
         du1 = cu(xx,yy)-cu(xx,yy+1);
@@ -130,7 +131,7 @@ public:
 
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu,cv,cz,ch2l,cu2l,cv2l,cz2l) private(xx,xx2,yy2,y,dh1,dh2,du1,du2,dv1,dv2,dz1,dz2,hr,hl) schedule (static, CHUNK)
-    for(int64_t xx = ch.start();xx<ch.width(); xx++,xx2++)
+    for(xx = ch.start();xx<ch.width(); xx++)
     {
       dh1 = ch(xx,y+1)-ch(xx,y+2);
       du1 = cu(xx,y+1)-cu(xx,y+2);
@@ -147,6 +148,8 @@ public:
       cu2l(xx2,yy2)=cu(xx,y+1)+0.5*Minmod(du1,du2)*hl/ch(xx,y+1);
       cv2l(xx2,yy2)=cv(xx,y+1)+0.5*Minmod(dv1,dv2)*hl/ch(xx,y+1);
       cz2l(xx2,yy2)=cz(xx,y+1)+0.5*(Minmod(dz1+dh1,dz2+dh2)-Minmod(dh1,dh2));
+
+      xx2++;
     }
   }
 

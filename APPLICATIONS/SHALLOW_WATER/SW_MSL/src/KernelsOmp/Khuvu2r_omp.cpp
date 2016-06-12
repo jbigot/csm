@@ -43,10 +43,11 @@ public:
     int64_t y = ch.start();
     int64_t yy2 = cu2r.start();
     int64_t xx2 = cu2r.start();
+    int64_t xx,yy,xx2r;
 
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu,cu2r) private(yy,xx,xx2,y,yy2,dh1,dh2,du1,du2,hr) schedule (static, CHUNK)
-    for(int64_t xx = ch.start();xx<ch.width(); xx++)
+    for(xx = ch.start();xx<ch.width(); xx++)
     {
       dh1 = ch(xx,y-1)-ch(xx,y);
       du1 = cu(xx,y-1)-cu(xx,y);
@@ -63,10 +64,10 @@ public:
 
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu2r,cu) private(yy,xx,yy2r,xx2r,dh1,dh2,du1,du2,hr) schedule (static, CHUNK)
-    for(int64_t yy = ch.start()+1; yy<ch.height()-1;yy++)
+    for(yy = ch.start()+1; yy<ch.height()-1;yy++)
     {
-      int64_t xx2r = cu2r.start();
-      for(int64_t xx = ch.start();xx<ch.width(); xx++)
+      xx2r = cu2r.start();
+      for(xx = ch.start();xx<ch.width(); xx++)
       {
         dh1 = ch(xx,yy)-ch(xx,yy+1);
         du1 = cu(xx,yy)-cu(xx,yy+1);

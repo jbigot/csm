@@ -31,11 +31,13 @@ public:
     ControllerPHBR<double> cu(u);
     ControllerPHBR<double> cv(v);
     
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(ch,cu,cv) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
+    for(yy = ch.startHeight(); yy<ch.height();yy++)                                                                                                               
       {
-	     for(int64_t xx = ch.startWidth();xx<ch.width(); xx++)
+	     for(xx = ch.startWidth();xx<ch.width(); xx++)
 	     {
         //std::cout<<"ch("<<xx<<","<<yy<<")="<<ch(xx,yy)<<std::endl;
 	     	ch(xx,yy) = ch(xx-1,yy);
@@ -47,4 +49,4 @@ public:
 
 };
 
-#include <Kernels/Klimhr_limur_limvr_omp.l2c>
+#include <KernelsOmp/Klimhr_limur_limvr_omp.l2c>

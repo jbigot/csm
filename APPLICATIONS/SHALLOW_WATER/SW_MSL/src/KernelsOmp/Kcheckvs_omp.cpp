@@ -36,13 +36,14 @@ public:
     Controller<double> cqs2(qs2);
 
     int64_t yyq=cqs2.start();
+    int64_t xx,yy,xxq;
 
 //dynamic also possible
 #pragma omp parallel for shared(chs,cvs,cqs2) private(yy,xx,yyq,xxq) schedule (static, CHUNK)
-    for(int64_t yy = chs.start(); yy<chs.height();yy++)
+    for(yy = chs.start(); yy<chs.height();yy++)
     {
-      int64_t xxq=cqs2.start();
-      for(int64_t xx = chs.start();xx<chs.width(); xx++)
+      xxq=cqs2.start();
+      for(xx = chs.start();xx<chs.width(); xx++)
       {
         if(chs(xx,yy)<he_ca)
         {

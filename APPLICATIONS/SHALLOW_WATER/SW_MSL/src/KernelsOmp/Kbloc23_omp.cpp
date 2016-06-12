@@ -60,14 +60,16 @@ public:
     int64_t yy1=cf3.start();
     int64_t yy2=ch2r.start();
 
+    int64_t xx,yy,xxq,xx1,xx2;
+
 //dynamic also possible
 #pragma omp parallel for shared(cu,cv,cq2,ch2g,ch2d,ch2l,ch2r,cdelzc2,cf3,cg3,chs,cqs2) private(yy,xx,yyq,yy1,yy2,xxq,xx1,xx2) schedule (static, CHUNK)
-    for(int64_t yy = chs.start(); yy<chs.height();yy++)
+    for(yy = chs.start(); yy<chs.height();yy++)
     {
-      int64_t xxq=cq2.start();
-      int64_t xx1=cf3.start();
-      int64_t xx2=ch2r.start();
-      for(int64_t xx = chs.start();xx<chs.width(); xx++)
+      xxq=cq2.start();
+      xx1=cf3.start();
+      xx2=ch2r.start();
+      for(xx = chs.start();xx<chs.width(); xx++)
       {
         cqs2(xxq,yyq)= cq2(xxq,yyq)-tx*(cf3(xx1+1,yy1)-cf3(xx1,yy1))-ty*(cg3(xx2,yy2)-cg3(xx2,yy2+1)+grav_dem*(ch2d(xx2,yy2+1)
           *ch2d(xx2,yy2+1)-ch2r(xx2,yy2+1)*ch2r(xx2,yy2+1)+ch2l(xx2,yy2)*ch2l(xx2,yy2)-ch2g(xx2,yy2)*ch2g(xx2,yy2)+(ch2r(xx2,yy2+1)

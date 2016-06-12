@@ -27,11 +27,13 @@ public:
     //cout<<"====START Klimuu===="<<endl;
     ControllerPHBU<double> cu(u);
 
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(cu) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = cu.startHeight(); yy<cu.height();yy++)                                                                                                               
+    for(yy = cu.startHeight(); yy<cu.height();yy++)                                                                                                               
       {
-	     for(int64_t xx = cu.startWidth();xx<cu.width(); xx++)
+	     for(xx = cu.startWidth();xx<cu.width(); xx++)
 	     {
 	     	cu(xx,yy) = -cu(xx,yy+1);
 	     }                                                                                                                                                                                           

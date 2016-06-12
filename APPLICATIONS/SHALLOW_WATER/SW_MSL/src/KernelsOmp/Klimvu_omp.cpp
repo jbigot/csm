@@ -27,11 +27,13 @@ public:
     //cout<<"====START Klimvu===="<<endl;
     ControllerPHBU<double> cv(v);
 
+    int64_t xx,yy;
+
 //dynamic also possible
 #pragma omp parallel for shared(cv) private(yy,xx) schedule (static, CHUNK)
-    for(int64_t yy = cv.startHeight(); yy<cv.height();yy++)                                                                                                               
+    for(yy = cv.startHeight(); yy<cv.height();yy++)                                                                                                               
       {
-	     for(int64_t xx = cv.startWidth();xx<cv.width(); xx++)
+	     for(xx = cv.startWidth();xx<cv.width(); xx++)
 	     {
 	     	cv(xx,yy) = cv(xx,yy+1);
 	     }                                                                                                                                                                                           

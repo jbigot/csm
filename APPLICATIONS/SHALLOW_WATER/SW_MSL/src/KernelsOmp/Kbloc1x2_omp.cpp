@@ -6,7 +6,9 @@
 #include <controller.hpp>
 #include <kernelh.h>
 #include <math.h>
-#include <mpi.h>
+
+#include <omp.h>
+#define CHUNK 5
 
 typedef llcmcpp::Go Go;
 
@@ -35,9 +37,12 @@ public:
     Controller<double> cdelz1(delz1);
     Controller<double> ch1d(h1d);
 
-    for(int64_t yy = ch1r.start(); yy<ch1r.height();yy++)
+    int64_t xx,yy;
+
+#pragma omp parallel for shared(ch1r,cdelz1,ch1d) private(yy,xx) schedule (static, CHUNK)
+    for(yy = ch1r.start(); yy<ch1r.height();yy++)
     {
-      for(int64_t xx = ch1r.start();xx<ch1r.width(); xx++)
+      for(xx = ch1r.start();xx<ch1r.width(); xx++)
       {
         ch1d(xx,yy)=max(0.,ch1r(xx,yy)-max(0.,-cdelz1(xx,yy)));
       }
