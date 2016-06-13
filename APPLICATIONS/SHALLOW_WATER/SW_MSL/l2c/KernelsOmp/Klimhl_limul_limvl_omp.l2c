@@ -1,5 +1,5 @@
-//#implements=Klimhl_limul_limvl
-LCMP(Klimhl_limul_limvl)
+//#implements=Klimhl_limul_limvl_omp
+LCMP(Klimhl_limul_limvl_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h);
   L_CPP_USE(Datah, u);

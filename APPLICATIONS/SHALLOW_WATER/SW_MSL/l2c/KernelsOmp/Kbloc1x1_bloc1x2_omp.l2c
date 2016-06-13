@@ -1,5 +1,5 @@
-//#implements=Kbloc1x1_bloc1x2
-LCMP(Kbloc1x1_bloc1x2)
+//#implements=Kbloc1x1_bloc1x2_omp
+LCMP(Kbloc1x1_bloc1x2_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h1l);
   L_CPP_USE(Datah, h1r);

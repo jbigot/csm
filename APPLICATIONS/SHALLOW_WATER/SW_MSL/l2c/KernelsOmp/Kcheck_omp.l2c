@@ -1,5 +1,5 @@
-//#implements=Kcheck
-LCMP(Kcheck)
+//#implements=Kcheck_omp
+LCMP(Kcheck_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, hs);
 LEND

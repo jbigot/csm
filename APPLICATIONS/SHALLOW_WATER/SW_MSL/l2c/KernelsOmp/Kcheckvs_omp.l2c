@@ -1,5 +1,5 @@
-//#implements=Kcheckvs
-LCMP(Kcheckvs)
+//#implements=Kcheckvs_omp
+LCMP(Kcheckvs_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, hs);
   L_CPP_USE(Datah, vs);

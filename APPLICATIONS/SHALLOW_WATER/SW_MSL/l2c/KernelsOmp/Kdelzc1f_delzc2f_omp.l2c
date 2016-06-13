@@ -1,5 +1,5 @@
-//#implements=Kdelzc1f_delzc2f
-LCMP(Kdelzc1f_delzc2f)
+//#implements=Kdelzc1f_delzc2f_omp
+LCMP(Kdelzc1f_delzc2f_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, z1l);
   L_CPP_USE(Datah, z1r);

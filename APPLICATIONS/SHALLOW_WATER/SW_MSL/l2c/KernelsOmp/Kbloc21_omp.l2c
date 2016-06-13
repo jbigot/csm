@@ -1,5 +1,5 @@
-//#implements=Kbloc21
-LCMP(Kbloc21)
+//#implements=Kbloc21_omp
+LCMP(Kbloc21_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h);
   L_CPP_USE(Datah, f1);

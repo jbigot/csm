@@ -1,5 +1,5 @@
-//#implements=Klimud
-LCMP(Klimud)
+//#implements=Klimud_omp
+LCMP(Klimud_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, u);
 LEND

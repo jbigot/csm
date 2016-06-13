@@ -1,5 +1,5 @@
-//#implements=Klimhd_limud_limvd
-LCMP(Klimhd_limud_limvd)
+//#implements=Klimhd_limud_limvd_omp
+LCMP(Klimhd_limud_limvd_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h);
   L_CPP_USE(Datah, u);

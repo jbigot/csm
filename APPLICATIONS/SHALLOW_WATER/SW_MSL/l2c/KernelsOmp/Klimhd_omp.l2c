@@ -1,5 +1,5 @@
-//#implements=Klimhd
-LCMP(Klimhd)
+//#implements=Klimhd_omp
+LCMP(Klimhd_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h);
 LEND

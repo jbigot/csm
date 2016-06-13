@@ -1,5 +1,5 @@
-//#implements=Kbloc22
-LCMP(Kbloc22)
+//#implements=Kbloc22_omp
+LCMP(Kbloc22_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, u);
   L_CPP_USE(Datah, v);

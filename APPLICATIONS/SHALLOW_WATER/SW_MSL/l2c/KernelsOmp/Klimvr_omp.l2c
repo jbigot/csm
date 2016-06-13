@@ -1,5 +1,5 @@
-//#implements=Klimvr
-LCMP(Klimvr)
+//#implements=Klimvr_omp
+LCMP(Klimvr_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, v);
 LEND

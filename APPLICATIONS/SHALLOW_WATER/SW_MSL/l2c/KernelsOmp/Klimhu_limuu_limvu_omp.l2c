@@ -1,5 +1,5 @@
-//#implements=Klimhu_limuu_limvu
-LCMP(Klimhu_limuu_limvu)
+//#implements=Klimhu_limuu_limvu_omp
+LCMP(Klimhu_limuu_limvu_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h);
   L_CPP_USE(Datah, u);

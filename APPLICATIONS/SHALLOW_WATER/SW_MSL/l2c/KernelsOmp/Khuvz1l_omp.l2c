@@ -1,5 +1,5 @@
-//#implements=Khuvz1l
-LCMP(Khuvz1l)
+//#implements=Khuvz1l_omp
+LCMP(Khuvz1l_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h);
   L_CPP_USE(Datah, u);

@@ -1,5 +1,5 @@
-//#implements=Kbloc21_bloc22_bloc23_heun1_heun2_heun3
-LCMP(Kbloc21_bloc22_bloc23_heun1_heun2_heun3)
+//#implements=Kbloc21_bloc22_bloc23_heun1_heun2_heun3_omp
+LCMP(Kbloc21_bloc22_bloc23_heun1_heun2_heun3_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h); //heun
   L_CPP_USE(Datah, us);

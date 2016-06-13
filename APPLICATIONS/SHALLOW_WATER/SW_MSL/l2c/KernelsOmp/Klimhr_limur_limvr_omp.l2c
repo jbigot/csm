@@ -1,5 +1,5 @@
-//#implements=Klimhr_limur_limvr
-LCMP(Klimhr_limur_limvr)
+//#implements=Klimhr_limur_limvr_omp
+LCMP(Klimhr_limur_limvr_omp)
   L_CPP_PROVIDE(Go, inGo);
   L_CPP_USE(Datah, h);
   L_CPP_USE(Datah, u);
