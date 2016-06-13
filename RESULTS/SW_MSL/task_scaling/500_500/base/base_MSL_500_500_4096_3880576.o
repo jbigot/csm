@@ -1,0 +1,27 @@
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3880576
+Jobname   : base_MSL_500_500_4096
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 7:00 , memory/task = 4000 Mo
+Date      : submit = 22/12/2015 17:02:55 , start = 22/12/2015 17:03:13
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 4096 , cpus/task = 1 , ncpus = 4096 , nodes = 256
+   Nodes=curie[1660,3120-3137,3174-3191,3246-3252,3254-3263,3528-3529,3542-3543,3548,4236-4253,4268-4269,4271-4285,4435,4437-4451,5631-5639,6000-6057,6059-6065,6072-6107,6126-6161] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3880576       base_MSL_500_500_40+      -   4096    256           -     00:03:00     100            -      -  -
+3880576.0     llcmcpp_loader         4096   4096    256      BBlock     00:02:58    98.8     00:00:23   12.9  CANCELLED
+########## ########## ########## ########## ########## ########## ########## ##########

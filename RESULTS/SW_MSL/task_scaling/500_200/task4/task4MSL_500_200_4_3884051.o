@@ -1,0 +1,35 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+ Time TOTAL CALCULATION : 2.80535
+ Time TOTAL CALCULATION : 2.8044
+ Time TOTAL CALCULATION : 2.80433
+ Time TOTAL CALCULATION : 2.8047
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3884051
+Jobname   : task4MSL_500_200_4
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 23/12/2015 17:53:10 , start = 23/12/2015 17:53:10
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 4 , cpus/task = 4 , ncpus = 16 , nodes = 1
+   Nodes=curie2849 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3884051       task4MSL_500_200_4        -     16      1           -     00:00:06     100            -      -  -
+3884051.0     llcmcpp_loader            4     16      1      BBlock     00:00:05    83.3     00:00:08  160.0  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

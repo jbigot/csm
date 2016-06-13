@@ -1,0 +1,1703 @@
++ /bin/bash -x /tmp/jobstart.87083
++ SCRIPT_PID=87097
++ set +x
+++ id -u
++ '[' 24823 -ge 1000 ']'
++ MODULESHOME=/opt/Modules
++ export MODULESHOME
++ MODULEFILES=/opt/Modules/default/modulefiles
++ export MODULEFILES
++ '[' ccc:datadir/own:dfldatadir/own:mpi/bullxmpi/1.2.8.4:c++/gnu/4.9.1:c/gnu/4.9.1 = '' ']'
++ ENV=/etc/profile.d/modules.sh
++ export ENV
++ BASH_ENV=/etc/profile.d/modules.sh
++ export BASH_ENV
++ FPATH=/opt/Modules/init/fpath
++ export FPATH
++ [[ hxB =~ i ]]
++ typeset -fx module
++ [[ -s /opt/Modules/init/bash_completion ]]
++ [[ 4 -ge 3 ]]
++ [[ hxB =~ i ]]
++ '[' ccc:datadir/own:dfldatadir/own:mpi/bullxmpi/1.2.8.4:c++/gnu/4.9.1:c/gnu/4.9.1 = '' ']'
++ set -x
++ cd /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/benchs_curie/500_200/task2ompfor
++ export BOOST_ROOT=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/
++ BOOST_ROOT=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/
++ export LD_LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib:/ccc/products/gcc-4.9.1/default/lib64:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/opt/mpi/bullxmpi/1.2.8.4/lib:/lib64:/lib:/usr/lib64:/usr/lib
++ LD_LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib:/ccc/products/gcc-4.9.1/default/lib64:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/opt/mpi/bullxmpi/1.2.8.4/lib:/lib64:/lib:/usr/lib64:/usr/lib
++ export LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib64:/ccc/products/gcc-4.9.1/default/lib:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:
++ LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib64:/ccc/products/gcc-4.9.1/default/lib:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:
++ export CPATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:
++ CPATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:
++ export LD_LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib:/ccc/products/gcc-4.9.1/default/lib64:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/opt/mpi/bullxmpi/1.2.8.4/lib:/lib64:/lib:/usr/lib64:/usr/lib
++ LD_LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib:/ccc/products/gcc-4.9.1/default/lib64:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/opt/mpi/bullxmpi/1.2.8.4/lib:/lib64:/lib:/usr/lib64:/usr/lib
++ export LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib64:/ccc/products/gcc-4.9.1/default/lib:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:
++ LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib64:/ccc/products/gcc-4.9.1/default/lib:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:
++ export CPATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:
++ CPATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:
++ export PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/:/ccc/products/gcc-4.9.1/default/bin:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/:/usr/lib64/qt-3.3/bin:/opt/mpi/bullxmpi/1.2.8.4/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/ccc/products/ccc_users_env/bin:/ccc/cont003/home/gen7470/coullohe/bin
++ PATH=/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/:/ccc/products/gcc-4.9.1/default/bin:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/:/usr/lib64/qt-3.3/bin:/opt/mpi/bullxmpi/1.2.8.4/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/ccc/products/ccc_users_env/bin:/ccc/cont003/home/gen7470/coullohe/bin
++ export LD_LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib:/ccc/products/gcc-4.9.1/default/lib64:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/opt/mpi/bullxmpi/1.2.8.4/lib:/lib64:/lib:/usr/lib64:/usr/lib
++ LD_LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib:/ccc/products/gcc-4.9.1/default/lib64:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/opt/mpi/bullxmpi/1.2.8.4/lib:/lib64:/lib:/usr/lib64:/usr/lib
++ export LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib64:/ccc/products/gcc-4.9.1/default/lib:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:
++ LIBRARY_PATH=/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:/ccc/products/gcc-4.9.1/default/lib64:/ccc/products/gcc-4.9.1/default/lib:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/lib/:
++ export CPATH=/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:
++ CPATH=/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:/ccc/cont003/home/gen7470/coullohe/APPLICATIONS/ShallowWater_fusion_new/install/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/include/:/ccc/cont003/home/gen7470/coullohe/LIBRARIES/boost_1_58_0/INSTALL_LN/include/:
++ module load c++/gnu/4.9.1
+++ tclsh /opt/Modules/bin/modulecmd.tcl sh load c++/gnu/4.9.1
++ eval
++ module load c/gnu/4.9.1
+++ tclsh /opt/Modules/bin/modulecmd.tcl sh load c/gnu/4.9.1
++ eval
++ export OMPI_CC=gcc
++ OMPI_CC=gcc
++ export OMPI_CXX=g++
++ OMPI_CXX=g++
++ export OMP_NUM_THREADS=2
++ OMP_NUM_THREADS=2
+ema	+ ccc_mprun -n 256 /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader -- /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/lad/l2c/cppmpiloader.lad -- /ccc/scratch/cont003/gen7470/coullohe/ladfiles/ompfor/ompfor_500_200_256.lad
+[curie1784:69146] *** Process received signal ***
+[curie1784:69146] Signal: Segmentation fault (11)
+[curie1784:69146] Signal code:  (128)
+[curie1784:69146] Failing at address: (nil)
+[curie4344:87357] *** Process received signal ***
+[curie4344:87357] Signal: Segmentation fault (11)
+[curie4344:87357] Signal code:  (128)
+[curie4344:87357] Failing at address: (nil)
+[curie1784:69147] *** Process received signal ***
+[curie1784:69147] Signal: Segmentation fault (11)
+[curie1784:69147] Signal code:  (128)
+[curie1784:69147] Failing at address: (nil)
+[curie6457:36586] *** Process received signal ***
+[curie6457:36586] Signal: Segmentation fault (11)
+[curie6457:36586] Signal code:  (128)
+[curie6457:36586] Failing at address: (nil)
+[curie1784:69148] *** Process received signal ***
+[curie1784:69148] Signal: Segmentation fault (11)
+[curie1784:69148] Signal code:  (128)
+[curie1784:69148] Failing at address: (nil)
+[curie6461:16674] *** Process received signal ***
+[curie6461:16674] Signal: Segmentation fault (11)
+[curie6461:16674] Signal code:  (128)
+[curie6461:16674] Failing at address: (nil)
+[curie4972:90196] *** Process received signal ***
+[curie4972:90196] Signal: Segmentation fault (11)
+[curie4972:90196] Signal code:  (128)
+[curie4972:90196] Failing at address: (nil)
+[curie4960:02346] *** Process received signal ***
+[curie4960:02346] Signal: Segmentation fault (11)
+[curie4960:02346] Signal code:  (128)
+[curie4960:02346] Failing at address: (nil)
+[curie4966:59963] *** Process received signal ***
+[curie4966:59963] Signal: Segmentation fault (11)
+[curie4966:59963] Signal code:  (128)
+[curie4966:59963] Failing at address: (nil)
+[curie6452:121073] *** Process received signal ***
+[curie6452:121073] Signal: Segmentation fault (11)
+[curie6452:121073] Signal code:  (128)
+[curie6452:121073] Failing at address: (nil)
+[curie4968:72639] *** Process received signal ***
+[curie4968:72639] Signal: Segmentation fault (11)
+[curie4968:72639] Signal code:  (128)
+[curie4968:72639] Failing at address: (nil)
+[curie6454:82375] *** Process received signal ***
+[curie6454:82375] Signal: Segmentation fault (11)
+[curie6454:82375] Signal code:  (128)
+[curie6454:82375] Failing at address: (nil)
+[curie4350:111418] *** Process received signal ***
+[curie4350:111418] Signal: Segmentation fault (11)
+[curie4350:111418] Signal code:  (128)
+[curie4350:111418] Failing at address: (nil)
+[curie1777:87243] *** Process received signal ***
+[curie1777:87243] Signal: Segmentation fault (11)
+[curie1777:87243] Signal code:  (128)
+[curie1777:87243] Failing at address: (nil)
+[curie4969:30618] *** Process received signal ***
+[curie4969:30618] Signal: Segmentation fault (11)
+[curie4969:30618] Signal code:  (128)
+[curie4969:30618] Failing at address: (nil)
+[curie6457:36588] *** Process received signal ***
+[curie6457:36588] Signal: Segmentation fault (11)
+[curie6457:36588] Signal code:  (128)
+[curie6457:36588] Failing at address: (nil)
+[curie6459:04020] *** Process received signal ***
+[curie6459:04020] Signal: Segmentation fault (11)
+[curie6459:04020] Signal code:  (128)
+[curie6459:04020] Failing at address: (nil)
+[curie6456:36715] *** Process received signal ***
+[curie6456:36715] Signal: Segmentation fault (11)
+[curie6456:36715] Signal code:  (128)
+[curie6456:36715] Failing at address: (nil)
+[curie1784:69149] *** Process received signal ***
+[curie1784:69149] Signal: Segmentation fault (11)
+[curie1784:69149] Signal code:  (128)
+[curie1784:69149] Failing at address: (nil)
+[curie6450:99001] *** Process received signal ***
+[curie6450:99001] Signal: Segmentation fault (11)
+[curie6450:99001] Signal code:  (128)
+[curie6450:99001] Failing at address: (nil)
+[curie6453:87166] *** Process received signal ***
+[curie6453:87166] Signal: Segmentation fault (11)
+[curie6453:87166] Signal code:  (128)
+[curie6453:87166] Failing at address: (nil)
+[curie6461:16675] *** Process received signal ***
+[curie6461:16675] Signal: Segmentation fault (11)
+[curie6461:16675] Signal code:  (128)
+[curie6461:16675] Failing at address: (nil)
+[curie4967:41265] *** Process received signal ***
+[curie4967:41265] Signal: Segmentation fault (11)
+[curie4967:41265] Signal code:  (128)
+[curie4967:41265] Failing at address: (nil)
+[curie4353:70376] *** Process received signal ***
+[curie4353:70376] Signal: Segmentation fault (11)
+[curie4353:70376] Signal code:  (128)
+[curie4353:70376] Failing at address: (nil)
+[curie4972:90197] *** Process received signal ***
+[curie4972:90197] Signal: Segmentation fault (11)
+[curie4972:90197] Signal code:  (128)
+[curie4972:90197] Failing at address: (nil)
+[curie4348:55455] *** Process received signal ***
+[curie4348:55455] Signal: Segmentation fault (11)
+[curie4348:55455] Signal code:  (128)
+[curie4348:55455] Failing at address: (nil)
+[curie4961:06863] *** Process received signal ***
+[curie4961:06863] Signal: Segmentation fault (11)
+[curie4961:06863] Signal code:  (128)
+[curie4961:06863] Failing at address: (nil)
+[curie4960:02347] *** Process received signal ***
+[curie4960:02347] Signal: Segmentation fault (11)
+[curie4960:02347] Signal code:  (128)
+[curie4960:02347] Failing at address: (nil)
+[curie4966:59964] *** Process received signal ***
+[curie4966:59964] Signal: Segmentation fault (11)
+[curie4966:59964] Signal code:  (128)
+[curie4966:59964] Failing at address: (nil)
+[curie4957:11315] *** Process received signal ***
+[curie4957:11315] Signal: Segmentation fault (11)
+[curie4957:11315] Signal code:  (128)
+[curie4957:11315] Failing at address: (nil)
+[curie4968:72640] *** Process received signal ***
+[curie4968:72640] Signal: Segmentation fault (11)
+[curie4968:72640] Signal code:  (128)
+[curie4968:72640] Failing at address: (nil)
+[curie6464:120247] *** Process received signal ***
+[curie6454:82376] *** Process received signal ***
+[curie6454:82376] Signal: Segmentation fault (11)
+[curie6454:82376] Signal code:  (128)
+[curie6454:82376] Failing at address: (nil)
+[curie4350:111419] *** Process received signal ***
+[curie4350:111419] Signal: Segmentation fault (11)
+[curie4350:111419] Signal code:  (128)
+[curie4350:111419] Failing at address: (nil)
+[curie4355:76253] *** Process received signal ***
+[curie4355:76253] Signal: Segmentation fault (11)
+[curie4355:76253] Signal code:  (128)
+[curie4355:76253] Failing at address: (nil)
+[curie4959:42152] *** Process received signal ***
+[curie4959:42152] Signal: Segmentation fault (11)
+[curie4959:42152] Signal code:  (128)
+[curie4959:42152] Failing at address: (nil)
+[curie1777:87244] *** Process received signal ***
+[curie4969:30619] *** Process received signal ***
+[curie4969:30619] Signal: Segmentation fault (11)
+[curie4969:30619] Signal code:  (128)
+[curie4969:30619] Failing at address: (nil)
+[curie4345:42949] *** Process received signal ***
+[curie4345:42949] Signal: Segmentation fault (11)
+[curie4345:42949] Signal code:  (128)
+[curie4345:42949] Failing at address: (nil)
+[curie6457:36587] *** Process received signal ***
+[curie6457:36587] Signal: Segmentation fault (11)
+[curie6457:36587] Signal code:  (128)
+[curie6457:36587] Failing at address: (nil)
+[curie6459:04022] *** Process received signal ***
+[curie6459:04022] Signal: Segmentation fault (11)
+[curie6459:04022] Signal code:  (128)
+[curie6459:04022] Failing at address: (nil)
+[curie6456:36716] *** Process received signal ***
+[curie6456:36716] Signal: Segmentation fault (11)
+[curie6456:36716] Signal code:  (128)
+[curie6456:36716] Failing at address: (nil)
+[curie1784:69150] *** Process received signal ***
+[curie1784:69150] Signal: Segmentation fault (11)
+[curie1784:69150] Signal code:  (128)
+[curie1784:69150] Failing at address: (nil)
+[curie6450:99002] *** Process received signal ***
+[curie6450:99002] Signal: Segmentation fault (11)
+[curie6450:99002] Signal code:  (128)
+[curie6450:99002] Failing at address: (nil)
+[curie6453:87167] *** Process received signal ***
+[curie6453:87167] Signal: Segmentation fault (11)
+[curie6453:87167] Signal code:  (128)
+[curie6453:87167] Failing at address: (nil)
+[curie4349:31304] *** Process received signal ***
+[curie4349:31304] Signal: Segmentation fault (11)
+[curie4349:31304] Signal code:  (128)
+[curie4349:31304] Failing at address: (nil)
+[curie6461:16676] *** Process received signal ***
+[curie6461:16676] Signal: Segmentation fault (11)
+[curie6461:16676] Signal code:  (128)
+[curie6461:16676] Failing at address: (nil)
+[curie4967:41266] *** Process received signal ***
+[curie4967:41266] Signal: Segmentation fault (11)
+[curie4967:41266] Signal code:  (128)
+[curie4967:41266] Failing at address: (nil)
+[curie4353:70377] *** Process received signal ***
+[curie4353:70377] Signal: Segmentation fault (11)
+[curie4353:70377] Signal code:  (128)
+[curie4353:70377] Failing at address: (nil)
+[curie4972:90198] *** Process received signal ***
+[curie4972:90198] Signal: Segmentation fault (11)
+[curie4972:90198] Signal code:  (128)
+[curie4972:90198] Failing at address: (nil)
+[curie4348:55456] *** Process received signal ***
+[curie4348:55456] Signal: Segmentation fault (11)
+[curie4348:55456] Signal code:  (128)
+[curie4348:55456] Failing at address: (nil)
+[curie4961:06864] *** Process received signal ***
+[curie4961:06864] Signal: Segmentation fault (11)
+[curie4961:06864] Signal code:  (128)
+[curie4961:06864] Failing at address: (nil)
+[curie4960:02348] *** Process received signal ***
+[curie4960:02348] Signal: Segmentation fault (11)
+[curie4960:02348] Signal code:  (128)
+[curie4960:02348] Failing at address: (nil)
+[curie4354:07945] *** Process received signal ***
+[curie4354:07945] Signal: Segmentation fault (11)
+[curie4354:07945] Signal code:  (128)
+[curie4354:07945] Failing at address: (nil)
+[curie4956:30094] *** Process received signal ***
+[curie4956:30094] Signal: Segmentation fault (11)
+[curie4956:30094] Signal code:  (128)
+[curie4956:30094] Failing at address: (nil)
+[curie4966:59965] *** Process received signal ***
+[curie4966:59965] Signal: Segmentation fault (11)
+[curie4966:59965] Signal code:  (128)
+[curie4966:59965] Failing at address: (nil)
+[curie4958:05576] *** Process received signal ***
+[curie4958:05576] Signal: Segmentation fault (11)
+[curie4958:05576] Signal code:  (128)
+[curie4958:05576] Failing at address: (nil)
+[curie4957:11316] *** Process received signal ***
+[curie4957:11316] Signal: Segmentation fault (11)
+[curie4957:11316] Signal code:  (128)
+[curie4957:11316] Failing at address: (nil)
+[curie4352:29265] *** Process received signal ***
+[curie4352:29265] Signal: Segmentation fault (11)
+[curie4352:29265] Signal code:  (128)
+[curie4352:29265] Failing at address: (nil)
+[curie1785:30426] *** Process received signal ***
+[curie1785:30426] Signal: Segmentation fault (11)
+[curie1785:30426] Signal code:  (128)
+[curie1785:30426] Failing at address: (nil)
+[curie4968:72641] *** Process received signal ***
+[curie4968:72641] Signal: Segmentation fault (11)
+[curie4968:72641] Signal code:  (128)
+[curie4968:72641] Failing at address: (nil)
+[curie6464:120248] *** Process received signal ***
+[curie6464:120248] Signal: Segmentation fault (11)
+[curie6464:120248] Signal code:  (128)
+[curie6464:120248] Failing at address: (nil)
+[curie6454:82377] *** Process received signal ***
+[curie6454:82377] Signal: Segmentation fault (11)
+[curie6454:82377] Signal code:  (128)
+[curie6454:82377] Failing at address: (nil)
+[curie4350:111420] *** Process received signal ***
+[curie4350:111420] Signal: Segmentation fault (11)
+[curie4350:111420] Signal code:  (128)
+[curie4350:111420] Failing at address: (nil)
+[curie4355:76254] *** Process received signal ***
+[curie4355:76254] Signal: Segmentation fault (11)
+[curie4355:76254] Signal code:  (128)
+[curie4355:76254] Failing at address: (nil)
+[curie4959:42153] *** Process received signal ***
+[curie4959:42153] Signal: Segmentation fault (11)
+[curie4959:42153] Signal code:  (128)
+[curie4959:42153] Failing at address: (nil)
+[curie1777:87245] *** Process received signal ***
+[curie1777:87245] Signal: Segmentation fault (11)
+[curie1777:87245] Signal code:  (128)
+[curie1777:87245] Failing at address: (nil)
+[curie4969:30620] *** Process received signal ***
+[curie4969:30620] Signal: Segmentation fault (11)
+[curie4969:30620] Signal code:  (128)
+[curie4969:30620] Failing at address: (nil)
+[curie4345:42950] *** Process received signal ***
+[curie4345:42950] Signal: Segmentation fault (11)
+[curie4345:42950] Signal code:  (128)
+[curie4345:42950] Failing at address: (nil)
+[curie6457:36589] *** Process received signal ***
+[curie6457:36589] Signal: Segmentation fault (11)
+[curie6457:36589] Signal code:  (128)
+[curie6457:36589] Failing at address: (nil)
+[curie6459:04026] *** Process received signal ***
+[curie6459:04026] Signal: Segmentation fault (11)
+[curie6459:04026] Signal code:  (128)
+[curie6459:04026] Failing at address: (nil)
+[curie6456:36717] *** Process received signal ***
+[curie6456:36717] Signal: Segmentation fault (11)
+[curie6456:36717] Signal code:  (128)
+[curie6456:36717] Failing at address: (nil)
+[curie1784:69151] *** Process received signal ***
+[curie1784:69151] Signal: Segmentation fault (11)
+[curie1784:69151] Signal code:  (128)
+[curie1784:69151] Failing at address: (nil)
+[curie6450:99003] *** Process received signal ***
+[curie6450:99003] Signal: Segmentation fault (11)
+[curie6450:99003] Signal code:  (128)
+[curie6450:99003] Failing at address: (nil)
+[curie6453:87168] *** Process received signal ***
+[curie6453:87168] Signal: Segmentation fault (11)
+[curie6453:87168] Signal code:  (128)
+[curie6453:87168] Failing at address: (nil)
+[curie6461:16677] *** Process received signal ***
+[curie6461:16677] Signal: Segmentation fault (11)
+[curie6461:16677] Signal code:  (128)
+[curie6461:16677] Failing at address: (nil)
+[curie4967:41267] *** Process received signal ***
+[curie4967:41267] Signal: Segmentation fault (11)
+[curie4967:41267] Signal code:  (128)
+[curie4967:41267] Failing at address: (nil)
+[curie4353:70378] *** Process received signal ***
+[curie4353:70378] Signal: Segmentation fault (11)
+[curie4353:70378] Signal code:  (128)
+[curie4353:70378] Failing at address: (nil)
+[curie4972:90199] *** Process received signal ***
+[curie4972:90199] Signal: Segmentation fault (11)
+[curie4972:90199] Signal code:  (128)
+[curie4972:90199] Failing at address: (nil)
+[curie4348:55457] *** Process received signal ***
+[curie4348:55457] Signal: Segmentation fault (11)
+[curie4348:55457] Signal code:  (128)
+[curie4348:55457] Failing at address: (nil)
+[curie4961:06865] *** Process received signal ***
+[curie4961:06865] Signal: Segmentation fault (11)
+[curie4961:06865] Signal code:  (128)
+[curie4961:06865] Failing at address: (nil)
+[curie4960:02349] *** Process received signal ***
+[curie4960:02349] Signal: Segmentation fault (11)
+[curie4960:02349] Signal code:  (128)
+[curie4960:02349] Failing at address: (nil)
+[curie4354:07946] *** Process received signal ***
+[curie4354:07946] Signal: Segmentation fault (11)
+[curie4354:07946] Signal code:  (128)
+[curie4354:07946] Failing at address: (nil)
+[curie4956:30095] *** Process received signal ***
+[curie4956:30095] Signal: Segmentation fault (11)
+[curie4956:30095] Signal code:  (128)
+[curie4956:30095] Failing at address: (nil)
+[curie4966:59966] *** Process received signal ***
+[curie4966:59966] Signal: Segmentation fault (11)
+[curie4966:59966] Signal code:  (128)
+[curie4966:59966] Failing at address: (nil)
+[curie4958:05577] *** Process received signal ***
+[curie4958:05577] Signal: Segmentation fault (11)
+[curie4958:05577] Signal code:  (128)
+[curie4958:05577] Failing at address: (nil)
+[curie4957:11317] *** Process received signal ***
+[curie4957:11317] Signal: Segmentation fault (11)
+[curie4957:11317] Signal code:  (128)
+[curie4957:11317] Failing at address: (nil)
+[curie4352:29266] *** Process received signal ***
+[curie4352:29266] Signal: Segmentation fault (11)
+[curie4352:29266] Signal code:  (128)
+[curie4352:29266] Failing at address: (nil)
+[curie1785:30427] *** Process received signal ***
+[curie1785:30427] Signal: Segmentation fault (11)
+[curie1785:30427] Signal code:  (128)
+[curie1785:30427] Failing at address: (nil)
+[curie4968:72642] *** Process received signal ***
+[curie4968:72642] Signal: Segmentation fault (11)
+[curie4968:72642] Signal code:  (128)
+[curie4968:72642] Failing at address: (nil)
+[curie6464:120249] *** Process received signal ***
+[curie6464:120249] Signal: Segmentation fault (11)
+[curie6464:120249] Signal code:  (128)
+[curie6464:120249] Failing at address: (nil)
+[curie6454:82378] *** Process received signal ***
+[curie6454:82378] Signal: Segmentation fault (11)
+[curie6454:82378] Signal code:  (128)
+[curie6454:82378] Failing at address: (nil)
+[curie4350:111421] *** Process received signal ***
+[curie4350:111421] Signal: Segmentation fault (11)
+[curie4350:111421] Signal code:  (128)
+[curie4350:111421] Failing at address: (nil)
+[curie4355:76255] *** Process received signal ***
+[curie4355:76255] Signal: Segmentation fault (11)
+[curie4355:76255] Signal code:  (128)
+[curie4355:76255] Failing at address: (nil)
+[curie4959:42154] *** Process received signal ***
+[curie4959:42154] Signal: Segmentation fault (11)
+[curie4959:42154] Signal code:  (128)
+[curie4959:42154] Failing at address: (nil)
+[curie1777:87246] *** Process received signal ***
+[curie4969:30621] *** Process received signal ***
+[curie4969:30621] Signal: Segmentation fault (11)
+[curie4969:30621] Signal code:  (128)
+[curie4969:30621] Failing at address: (nil)
+[curie4345:42951] *** Process received signal ***
+[curie4345:42951] Signal: Segmentation fault (11)
+[curie4345:42951] Signal code:  (128)
+[curie4345:42951] Failing at address: (nil)
+[curie6457:36590] *** Process received signal ***
+[curie6457:36590] Signal: Segmentation fault (11)
+[curie6457:36590] Signal code:  (128)
+[curie6457:36590] Failing at address: (nil)
+[curie6459:04021] *** Process received signal ***
+[curie6459:04021] Signal: Segmentation fault (11)
+[curie6459:04021] Signal code:  (128)
+[curie6459:04021] Failing at address: (nil)
+[curie6456:36718] *** Process received signal ***
+[curie6456:36718] Signal: Segmentation fault (11)
+[curie6456:36718] Signal code:  (128)
+[curie6456:36718] Failing at address: (nil)
+[curie1784:69152] *** Process received signal ***
+[curie1784:69152] Signal: Segmentation fault (11)
+[curie1784:69152] Signal code:  (128)
+[curie1784:69152] Failing at address: (nil)
+[curie6450:99004] *** Process received signal ***
+[curie6450:99004] Signal: Segmentation fault (11)
+[curie6450:99004] Signal code:  (128)
+[curie6450:99004] Failing at address: (nil)
+[curie6453:87169] *** Process received signal ***
+[curie6453:87169] Signal: Segmentation fault (11)
+[curie6453:87169] Signal code:  (128)
+[curie6453:87169] Failing at address: (nil)
+[curie6461:16678] *** Process received signal ***
+[curie6461:16678] Signal: Segmentation fault (11)
+[curie6461:16678] Signal code:  (128)
+[curie6461:16678] Failing at address: (nil)
+[curie4967:41268] *** Process received signal ***
+[curie4967:41268] Signal: Segmentation fault (11)
+[curie4967:41268] Signal code:  (128)
+[curie4967:41268] Failing at address: (nil)
+[curie4353:70379] *** Process received signal ***
+[curie4353:70379] Signal: Segmentation fault (11)
+[curie4353:70379] Signal code:  (128)
+[curie4353:70379] Failing at address: (nil)
+[curie4972:90200] *** Process received signal ***
+[curie4972:90200] Signal: Segmentation fault (11)
+[curie4972:90200] Signal code:  (128)
+[curie4972:90200] Failing at address: (nil)
+[curie4348:55458] *** Process received signal ***
+[curie4348:55458] Signal: Segmentation fault (11)
+[curie4348:55458] Signal code:  (128)
+[curie4348:55458] Failing at address: (nil)
+[curie4961:06866] *** Process received signal ***
+[curie4961:06866] Signal: Segmentation fault (11)
+[curie4961:06866] Signal code:  (128)
+[curie4961:06866] Failing at address: (nil)
+[curie4960:02350] *** Process received signal ***
+[curie4960:02350] Signal: Segmentation fault (11)
+[curie4960:02350] Signal code:  (128)
+[curie4960:02350] Failing at address: (nil)
+[curie4354:07947] *** Process received signal ***
+[curie4354:07947] Signal: Segmentation fault (11)
+[curie4354:07947] Signal code:  (128)
+[curie4354:07947] Failing at address: (nil)
+[curie4956:30096] *** Process received signal ***
+[curie4956:30096] Signal: Segmentation fault (11)
+[curie4956:30096] Signal code:  (128)
+[curie4956:30096] Failing at address: (nil)
+[curie4966:59967] *** Process received signal ***
+[curie4966:59967] Signal: Segmentation fault (11)
+[curie4966:59967] Signal code:  (128)
+[curie4966:59967] Failing at address: (nil)
+[curie4958:05578] *** Process received signal ***
+[curie4958:05578] Signal: Segmentation fault (11)
+[curie4958:05578] Signal code:  (128)
+[curie4958:05578] Failing at address: (nil)
+[curie4957:11318] *** Process received signal ***
+[curie4957:11318] Signal: Segmentation fault (11)
+[curie4957:11318] Signal code:  (128)
+[curie4957:11318] Failing at address: (nil)
+[curie4352:29267] *** Process received signal ***
+[curie4352:29267] Signal: Segmentation fault (11)
+[curie4352:29267] Signal code:  (128)
+[curie4352:29267] Failing at address: (nil)
+[curie1785:30428] *** Process received signal ***
+[curie1785:30428] Signal: Segmentation fault (11)
+[curie1785:30428] Signal code:  (128)
+[curie1785:30428] Failing at address: (nil)
+[curie4968:72643] *** Process received signal ***
+[curie4968:72643] Signal: Segmentation fault (11)
+[curie4968:72643] Signal code:  (128)
+[curie4968:72643] Failing at address: (nil)
+[curie6464:120250] *** Process received signal ***
+[curie6464:120250] Signal: Segmentation fault (11)
+[curie6464:120250] Signal code:  (128)
+[curie6464:120250] Failing at address: (nil)
+[curie6454:82379] *** Process received signal ***
+[curie6454:82379] Signal: Segmentation fault (11)
+[curie6454:82379] Signal code:  (128)
+[curie6454:82379] Failing at address: (nil)
+[curie4350:111422] *** Process received signal ***
+[curie4350:111422] Signal: Segmentation fault (11)
+[curie4350:111422] Signal code:  (128)
+[curie4350:111422] Failing at address: (nil)
+[curie4355:76256] *** Process received signal ***
+[curie4355:76256] Signal: Segmentation fault (11)
+[curie4355:76256] Signal code:  (128)
+[curie4355:76256] Failing at address: (nil)
+[curie4959:42156] *** Process received signal ***
+[curie4959:42156] Signal: Segmentation fault (11)
+[curie4959:42156] Signal code:  (128)
+[curie4959:42156] Failing at address: (nil)
+[curie1777:87247] *** Process received signal ***
+[curie1777:87247] Signal: Segmentation fault (11)
+[curie1777:87247] Signal code:  (128)
+[curie1777:87247] Failing at address: (nil)
+[curie4969:30622] *** Process received signal ***
+[curie4969:30622] Signal: Segmentation fault (11)
+[curie4969:30622] Signal code:  (128)
+[curie4969:30622] Failing at address: (nil)
+[curie4345:42952] *** Process received signal ***
+[curie4345:42952] Signal: Segmentation fault (11)
+[curie4345:42952] Signal code:  (128)
+[curie4345:42952] Failing at address: (nil)
+[curie6457:36591] *** Process received signal ***
+[curie6457:36591] Signal: Segmentation fault (11)
+[curie6457:36591] Signal code:  (128)
+[curie6457:36591] Failing at address: (nil)
+[curie6459:04023] *** Process received signal ***
+[curie6459:04023] Signal: Segmentation fault (11)
+[curie6459:04023] Signal code:  (128)
+[curie6459:04023] Failing at address: (nil)
+[curie6456:36719] *** Process received signal ***
+[curie6456:36719] Signal: Segmentation fault (11)
+[curie6456:36719] Signal code:  (128)
+[curie6456:36719] Failing at address: (nil)
+[curie1784:69145] *** Process received signal ***
+[curie1784:69145] Signal: Segmentation fault (11)
+[curie1784:69145] Signal code:  (128)
+[curie1784:69145] Failing at address: (nil)
+[curie6450:99005] *** Process received signal ***
+[curie6450:99005] Signal: Segmentation fault (11)
+[curie6450:99005] Signal code:  (128)
+[curie6450:99005] Failing at address: (nil)
+[curie6453:87170] *** Process received signal ***
+[curie6453:87170] Signal: Segmentation fault (11)
+[curie6453:87170] Signal code:  (128)
+[curie6453:87170] Failing at address: (nil)
+[curie6461:16679] *** Process received signal ***
+[curie6461:16679] Signal: Segmentation fault (11)
+[curie6461:16679] Signal code:  (128)
+[curie6461:16679] Failing at address: (nil)
+[curie4967:41269] *** Process received signal ***
+[curie4967:41269] Signal: Segmentation fault (11)
+[curie4967:41269] Signal code:  (128)
+[curie4967:41269] Failing at address: (nil)
+[curie4353:70380] *** Process received signal ***
+[curie4353:70380] Signal: Segmentation fault (11)
+[curie4353:70380] Signal code:  (128)
+[curie4353:70380] Failing at address: (nil)
+[curie4972:90201] *** Process received signal ***
+[curie4972:90201] Signal: Segmentation fault (11)
+[curie4972:90201] Signal code:  (128)
+[curie4972:90201] Failing at address: (nil)
+[curie4348:55459] *** Process received signal ***
+[curie4348:55459] Signal: Segmentation fault (11)
+[curie4348:55459] Signal code:  (128)
+[curie4348:55459] Failing at address: (nil)
+[curie4961:06867] *** Process received signal ***
+[curie4961:06867] Signal: Segmentation fault (11)
+[curie4961:06867] Signal code:  (128)
+[curie4961:06867] Failing at address: (nil)
+[curie4960:02351] *** Process received signal ***
+[curie4960:02351] Signal: Segmentation fault (11)
+[curie4960:02351] Signal code:  (128)
+[curie4960:02351] Failing at address: (nil)
+[curie4354:07948] *** Process received signal ***
+[curie4354:07948] Signal: Segmentation fault (11)
+[curie4354:07948] Signal code:  (128)
+[curie4354:07948] Failing at address: (nil)
+[curie4956:30097] *** Process received signal ***
+[curie4956:30097] Signal: Segmentation fault (11)
+[curie4956:30097] Signal code:  (128)
+[curie4956:30097] Failing at address: (nil)
+[curie4966:59968] *** Process received signal ***
+[curie4966:59968] Signal: Segmentation fault (11)
+[curie4966:59968] Signal code:  (128)
+[curie4966:59968] Failing at address: (nil)
+[curie4958:05579] *** Process received signal ***
+[curie4958:05579] Signal: Segmentation fault (11)
+[curie4958:05579] Signal code:  (128)
+[curie4958:05579] Failing at address: (nil)
+[curie4957:11319] *** Process received signal ***
+[curie4957:11319] Signal: Segmentation fault (11)
+[curie4957:11319] Signal code:  (128)
+[curie4957:11319] Failing at address: (nil)
+[curie4352:29268] *** Process received signal ***
+[curie4352:29268] Signal: Segmentation fault (11)
+[curie4352:29268] Signal code:  (128)
+[curie4352:29268] Failing at address: (nil)
+[curie1785:30429] *** Process received signal ***
+[curie1785:30429] Signal: Segmentation fault (11)
+[curie1785:30429] Signal code:  (128)
+[curie1785:30429] Failing at address: (nil)
+[curie4968:72644] *** Process received signal ***
+[curie4968:72644] Signal: Segmentation fault (11)
+[curie4968:72644] Signal code:  (128)
+[curie4968:72644] Failing at address: (nil)
+[curie6464:120251] *** Process received signal ***
+[curie6464:120251] Signal: Segmentation fault (11)
+[curie6464:120251] Signal code:  (128)
+[curie6464:120251] Failing at address: (nil)
+[curie6454:82380] *** Process received signal ***
+[curie6454:82380] Signal: Segmentation fault (11)
+[curie6454:82380] Signal code:  (128)
+[curie6454:82380] Failing at address: (nil)
+[curie4350:111423] *** Process received signal ***
+[curie4350:111423] Signal: Segmentation fault (11)
+[curie4350:111423] Signal code:  (128)
+[curie4350:111423] Failing at address: (nil)
+[curie4355:76257] *** Process received signal ***
+[curie4355:76257] Signal: Segmentation fault (11)
+[curie4355:76257] Signal code:  (128)
+[curie4355:76257] Failing at address: (nil)
+[curie4959:42157] *** Process received signal ***
+[curie4959:42157] Signal: Segmentation fault (11)
+[curie4959:42157] Signal code:  (128)
+[curie4959:42157] Failing at address: (nil)
+[curie1777:87248] *** Process received signal ***
+[curie1777:87248] Signal: Segmentation fault (11)
+[curie1777:87248] Signal code:  (128)
+[curie1777:87248] Failing at address: (nil)
+[curie4969:30623] *** Process received signal ***
+[curie4969:30623] Signal: Segmentation fault (11)
+[curie4969:30623] Signal code:  (128)
+[curie4969:30623] Failing at address: (nil)
+[curie4345:42953] *** Process received signal ***
+[curie4345:42953] Signal: Segmentation fault (11)
+[curie4345:42953] Signal code:  (128)
+[curie4345:42953] Failing at address: (nil)
+[curie6457:36592] *** Process received signal ***
+[curie6457:36592] Signal: Segmentation fault (11)
+[curie6457:36592] Signal code:  (128)
+[curie6457:36592] Failing at address: (nil)
+[curie6459:04024] *** Process received signal ***
+[curie6459:04024] Signal: Segmentation fault (11)
+[curie6459:04024] Signal code:  (128)
+[curie6459:04024] Failing at address: (nil)
+[curie6456:36720] *** Process received signal ***
+[curie6456:36720] Signal: Segmentation fault (11)
+[curie6456:36720] Signal code:  (128)
+[curie6456:36720] Failing at address: (nil)
+[curie6450:99006] *** Process received signal ***
+[curie6450:99006] Signal: Segmentation fault (11)
+[curie6450:99006] Signal code:  (128)
+[curie6450:99006] Failing at address: (nil)
+[curie6453:87171] *** Process received signal ***
+[curie6453:87171] Signal: Segmentation fault (11)
+[curie6453:87171] Signal code:  (128)
+[curie6453:87171] Failing at address: (nil)
+[curie6461:16680] *** Process received signal ***
+[curie6461:16680] Signal: Segmentation fault (11)
+[curie6461:16680] Signal code:  (128)
+[curie6461:16680] Failing at address: (nil)
+[curie4967:41270] *** Process received signal ***
+[curie4967:41270] Signal: Segmentation fault (11)
+[curie4967:41270] Signal code:  (128)
+[curie4967:41270] Failing at address: (nil)
+[curie4353:70381] *** Process received signal ***
+[curie4353:70381] Signal: Segmentation fault (11)
+[curie4353:70381] Signal code:  (128)
+[curie4353:70381] Failing at address: (nil)
+[curie4972:90202] *** Process received signal ***
+[curie4972:90202] Signal: Segmentation fault (11)
+[curie4972:90202] Signal code:  (128)
+[curie4972:90202] Failing at address: (nil)
+[curie4348:55460] *** Process received signal ***
+[curie4348:55460] Signal: Segmentation fault (11)
+[curie4348:55460] Signal code:  (128)
+[curie4348:55460] Failing at address: (nil)
+[curie4961:06868] *** Process received signal ***
+[curie4961:06868] Signal: Segmentation fault (11)
+[curie4961:06868] Signal code:  (128)
+[curie4961:06868] Failing at address: (nil)
+[curie4960:02352] *** Process received signal ***
+[curie4960:02352] Signal: Segmentation fault (11)
+[curie4960:02352] Signal code:  (128)
+[curie4960:02352] Failing at address: (nil)
+[curie4354:07949] *** Process received signal ***
+[curie4354:07949] Signal: Segmentation fault (11)
+[curie4354:07949] Signal code:  (128)
+[curie4354:07949] Failing at address: (nil)
+[curie4956:30098] *** Process received signal ***
+[curie4956:30098] Signal: Segmentation fault (11)
+[curie4956:30098] Signal code:  (128)
+[curie4956:30098] Failing at address: (nil)
+[curie4966:59969] *** Process received signal ***
+[curie4966:59969] Signal: Segmentation fault (11)
+[curie4966:59969] Signal code:  (128)
+[curie4966:59969] Failing at address: (nil)
+[curie4958:05580] *** Process received signal ***
+[curie4958:05580] Signal: Segmentation fault (11)
+[curie4958:05580] Signal code:  (128)
+[curie4958:05580] Failing at address: (nil)
+[curie4957:11320] *** Process received signal ***
+[curie4957:11320] Signal: Segmentation fault (11)
+[curie4957:11320] Signal code:  (128)
+[curie4957:11320] Failing at address: (nil)
+[curie4352:29269] *** Process received signal ***
+[curie4352:29269] Signal: Segmentation fault (11)
+[curie4352:29269] Signal code:  (128)
+[curie4352:29269] Failing at address: (nil)
+[curie1785:30430] *** Process received signal ***
+[curie1785:30430] Signal: Segmentation fault (11)
+[curie1785:30430] Signal code:  (128)
+[curie1785:30430] Failing at address: (nil)
+[curie4968:72645] *** Process received signal ***
+[curie4968:72645] Signal: Segmentation fault (11)
+[curie4968:72645] Signal code:  (128)
+[curie4968:72645] Failing at address: (nil)
+[curie6464:120252] *** Process received signal ***
+[curie6464:120252] Signal: Segmentation fault (11)
+[curie6464:120252] Signal code:  (128)
+[curie6464:120252] Failing at address: (nil)
+[curie6454:82381] *** Process received signal ***
+[curie6454:82381] Signal: Segmentation fault (11)
+[curie6454:82381] Signal code:  (128)
+[curie6454:82381] Failing at address: (nil)
+[curie4350:111424] *** Process received signal ***
+[curie4350:111424] Signal: Segmentation fault (11)
+[curie4350:111424] Signal code:  (128)
+[curie4350:111424] Failing at address: (nil)
+[curie4355:76258] *** Process received signal ***
+[curie4355:76258] Signal: Segmentation fault (11)
+[curie4355:76258] Signal code:  (128)
+[curie4355:76258] Failing at address: (nil)
+[curie4959:42158] *** Process received signal ***
+[curie4959:42158] Signal: Segmentation fault (11)
+[curie4959:42158] Signal code:  (128)
+[curie4959:42158] Failing at address: (nil)
+[curie1777:87249] *** Process received signal ***
+[curie1777:87249] Signal: Segmentation fault (11)
+[curie1777:87249] Signal code:  (128)
+[curie1777:87249] Failing at address: (nil)
+[curie4969:30624] *** Process received signal ***
+[curie4969:30624] Signal: Segmentation fault (11)
+[curie4969:30624] Signal code:  (128)
+[curie4969:30624] Failing at address: (nil)
+[curie4345:42954] *** Process received signal ***
+[curie4345:42954] Signal: Segmentation fault (11)
+[curie4345:42954] Signal code:  (128)
+[curie4345:42954] Failing at address: (nil)
+[curie6457:36593] *** Process received signal ***
+[curie6457:36593] Signal: Segmentation fault (11)
+[curie6457:36593] Signal code:  (128)
+[curie6457:36593] Failing at address: (nil)
+[curie6459:04025] *** Process received signal ***
+[curie6459:04025] Signal: Segmentation fault (11)
+[curie6459:04025] Signal code:  (128)
+[curie6459:04025] Failing at address: (nil)
+[curie6456:36721] *** Process received signal ***
+[curie6456:36721] Signal: Segmentation fault (11)
+[curie6456:36721] Signal code:  (128)
+[curie6456:36721] Failing at address: (nil)
+[curie6450:99007] *** Process received signal ***
+[curie6450:99007] Signal: Segmentation fault (11)
+[curie6450:99007] Signal code:  (128)
+[curie6450:99007] Failing at address: (nil)
+[curie6453:87172] *** Process received signal ***
+[curie6453:87172] Signal: Segmentation fault (11)
+[curie6453:87172] Signal code:  (128)
+[curie6453:87172] Failing at address: (nil)
+[curie6461:16681] *** Process received signal ***
+[curie6461:16681] Signal: Segmentation fault (11)
+[curie6461:16681] Signal code:  (128)
+[curie6461:16681] Failing at address: (nil)
+[curie4967:41272] *** Process received signal ***
+[curie4967:41272] Signal: Segmentation fault (11)
+[curie4967:41272] Signal code:  (128)
+[curie4967:41272] Failing at address: (nil)
+[curie4353:70382] *** Process received signal ***
+[curie4353:70382] Signal: Segmentation fault (11)
+[curie4353:70382] Signal code:  (128)
+[curie4353:70382] Failing at address: (nil)
+[curie4972:90203] *** Process received signal ***
+[curie4972:90203] Signal: Segmentation fault (11)
+[curie4972:90203] Signal code:  (128)
+[curie4972:90203] Failing at address: (nil)
+[curie4348:55461] *** Process received signal ***
+[curie4348:55461] Signal: Segmentation fault (11)
+[curie4348:55461] Signal code:  (128)
+[curie4348:55461] Failing at address: (nil)
+[curie4961:06869] *** Process received signal ***
+[curie4961:06869] Signal: Segmentation fault (11)
+[curie4961:06869] Signal code:  (128)
+[curie4961:06869] Failing at address: (nil)
+[curie4960:02353] *** Process received signal ***
+[curie4960:02353] Signal: Segmentation fault (11)
+[curie4960:02353] Signal code:  (128)
+[curie4960:02353] Failing at address: (nil)
+[curie4354:07950] *** Process received signal ***
+[curie4354:07950] Signal: Segmentation fault (11)
+[curie4354:07950] Signal code:  (128)
+[curie4354:07950] Failing at address: (nil)
+[curie4956:30099] *** Process received signal ***
+[curie4966:59970] *** Process received signal ***
+[curie4966:59970] Signal: Segmentation fault (11)
+[curie4966:59970] Signal code:  (128)
+[curie4966:59970] Failing at address: (nil)
+[curie4958:05581] *** Process received signal ***
+[curie4958:05581] Signal: Segmentation fault (11)
+[curie4958:05581] Signal code:  (128)
+[curie4958:05581] Failing at address: (nil)
+[curie4957:11321] *** Process received signal ***
+[curie4957:11321] Signal: Segmentation fault (11)
+[curie4957:11321] Signal code:  (128)
+[curie4957:11321] Failing at address: (nil)
+[curie4352:29270] *** Process received signal ***
+[curie4352:29270] Signal: Segmentation fault (11)
+[curie4352:29270] Signal code:  (128)
+[curie4352:29270] Failing at address: (nil)
+[curie1785:30431] *** Process received signal ***
+[curie1785:30431] Signal: Segmentation fault (11)
+[curie1785:30431] Signal code:  (128)
+[curie1785:30431] Failing at address: (nil)
+[curie4968:72646] *** Process received signal ***
+[curie4968:72646] Signal: Segmentation fault (11)
+[curie4968:72646] Signal code:  (128)
+[curie4968:72646] Failing at address: (nil)
+[curie6464:120253] *** Process received signal ***
+[curie6464:120253] Signal: Segmentation fault (11)
+[curie6464:120253] Signal code:  (128)
+[curie6464:120253] Failing at address: (nil)
+[curie6454:82382] *** Process received signal ***
+[curie6454:82382] Signal: Segmentation fault (11)
+[curie6454:82382] Signal code:  (128)
+[curie6454:82382] Failing at address: (nil)
+[curie4350:111417] *** Process received signal ***
+[curie4350:111417] Signal: Segmentation fault (11)
+[curie4350:111417] Signal code:  (128)
+[curie4350:111417] Failing at address: (nil)
+[curie4355:76259] *** Process received signal ***
+[curie4355:76259] Signal: Segmentation fault (11)
+[curie4355:76259] Signal code:  (128)
+[curie4355:76259] Failing at address: (nil)
+[curie4959:42159] *** Process received signal ***
+[curie4959:42159] Signal: Segmentation fault (11)
+[curie4959:42159] Signal code:  (128)
+[curie4959:42159] Failing at address: (nil)
+[curie1777:87250] *** Process received signal ***
+[curie1777:87250] Signal: Segmentation fault (11)
+[curie1777:87250] Signal code:  (128)
+[curie1777:87250] Failing at address: (nil)
+[curie4969:30625] *** Process received signal ***
+[curie4969:30625] Signal: Segmentation fault (11)
+[curie4969:30625] Signal code:  (128)
+[curie4969:30625] Failing at address: (nil)
+[curie4345:42955] *** Process received signal ***
+[curie6459:04027] *** Process received signal ***
+[curie6459:04027] Signal: Segmentation fault (11)
+[curie6459:04027] Signal code:  (128)
+[curie6459:04027] Failing at address: (nil)
+[curie6456:36722] *** Process received signal ***
+[curie6456:36722] Signal: Segmentation fault (11)
+[curie6456:36722] Signal code:  (128)
+[curie6456:36722] Failing at address: (nil)
+[curie6450:99008] *** Process received signal ***
+[curie6450:99008] Signal: Segmentation fault (11)
+[curie6450:99008] Signal code:  (128)
+[curie6450:99008] Failing at address: (nil)
+[curie6453:87173] *** Process received signal ***
+[curie6453:87173] Signal: Segmentation fault (11)
+[curie6453:87173] Signal code:  (128)
+[curie6453:87173] Failing at address: (nil)
+[curie4353:70375] *** Process received signal ***
+[curie4348:55454] *** Process received signal ***
+[curie4961:06870] *** Process received signal ***
+[curie4961:06870] Signal: Segmentation fault (11)
+[curie4961:06870] Signal code:  (128)
+[curie4961:06870] Failing at address: (nil)
+[curie4354:07951] *** Process received signal ***
+[curie4354:07951] Signal: Segmentation fault (11)
+[curie4354:07951] Signal code:  (128)
+[curie4354:07951] Failing at address: (nil)
+[curie4956:30100] *** Process received signal ***
+[curie4956:30100] Signal: Segmentation fault (11)
+[curie4956:30100] Signal code:  (128)
+[curie4956:30100] Failing at address: (nil)
+[curie4958:05582] *** Process received signal ***
+[curie4958:05582] Signal: Segmentation fault (11)
+[curie4958:05582] Signal code:  (128)
+[curie4958:05582] Failing at address: (nil)
+[curie4957:11314] *** Process received signal ***
+[curie4352:29271] *** Process received signal ***
+[curie4352:29271] Signal: Segmentation fault (11)
+[curie4352:29271] Signal code:  (128)
+[curie4352:29271] Failing at address: (nil)
+[curie1785:30432] *** Process received signal ***
+[curie1785:30432] Signal: Segmentation fault (11)
+[curie1785:30432] Signal code:  (128)
+[curie1785:30432] Failing at address: (nil)
+[curie6464:120254] *** Process received signal ***
+[curie6464:120254] Signal: Segmentation fault (11)
+[curie6464:120254] Signal code:  (128)
+[curie6464:120254] Failing at address: (nil)
+[curie4355:76252] *** Process received signal ***
+[curie4355:76252] Signal: Segmentation fault (11)
+[curie4355:76252] Signal code:  (128)
+[curie4355:76252] Failing at address: (nil)
+[curie4959:42151] *** Process received signal ***
+[curie4345:42956] *** Process received signal ***
+[curie4345:42956] Signal: Segmentation fault (11)
+[curie4345:42956] Signal code:  (128)
+[curie4345:42956] Failing at address: (nil)
+[curie4353:70375] Signal: Segmentation fault (11)
+[curie4353:70375] Signal code:  (128)
+[curie4353:70375] Failing at address: (nil)
+[curie4354:07952] *** Process received signal ***
+[curie4354:07952] Signal: Segmentation fault (11)
+[curie4354:07952] Signal code:  (128)
+[curie4354:07952] Failing at address: (nil)
+[curie4956:30101] *** Process received signal ***
+[curie4956:30101] Signal: Segmentation fault (11)
+[curie4956:30101] Signal code:  (128)
+[curie4956:30101] Failing at address: (nil)
+[curie4958:05583] *** Process received signal ***
+[curie4958:05583] Signal: Segmentation fault (11)
+[curie4958:05583] Signal code:  (128)
+[curie4958:05583] Failing at address: (nil)
+[curie4957:11314] Signal: Segmentation fault (11)
+[curie4957:11314] Signal code:  (128)
+[curie4957:11314] Failing at address: (nil)
+[curie4352:29272] *** Process received signal ***
+[curie4352:29272] Signal: Segmentation fault (11)
+[curie4352:29272] Signal code:  (128)
+[curie4352:29272] Failing at address: (nil)
+[curie1785:30433] *** Process received signal ***
+[curie1785:30433] Signal: Segmentation fault (11)
+[curie1785:30433] Signal code:  (128)
+[curie1785:30433] Failing at address: (nil)
+[curie4344:87356] *** Process received signal ***
+[curie4344:87356] Signal: Segmentation fault (11)
+[curie4344:87356] Signal code:  (128)
+[curie4344:87356] Failing at address: (nil)
+[curie4344:87358] *** Process received signal ***
+[curie4344:87358] Signal: Segmentation fault (11)
+[curie4344:87358] Signal code:  (128)
+[curie4344:87358] Failing at address: (nil)
+[curie4344:87359] *** Process received signal ***
+[curie4344:87359] Signal: Segmentation fault (11)
+[curie4344:87359] Signal code:  (128)
+[curie4344:87359] Failing at address: (nil)
+[curie4344:87360] *** Process received signal ***
+[curie4344:87360] Signal: Segmentation fault (11)
+[curie4344:87360] Signal code:  (128)
+[curie4344:87360] Failing at address: (nil)
+[curie4344:87361] *** Process received signal ***
+[curie4344:87361] Signal: Segmentation fault (11)
+[curie4344:87361] Signal code:  (128)
+[curie4344:87361] Failing at address: (nil)
+[curie4344:87362] *** Process received signal ***
+[curie4344:87362] Signal: Segmentation fault (11)
+[curie4344:87362] Signal code:  (128)
+[curie4344:87362] Failing at address: (nil)
+[curie4344:87355] *** Process received signal ***
+[curie4344:87355] Signal: Segmentation fault (11)
+[curie4344:87355] Signal code:  (128)
+[curie4344:87355] Failing at address: (nil)
+[curie6452:121074] *** Process received signal ***
+[curie6452:121074] Signal: Segmentation fault (11)
+[curie6452:121074] Signal code:  (128)
+[curie6452:121074] Failing at address: (nil)
+[curie6452:121075] *** Process received signal ***
+[curie6452:121075] Signal: Segmentation fault (11)
+[curie6452:121075] Signal code:  (128)
+[curie6452:121075] Failing at address: (nil)
+[curie6452:121076] *** Process received signal ***
+[curie6452:121076] Signal: Segmentation fault (11)
+[curie6452:121076] Signal code:  (128)
+[curie6452:121076] Failing at address: (nil)
+[curie6452:121077] *** Process received signal ***
+[curie6452:121077] Signal: Segmentation fault (11)
+[curie6452:121077] Signal code:  (128)
+[curie6452:121077] Failing at address: (nil)
+[curie4349:31305] *** Process received signal ***
+[curie4349:31305] Signal: Segmentation fault (11)
+[curie4349:31305] Signal code:  (128)
+[curie4349:31305] Failing at address: (nil)
+[curie6452:121078] *** Process received signal ***
+[curie6452:121078] Signal: Segmentation fault (11)
+[curie6452:121078] Signal code:  (128)
+[curie6452:121078] Failing at address: (nil)
+[curie6450:99001] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ad8b08bf7e0]
+[curie6450:99001] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ad8c3e534a5]
+[curie6450:99001] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ad8c1272a5f]
+[curie6450:99001] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ad8c3e5406e]
+[curie6450:99001] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ad8c2111c4d]
+[curie6450:99001] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ad8c1efa4ec]
+[curie6450:99001] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ad8b19acc14]
+[curie4349:31306] *** Process received signal ***
+[curie4349:31306] Signal: Segmentation fault (11)
+[curie4349:31306] Signal code:  (128)
+[curie4349:31306] Failing at address: (nil)
+[curie4966:59963] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b8170f0f7e0]
+[curie4966:59963] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b81845a94a5]
+[curie4966:59963] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b81819c8a5f]
+[curie4966:59963] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b81845aa06e]
+[curie4966:59963] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b8182867c4d]
+[curie4966:59963] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b81826504ec]
+[curie4966:59963] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b8171ffcc14]
+[curie6452:121079] *** Process received signal ***
+[curie6452:121079] Signal: Segmentation fault (11)
+[curie6452:121079] Signal code:  (128)
+[curie6452:121079] Failing at address: (nil)
+[curie6450:99001] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ad8b327049c]
+[curie6450:99001] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ad8b1fd9fe4]
+[curie6450:99001] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ad8b1fd4e4c]
+[curie6450:99001] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ad8b1fd4a1e]
+[curie6450:99001] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ad8b19acc14]
+[curie4349:31307] *** Process received signal ***
+[curie4349:31307] Signal: Segmentation fault (11)
+[curie4349:31307] Signal code:  (128)
+[curie4349:31307] Failing at address: (nil)
+[curie4353:70377] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ba2d1fca7e0]
+[curie4353:70377] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ba2e54de4a5]
+[curie4353:70377] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ba2e28fda5f]
+[curie4353:70377] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ba2e54df06e]
+[curie4353:70377] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ba2e379cc4d]
+[curie4353:70377] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ba2e35854ec]
+[curie4353:70377] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ba2d30b7c14]
+[curie4961:06864] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ad5779687e0]
+[curie4961:06864] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ad58b0294a5]
+[curie4961:06864] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ad588448a5f]
+[curie4961:06864] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ad58b02a06e]
+[curie4961:06864] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ad5892e7c4d]
+[curie4961:06864] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ad5890d04ec]
+[curie4961:06864] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ad578a55c14]
+[curie4966:59963] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b81738c049c]
+[curie4966:59963] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b8172629fe4]
+[curie4966:59963] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b8172624e4c]
+[curie4966:59963] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b8172624a1e]
+[curie4966:59963] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b8171ffcc14]
+[curie6452:121080] *** Process received signal ***
+[curie6452:121080] Signal: Segmentation fault (11)
+[curie6452:121080] Signal code:  (128)
+[curie6452:121080] Failing at address: (nil)
+[curie4968:72642] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b7ae0fe77e0]
+[curie4968:72642] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b7af46294a5]
+[curie4968:72642] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b7af1a48a5f]
+[curie4968:72642] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b7af462a06e]
+[curie4968:72642] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b7af28e7c4d]
+[curie4968:72642] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b7af26d04ec]
+[curie4968:72642] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b7ae20d4c14]
+[curie6450:99001] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ad8b1fd9fe4]
+[curie6450:99001] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ad8b1fd4e4c]
+[curie6450:99001] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ad8b1fd4a1e]
+[curie6450:99001] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6450:99001] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ad8b1014d5d]
+[curie6450:99001] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie6450:99001] *** End of error message ***
+[curie6453:87170] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ab0a7c967e0]
+[curie6453:87170] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ab0bb1aa4a5]
+[curie6453:87170] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ab0b85c9a5f]
+[curie6453:87170] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ab0bb1ab06e]
+[curie6453:87170] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ab0b9468c4d]
+[curie6453:87170] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ab0b92514ec]
+[curie6453:87170] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ab0a8d83c14]
+[curie4349:31308] *** Process received signal ***
+[curie4349:31308] Signal: Segmentation fault (11)
+[curie4349:31308] Signal code:  (128)
+[curie4349:31308] Failing at address: (nil)
+[curie4353:70377] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ba2d497b49c]
+[curie4353:70377] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ba2d36e4fe4]
+[curie4353:70377] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ba2d36dfe4c]
+[curie4353:70377] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ba2d36dfa1e]
+[curie4353:70377] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ba2d30b7c14]
+[curie4961:06864] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ad57a31949c]
+[curie4961:06864] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ad579082fe4]
+[curie4961:06864] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ad57907de4c]
+[curie4961:06864] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ad57907da1e]
+[curie4961:06864] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ad578a55c14]
+[curie4966:59963] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b8172629fe4]
+[curie4966:59963] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b8172624e4c]
+[curie4966:59963] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b8172624a1e]
+[curie4966:59963] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4966:59963] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b8171664d5d]
+[curie4966:59963] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4966:59963] *** End of error message ***
+[curie4968:72642] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b7ae399849c]
+[curie4968:72642] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b7ae2701fe4]
+[curie4968:72642] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b7ae26fce4c]
+[curie4968:72642] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b7ae26fca1e]
+[curie4968:72642] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b7ae20d4c14]
+[curie6456:36717] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b643d9ff7e0]
+[curie6456:36717] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b6450f134a5]
+[curie6456:36717] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b644e332a5f]
+[curie6456:36717] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b6450f1406e]
+[curie6456:36717] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b644f1d1c4d]
+[curie6456:36717] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b644efba4ec]
+[curie6456:36717] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b643eaecc14]
+[curie6453:87170] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ab0aa64749c]
+[curie6453:87170] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ab0a93b0fe4]
+[curie6453:87170] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ab0a93abe4c]
+[curie6453:87170] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ab0a93aba1e]
+[curie6453:87170] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ab0a8d83c14]
+[curie4349:31309] *** Process received signal ***
+[curie4349:31309] Signal: Segmentation fault (11)
+[curie4349:31309] Signal code:  (128)
+[curie4349:31309] Failing at address: (nil)
+[curie6461:16674] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ab5c7be47e0]
+[curie6461:16674] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ab5db1784a5]
+[curie6461:16674] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ab5d8597a5f]
+[curie6461:16674] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ab5db17906e]
+[curie6461:16674] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ab5d9436c4d]
+[curie6461:16674] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ab5d921f4ec]
+[curie6461:16674] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ab5c8cd1c14]
+[curie4353:70377] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ba2d36e4fe4]
+[curie4353:70377] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ba2d36dfe4c]
+[curie4353:70377] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ba2d36dfa1e]
+[curie4353:70377] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4353:70377] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ba2d271fd5d]
+[curie4353:70377] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4353:70377] *** End of error message ***
+[curie4344:87357] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ad19a4f87e0]
+[curie4344:87357] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ad1ada0c4a5]
+[curie4344:87357] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ad1aae2ba5f]
+[curie4344:87357] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ad1ada0d06e]
+[curie4344:87357] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ad1abccac4d]
+[curie4344:87357] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ad1abab34ec]
+[curie4344:87357] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ad19b5e5c14]
+[curie4348:55456] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b9cbc6017e0]
+[curie4348:55456] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b9ccfc294a5]
+[curie4348:55456] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b9ccd048a5f]
+[curie4348:55456] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b9ccfc2a06e]
+[curie4348:55456] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b9ccdee7c4d]
+[curie4348:55456] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b9ccdcd04ec]
+[curie4348:55456] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b9cbd6eec14]
+[curie4961:06864] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ad579082fe4]
+[curie4961:06864] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ad57907de4c]
+[curie4961:06864] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ad57907da1e]
+[curie4961:06864] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4961:06864] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ad5780bdd5d]
+[curie4961:06864] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4961:06864] *** End of error message ***
+[curie4354:07947] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2afe20e2f7e0]
+[curie4354:07947] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2afe345294a5]
+[curie4354:07947] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2afe31948a5f]
+[curie4354:07947] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2afe3452a06e]
+[curie4354:07947] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2afe327e7c4d]
+[curie4354:07947] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2afe325d04ec]
+[curie4354:07947] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2afe21f1cc14]
+[curie4968:72642] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b7ae2701fe4]
+[curie4968:72642] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b7ae26fce4c]
+[curie4968:72642] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b7ae26fca1e]
+[curie4968:72642] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4968:72642] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b7ae173cd5d]
+[curie4968:72642] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4968:72642] *** End of error message ***
+[curie6456:36717] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b64403b049c]
+[curie6456:36717] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b643f119fe4]
+[curie6456:36717] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b643f114e4c]
+[curie6456:36717] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b643f114a1e]
+[curie6456:36717] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b643eaecc14]
+[curie6453:87170] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ab0a93b0fe4]
+[curie6453:87170] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ab0a93abe4c]
+[curie6453:87170] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ab0a93aba1e]
+[curie6453:87170] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6453:87170] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ab0a83ebd5d]
+[curie6453:87170] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie6453:87170] *** End of error message ***
+[curie4349:31310] *** Process received signal ***
+[curie4349:31310] Signal: Segmentation fault (11)
+[curie4349:31310] Signal code:  (128)
+[curie4349:31310] Failing at address: (nil)
+[curie6461:16674] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ab5ca59549c]
+[curie6461:16674] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ab5c92fefe4]
+[curie6461:16674] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ab5c92f9e4c]
+[curie6461:16674] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ab5c92f9a1e]
+[curie6461:16674] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ab5c8cd1c14]
+[curie4967:41267] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b0aaa54a7e0]
+[curie4967:41267] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b0abda5e4a5]
+[curie4967:41267] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b0abae7da5f]
+[curie4967:41267] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b0abda5f06e]
+[curie4967:41267] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b0abbd1cc4d]
+[curie4967:41267] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b0abbb054ec]
+[curie4967:41267] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b0aab637c14]
+[curie4348:55456] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b9cbefb249c]
+[curie4348:55456] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b9cbdd1bfe4]
+[curie4348:55456] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b9cbdd16e4c]
+[curie4348:55456] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b9cbdd16a1e]
+[curie4348:55456] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b9cbd6eec14]
+[curie4354:07947] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2afe237e049c]
+[curie4354:07947] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2afe22549fe4]
+[curie4354:07947] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2afe22544e4c]
+[curie4354:07947] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2afe22544a1e]
+[curie4354:07947] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2afe21f1cc14]
+[curie4957:11316] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2abf444c97e0]
+[curie4957:11316] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2abf579dd4a5]
+[curie4957:11316] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2abf54dfca5f]
+[curie4957:11316] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2abf579de06e]
+[curie4957:11316] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2abf55c9bc4d]
+[curie4957:11316] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2abf55a844ec]
+[curie4957:11316] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2abf455b6c14]
+[curie4352:29267] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b01acef67e0]
+[curie4352:29267] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b01c040a4a5]
+[curie4352:29267] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b01bd829a5f]
+[curie4352:29267] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b01c040b06e]
+[curie4352:29267] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b01be6c8c4d]
+[curie4352:29267] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b01be4b14ec]
+[curie4352:29267] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b01adfe3c14]
+[curie6456:36717] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b643f119fe4]
+[curie6456:36717] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b643f114e4c]
+[curie6456:36717] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b643f114a1e]
+[curie6456:36717] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6456:36717] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b643e154d5d]
+[curie6456:36717] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie6456:36717] *** End of error message ***
+[curie4349:31311] *** Process received signal ***
+[curie4349:31311] Signal: Segmentation fault (11)
+[curie4349:31311] Signal code:  (128)
+[curie4349:31311] Failing at address: (nil)
+[curie6461:16674] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ab5c92fefe4]
+[curie6461:16674] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ab5c92f9e4c]
+[curie6461:16674] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ab5c92f9a1e]
+[curie6461:16674] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6461:16674] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ab5c8339d5d]
+[curie6461:16674] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie6461:16674] *** End of error message ***
+[curie4967:41267] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b0aacefb49c]
+[curie4967:41267] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b0aabc64fe4]
+[curie4967:41267] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b0aabc5fe4c]
+[curie4967:41267] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b0aabc5fa1e]
+[curie4967:41267] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b0aab637c14]
+[curie4972:90197] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b612ff1e7e0]
+[curie4972:90197] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b61434324a5]
+[curie4972:90197] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b6140851a5f]
+[curie4972:90197] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b614343306e]
+[curie4972:90197] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b61416f0c4d]
+[curie4972:90197] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b61414d94ec]
+[curie4972:90197] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b613100bc14]
+[curie4348:55456] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b9cbdd1bfe4]
+[curie4348:55456] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b9cbdd16e4c]
+[curie4348:55456] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b9cbdd16a1e]
+[curie4348:55456] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4348:55456] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b9cbcd56d5d]
+[curie4348:55456] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4348:55456] *** End of error message ***
+[curie4354:07947] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2afe22549fe4]
+[curie4354:07947] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2afe22544e4c]
+[curie4354:07947] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2afe22544a1e]
+[curie4354:07947] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4354:07947] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2afe21584d5d]
+[curie4354:07947] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4354:07947] *** End of error message ***
+[curie4956:30097] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b6d312007e0]
+[curie4956:30097] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b6d447144a5]
+[curie4956:30097] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b6d41b33a5f]
+[curie4956:30097] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b6d4471506e]
+[curie4956:30097] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b6d429d2c4d]
+[curie4956:30097] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b6d427bb4ec]
+[curie4956:30097] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b6d322edc14]
+[curie4957:11316] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2abf46e7a49c]
+[curie4957:11316] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2abf45be3fe4]
+[curie4957:11316] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2abf45bdee4c]
+[curie4957:11316] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2abf45bdea1e]
+[curie4957:11316] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2abf455b6c14]
+[curie4352:29267] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b01af8a749c]
+[curie4352:29267] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b01ae610fe4]
+[curie4352:29267] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b01ae60be4c]
+[curie4352:29267] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b01ae60ba1e]
+[curie4352:29267] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b01adfe3c14]
+[curie6454:82376] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b09cc2587e0]
+[curie6454:82376] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b09df76c4a5]
+[curie6454:82376] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b09dcb8ba5f]
+[curie6454:82376] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b09df76d06e]
+[curie6454:82376] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b09dda2ac4d]
+[curie6454:82376] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b09dd8134ec]
+[curie6454:82376] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b09cd345c14]
+[curie1777:87243] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b25fbc0f7e0]
+[curie1777:87243] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b260f2a94a5]
+[curie1777:87243] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b260c6c8a5f]
+[curie1777:87243] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b260f2aa06e]
+[curie1777:87243] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b260d567c4d]
+[curie1777:87243] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b260d3504ec]
+[curie1777:87243] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b25fccfcc14]
+[curie4969:30620] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ab4ea9f67e0]
+[curie4969:30620] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ab4fe0294a5]
+[curie4969:30620] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ab4fb448a5f]
+[curie4969:30620] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ab4fe02a06e]
+[curie4969:30620] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ab4fc2e7c4d]
+[curie4969:30620] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ab4fc0d04ec]
+[curie4969:30620] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ab4ebae3c14]
+[curie6457:36590] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b851dd707e0]
+[curie6457:36590] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b85312844a5]
+[curie6457:36590] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b852e6a3a5f]
+[curie6457:36590] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b853128506e]
+[curie6457:36590] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b852f542c4d]
+[curie6457:36590] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b852f32b4ec]
+[curie6457:36590] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b851ee5dc14]
+[curie6459:04024] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2afb7b6c37e0]
+[curie6459:04024] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2afb8ef134a5]
+[curie6459:04024] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2afb8c332a5f]
+[curie6459:04024] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2afb8ef1406e]
+[curie6459:04024] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2afb8d1d1c4d]
+[curie6459:04024] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2afb8cfba4ec]
+[curie6459:04024] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2afb7c7b0c14]
+[curie4967:41267] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b0aabc64fe4]
+[curie4967:41267] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b0aabc5fe4c]
+[curie4967:41267] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b0aabc5fa1e]
+[curie4967:41267] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4967:41267] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b0aaac9fd5d]
+[curie4967:41267] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4967:41267] *** End of error message ***
+[curie4972:90197] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b61328cf49c]
+[curie4972:90197] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b6131638fe4]
+[curie4972:90197] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b6131633e4c]
+[curie4972:90197] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b6131633a1e]
+srun: error: curie6457: tasks 224-227,229-231: Segmentation fault
+[curie4972:90197] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b613100bc14]
+[curie4960:02347] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b3477f727e0]
+[curie4960:02347] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b348b4864a5]
+[curie4960:02347] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b34888a5a5f]
+[curie4960:02347] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b348b48706e]
+[curie4960:02347] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b3489744c4d]
+[curie4960:02347] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b348952d4ec]
+[curie4960:02347] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b347905fc14]
+[curie4956:30097] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b6d33bb149c]
+[curie4956:30097] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b6d3291afe4]
+[curie4956:30097] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b6d32915e4c]
+[curie4956:30097] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b6d32915a1e]
+[curie4956:30097] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b6d322edc14]
+[curie4958:05578] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b22937b07e0]
+[curie4958:05578] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b22a6cc44a5]
+[curie4958:05578] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b22a40e3a5f]
+[curie4958:05578] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b22a6cc506e]
+[curie4958:05578] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b22a4f82c4d]
+[curie4958:05578] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b22a4d6b4ec]
+[curie4958:05578] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b229489dc14]
+[curie4957:11316] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2abf45be3fe4]
+[curie4957:11316] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2abf45bdee4c]
+[curie4957:11316] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2abf45bdea1e]
+[curie4957:11316] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4957:11316] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2abf44c1ed5d]
+[curie4957:11316] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4957:11316] *** End of error message ***
+[curie4352:29267] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b01ae610fe4]
+[curie4352:29267] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b01ae60be4c]
+[curie4352:29267] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b01ae60ba1e]
+[curie4352:29267] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4352:29267] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b01ad64bd5d]
+[curie4352:29267] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4352:29267] *** End of error message ***
+[curie1785:30428] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b38865fb7e0]
+[curie1785:30428] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b3899b0f4a5]
+[curie1785:30428] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b3896f2ea5f]
+[curie1785:30428] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b3899b1006e]
+[curie1785:30428] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b3897dcdc4d]
+[curie1785:30428] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b3897bb64ec]
+[curie1785:30428] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b38876e8c14]
+[curie6454:82376] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b09cec0949c]
+[curie6454:82376] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b09cd972fe4]
+[curie6454:82376] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b09cd96de4c]
+[curie6454:82376] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b09cd96da1e]
+[curie6454:82376] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b09cd345c14]
+[curie1777:87243] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b25fe5c049c]
+[curie1777:87243] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b25fd329fe4]
+[curie1777:87243] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b25fd324e4c]
+[curie1777:87243] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b25fd324a1e]
+[curie1777:87243] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b25fccfcc14]
+[curie4969:30620] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ab4ed3a749c]
+[curie4969:30620] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ab4ec110fe4]
+[curie4969:30620] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ab4ec10be4c]
+[curie4969:30620] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ab4ec10ba1e]
+[curie4969:30620] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ab4ebae3c14]
+[curie4345:42951] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b687fa177e0]
+[curie4345:42951] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b6892f2b4a5]
+[curie4345:42951] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b689034aa5f]
+[curie4345:42951] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b6892f2c06e]
+[curie4345:42951] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b68911e9c4d]
+[curie4345:42951] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b6890fd24ec]
+[curie4345:42951] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b6880b04c14]
+[curie6457:36590] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b852072149c]
+[curie6457:36590] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b851f48afe4]
+[curie6457:36590] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b851f485e4c]
+[curie6457:36590] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b851f485a1e]
+[curie6457:36590] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b851ee5dc14]
+[curie6459:04024] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2afb7e07449c]
+[curie6459:04024] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2afb7cdddfe4]
+[curie6459:04024] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2afb7cdd8e4c]
+[curie6459:04024] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2afb7cdd8a1e]
+[curie6459:04024] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2afb7c7b0c14]
+[curie4972:90197] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b6131638fe4]
+[curie4972:90197] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b6131633e4c]
+[curie4972:90197] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b6131633a1e]
+[curie4972:90197] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4972:90197] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b6130673d5d]
+[curie4972:90197] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4972:90197] *** End of error message ***
+[curie4960:02347] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b347a92349c]
+[curie4960:02347] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b347968cfe4]
+[curie4960:02347] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b3479687e4c]
+[curie4960:02347] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b3479687a1e]
+[curie4960:02347] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b347905fc14]
+[curie4956:30097] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b6d3291afe4]
+[curie4956:30097] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b6d32915e4c]
+[curie4956:30097] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b6d32915a1e]
+[curie4956:30097] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4956:30097] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b6d31955d5d]
+[curie4956:30097] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4956:30097] *** End of error message ***
+[curie4958:05578] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b229616149c]
+[curie4958:05578] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b2294ecafe4]
+[curie4958:05578] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b2294ec5e4c]
+[curie4958:05578] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b2294ec5a1e]
+[curie4958:05578] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b229489dc14]
+[curie1785:30428] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b3888fac49c]
+[curie1785:30428] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b3887d15fe4]
+[curie1785:30428] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b3887d10e4c]
+[curie1785:30428] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b3887d10a1e]
+[curie1785:30428] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b38876e8c14]
+[curie6464:120249] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b8da2ccf7e0]
+[curie6464:120249] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b8db63294a5]
+[curie6464:120249] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b8db3748a5f]
+[curie6464:120249] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b8db632a06e]
+[curie6464:120249] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b8db45e7c4d]
+[curie6464:120249] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b8db43d04ec]
+[curie6464:120249] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b8da3dbcc14]
+[curie6454:82376] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b09cd972fe4]
+[curie6454:82376] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b09cd96de4c]
+[curie6454:82376] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b09cd96da1e]
+[curie6454:82376] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6454:82376] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b09cc9add5d]
+[curie6454:82376] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4959:42153] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b7d885ef7e0]
+[curie4959:42153] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b7d9bb034a5]
+[curie4959:42153] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b7d98f22a5f]
+[curie4959:42153] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b7d9bb0406e]
+[curie4959:42153] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b7d99dc1c4d]
+[curie4959:42153] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b7d99baa4ec]
+[curie4959:42153] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b7d896dcc14]
+[curie1777:87243] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b25fd329fe4]
+[curie1777:87243] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b25fd324e4c]
+[curie1777:87243] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b25fd324a1e]
+[curie1777:87243] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie1777:87243] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b25fc364d5d]
+[curie1777:87243] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie1777:87243] *** End of error message ***
+[curie4969:30620] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ab4ec110fe4]
+[curie4969:30620] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ab4ec10be4c]
+srun: error: curie4355: tasks 88-89,91-95: Segmentation fault
+[curie4969:30620] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ab4ec10ba1e]
+[curie4969:30620] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4969:30620] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ab4eb14bd5d]
+[curie4969:30620] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4969:30620] *** End of error message ***
+[curie4345:42951] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b68823c849c]
+[curie4345:42951] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b6881131fe4]
+[curie4345:42951] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b688112ce4c]
+[curie4345:42951] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b688112ca1e]
+[curie4345:42951] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b6880b04c14]
+[curie6457:36590] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b851f48afe4]
+[curie6457:36590] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b851f485e4c]
+[curie6457:36590] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b851f485a1e]
+[curie6457:36590] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6457:36590] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b851e4c5d5d]
+[curie6457:36590] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie6457:36590] *** End of error message ***
+[curie6459:04024] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2afb7cdddfe4]
+[curie6459:04024] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2afb7cdd8e4c]
+[curie6459:04024] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2afb7cdd8a1e]
+[curie6459:04024] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6459:04024] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2afb7be18d5d]
+[curie6459:04024] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie6459:04024] *** End of error message ***
+[curie4960:02347] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b347968cfe4]
+[curie4960:02347] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b3479687e4c]
+[curie4960:02347] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b3479687a1e]
+[curie4960:02347] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4960:02347] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b34786c7d5d]
+[curie4960:02347] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4960:02347] *** End of error message ***
+[curie4958:05578] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b2294ecafe4]
+[curie4958:05578] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b2294ec5e4c]
+[curie4958:05578] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b2294ec5a1e]
+[curie4958:05578] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4958:05578] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b2293f05d5d]
+[curie4958:05578] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4958:05578] *** End of error message ***
+[curie1785:30428] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b3887d15fe4]
+[curie1785:30428] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b3887d10e4c]
+[curie1785:30428] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b3887d10a1e]
+[curie1785:30428] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie1785:30428] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b3886d50d5d]
+[curie1785:30428] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie1785:30428] *** End of error message ***
+[curie6464:120249] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b8da568049c]
+[curie6464:120249] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b8da43e9fe4]
+[curie6464:120249] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b8da43e4e4c]
+[curie6464:120249] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b8da43e4a1e]
+[curie6464:120249] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b8da3dbcc14]
+[curie6454:82376] *** End of error message ***
+[curie4355:76254] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2ba67d38c7e0]
+[curie4355:76254] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2ba6908a04a5]
+[curie4355:76254] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2ba68dcbfa5f]
+[curie4355:76254] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2ba6908a106e]
+[curie4355:76254] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2ba68eb5ec4d]
+[curie4355:76254] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2ba68e9474ec]
+[curie4355:76254] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ba67e479c14]
+[curie4959:42153] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b7d8afa049c]
+[curie4959:42153] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b7d89d09fe4]
+[curie4959:42153] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b7d89d04e4c]
+[curie4959:42153] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b7d89d04a1e]
+[curie4959:42153] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b7d896dcc14]
+[curie4345:42951] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b6881131fe4]
+[curie4345:42951] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b688112ce4c]
+[curie4345:42951] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b688112ca1e]
+[curie4345:42951] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4345:42951] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b688016cd5d]
+[curie4345:42951] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4345:42951] *** End of error message ***
+[curie6464:120249] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b8da43e9fe4]
+[curie6464:120249] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b8da43e4e4c]
+[curie6464:120249] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b8da43e4a1e]
+[curie6464:120249] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6464:120249] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b8da3424d5d]
+[curie6464:120249] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4355:76254] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ba67fd3d49c]
+[curie4959:42153] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b7d89d09fe4]
+[curie4959:42153] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b7d89d04e4c]
+[curie4959:42153] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b7d89d04a1e]
+[curie4959:42153] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4959:42153] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b7d88d44d5d]
+[curie6464:120249] *** End of error message ***
+[curie4355:76254] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ba67eaa6fe4]
+[curie4355:76254] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ba67eaa1e4c]
+[curie4355:76254] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ba67eaa1a1e]
+[curie4355:76254] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ba67e479c14]
+[curie4355:76254] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ba67eaa6fe4]
+[curie4959:42153] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4959:42153] *** End of error message ***
+[curie4355:76254] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ba67eaa1e4c]
+[curie4355:76254] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ba67eaa1a1e]
+[curie4355:76254] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4355:76254] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ba67dae1d5d]
+[curie4355:76254] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4355:76254] *** End of error message ***
+[curie6452:121075] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b163c13d7e0]
+[curie6452:121075] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b164f8294a5]
+[curie6452:121075] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b164cc48a5f]
+srun: error: curie4350: tasks 56-59,61-63: Segmentation fault
+[curie6452:121075] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b164f82a06e]
+[curie6452:121075] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b164dae7c4d]
+[curie6452:121075] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b164d8d04ec]
+[curie6452:121075] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b163d22ac14]
+[curie1784:69149] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b39172a97e0]
+[curie1784:69149] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b392a7bd4a5]
+[curie1784:69149] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b3927bdca5f]
+[curie1784:69149] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b392a7be06e]
+[curie1784:69149] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b3928a7bc4d]
+[curie1784:69149] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b39288644ec]
+[curie1784:69149] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b3918396c14]
+[curie4349:31306] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b05feeb67e0]
+[curie4349:31306] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b06125294a5]
+[curie4349:31306] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b060f948a5f]
+[curie4349:31306] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b061252a06e]
+[curie4349:31306] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b06107e7c4d]
+[curie4349:31306] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b06105d04ec]
+[curie4349:31306] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b05fffa3c14]
+[curie1784:69149] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b3919c5a49c]
+[curie1784:69149] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b39189c3fe4]
+[curie1784:69149] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b39189bee4c]
+[curie1784:69149] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b39189bea1e]
+[curie1784:69149] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b3918396c14]
+[curie4349:31306] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b060186749c]
+[curie4349:31306] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b06005d0fe4]
+[curie4349:31306] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b06005cbe4c]
+[curie4349:31306] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b06005cba1e]
+[curie4349:31306] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b05fffa3c14]
+[curie1784:69149] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b39189c3fe4]
+[curie1784:69149] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b39189bee4c]
+[curie1784:69149] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b39189bea1e]
+[curie1784:69149] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie1784:69149] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b39179fed5d]
+[curie4349:31306] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b06005d0fe4]
+[curie4349:31306] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b06005cbe4c]
+[curie4349:31306] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b06005cba1e]
+[curie4349:31306] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4349:31306] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b05ff60bd5d]
+[curie4349:31306] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4349:31306] *** End of error message ***
+[curie1784:69149] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie1784:69149] *** End of error message ***
+[curie4350:111421] [ 0] /lib64/libpthread.so.0(+0xf7e0) [0x2b0814ce77e0]
+[curie4350:111421] [ 1] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(+0xd4a5) [0x2b08283294a5]
+[curie4350:111421] [ 2] /ccc/products/gcc-4.9.1/default/lib64/libgomp.so.1(GOMP_parallel+0x3f) [0x2b0825748a5f]
+[curie4350:111421] [ 3] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libKhuvh1l_omp.so(_ZN11Khuvh1l_omp2goEv+0x25e) [0x2b082832a06e]
+[curie4350:111421] [ 4] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libSequence.so(_ZN8Sequence2goEv+0x41d) [0x2b08265e7c4d]
+[curie4350:111421] [ 5] /ccc/cont003/home/gen7470/coullohe/APPLICATIONS/git/ShallowWater_fusion_new/install/lib/libTime.so(_ZN4Time2goEv+0x4c) [0x2b08263d04ec]
+[curie4350:111421] [ 6] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b0815dd4c14]
+[curie4350:111421] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b081769849c]
+[curie4350:111421] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b0816401fe4]
+[curie4350:111421] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b08163fce4c]
+[curie4350:111421] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b08163fca1e]
+[curie4350:111421] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b0815dd4c14]
+[curie4350:111421] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b0816401fe4]
+[curie4350:111421] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b08163fce4c]
+[curie4350:111421] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b08163fca1e]
+[curie4350:111421] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4350:111421] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b081543cd5d]
+[curie4350:111421] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4350:111421] *** End of error message ***
+[curie4344:87357] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2ad19cea949c]
+[curie4344:87357] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ad19bc12fe4]
+[curie4344:87357] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ad19bc0de4c]
+[curie4344:87357] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ad19bc0da1e]
+[curie4344:87357] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2ad19b5e5c14]
+[curie4344:87357] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2ad19bc12fe4]
+[curie4344:87357] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2ad19bc0de4c]
+[curie4344:87357] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2ad19bc0da1e]
+[curie4344:87357] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie4344:87357] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2ad19ac4dd5d]
+[curie4344:87357] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie4344:87357] *** End of error message ***
+[curie6452:121075] [ 7] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libLocalCppManagementFilter.so(_ZN7llcmcpp4impl24LocalCppManagementFilter5startENS_8EndPointE+0x6c) [0x2b163eaee49c]
+[curie6452:121075] [ 8] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b163d857fe4]
+[curie6452:121075] [ 9] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b163d852e4c]
+[curie6452:121075] [10] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b163d852a1e]
+[curie6452:121075] [11] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libCppManager.so(_ZN7llcmcpp4impl10CppManager5startENS_8EndPointE+0x74) [0x2b163d22ac14]
+[curie6452:121075] [12] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder5Start7executeEPS1_+0x44) [0x2b163d857fe4]
+[curie6452:121075] [13] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder9executionEv+0x2c) [0x2b163d852e4c]
+[curie6452:121075] [14] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/lib/libAssemblyBuilder.so(_ZN7llcmcpp4impl15AssemblyBuilder2goEv+0x4e) [0x2b163d852a1e]
+[curie6452:121075] [15] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader(main+0x1265) [0x40c625]
+[curie6452:121075] [16] /lib64/libc.so.6(__libc_start_main+0xfd) [0x2b163c892d5d]
+[curie6452:121075] [17] /ccc/cont003/home/gen7470/coullohe/LIBRARIES/L2C/INSTALL/bin/llcmcpp_loader() [0x4087d9]
+[curie6452:121075] *** End of error message ***
+srun: error: curie1777: tasks 1-7: Segmentation fault
+srun: error: curie6457: task 228: Segmentation fault
+srun: error: curie4352: tasks 64-71: Segmentation fault
+srun: error: curie4344: tasks 24-31: Segmentation fault
+srun: error: curie4355: task 90: Segmentation fault
+srun: error: curie4345: tasks 32-39: Segmentation fault
+srun: error: curie4349: tasks 48-55: Segmentation fault
+srun: error: curie6464: tasks 248-255: Segmentation fault
+srun: error: curie4957: tasks 104-111: Segmentation fault
+srun: error: curie4961: tasks 136-143: Segmentation fault
+srun: error: curie4959: tasks 120-127: Segmentation fault
+srun: error: curie6456: tasks 216-223: Segmentation fault
+srun: error: curie6461: tasks 240-247: Segmentation fault
+srun: error: curie4350: task 60: Segmentation fault
+srun: error: curie4958: tasks 112-119: Segmentation fault
+srun: error: curie4353: tasks 72-79: Segmentation fault
+srun: error: curie4967: tasks 152-159: Segmentation fault
+srun: error: curie1785: tasks 16-23: Segmentation fault
+srun: error: curie4969: tasks 168-175: Segmentation fault
+srun: error: curie4960: tasks 128-135: Segmentation fault
+srun: error: curie4972: tasks 176-183: Segmentation fault
+srun: error: curie4348: tasks 40-47: Segmentation fault
+srun: error: curie6459: tasks 232-239: Segmentation fault
+srun: error: curie6453: tasks 200-207: Segmentation fault
+srun: error: curie6454: tasks 208-215: Segmentation fault
+srun: error: curie6452: tasks 192-199: Segmentation fault
+srun: error: curie1784: tasks 8-15: Segmentation fault
+srun: error: curie1777: task 0: Segmentation fault
+srun: error: curie4354: tasks 80-87: Segmentation fault
+srun: error: curie4968: tasks 160-167: Segmentation fault
+srun: error: curie4956: tasks 96-103: Segmentation fault
+srun: error: curie6450: tasks 184-191: Segmentation fault
+srun: error: curie4966: tasks 144-151: Segmentation fault
++ exit 0

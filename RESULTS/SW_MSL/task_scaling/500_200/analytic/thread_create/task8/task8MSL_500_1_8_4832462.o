@@ -1,0 +1,59 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+6 Thread create : 0.000216
+1 Thread create : 0.00022
+7 Thread create : 0.000211
+4 Thread create : 0.000221
+0 Thread create : 0.000204
+2 Thread create : 0.000221
+5 Thread create : 0.00021
+3 Thread create : 0.000211
+0 Thread create : 4e-06
+6 Thread create : 4e-06
+4 Thread create : 3e-06
+2 Thread create : 3e-06
+1 Thread create : 6e-06
+7 Thread create : 2e-06
+5 Thread create : 4e-06
+3 Thread create : 4e-06
+1 Time TOTAL CALCULATION : 0.003286
+6 Time TOTAL CALCULATION : 0.0033
+4 Time TOTAL CALCULATION : 0.00329
+0 Time TOTAL CALCULATION : 0.003295
+2 Time TOTAL CALCULATION : 0.003296
+7 Time TOTAL CALCULATION : 0.003294
+5 Time TOTAL CALCULATION : 0.003289
+3 Time TOTAL CALCULATION : 0.003283
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4832462
+Jobname   : task8MSL_500_1_8
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 24/05/2016 09:29:17 , start = 24/05/2016 09:58:59
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 8 , ncpus = 64 , nodes = 4
+   Nodes=curie[6493,6500-6501,6503] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4832462       task8MSL_500_1_8          -     64      4           -     00:00:05     100            -      -  -
+4832462.0     llcmcpp_loader            8     64      4      BBlock     00:00:03    60.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

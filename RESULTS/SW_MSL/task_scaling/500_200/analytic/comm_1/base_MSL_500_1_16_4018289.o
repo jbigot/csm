@@ -1,0 +1,123 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 - Time SYNC : 0.000274
+1 - Time SYNC : 0.000122
+2 - Time SYNC : 0.000287
+3 - Time SYNC : 6.2e-05
+4 - Time SYNC : 0.00013
+5 - Time SYNC : 0.000173
+6 - Time SYNC : 0.00024
+7 - Time SYNC : 0.000237
+8 - Time SYNC : 0.000249
+9 - Time SYNC : 0.000174
+10 - Time SYNC : 0.000282
+11 - Time SYNC : 0.000299
+12 - Time SYNC : 0.000219
+13 - Time SYNC : 0.000191
+14 - Time SYNC : 0.00029
+15 - Time SYNC : 0.000234
+0 - Time SYNC : 0.000261
+1 - Time SYNC : 0.000276
+2 - Time SYNC : 0.000295
+3 - Time SYNC : 0.000138
+4 - Time SYNC : 0.00024
+5 - Time SYNC : 5.2e-05
+6 - Time SYNC : 0.000253
+7 - Time SYNC : 0.000267
+8 - Time SYNC : 7.8e-05
+9 - Time SYNC : 0.000105
+10 - Time SYNC : 9.7e-05
+11 - Time SYNC : 8.1e-05
+12 - Time SYNC : 8.3e-05
+13 - Time SYNC : 0.000117
+14 - Time SYNC : 0.000161
+15 - Time SYNC : 0.000112
+0 - Time SYNC : 0.000193
+1 - Time SYNC : 0.000235
+2 - Time SYNC : 0.000236
+3 - Time SYNC : 0.000142
+4 - Time SYNC : 0.000199
+5 - Time SYNC : 5.8e-05
+6 - Time SYNC : 0.00022
+7 - Time SYNC : 0.000219
+8 - Time SYNC : 6.3e-05
+9 - Time SYNC : 0.000119
+10 - Time SYNC : 8.3e-05
+11 - Time SYNC : 6.9e-05
+12 - Time SYNC : 7.1e-05
+13 - Time SYNC : 0.000114
+14 - Time SYNC : 0.000101
+15 - Time SYNC : 8.7e-05
+0 - Time SYNC : 0.000222
+1 - Time SYNC : 0.000235
+2 - Time SYNC : 0.000247
+3 - Time SYNC : 0.000119
+4 - Time SYNC : 0.000191
+5 - Time SYNC : 4.6e-05
+6 - Time SYNC : 0.000252
+7 - Time SYNC : 0.000249
+8 - Time SYNC : 7.8e-05
+9 - Time SYNC : 0.000112
+10 - Time SYNC : 9.7e-05
+11 - Time SYNC : 9.1e-05
+12 - Time SYNC : 8.9e-05
+13 - Time SYNC : 0.000111
+14 - Time SYNC : 0.000151
+15 - Time SYNC : 9.5e-05
+0 Time TOTAL CALCULATION : 0.010052
+1 Time TOTAL CALCULATION : 0.010069
+2 Time TOTAL CALCULATION : 0.010112
+4 Time TOTAL CALCULATION : 0.010078
+6 Time TOTAL CALCULATION : 0.010078
+7 Time TOTAL CALCULATION : 0.010074
+3 Time TOTAL CALCULATION : 0.010085
+9 Time TOTAL CALCULATION : 0.01009
+10 Time TOTAL CALCULATION : 0.01007
+12 Time TOTAL CALCULATION : 0.010079
+13 Time TOTAL CALCULATION : 0.010073
+14 Time TOTAL CALCULATION : 0.010099
+15 Time TOTAL CALCULATION : 0.010081
+5 Time TOTAL CALCULATION : 0.010075
+8 Time TOTAL CALCULATION : 0.010077
+11 Time TOTAL CALCULATION : 0.010071
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4018289
+Jobname   : base_MSL_500_1_16
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 17:00 , memory/task = 4000 Mo
+Date      : submit = 20/01/2016 14:34:59 , start = 20/01/2016 14:58:42
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 1 , ncpus = 16 , nodes = 1
+   Nodes=curie2057 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4018289       base_MSL_500_1_16         -     16      1           -     00:00:05     100            -      -  -
+4018289.0     llcmcpp_loader           16     16      1      BBlock     00:00:03    60.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

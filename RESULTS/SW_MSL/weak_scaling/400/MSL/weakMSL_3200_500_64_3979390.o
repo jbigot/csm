@@ -1,0 +1,91 @@
+27 Time TOTAL CALCULATION : 43.2016
+10 Time TOTAL CALCULATION : 43.2017
+34 Time TOTAL CALCULATION : 43.2013
+50 Time TOTAL CALCULATION : 43.2016
+13 Time TOTAL CALCULATION : 43.2017
+42 Time TOTAL CALCULATION : 43.2017
+53 Time TOTAL CALCULATION : 43.2014
+15 Time TOTAL CALCULATION : 43.2016
+43 Time TOTAL CALCULATION : 43.2015
+61 Time TOTAL CALCULATION : 43.2017
+2 Time TOTAL CALCULATION : 43.2019
+44 Time TOTAL CALCULATION : 43.202
+63 Time TOTAL CALCULATION : 43.2014
+4 Time TOTAL CALCULATION : 43.2018
+45 Time TOTAL CALCULATION : 43.201
+59 Time TOTAL CALCULATION : 43.2016
+5 Time TOTAL CALCULATION : 43.2013
+37 Time TOTAL CALCULATION : 43.2017
+52 Time TOTAL CALCULATION : 43.2017
+7 Time TOTAL CALCULATION : 43.2017
+36 Time TOTAL CALCULATION : 43.2016
+58 Time TOTAL CALCULATION : 43.2016
+12 Time TOTAL CALCULATION : 43.2017
+39 Time TOTAL CALCULATION : 43.2017
+55 Time TOTAL CALCULATION : 43.2012
+3 Time TOTAL CALCULATION : 43.2018
+46 Time TOTAL CALCULATION : 43.2016
+60 Time TOTAL CALCULATION : 43.2018
+11 Time TOTAL CALCULATION : 43.2017
+32 Time TOTAL CALCULATION : 43.2018
+62 Time TOTAL CALCULATION : 43.2016
+14 Time TOTAL CALCULATION : 43.2016
+38 Time TOTAL CALCULATION : 43.2016
+49 Time TOTAL CALCULATION : 43.2015
+6 Time TOTAL CALCULATION : 43.2018
+47 Time TOTAL CALCULATION : 43.202
+54 Time TOTAL CALCULATION : 43.2016
+9 Time TOTAL CALCULATION : 43.2016
+40 Time TOTAL CALCULATION : 43.2018
+51 Time TOTAL CALCULATION : 43.2016
+1 Time TOTAL CALCULATION : 43.2017
+35 Time TOTAL CALCULATION : 43.2018
+57 Time TOTAL CALCULATION : 43.2017
+0 Time TOTAL CALCULATION : 43.2019
+41 Time TOTAL CALCULATION : 43.2019
+56 Time TOTAL CALCULATION : 43.2019
+8 Time TOTAL CALCULATION : 43.2024
+33 Time TOTAL CALCULATION : 43.2017
+48 Time TOTAL CALCULATION : 43.2018
+28 Time TOTAL CALCULATION : 43.2013
+29 Time TOTAL CALCULATION : 43.2016
+18 Time TOTAL CALCULATION : 43.2012
+24 Time TOTAL CALCULATION : 43.2014
+30 Time TOTAL CALCULATION : 43.2015
+20 Time TOTAL CALCULATION : 43.2017
+16 Time TOTAL CALCULATION : 43.2016
+21 Time TOTAL CALCULATION : 43.2017
+25 Time TOTAL CALCULATION : 43.2016
+22 Time TOTAL CALCULATION : 43.2016
+19 Time TOTAL CALCULATION : 43.2017
+26 Time TOTAL CALCULATION : 43.2018
+23 Time TOTAL CALCULATION : 43.2015
+31 Time TOTAL CALCULATION : 43.2019
+17 Time TOTAL CALCULATION : 43.2016
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3979390
+Jobname   : weakMSL_3200_500_64
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 14/01/2016 10:48:05 , start = 14/01/2016 12:02:40
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 1 , ncpus = 64 , nodes = 4
+   Nodes=curie[3166,3168-3170] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3979390       weakMSL_3200_500_64       -     64      4           -     00:00:51     100            -      -  -
+3979390.0     llcmcpp_loader           64     64      4      BBlock     00:00:46    90.1     00:00:40   86.9  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

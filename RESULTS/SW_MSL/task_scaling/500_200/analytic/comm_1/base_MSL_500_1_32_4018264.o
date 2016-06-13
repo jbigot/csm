@@ -1,0 +1,219 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 - Time SYNC : 0.00389
+16 - Time SYNC : 0.003754
+1 - Time SYNC : 0.00381
+17 - Time SYNC : 0.003693
+2 - Time SYNC : 0.003793
+18 - Time SYNC : 0.003756
+3 - Time SYNC : 0.003798
+20 - Time SYNC : 0.00375
+4 - Time SYNC : 0.00369
+21 - Time SYNC : 0.003766
+6 - Time SYNC : 0.003535
+22 - Time SYNC : 0.003706
+7 - Time SYNC : 0.00379
+24 - Time SYNC : 0.003798
+8 - Time SYNC : 0.003776
+25 - Time SYNC : 0.003748
+9 - Time SYNC : 0.003581
+26 - Time SYNC : 0.003768
+10 - Time SYNC : 0.003735
+27 - Time SYNC : 0.003777
+11 - Time SYNC : 0.003839
+28 - Time SYNC : 0.003719
+12 - Time SYNC : 0.00381
+30 - Time SYNC : 0.003807
+13 - Time SYNC : 0.003716
+31 - Time SYNC : 0.003741
+14 - Time SYNC : 0.003768
+19 - Time SYNC : 0.003745
+15 - Time SYNC : 0.003791
+23 - Time SYNC : 0.003802
+5 - Time SYNC : 0.003743
+29 - Time SYNC : 0.003737
+0 - Time SYNC : 0.000826
+1 - Time SYNC : 0.000818
+16 - Time SYNC : 0.000848
+2 - Time SYNC : 0.000844
+17 - Time SYNC : 0.000808
+3 - Time SYNC : 0.00084
+18 - Time SYNC : 0.000853
+4 - Time SYNC : 0.000778
+19 - Time SYNC : 0.000828
+5 - Time SYNC : 0.000818
+20 - Time SYNC : 0.000846
+6 - Time SYNC : 0.000844
+21 - Time SYNC : 0.000855
+7 - Time SYNC : 0.000809
+22 - Time SYNC : 0.000862
+8 - Time SYNC : 0.000647
+23 - Time SYNC : 0.000835
+9 - Time SYNC : 0.000847
+24 - Time SYNC : 0.000859
+10 - Time SYNC : 5.1e-05
+11 - Time SYNC : 0.000859
+25 - Time SYNC : 0.000863
+12 - Time SYNC : 0.000855
+26 - Time SYNC : 0.000864
+13 - Time SYNC : 0.000849
+27 - Time SYNC : 0.000848
+14 - Time SYNC : 0.000858
+28 - Time SYNC : 0.000699
+15 - Time SYNC : 0.000853
+29 - Time SYNC : 0.000835
+30 - Time SYNC : 0.000865
+31 - Time SYNC : 0.000863
+0 - Time SYNC : 0.00082
+16 - Time SYNC : 0.000864
+1 - Time SYNC : 0.000815
+2 - Time SYNC : 0.000829
+17 - Time SYNC : 0.000824
+3 - Time SYNC : 0.000834
+18 - Time SYNC : 0.000864
+4 - Time SYNC : 0.000792
+19 - Time SYNC : 0.000879
+5 - Time SYNC : 0.000828
+20 - Time SYNC : 0.000866
+6 - Time SYNC : 0.000836
+21 - Time SYNC : 0.000872
+7 - Time SYNC : 0.000811
+22 - Time SYNC : 0.000879
+8 - Time SYNC : 0.000698
+9 - Time SYNC : 0.000856
+23 - Time SYNC : 0.000877
+10 - Time SYNC : 5.6e-05
+24 - Time SYNC : 0.000887
+11 - Time SYNC : 0.00087
+25 - Time SYNC : 0.000899
+12 - Time SYNC : 0.000863
+26 - Time SYNC : 0.000894
+13 - Time SYNC : 0.000863
+27 - Time SYNC : 0.000889
+14 - Time SYNC : 0.000872
+28 - Time SYNC : 0.000735
+15 - Time SYNC : 0.000869
+29 - Time SYNC : 0.000895
+30 - Time SYNC : 0.0009
+31 - Time SYNC : 0.000891
+0 - Time SYNC : 0.000882
+16 - Time SYNC : 0.000916
+1 - Time SYNC : 0.000712
+2 - Time SYNC : 0.000909
+17 - Time SYNC : 0.000894
+3 - Time SYNC : 0.00091
+18 - Time SYNC : 0.000916
+4 - Time SYNC : 3.6e-05
+19 - Time SYNC : 0.000932
+5 - Time SYNC : 0.00089
+20 - Time SYNC : 0.00092
+6 - Time SYNC : 0.000898
+21 - Time SYNC : 0.000935
+7 - Time SYNC : 0.000887
+22 - Time SYNC : 0.000949
+8 - Time SYNC : 0.000898
+23 - Time SYNC : 0.000947
+9 - Time SYNC : 0.000867
+24 - Time SYNC : 0.000929
+10 - Time SYNC : 0.000905
+11 - Time SYNC : 0.000884
+25 - Time SYNC : 0.000948
+12 - Time SYNC : 0.000887
+26 - Time SYNC : 0.000943
+13 - Time SYNC : 0.000887
+27 - Time SYNC : 0.000939
+14 - Time SYNC : 0.000891
+28 - Time SYNC : 0.000761
+15 - Time SYNC : 0.000891
+29 - Time SYNC : 0.000945
+30 - Time SYNC : 0.000948
+31 - Time SYNC : 0.000933
+0 Time TOTAL CALCULATION : 0.005957
+24 Time TOTAL CALCULATION : 0.005971
+2 Time TOTAL CALCULATION : 0.005948
+3 Time TOTAL CALCULATION : 0.005957
+25 Time TOTAL CALCULATION : 0.005958
+5 Time TOTAL CALCULATION : 0.00595
+26 Time TOTAL CALCULATION : 0.005965
+6 Time TOTAL CALCULATION : 0.005952
+27 Time TOTAL CALCULATION : 0.005965
+7 Time TOTAL CALCULATION : 0.005948
+29 Time TOTAL CALCULATION : 0.005967
+8 Time TOTAL CALCULATION : 0.005835
+30 Time TOTAL CALCULATION : 0.005966
+10 Time TOTAL CALCULATION : 0.005171
+31 Time TOTAL CALCULATION : 0.005966
+11 Time TOTAL CALCULATION : 0.005993
+16 Time TOTAL CALCULATION : 0.005972
+12 Time TOTAL CALCULATION : 0.006
+14 Time TOTAL CALCULATION : 0.005999
+17 Time TOTAL CALCULATION : 0.005949
+15 Time TOTAL CALCULATION : 0.005996
+18 Time TOTAL CALCULATION : 0.005963
+9 Time TOTAL CALCULATION : 0.005998
+19 Time TOTAL CALCULATION : 0.005975
+13 Time TOTAL CALCULATION : 0.005994
+20 Time TOTAL CALCULATION : 0.005964
+1 Time TOTAL CALCULATION : 0.006179
+21 Time TOTAL CALCULATION : 0.005965
+4 Time TOTAL CALCULATION : 0.007
+22 Time TOTAL CALCULATION : 0.005961
+23 Time TOTAL CALCULATION : 0.005961
+28 Time TOTAL CALCULATION : 0.006056
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4018264
+Jobname   : base_MSL_500_1_32
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 14:00 , memory/task = 4000 Mo
+Date      : submit = 20/01/2016 14:34:08 , start = 20/01/2016 14:55:01
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 1 , ncpus = 32 , nodes = 2
+   Nodes=curie[6451-6452] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4018264       base_MSL_500_1_32         -     32      2           -     00:00:07     100            -      -  -
+4018264.0     llcmcpp_loader           32     32      2      BBlock     00:00:03    42.8            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -1,0 +1,43 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 Time TOTAL CALCULATION : 0.776311
+1 Time TOTAL CALCULATION : 0.776289
+4 Time TOTAL CALCULATION : 0.776296
+2 Time TOTAL CALCULATION : 0.776385
+3 Time TOTAL CALCULATION : 0.776287
+5 Time TOTAL CALCULATION : 0.77636
+6 Time TOTAL CALCULATION : 0.776329
+7 Time TOTAL CALCULATION : 0.776383
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4950568
+Jobname   : task16MSL_500_200_8
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 06/06/2016 09:42:07 , start = 06/06/2016 09:43:07
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 16 , ncpus = 128 , nodes = 8
+   Nodes=curie[3487,3490,3532-3533,3593,3595,6378,6422] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4950568       task16MSL_500_200_8       -    128      8           -     00:00:11     100            -      -  -
+4950568.0     llcmcpp_loader            8    128      8      BBlock     00:00:06    54.5            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

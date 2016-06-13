@@ -1,0 +1,411 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 - Time SYNC : 0.007567
+16 - Time SYNC : 0.007623
+32 - Time SYNC : 0.007603
+49 - Time SYNC : 0.007925
+3 - Time SYNC : 0.007785
+18 - Time SYNC : 0.007744
+33 - Time SYNC : 0.007601
+50 - Time SYNC : 0.00792
+4 - Time SYNC : 0.007782
+19 - Time SYNC : 0.007674
+34 - Time SYNC : 0.007699
+51 - Time SYNC : 0.007943
+5 - Time SYNC : 0.007727
+21 - Time SYNC : 0.007673
+35 - Time SYNC : 0.007712
+52 - Time SYNC : 0.007965
+6 - Time SYNC : 0.007756
+22 - Time SYNC : 0.007719
+37 - Time SYNC : 0.007626
+53 - Time SYNC : 0.012099
+7 - Time SYNC : 0.007705
+23 - Time SYNC : 0.007732
+38 - Time SYNC : 0.007712
+54 - Time SYNC : 0.007968
+8 - Time SYNC : 0.007755
+24 - Time SYNC : 0.00773
+42 - Time SYNC : 0.007498
+55 - Time SYNC : 0.01209
+9 - Time SYNC : 0.007866
+25 - Time SYNC : 0.007618
+44 - Time SYNC : 0.007713
+56 - Time SYNC : 0.007747
+10 - Time SYNC : 0.007718
+26 - Time SYNC : 0.007753
+45 - Time SYNC : 0.007681
+57 - Time SYNC : 0.007693
+11 - Time SYNC : 0.007743
+27 - Time SYNC : 0.007682
+46 - Time SYNC : 0.007759
+59 - Time SYNC : 0.007766
+12 - Time SYNC : 0.007832
+28 - Time SYNC : 0.007753
+47 - Time SYNC : 0.007633
+60 - Time SYNC : 0.007724
+13 - Time SYNC : 0.007632
+29 - Time SYNC : 0.007718
+36 - Time SYNC : 0.00784
+61 - Time SYNC : 0.00774
+14 - Time SYNC : 0.007842
+30 - Time SYNC : 0.00775
+39 - Time SYNC : 0.007652
+62 - Time SYNC : 0.007783
+15 - Time SYNC : 0.00788
+31 - Time SYNC : 0.007713
+40 - Time SYNC : 0.007595
+63 - Time SYNC : 0.00778
+1 - Time SYNC : 0.007731
+17 - Time SYNC : 0.007756
+41 - Time SYNC : 0.007654
+48 - Time SYNC : 0.007926
+2 - Time SYNC : 0.00772
+20 - Time SYNC : 0.00777
+43 - Time SYNC : 0.007772
+58 - Time SYNC : 0.00771
+0 - Time SYNC : 0.000453
+1 - Time SYNC : 0.000404
+16 - Time SYNC : 0.000261
+32 - Time SYNC : 0.000249
+48 - Time SYNC : 0.000413
+2 - Time SYNC : 0.000424
+17 - Time SYNC : 0.000446
+33 - Time SYNC : 0.000394
+49 - Time SYNC : 0.000255
+7 - Time SYNC : 0.000454
+18 - Time SYNC : 0.000444
+34 - Time SYNC : 0.000442
+50 - Time SYNC : 0.000467
+8 - Time SYNC : 0.000456
+19 - Time SYNC : 0.000462
+35 - Time SYNC : 0.00041
+51 - Time SYNC : 0.000459
+9 - Time SYNC : 0.000454
+20 - Time SYNC : 0.000452
+36 - Time SYNC : 0.000442
+52 - Time SYNC : 0.000478
+10 - Time SYNC : 0.000231
+21 - Time SYNC : 0.000465
+37 - Time SYNC : 0.000444
+53 - Time SYNC : 0.000465
+11 - Time SYNC : 0.000459
+22 - Time SYNC : 0.000477
+38 - Time SYNC : 0.000445
+54 - Time SYNC : 0.000478
+13 - Time SYNC : 0.000483
+39 - Time SYNC : 0.000439
+55 - Time SYNC : 0.000464
+14 - Time SYNC : 0.00048
+23 - Time SYNC : 0.000408
+40 - Time SYNC : 0.00043
+56 - Time SYNC : 0.000465
+15 - Time SYNC : 0.000472
+24 - Time SYNC : 0.000422
+3 - Time SYNC : 0.000454
+25 - Time SYNC : 0.000428
+41 - Time SYNC : 0.000441
+57 - Time SYNC : 0.000473
+4 - Time SYNC : 0.000471
+26 - Time SYNC : 0.000415
+42 - Time SYNC : 0.000449
+58 - Time SYNC : 0.000451
+5 - Time SYNC : 0.000389
+27 - Time SYNC : 0.000424
+43 - Time SYNC : 0.000441
+59 - Time SYNC : 0.000465
+6 - Time SYNC : 0.000464
+28 - Time SYNC : 0.000418
+44 - Time SYNC : 0.000464
+60 - Time SYNC : 0.000477
+12 - Time SYNC : 4.9e-05
+29 - Time SYNC : 0.000426
+45 - Time SYNC : 0.000448
+61 - Time SYNC : 0.000478
+30 - Time SYNC : 0.000424
+46 - Time SYNC : 0.000457
+62 - Time SYNC : 0.000475
+31 - Time SYNC : 0.00043
+47 - Time SYNC : 0.000461
+63 - Time SYNC : 0.000475
+0 - Time SYNC : 0.000609
+32 - Time SYNC : 0.000615
+48 - Time SYNC : 0.000606
+8 - Time SYNC : 0.000611
+16 - Time SYNC : 0.000424
+15 - Time SYNC : 0.000632
+40 - Time SYNC : 0.000434
+49 - Time SYNC : 0.000439
+1 - Time SYNC : 0.000591
+17 - Time SYNC : 0.000606
+43 - Time SYNC : 0.000628
+50 - Time SYNC : 0.000632
+2 - Time SYNC : 0.000605
+18 - Time SYNC : 0.000597
+33 - Time SYNC : 0.000594
+53 - Time SYNC : 0.000651
+3 - Time SYNC : 0.00061
+19 - Time SYNC : 0.000617
+34 - Time SYNC : 0.000629
+54 - Time SYNC : 0.000648
+4 - Time SYNC : 0.000631
+20 - Time SYNC : 0.000627
+35 - Time SYNC : 0.000609
+55 - Time SYNC : 0.000649
+5 - Time SYNC : 0.000565
+21 - Time SYNC : 0.000621
+36 - Time SYNC : 0.000644
+56 - Time SYNC : 0.00063
+6 - Time SYNC : 0.000617
+22 - Time SYNC : 0.000629
+37 - Time SYNC : 0.000638
+57 - Time SYNC : 0.000633
+7 - Time SYNC : 0.000623
+23 - Time SYNC : 0.000597
+38 - Time SYNC : 0.000636
+58 - Time SYNC : 0.000633
+9 - Time SYNC : 0.000623
+24 - Time SYNC : 0.000597
+39 - Time SYNC : 0.000639
+59 - Time SYNC : 0.000638
+10 - Time SYNC : 0.000446
+25 - Time SYNC : 0.000604
+41 - Time SYNC : 0.000632
+60 - Time SYNC : 0.000648
+11 - Time SYNC : 0.000613
+26 - Time SYNC : 0.000602
+61 - Time SYNC : 0.000655
+12 - Time SYNC : 6.6e-05
+42 - Time SYNC : 0.000633
+13 - Time SYNC : 0.00063
+27 - Time SYNC : 0.000607
+44 - Time SYNC : 0.000645
+62 - Time SYNC : 0.000655
+14 - Time SYNC : 0.000632
+28 - Time SYNC : 0.000625
+45 - Time SYNC : 0.000648
+63 - Time SYNC : 0.000654
+29 - Time SYNC : 0.000621
+46 - Time SYNC : 0.000647
+51 - Time SYNC : 0.000638
+30 - Time SYNC : 0.000627
+47 - Time SYNC : 0.000646
+52 - Time SYNC : 0.000652
+31 - Time SYNC : 0.000625
+0 - Time SYNC : 0.000589
+16 - Time SYNC : 0.000594
+32 - Time SYNC : 0.000615
+2 - Time SYNC : 0.000592
+48 - Time SYNC : 0.000604
+7 - Time SYNC : 0.000616
+24 - Time SYNC : 0.000397
+33 - Time SYNC : 0.000602
+8 - Time SYNC : 0.000593
+25 - Time SYNC : 0.000611
+34 - Time SYNC : 0.000621
+49 - Time SYNC : 0.000438
+9 - Time SYNC : 0.000596
+26 - Time SYNC : 0.000612
+36 - Time SYNC : 0.000638
+50 - Time SYNC : 0.000625
+10 - Time SYNC : 0.000412
+27 - Time SYNC : 0.000596
+37 - Time SYNC : 0.000625
+51 - Time SYNC : 0.000617
+13 - Time SYNC : 0.000619
+28 - Time SYNC : 0.000625
+38 - Time SYNC : 0.000625
+52 - Time SYNC : 0.00063
+14 - Time SYNC : 0.000619
+29 - Time SYNC : 0.000619
+39 - Time SYNC : 0.000631
+53 - Time SYNC : 0.000638
+15 - Time SYNC : 0.000621
+30 - Time SYNC : 0.000623
+40 - Time SYNC : 0.000441
+54 - Time SYNC : 0.000632
+1 - Time SYNC : 0.000579
+31 - Time SYNC : 0.000624
+41 - Time SYNC : 0.00062
+55 - Time SYNC : 0.000638
+3 - Time SYNC : 0.000596
+17 - Time SYNC : 0.000606
+42 - Time SYNC : 0.00062
+56 - Time SYNC : 0.000623
+4 - Time SYNC : 0.000616
+57 - Time SYNC : 0.000627
+5 - Time SYNC : 0.000587
+18 - Time SYNC : 0.000595
+43 - Time SYNC : 0.000624
+58 - Time SYNC : 0.000625
+6 - Time SYNC : 0.000613
+19 - Time SYNC : 0.000603
+44 - Time SYNC : 0.000639
+11 - Time SYNC : 0.000598
+20 - Time SYNC : 0.000602
+45 - Time SYNC : 0.000639
+59 - Time SYNC : 0.000621
+12 - Time SYNC : 4.9e-05
+21 - Time SYNC : 0.000617
+46 - Time SYNC : 0.000639
+60 - Time SYNC : 0.000634
+4 Time TOTAL CALCULATION : 0.003303
+22 - Time SYNC : 0.000621
+47 - Time SYNC : 0.000633
+61 - Time SYNC : 0.000638
+7 Time TOTAL CALCULATION : 0.003302
+23 - Time SYNC : 0.000599
+35 - Time SYNC : 0.00061
+62 - Time SYNC : 0.000638
+13 Time TOTAL CALCULATION : 0.003302
+22 Time TOTAL CALCULATION : 0.003308
+36 Time TOTAL CALCULATION : 0.003305
+63 - Time SYNC : 0.00064
+14 Time TOTAL CALCULATION : 0.003302
+28 Time TOTAL CALCULATION : 0.003303
+39 Time TOTAL CALCULATION : 0.003299
+52 Time TOTAL CALCULATION : 0.003311
+15 Time TOTAL CALCULATION : 0.003304
+44 Time TOTAL CALCULATION : 0.003306
+53 Time TOTAL CALCULATION : 0.003312
+0 Time TOTAL CALCULATION : 0.003303
+29 Time TOTAL CALCULATION : 0.003302
+45 Time TOTAL CALCULATION : 0.003305
+54 Time TOTAL CALCULATION : 0.003312
+1 Time TOTAL CALCULATION : 0.003296
+30 Time TOTAL CALCULATION : 0.003302
+55 Time TOTAL CALCULATION : 0.003312
+2 Time TOTAL CALCULATION : 0.003302
+31 Time TOTAL CALCULATION : 0.003301
+46 Time TOTAL CALCULATION : 0.003304
+58 Time TOTAL CALCULATION : 0.003312
+3 Time TOTAL CALCULATION : 0.003302
+16 Time TOTAL CALCULATION : 0.003124
+47 Time TOTAL CALCULATION : 0.003299
+60 Time TOTAL CALCULATION : 0.003311
+5 Time TOTAL CALCULATION : 0.003271
+17 Time TOTAL CALCULATION : 0.00331
+32 Time TOTAL CALCULATION : 0.003306
+61 Time TOTAL CALCULATION : 0.003316
+6 Time TOTAL CALCULATION : 0.003301
+18 Time TOTAL CALCULATION : 0.003305
+33 Time TOTAL CALCULATION : 0.003289
+62 Time TOTAL CALCULATION : 0.003313
+8 Time TOTAL CALCULATION : 0.003304
+19 Time TOTAL CALCULATION : 0.003311
+34 Time TOTAL CALCULATION : 0.003307
+9 Time TOTAL CALCULATION : 0.003301
+20 Time TOTAL CALCULATION : 0.003313
+35 Time TOTAL CALCULATION : 0.003306
+63 Time TOTAL CALCULATION : 0.003318
+11 Time TOTAL CALCULATION : 0.003306
+21 Time TOTAL CALCULATION : 0.003306
+37 Time TOTAL CALCULATION : 0.003306
+48 Time TOTAL CALCULATION : 0.003309
+10 Time TOTAL CALCULATION : 0.003419
+23 Time TOTAL CALCULATION : 0.003299
+38 Time TOTAL CALCULATION : 0.003301
+49 Time TOTAL CALCULATION : 0.003142
+12 Time TOTAL CALCULATION : 0.003312
+25 Time TOTAL CALCULATION : 0.0033
+41 Time TOTAL CALCULATION : 0.003307
+50 Time TOTAL CALCULATION : 0.003317
+26 Time TOTAL CALCULATION : 0.003297
+42 Time TOTAL CALCULATION : 0.003308
+51 Time TOTAL CALCULATION : 0.00334
+27 Time TOTAL CALCULATION : 0.003308
+43 Time TOTAL CALCULATION : 0.003307
+57 Time TOTAL CALCULATION : 0.003312
+24 Time TOTAL CALCULATION : 0.003587
+40 Time TOTAL CALCULATION : 0.003416
+59 Time TOTAL CALCULATION : 0.003314
+56 Time TOTAL CALCULATION : 0.003512
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4018212
+Jobname   : base_MSL_500_1_64
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 20/01/2016 14:32:28 , start = 20/01/2016 14:46:26
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 1 , ncpus = 64 , nodes = 4
+   Nodes=curie[4621-4623,4625] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4018212       base_MSL_500_1_64         -     64      4           -     00:00:08     100            -      -  -
+4018212.0     llcmcpp_loader           64     64      4      BBlock     00:00:06    75.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

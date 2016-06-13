@@ -1,0 +1,59 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 Time TOTAL CALCULATION : 0.443715
+4 Time TOTAL CALCULATION : 0.443722
+8 Time TOTAL CALCULATION : 0.443716
+1 Time TOTAL CALCULATION : 0.443723
+11 Time TOTAL CALCULATION : 0.443676
+10 Time TOTAL CALCULATION : 0.443713
+3 Time TOTAL CALCULATION : 0.443688
+6 Time TOTAL CALCULATION : 0.443698
+5 Time TOTAL CALCULATION : 0.443783
+7 Time TOTAL CALCULATION : 0.44373
+15 Time TOTAL CALCULATION : 0.443781
+2 Time TOTAL CALCULATION : 0.44374
+14 Time TOTAL CALCULATION : 0.443762
+9 Time TOTAL CALCULATION : 0.443774
+13 Time TOTAL CALCULATION : 0.443733
+12 Time TOTAL CALCULATION : 0.443752
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4950586
+Jobname   : task16MSL_500_200_16
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 06/06/2016 09:42:38 , start = 06/06/2016 09:43:29
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 16 , ncpus = 256 , nodes = 16
+   Nodes=curie[1671,1752,1804,4560-4561,4563-4566,4568-4569,4571-4572,4576-4577,4587] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4950586       task16MSL_500_200_16      -    256     16           -     00:00:15     100            -      -  -
+4950586.0     llcmcpp_loader           16    256     16      BBlock     00:00:12    80.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -1,0 +1,155 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 Thread create : 0.000217
+27 Thread create : 0.000223
+1 Thread create : 0.000243
+7 Thread create : 0.00025
+10 Thread create : 0.000223
+15 Thread create : 0.000239
+25 Thread create : 0.000247
+20 Thread create : 0.000229
+8 Thread create : 0.000219
+26 Thread create : 0.000207
+12 Thread create : 0.000227
+16 Thread create : 0.000217
+18 Thread create : 0.000226
+22 Thread create : 0.000214
+28 Thread create : 0.000216
+3 Thread create : 0.000244
+4 Thread create : 0.000237
+31 Thread create : 0.000234
+6 Thread create : 0.00023
+11 Thread create : 0.000231
+14 Thread create : 0.000232
+24 Thread create : 0.000209
+21 Thread create : 0.000224
+9 Thread create : 0.000228
+13 Thread create : 0.000245
+17 Thread create : 0.000239
+19 Thread create : 0.000234
+23 Thread create : 0.000245
+29 Thread create : 0.000222
+2 Thread create : 0.000211
+5 Thread create : 0.00026
+30 Thread create : 0.000224
+0 Thread create : 2e-06
+1 Thread create : 5e-06
+7 Thread create : 3e-06
+26 Thread create : 4e-06
+16 Thread create : 3e-06
+19 Thread create : 2e-06
+23 Thread create : 4e-06
+29 Thread create : 4e-06
+2 Thread create : 2e-06
+30 Thread create : 3e-06
+6 Thread create : 2e-06
+11 Thread create : 3e-06
+14 Thread create : 4e-06
+24 Thread create : 3e-06
+20 Thread create : 3e-06
+8 Thread create : 3e-06
+27 Thread create : 3e-06
+12 Thread create : 4e-06
+17 Thread create : 2e-06
+18 Thread create : 3e-06
+22 Thread create : 4e-06
+28 Thread create : 4e-06
+3 Thread create : 4e-06
+4 Thread create : 3e-06
+31 Thread create : 3e-06
+10 Thread create : 4e-06
+15 Thread create : 3e-06
+25 Thread create : 3e-06
+21 Thread create : 3e-06
+9 Thread create : 4e-06
+13 Thread create : 4e-06
+5 Thread create : 4e-06
+24 Time TOTAL CALCULATION : 0.00104
+26 Time TOTAL CALCULATION : 0.001033
+28 Time TOTAL CALCULATION : 0.001009
+31 Time TOTAL CALCULATION : 0.001041
+1 Time TOTAL CALCULATION : 0.001134
+7 Time TOTAL CALCULATION : 0.00114
+11 Time TOTAL CALCULATION : 0.001151
+25 Time TOTAL CALCULATION : 0.00104
+20 Time TOTAL CALCULATION : 0.001156
+8 Time TOTAL CALCULATION : 0.00115
+27 Time TOTAL CALCULATION : 0.00104
+19 Time TOTAL CALCULATION : 0.001142
+23 Time TOTAL CALCULATION : 0.001156
+29 Time TOTAL CALCULATION : 0.001041
+3 Time TOTAL CALCULATION : 0.001137
+4 Time TOTAL CALCULATION : 0.001141
+30 Time TOTAL CALCULATION : 0.001047
+0 Time TOTAL CALCULATION : 0.001262
+6 Time TOTAL CALCULATION : 0.001147
+15 Time TOTAL CALCULATION : 0.001146
+21 Time TOTAL CALCULATION : 0.001156
+9 Time TOTAL CALCULATION : 0.001155
+12 Time TOTAL CALCULATION : 0.001163
+16 Time TOTAL CALCULATION : 0.001158
+18 Time TOTAL CALCULATION : 0.001133
+22 Time TOTAL CALCULATION : 0.001154
+2 Time TOTAL CALCULATION : 0.001154
+5 Time TOTAL CALCULATION : 0.00115
+10 Time TOTAL CALCULATION : 0.001146
+14 Time TOTAL CALCULATION : 0.00116
+13 Time TOTAL CALCULATION : 0.00115
+17 Time TOTAL CALCULATION : 0.001128
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4832474
+Jobname   : task8MSL_500_1_32
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 24/05/2016 09:29:34 , start = 24/05/2016 10:07:48
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 8 , ncpus = 256 , nodes = 16
+   Nodes=curie[2236,2947,3905,4497,5357,5359,5362,5511-5513,5830,5833,5866-5867,5870,6457] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4832474       task8MSL_500_1_32         -    256     16           -     00:00:08     100            -      -  -
+4832474.0     llcmcpp_loader           32    256     16      BBlock     00:00:06    75.0            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

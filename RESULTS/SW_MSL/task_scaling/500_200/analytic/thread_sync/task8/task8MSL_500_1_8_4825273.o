@@ -1,0 +1,251 @@
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+MPI thread support level SERIALIZED required but SERIALIZED found, aborting
+0 Thread sync : 5e-06
+4 Thread sync : 2e-06
+6 Thread sync : 2e-06
+7 Thread sync : 2e-06
+5 Thread sync : 2e-06
+2 Thread sync : 1.2e-05
+1 Thread sync : 5e-06
+3 Thread sync : 2e-06
+0 Thread sync : 0.000383
+1 Thread sync : 0.000386
+2 Thread sync : 0.000383
+0 Thread sync : 4.2e-05
+6 Thread sync : 0.000385
+4 Thread sync : 0.000384
+3 Thread sync : 0.000384
+1 Thread sync : 4.1e-05
+7 Thread sync : 0.000384
+5 Thread sync : 0.000385
+2 Thread sync : 4.4e-05
+0 Thread sync : 7.8e-05
+6 Thread sync : 4.2e-05
+4 Thread sync : 4.2e-05
+3 Thread sync : 4.2e-05
+1 Thread sync : 7.2e-05
+7 Thread sync : 4.2e-05
+5 Thread sync : 4.2e-05
+2 Thread sync : 7.3e-05
+7 Thread sync : 7.7e-05
+4 Thread sync : 7.2e-05
+3 Thread sync : 7.3e-05
+6 Thread sync : 9.4e-05
+5 Thread sync : 7.2e-05
+1 Thread sync : 0.000772
+7 Thread sync : 0.00077
+5 Thread sync : 0.000776
+3 Thread sync : 0.000776
+0 Thread sync : 0.00079
+6 Thread sync : 0.000771
+4 Thread sync : 0.000779
+2 Thread sync : 0.000794
+0 Thread sync : 0.000131
+4 Thread sync : 0.00013
+2 Thread sync : 0.000131
+1 Thread sync : 0.000131
+7 Thread sync : 0.000128
+5 Thread sync : 0.000131
+3 Thread sync : 0.000126
+0 Thread sync : 0.00013
+6 Thread sync : 0.000129
+4 Thread sync : 0.000125
+2 Thread sync : 0.000126
+1 Thread sync : 0.00012
+7 Thread sync : 0.000123
+5 Thread sync : 0.000123
+3 Thread sync : 0.000124
+6 Thread sync : 0.000126
+1 Thread sync : 0.000378
+6 Thread sync : 0.000377
+4 Thread sync : 0.00038
+2 Thread sync : 0.00038
+0 Thread sync : 0.000385
+7 Thread sync : 0.000378
+5 Thread sync : 0.00038
+3 Thread sync : 0.00038
+1 Thread sync : 4.7e-05
+4 Thread sync : 4.3e-05
+0 Thread sync : 4.7e-05
+6 Thread sync : 4.2e-05
+5 Thread sync : 4.3e-05
+2 Thread sync : 4.4e-05
+1 Thread sync : 7.3e-05
+7 Thread sync : 4.4e-05
+3 Thread sync : 4.4e-05
+0 Thread sync : 0.000109
+6 Thread sync : 7.2e-05
+4 Thread sync : 7.3e-05
+2 Thread sync : 7.2e-05
+7 Thread sync : 7.2e-05
+5 Thread sync : 7.1e-05
+3 Thread sync : 7.3e-05
+5 Thread sync : 0.000773
+1 Thread sync : 0.000773
+7 Thread sync : 0.000773
+3 Thread sync : 0.000774
+0 Thread sync : 0.000784
+4 Thread sync : 0.000785
+1 Thread sync : 0.000122
+6 Thread sync : 0.000783
+2 Thread sync : 0.000782
+0 Thread sync : 0.000124
+4 Thread sync : 0.000123
+1 Thread sync : 3.7e-05
+6 Thread sync : 0.000117
+5 Thread sync : 0.000124
+2 Thread sync : 0.000121
+0 Thread sync : 3.7e-05
+7 Thread sync : 0.00012
+4 Thread sync : 3.7e-05
+3 Thread sync : 0.000124
+1 Thread sync : 3e-06
+6 Thread sync : 3.6e-05
+5 Thread sync : 3.9e-05
+2 Thread sync : 4.3e-05
+0 Thread sync : 2e-06
+7 Thread sync : 3.5e-05
+4 Thread sync : 3e-06
+3 Thread sync : 3.6e-05
+6 Thread sync : 2e-06
+5 Thread sync : 3e-06
+2 Thread sync : 2e-06
+0 Thread sync : 0.000382
+7 Thread sync : 2e-06
+3 Thread sync : 2e-06
+1 Thread sync : 0.000378
+6 Thread sync : 0.00038
+4 Thread sync : 0.000379
+2 Thread sync : 0.000385
+1 Thread sync : 4.2e-05
+5 Thread sync : 0.000378
+0 Thread sync : 6.4e-05
+7 Thread sync : 0.000379
+3 Thread sync : 0.000378
+1 Thread sync : 7.2e-05
+6 Thread sync : 4.3e-05
+4 Thread sync : 4.3e-05
+2 Thread sync : 4.2e-05
+0 Thread sync : 9.7e-05
+7 Thread sync : 4.4e-05
+5 Thread sync : 4.3e-05
+3 Thread sync : 4.5e-05
+6 Thread sync : 7.2e-05
+4 Thread sync : 7.2e-05
+2 Thread sync : 7.3e-05
+7 Thread sync : 7.2e-05
+5 Thread sync : 7.4e-05
+3 Thread sync : 7.2e-05
+1 Thread sync : 0.000772
+4 Thread sync : 0.000773
+6 Thread sync : 0.000776
+2 Thread sync : 0.000774
+5 Thread sync : 0.000769
+1 Thread sync : 0.000118
+7 Thread sync : 0.000778
+3 Thread sync : 0.000769
+5 Thread sync : 0.000122
+1 Thread sync : 0.00013
+7 Thread sync : 0.000125
+4 Thread sync : 0.000122
+2 Thread sync : 0.000117
+0 Thread sync : 0.00109
+6 Thread sync : 0.000123
+3 Thread sync : 0.000119
+5 Thread sync : 0.000128
+0 Thread sync : 0.000126
+7 Thread sync : 0.000128
+4 Thread sync : 0.000128
+2 Thread sync : 0.00013
+6 Thread sync : 0.000128
+3 Thread sync : 0.000129
+0 Thread sync : 0.000129
+0 Thread sync : 0.000381
+6 Thread sync : 0.000378
+4 Thread sync : 0.000379
+2 Thread sync : 0.000378
+1 Thread sync : 0.000374
+0 Thread sync : 4.3e-05
+7 Thread sync : 0.000377
+5 Thread sync : 0.000378
+3 Thread sync : 0.00038
+1 Thread sync : 4.3e-05
+6 Thread sync : 4.6e-05
+4 Thread sync : 4.3e-05
+2 Thread sync : 4.2e-05
+0 Thread sync : 7.6e-05
+7 Thread sync : 4.3e-05
+5 Thread sync : 4.4e-05
+3 Thread sync : 4.3e-05
+1 Thread sync : 7.4e-05
+7 Thread sync : 7.2e-05
+4 Thread sync : 7.2e-05
+2 Thread sync : 7.3e-05
+6 Thread sync : 7.3e-05
+5 Thread sync : 7.1e-05
+3 Thread sync : 7.3e-05
+1 Thread sync : 0.000771
+4 Thread sync : 0.00077
+3 Thread sync : 0.00077
+7 Thread sync : 0.000771
+5 Thread sync : 0.00077
+2 Thread sync : 0.000788
+1 Thread sync : 0.000119
+6 Thread sync : 0.000783
+1 Thread sync : 3.8e-05
+5 Thread sync : 0.000124
+3 Thread sync : 0.000119
+1 Time TOTAL CALCULATION : 0.003759
+6 Thread sync : 0.000126
+4 Thread sync : 0.00013
+2 Thread sync : 0.000138
+7 Thread sync : 0.00012
+5 Thread sync : 3.9e-05
+2 Thread sync : 2.9e-05
+2 Time TOTAL CALCULATION : 0.003765
+0 Thread sync : 0.00126
+6 Thread sync : 4e-05
+6 Time TOTAL CALCULATION : 0.003786
+5 Time TOTAL CALCULATION : 0.00377
+3 Thread sync : 4e-05
+3 Time TOTAL CALCULATION : 0.003765
+7 Thread sync : 3.9e-05
+7 Time TOTAL CALCULATION : 0.003776
+4 Thread sync : 4e-05
+4 Time TOTAL CALCULATION : 0.003789
+0 Thread sync : 0.000134
+0 Thread sync : 4e-05
+0 Time TOTAL CALCULATION : 0.004235
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 4825273
+Jobname   : task8MSL_500_1_8
+User      : coullohe
+Account   : gen7617@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 23/05/2016 18:16:00 , start = 23/05/2016 18:16:00
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 8 , cpus/task = 8 , ncpus = 64 , nodes = 4
+   Nodes=curie[1735-1737,1742] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+4825273       task8MSL_500_1_8          -     64      4           -     00:00:06     100            -      -  -
+4825273.0     llcmcpp_loader            8     64      4      BBlock     00:00:05    83.3            -      -  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

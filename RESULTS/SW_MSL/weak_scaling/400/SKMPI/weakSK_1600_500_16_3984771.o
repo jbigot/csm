@@ -1,0 +1,43 @@
+MPI 5 -  :  Time TOTAL CALCULATION : 44.0361 
+MPI 7 -  :  Time TOTAL CALCULATION : 44.036 
+MPI 2 -  :  Time TOTAL CALCULATION : 44.0363 
+MPI 6 -  :  Time TOTAL CALCULATION : 44.0364 
+MPI 0 -  :  Time TOTAL CALCULATION : 44.0364 
+MPI 1 -  :  Time TOTAL CALCULATION : 44.0366 
+MPI 11 -  :  Time TOTAL CALCULATION : 44.0372 
+MPI 12 -  :  Time TOTAL CALCULATION : 44.0374 
+MPI 13 -  :  Time TOTAL CALCULATION : 44.0375 
+MPI 15 -  :  Time TOTAL CALCULATION : 44.0375 
+MPI 10 -  :  Time TOTAL CALCULATION : 44.0376 
+MPI 8 -  :  Time TOTAL CALCULATION : 44.0373 
+MPI 14 -  :  Time TOTAL CALCULATION : 44.0375 
+MPI 9 -  :  Time TOTAL CALCULATION : 44.0376 
+MPI 3 -  :  Time TOTAL CALCULATION : 44.0386 
+MPI 4 -  :  Time TOTAL CALCULATION : 44.0392 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 3984771
+Jobname   : weakSK_1600_500_16
+User      : coullohe
+Account   : gen7470@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 15/01/2016 09:15:05 , start = 15/01/2016 09:15:28
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 1 , ncpus = 16 , nodes = 1
+   Nodes=curie5206 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+3984771       weakSK_1600_500_16        -     16      1           -     00:00:51     100            -      -  -
+3984771.0     FullSWOF_2D              16     16      1      BBlock     00:00:47    92.1     00:00:41   87.2  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########
