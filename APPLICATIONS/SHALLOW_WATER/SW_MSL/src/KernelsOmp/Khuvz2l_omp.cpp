@@ -66,7 +66,7 @@ public:
     int64_t xx2 = cz2l.start();
 
 //dynamic also possible
-#pragma omp parallel for shared(ch,cz,cz2l) private(yy,xx,y,yy2,xx2,dh1,dh2,dz1,dz2) schedule (static, CHUNK)
+#pragma omp parallel for shared(ch,cz,cz2l) private(yy,xx,dh1,dh2,dz1,dz2) firstprivate(y,yy2,xx2) schedule (static, CHUNK)
     for(xx = ch.start();xx<ch.width(); xx++)
     {
       dh1 = ch(xx,y+1)-ch(xx,y+2);
