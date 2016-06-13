@@ -45,7 +45,7 @@ public:
     int64_t xx,yy,yy2r,xx2r;
 
 //dynamic also possible
-#pragma omp parallel for shared(ch,ch2r) private(yy,xx,xx2,yy2,y,dh1,dh2,hl) schedule (static, CHUNK)
+#pragma omp parallel for shared(ch,ch2r) private(yy,xx,dh1,dh2,hl) firstprivate(y,yy2,xx2) schedule (static, CHUNK)
     for(xx = ch.start();xx<ch.width(); xx++)
     {
       dh1 = ch(xx,y-1)-ch(xx,y);
@@ -60,7 +60,7 @@ public:
     yy2r = ch2r.start()+1;
 
 //dynamic also possible
-#pragma omp parallel for shared(ch,ch2r) private(yy,xx,yy2r,xx2r,dh1,dh2,hl) schedule (static, CHUNK)
+#pragma omp parallel for shared(ch,ch2r) private(yy,xx,xx2r,dh1,dh2,hl) firstprivate(yy2r) schedule (static, CHUNK)
     for(yy = ch.start()+1; yy<ch.height()-1;yy++)
     {
       xx2r = ch2r.start();
