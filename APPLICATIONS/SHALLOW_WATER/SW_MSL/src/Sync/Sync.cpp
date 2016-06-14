@@ -46,15 +46,15 @@ public:
     int mpi_rank;
     MPI_Comm_rank(MPI_COMM_WORLD,&(mpi_rank));
 
-    Chronometer chrono;
-    chrono.start();
+    //Chronometer chrono;
+    //chrono.start();
     for(int i=0;i<data.size();i++)
       {
 	//dmatrices[i]->getBorders();
 	data[i]->update();
       }
-    chrono.stop();
-    cout<<mpi_rank<<" - Time SYNC : "<<chrono.dureeCalcule()<<endl;
+    //chrono.stop();
+    //cout<<mpi_rank<<" - Time SYNC : "<<chrono.dureeCalcule()<<endl;
 
     //b = rdtsc();
     //std::cout<<"Sync rdtsc = "<<b-a<<std::endl;
