@@ -258,29 +258,29 @@ public:
       #pragma omp task untied depend(in:hsc,qs2,vs) depend(out:vsc) final(1)
       checkvs0->go();
       
-      #pragma omp task untied depend(in:hs2) depend(out:hs1) final(1)
+      #pragma omp task untied depend(in:hsc) depend(out:hs1) final(1)
       limhd1->go();
-      #pragma omp task untied depend(in:us2) depend(out:us1) final(1)
+      #pragma omp task untied depend(in:usc) depend(out:us1) final(1)
       limud1->go();
-      #pragma omp task untied depend(in:vs2) depend(out:vs1) final(1)
+      #pragma omp task untied depend(in:vsc) depend(out:vs1) final(1)
       limvd1->go();
-      #pragma omp task untied depend(in:hs2) depend(out:hs2) final(1)
+      #pragma omp task untied depend(in:hsc) depend(out:hs2) final(1)
       limhl1->go();
-      #pragma omp task untied depend(in:us2) depend(out:us2) final(1)
+      #pragma omp task untied depend(in:usc) depend(out:us2) final(1)
       limul1->go();
-      #pragma omp task untied depend(in:vs2) depend(out:vs2) final(1)
+      #pragma omp task untied depend(in:vsc) depend(out:vs2) final(1)
       limvl1->go();
-      #pragma omp task untied depend(in:hs2) depend(out:hs3) final(1)
+      #pragma omp task untied depend(in:hsc) depend(out:hs3) final(1)
       limhu1->go();
-      #pragma omp task untied depend(in:us2) depend(out:us3) final(1)
+      #pragma omp task untied depend(in:usc) depend(out:us3) final(1)
       limuu1->go();
-      #pragma omp task untied depend(in:vs2) depend(out:vs3) final(1)
+      #pragma omp task untied depend(in:vsc) depend(out:vs3) final(1)
       limvu1->go();
-      #pragma omp task untied depend(in:hs2) depend(out:hs4) final(1)
+      #pragma omp task untied depend(in:hsc) depend(out:hs4) final(1)
       limhr1->go();
-      #pragma omp task untied depend(in:us2) depend(out:us4) final(1)
+      #pragma omp task untied depend(in:usc) depend(out:us4) final(1)
       limur1->go();
-      #pragma omp task untied depend(in:vs2) depend(out:vs4) final(1)
+      #pragma omp task untied depend(in:vsc) depend(out:vs4) final(1)
       limvr1->go();
 
       #pragma omp task untied depend(in:hs1,us1,vs1,hs2,us2,vs2,hs3,us3,vs3,hs4,us4,vs4) depend(out:hs,us,vs) final(1)
