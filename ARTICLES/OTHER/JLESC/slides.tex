@@ -93,7 +93,8 @@ Separation of concerns between the domain and its efficient implementation
 \item Implicit parallelization
 \end{itemize}
 \end{block}
-But none or only a few DSLs used in production !
+But none or only a few DSLs used in \textbf{production} !\\
+\textbf{ETP4HPC}: programming models for non experts to reach exascale !
 \end{frame}
 %-------------------------------------------------------------
 \begin{frame}
@@ -103,7 +104,7 @@ But none or only a few DSLs used in production !
 \item Choose a domain and a language more or less specific
 \item Difficult to combine DSLs (interoperability)
 \begin{itemize}
-\item Eexascale applications = many specific domains and interactions
+\item exascale applications = many specific domains and interactions
 \item semantic / compilation / back-end codes
 \end{itemize}
 \item Difficult to maintain
@@ -173,7 +174,7 @@ follow a descriptive grammar to simply declare
 \begin{itemize}
 \item parallel pattern of the multi-stencil application
 \item hybrid parallelism included: data and task parallelism
-\item choice of parallel languages (MPI, OpenMP, StarPU, SkelGIS, Global Arrays etc.)
+\item choice of parallel languages (MPI, OpenMP 3.x/4.x, SkelGIS etc.)
 \item end-users have to fill computation functions into this pattern
 \end{itemize}
 \end{block}
@@ -200,8 +201,8 @@ follow a descriptive grammar to simply declare
 \end{itemize}
 \item Reuse of existing languages and DSLs
 \begin{itemize}
-\item Use of a Distributed Data Structure DSL (MPI) : SkelGIS
-\item MPI and OpenMP (4.x)
+\item Use of a Distributed Data Structure DSeL (C++,MPI) : SkelGIS
+\item MPI and OpenMP (3.x and 4.x)
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -237,9 +238,9 @@ Cartesian mesh / finite volume method\\Weak scaling 400 x 400 per process\\TGCC 
 \frametitle{Work in progress and collaborations}
 \begin{block}{Work in progress}
 \begin{itemize}
-\item different types of scheduling and back-end in MSL
-\item combine MSL implementation choices to an energy-aware framework
-\item new programming model back-end for MSL: combining component models and task models (Ph.D. Jérôme Richard)
+\item Different types of scheduling and back-end in MSL
+\item Combine MSL implementation choices to an energy-aware framework
+\item New programming model back-end for MSL: combining component models and task models (Ph.D. Jérôme Richard)
 \end{itemize}
 \end{block}
 \begin{block}{Collaborations}
