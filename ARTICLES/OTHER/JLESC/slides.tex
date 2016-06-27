@@ -103,10 +103,10 @@ But none or only a few DSLs used in production !
 \item Choose a domain and a language more or less specific
 \item Difficult to combine DSLs (interoperability)
 \begin{itemize}
+\item Eexascale applications = many specific domains and interactions
 \item semantic / compilation / back-end codes
 \end{itemize}
 \item Difficult to maintain
-\item Exascale applications = many specific domains and interactions
 \end{itemize}
 \end{alertblock}
 \end{frame}
@@ -126,9 +126,9 @@ But none or only a few DSLs used in production !
 \end{itemize}
 \item Try to reuse existing DSLs (compilation process or back-end codes)
 \end{itemize}
-\textit{Delite (Scala)\\
-Composition and Reuse with Compiled Domain-Specific Languages\\
-ECOOP'13}
+% \textit{Delite (Scala)\\
+% Composition and Reuse with Compiled Domain-Specific Languages\\
+% ECOOP'13}
 \end{frame}
 %-------------------------------------------------------------
 
@@ -166,7 +166,7 @@ follow a descriptive grammar to simply declare
 \begin{itemize}
 \item the sequential order of computations
 \item what is read and written by each computation
-\item whith or without a neighborhood access (stencil)
+\item with or without a neighborhood access (stencil)
 \end{itemize}
 \end{block}
 \begin{block}{Outputs}
@@ -205,6 +205,61 @@ follow a descriptive grammar to simply declare
 \end{itemize}
 \end{itemize}
 \end{frame}
+%-------------------------------------------------------------
+\section{Few results}
+%----------------
+\begin{frame}
+\frametitle{Shallow-water equations}
+\begin{center}
+Cartesian mesh / finite volume method\\Strong scaling 10k x 10k mesh with 1k iterations\\TGCC Curie, Thin nodes
+\resizebox{7cm}{!}{\includegraphics{./images/median_strong.pdf}}
+\end{center}
+\end{frame}
+%----------------
+\begin{frame}
+\frametitle{Shallow-water equations}
+\begin{center}
+Cartesian mesh / finite volume method\\Weak scaling 400 x 400 per process\\TGCC Curie, Thin nodes
+\resizebox{7cm}{!}{\includegraphics{./images/median_weak.pdf}}
+\end{center}
+\end{frame}
+%----------------
+% \begin{frame}
+% \frametitle{Multi-Stencil Language : Yet another DSL for stencils !}
+% \textbf{Improvment with data+task scheduling}
+% \begin{center}
+% \resizebox{8cm}{!}{\includegraphics{./images/base_close_median.pdf}}
+% \end{center}
+% \end{frame}
+
+%-------------------------------------------------------------
+\begin{frame}
+\frametitle{Work in progress and collaborations}
+\begin{block}{Work in progress}
+\begin{itemize}
+\item different types of scheduling and back-end in MSL
+\item combine MSL implementation choices to an energy-aware framework
+\item new programming model back-end for MSL: combining component models and task models (Ph.D. Jérôme Richard)
+\end{itemize}
+\end{block}
+\begin{block}{Collaborations}
+\begin{itemize}
+\item More application cases
+\item Back-end programming model: component models and task scheduling (Components in OmpSs ?)
+\item DSLs interoperability
+\end{itemize}
+\end{block}
+\end{frame}
+%-------------------------------------------------------------
+
+% \begin{withoutheadline}
+% \begin{frame}{}
+% \begin{center}
+% \huge Thank You !
+% \end{center}
+% \end{frame}
+% \end{withoutheadline}
+
 %----------------
 \begin{frame}
 \frametitle{MSL to Component-based runtime}
@@ -266,60 +321,6 @@ follow a descriptive grammar to simply declare
   \end{tikzpicture}
 \end{center}
 \end{frame}
-%-------------------------------------------------------------
-\section{Few results}
-%----------------
-\begin{frame}
-\frametitle{Shallow-water equations}
-\begin{center}
-Cartesian mesh / finite volume method\\Strong scaling 10k x 10k mesh with 1k iterations\\TGCC Curie, Thin nodes
-\resizebox{7cm}{!}{\includegraphics{./images/median_strong.pdf}}
-\end{center}
-\end{frame}
-%----------------
-\begin{frame}
-\frametitle{Shallow-water equations}
-\begin{center}
-Cartesian mesh / finite volume method\\Weak scaling 400 x 400 per process\\TGCC Curie, Thin nodes
-\resizebox{7cm}{!}{\includegraphics{./images/median_weak.pdf}}
-\end{center}
-\end{frame}
-%----------------
-% \begin{frame}
-% \frametitle{Multi-Stencil Language : Yet another DSL for stencils !}
-% \textbf{Improvment with data+task scheduling}
-% \begin{center}
-% \resizebox{8cm}{!}{\includegraphics{./images/base_close_median.pdf}}
-% \end{center}
-% \end{frame}
-
-%-------------------------------------------------------------
-\begin{frame}
-\frametitle{Work in progress and collaborations}
-\begin{block}{Work in progress}
-\begin{itemize}
-\item different types of scheduling and back-end in MSL
-\item combine MSL implementation choices to an energy-aware framework
-\item new programming model back-end for MSL: combining component models and task models (Ph.D. Jérôme Richard)
-\end{itemize}
-\end{block}
-\begin{block}{Collaborations}
-\begin{itemize}
-\item More application cases
-\item Back-end programming model: component models and task scheduling (Components in OmpSs ?)
-\item DSLs interoperability
-\end{itemize}
-\end{block}
-\end{frame}
-%-------------------------------------------------------------
-
-% \begin{withoutheadline}
-% \begin{frame}{}
-% \begin{center}
-% \huge Thank You !
-% \end{center}
-% \end{frame}
-% \end{withoutheadline}
 
 \end{document}
 
