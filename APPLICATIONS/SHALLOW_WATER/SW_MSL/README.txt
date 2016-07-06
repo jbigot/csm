@@ -41,6 +41,16 @@ Deux versions possibles :
 2- politique d'ordonnancement spread
 
 =====================================
+src/TimeAll/TimeAll.cpp :
+=====================================
+
+Scheduling dynamique openmp 4.x sans synchronisation à chaque itération de temps
+Deux versions possibles :
+1- politique d'ordonnancement close
+2- politique d'ordonnancement spread
+
+
+=====================================
 src/Kernels :
 =====================================
 
