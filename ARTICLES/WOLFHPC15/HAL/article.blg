@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/MacPorts 2015_4)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: article.aux
+The style file: abbrv.bst
+Database file #1: biblio.bib
+Warning--empty title in DeVito2011LDS
+Warning--empty booktitle in DeVito2011LDS
+You've used 24 entries,
+            2118 wiz_defined-function locations,
+            681 strings with 9546 characters,
+and the built_in function-call counts, 10324 in all, are:
+= -- 1031
+> -- 550
+< -- 14
++ -- 219
+- -- 189
+* -- 777
+:= -- 1669
+add.period$ -- 83
+call.type$ -- 24
+change.case$ -- 162
+chr.to.int$ -- 0
+cite$ -- 26
+duplicate$ -- 388
+empty$ -- 736
+format.name$ -- 189
+if$ -- 2207
+int.to.chr$ -- 0
+int.to.str$ -- 24
+missing$ -- 23
+newline$ -- 123
+num.names$ -- 54
+pop$ -- 161
+preamble$ -- 1
+purify$ -- 138
+quote$ -- 0
+skip$ -- 285
+stack$ -- 0
+substring$ -- 610
+swap$ -- 120
+text.length$ -- 14
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 94
+warning$ -- 2
+while$ -- 94
+width$ -- 26
+write$ -- 291
+(There were 2 warnings)
