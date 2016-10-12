@@ -1,0 +1,29 @@
+program ::= "mesh:" meshid
+            "mesh entities:" listgroup
+            "computation domains:" listcompdom
+            "independent:" listinde
+            "stencil shapes:" liststencil
+            "mesh quantities:" listquantities
+            "scalars" listscalar
+            listloop
+
+listgroup ::= groupid "," listgroup | groupid
+listcompdom ::= compdom listcompdom | compdom
+compdom ::= compdomid "in" groupid
+listinde ::= inde listinde | inde
+inde ::= compdomid "and" compdomid
+liststencil ::= stencil liststencil | stencil
+stencil ::= stencilid "from" groupid "to" groupid
+listquantities ::= quantity listquantities |  quantity
+quantity ::= groupid listquantityid
+listquantityid ::= quantityid "," listquantityid |  quantityid
+listscalar ::= scalarid "," listscalar | scalarid
+listloop ::= loop listloop | loop
+loop ::=  "time:" iteration
+          "computations:" listcomp
+iteration ::= num | scalar
+listcomp ::= comp listcomp |  comp
+comp ::= written "=" compid "(" listread ")"
+written ::= quantityid "[" compdomid "]" | scalar
+listread ::= dataread listread | dataread
+dataread ::= quantityid "[" stencilid "]" |  quantityid | scalar

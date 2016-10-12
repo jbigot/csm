@@ -1,0 +1,194 @@
+Some approaches to numerically solve partial differential equations (PDEs) are based on direct iterative methods (\textit{e.g.} finite difference, finite volume or finite element methods).
+They approximate the solution through a discretized process where the continuous time and space domains are discretized and numerical computations are iteratively (time discretization) applied onto a mesh (space discretization).
+%In other words, the PDEs are transformed to a set of numerical computations applied at each time-step on elements of the discretized space domain.
+While the computations can have various forms, we focus on three categories.
+%TODO[JB] 4 plus tard...
+\emph{Stencil} computations involve access to neighbor values only (the concept of neighborhood depending on the space discretization used).
+\emph{Local} computations depend on the computed location only (this can be seen as a stencil of size one).
+Finally, \emph{reductions} enable to transform values mapped on the mesh to a single scalar value.
+
+This section gives a complete formal description of what we call a \textit{stencil program} and its computations.
+The proposed language MSL (Multi-Stencil Language) does not depend on the type of space discretization used.
+Thus, some details given in the following sections, are useful to understand the domain but do not have to be kept in mind to understand the Multi-Stencil Language.
+% As a result, at the end of each subsection a summary of what is useful to understand the language is given.
+
+%-------------------------------------
+\subsection{Time, mesh and data}
+
+$\Omega$ is the continuous space domain of a numerical simulation (typically $\mathbb{R}^n$). %For example, if $n=3$, any geographic point on earth could be represented in this space in a given geographic coordinate system.
+A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $\Omega$ of a set of PDEs and is defined as follows.
+
+\begin{mydef}
+A mesh is a connected undirected graph $\mathcal{M}=(V,E)$, where $V\subset \Omega$ is the set of vertices and $E\subseteq V^2$ the set of edges. The set of edges $E$ of a mesh $\mathcal{M}=(V,E)$ does not contain bridges. It is said that the mesh is applied onto $\Omega$.
+\end{mydef}
+\begin{figure}[!h]\begin{center}
+  \resizebox{8cm}{!}{\includegraphics{./images/maillages.pdf}}
+  \caption{From left to right, Cartesian, curvilinear and unstructured meshes.}
+  \label{fig:mesh1}
+\end{center}\end{figure}
+\begin{mydef}
+The dimension of a mesh $\mathcal{M}=(V,E)$ applied onto $\Omega=\mathbb{R}^n$ is denoted $dim(\mathcal{M})=n$.
+\end{mydef}
+A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, regular or irregular (without the same topology for each element) as illustrated in Figure~\ref{fig:mesh1}. One can notice that more than one type of mesh is also possible inside a single simulation. For example, an hybrid mesh can be defined as an unstructured mesh composed itself of a Cartesian mesh inside each of its vertices.
+% Multi-grid numerical methods is another example. %JB: pas vraiment...
+However in this paper, single mesh simulations are addressed.
+
+\medskip
+
+\begin{mydefs}[Definitions (mesh)]
+\item An \textit{entity} $\phi$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $\phi\subset V\cup E$.
+\item A \textit{group of mesh entities} $\mathcal{G} \in \mathcal{P}(V\cup E)$ represents a set of entities of the same topology and the mesh of a group is denoted $mesh(\mathcal{G})$, \textit{i.e.} $\mathcal{G} \in \mathcal{P}(V\cup E) \Leftrightarrow mesh(\mathcal{G})=(V,E)$
+\item The \textit{set of entities groups} used in a simulation is denoted $\Phi$.
+\end{mydefs}
+
+For example, in a 2D Cartesian mesh, a group of entities where each entity is made of four vertices and four edges could form the cells.
+Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$. Both groups, then, would be part of $\Phi$. This example is illustrated in Figure~\ref{fig:ex1}.
+
+\medskip
+
+\begin{mydef}[Definitions (time)]
+The finite sequence $T: (t_n)_{n\in\llbracket 0, T_{max} \rrbracket}$ represents the discretization of the continuous time domain $\mathcal{T}=\mathbb{R}$.
+To each discrete time-step $n\in\llbracket 0, T_{max} \rrbracket$, it associates a time value $t_n\in\mathcal{T}$.
+\end{mydef}
+
+The time discretization can be as simple as a constant time-step with a fixed number of steps.
+It can, however, also be defined by recursion with both the time-step and the number of steps depending on the data variables (see definitions below).
+
+\medskip
+
+\begin{mydefs}[Definitions (quantity)]
+\item $\mathbb{V}=\Delta\cup\mathcal{S}$ is the set of \emph{variables} or \emph{quantities}.
+\item $\Delta$ are the \textit{mesh variables} that to each entity of a group and time-step associates a value $\delta: \mathcal{G}\times T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
+\item The group of entities a variable is mapped on is denoted $entity(\delta)=\mathcal{G}$.
+\item $\mathcal{S}$ are the \textit{scalar variables} that to each time-step associates a value $s: T\mapsto \mathcal{V}_\delta$ where $\mathcal{V}_{\delta}$ is a value type.
+\item Amongst the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria whose value is $0$ except at the last step where it is 1. Thus, $\forall t\in \llbracket 0, T_{max-1} \rrbracket$, $conv(t)=1$, and $conv(T_{max})=1$.
+\end{mydefs}
+
+%For example, the simplest $conv$ is typically to have two scalars: $t$ the time, and a constant number of iterations denoted $it$.
+%At each time-step $\Delta t=1$, and $conv$ returns the boolean expression $t<it$.
+
+\medskip
+
+This section has presented the general formalism of meshes, their entities, groups of entities, time discretization, and finally quantities (mapped on mesh and scalars).
+While the details about mesh and their topologies were useful to specify the following concepts, the Multi-Stencil Language presented in this paper is mesh-agnostic.
+These details will therefore not be needed in the remaining of the paper.
+
+%-----------------------
+\subsection{Computations}
+
+%In this section four different types of kernel computations are considered: stencil kernels, boundary kernels, local kernels, and reduction kernels.
+
+\medskip
+\begin{mydefs}
+\item A computation domain $D$ is a subpart of a mesh entities group, $D \subseteq \mathcal{G} \in \Phi$.
+\item The set of computation domains of a numerical simulation is denoted $\mathcal{D}$.
+\item $\mathcal{N}$ are the neighborhood functions $n: \mathcal{G}_i \mapsto \mathcal{G}_j^m$ which for a given entity $\phi \in \mathcal{G}_i$ returns a set of $m$ entities in $\mathcal{G}_j$. One can notice that $i = j$ is possible. Most of the time, such a neighborhood is called a \emph{stencil shape}.
+\end{mydefs}
+
+\begin{mydef}
+A computation kernel $k$ of a numerical simulation is defined as $k=(S,R,(w,D),comp)$, where
+\begin{itemize}
+\item $S \in \mathcal{S}$ is the set of scalar to read,
+\item $(w,D) \in \Delta \times \mathcal{D}$ is the single data written by the kernel:
+\begin{itemize}
+  \item $w$ is the single quantity (variable) modified by the computation kernel,
+  \item $D$ is the computation domain on which $w$ is computed, $D \subseteq entity(w)$,
+\end{itemize}
+\item $R \in \Delta \times \mathcal{N}$ is the set of tuples $(r,n)$ representing the data read where
+\begin{itemize}
+  \item $r$ is a quantity read by the kernel to compute $w$,
+  \item $n : entity(w) \rightarrow entity(r)^m$ is a neighborhood function that indicates whose values of $r$ are read to compute $w$.
+\end{itemize}
+\item $comp$ is the numerical computation which returns a value from a set of $n$ input values, $comp: \mathcal{V}_i^n \rightarrow \mathcal{V}_j$, where $\mathcal{V}_i$ and $\mathcal{V}_j$ are value types. Thus, $comp$ represents the actual numerical expression which is computed by a kernel.
+\end{itemize}
+\end{mydef}
+
+At each time-step, a set of computations is performed. During a computation kernel, it can be considered that a set of old states ($t-1$) of quantities are read ($R$), and that a new state ($t$) of a single quantity is written ($w$).
+%TODO[jb] introduire la contrainte plus tard
+
+Such a definition of a computation kernel covers a large panel of different computations. For example, the four usual types of computations (stencil, local, boundary and reduction) performed into a simulation can be defined as follow :
+\begin{itemize}
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{stencil kernel} if $\exists (r,n) \in R$ such that $n \neq identity$ .
+\item A \emph{boundary kernel} is a kernel $k(S,R,(w,D),comp)$ where $D$ is a specific computation domain at the border of entities, and which does not intersect with any other computation domain.
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{local kernel} if $\forall (r,n) \in R$, $n = identity$.
+\item A kernel computation $k(S,R,(w,D),comp)$ is a \emph{reduction kernel} if $w$ is a scalar.%, $D=\emptyset$, $R=\{(r,n)\}$ with $n=entity(r)$, and $comp$ is a reduction operation (usually $+$, $-$, $*$, $max$, $min$ etc.).
+\end{itemize}
+Since we only consider explicit numerical schemes in this paper, a kernel can not write the same quantity it reads, except locally, \textit{i.e.} if $\exists (w,n) \in R\Rightarrow n=identity$
+
+%In this paper only explicit numerical schemes are considered, thus if we denote by $identity$ the identity function, we have $w \not\in R$ except if $w=(r,identity)$.
+
+%In our formalism, it is forbidden for a stencil kernel to find $(r,n) \in R$ for which $r=w$ and $n \neq identity$. Actually, if such a property was permitted, implicit numerical schemes would be needed into the simulation, which involves linear solvers. Such a scheme is not a stencil and is over the scope of this paper. The problem does not happened for local kernels as $\forall (r,n) \in R$, $n = identity$. Computations for which this property is authorized are boundary kernels only. This type of kernel is a particular case as it commputes boundary conditions, which represents what should happened outside the space domain but still impact stencil kernels at the next time-step.
+
+% \noindent \textbf{Property}
+% A kernel for which all data read and written are applied onto a mesh of dimension $0$ is a local kernel.
+
+% \noindent \textbf{Property}
+% In a reduction kernel $k(S,R,(w,D),comp)$, $D=entity(w)$ as a single entity exists for a scalar.
+
+%\medskip
+%A reduction computation is a computation which reads a single data applied onto a mesh and returns from all its entities a single scalar (mesh with a dimension reduced to zero). 
+
+A reduction is typically used to compute the convergence criteria of the time loop of the simulation. %Occasionally reductions can also be used to compute other scalars.
+
+% \medskip
+% \noindent \textbf{Property}
+% Considering a reduction kernel $k(S,R,(w,D),comp)$, $comp$ must be a binary and associative operation on the type $V$, $comp: V \times V \rightarrow V$.
+
+\begin{mydef}
+The set of $n$ ordered computation kernels of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i < j$, then $k_i$ is computed before $k_j$.
+\end{mydef}
+
+\begin{mydef}
+A \textit{multi-stencil program} is defined by the octuplet 
+\begin{equation*}
+\mathcal{MSP}(\mathcal{M},\Phi,\mathcal{D},\mathcal{N},\Delta, \mathcal{S},T,\Gamma)
+\end{equation*}
+\end{mydef}
+
+% This section has presented the general formalism of what is a computation kernel and a multi-stencil program.
+% The language presented in this paper, the Multi-Stencil Language, offers a simple way to describe a numerical simulation while being able to automatically extract parallelism.
+% Its aim is to be mesh-agnostic, as previously described, but also to make a clear separation of concerns between the simulation description and its implementation.
+% As a result, and as already described, details about the topology of the mesh, which is an implementation problem, is not used into the language.
+% Moreover, in a computation kernel $k(S,R,(w,D),comp)$, $comp$ is not used by the language.
+
+
+\paragraph{\textbf{Example}}
+\begin{figure}[ht]
+\begin{center}
+\subfloat[Mesh and two groups of mesh entities.\label{fig:meshbase}]{
+\resizebox{8cm}{!}{\includegraphics{./images/mesh.pdf}}
+}\\
+\hspace{10pt}
+\subfloat[A is computed with a 4-neighborhood stencil applied on B. A is computed onto a computation domain which does not include all entities of the group.\label{fig:ex1}]{
+\resizebox{5cm}{!}{\includegraphics{./images/stencil1.pdf}}
+}
+\vspace{20pt}
+\hspace{10 pt}
+\subfloat[A is computed with a 2-neighborhood stencil applied on C. A is computed onto a computation domain includes all entities of the group.\label{fig:ex2}]{
+\resizebox{5cm}{!}{\includegraphics{./images/stencil2.pdf}}
+}
+\end{center}
+\caption{(a) a Cartesian mesh and two kind of groups of mesh entities, (b) an example of stencil kernel on cells, (c) an example of stencil kernel on two different entities of the mesh.}
+\label{fig:gspmsp}
+\end{figure}
+For example, in Figure~\ref{fig:ex1}, assuming that the computation domain (full lines) is denoted $dc1$ and the stencil shape is $n1$, the stencil kernel can be defined as:
+\begin{equation*}
+R: \{(B,n1)\}, \quad w: A, \quad D: dc1,
+\end{equation*}
+\begin{equation*}
+comp: A(x,y)=B(x+1,y)+B(x-1,y)+B(x,y+1)+B(x,y-1).
+\end{equation*}
+On the other hand, in the example of Figure~\ref{fig:ex2}, assuming the computation domain is $dc2$ and the stencil shape is $n2$, the stencil kernel is defined as:
+\begin{equation*}
+R: \{(C,n2),(A,identity)\}, \quad w: A, \quad D: dc2,
+\end{equation*}
+\begin{equation*}
+comp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
+\end{equation*}
+
+\medskip
+A stencil program has been formally defined in this section. This formalism is used in the next Section to define two parallelization techniques of a multi-stencil program.
+
+One can note that all definitions given in this section are independent from the topology of the mesh. This property will be kept in the rest of this paper to propose the mesh-agnostic MSL language.
+
+

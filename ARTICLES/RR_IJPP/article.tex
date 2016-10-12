@@ -1,0 +1,210 @@
+%%
+%% This is file `squelette-rr.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% RR.dtx  (with options: `sample')
+%% ********************************************************************
+%% Copyright (C) 1997-1999 2004 2006-2011 INRIA/APICS/MARELLE by Jose' Grimm
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%% An archive of the software can be found at
+%%    ftp://ftp-sop.inria.fr/marelle/RR-INRIA
+
+\documentclass[twoside]{article}
+\usepackage[a4paper]{geometry}
+\usepackage[latin1]{inputenc} % ou \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % ou \usepackage[OT1]{fontenc}
+\usepackage{RR}
+\usepackage{hyperref}
+%\RequirePackage{fix-cm}
+%
+%\smartqed  % flush right qed marks, e.g. at end of proof
+%
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb, stmaryrd}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{cite}
+\usepackage{enumitem}
+\usepackage{filecontents}
+\usepackage{listings}
+\usepackage{mathtools, cuted}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
+
+\usepackage{todonotes}
+\usepackage{url}
+\usepackage{xspace}
+
+\newcommand{\fix}[1]{\todo[inline,color=red!80]{#1}}
+\newcommand{\cf}{\emph{cf.}\xspace}
+\newcommand{\ie}{\emph{i.e.,}\xspace}
+\newcommand{\llc}{L\textsuperscript{2}C\xspace}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{myprop}[theorem]{Proposition}
+\newtheorem{mydef}[theorem]{Definition}
+\newtheorem{myth}[theorem]{Theorem}
+\newenvironment{mydefs}[1][Definitions]{\par\medskip\noindent\textbf{#1}\nopagebreak\begin{itemize}[noitemsep,topsep=.25\topsep]}{\end{itemize}}
+\def\pprec{\mathrel{\scalebox{.9}[1]{$\prec$}\mkern-3mu%
+  \scalebox{.4}[1]{$\prec$}\mkern-5.5mu\scalebox{.4}[1]{$\prec$}}}
+
+
+\RRNo{7003}
+%% \RTNo{0703}
+%%
+%% date de publication du rapport
+\RRdate{October 2016}
+%%
+%% Cas d'une version deux
+%% \RRversion{2}
+%% date de publication de la version 2
+%% \RRdater{November 2008}
+%%
+\RRauthor{H\'el\`ene Coullon\thanks[lip]{INRIA, LIP, ENS Lyon, 46 All\'e d'Italie, 69364 Lyon Cedex 07, France}\thanks{helene.coullon@inria.fr} \and Julien Bigot\thanks{Maison de la Simulation, CEA, CNRS, Univ. Paris-Sud, UVSQ, Universit\'e Paris-Saclay, 91191 Gif-sur-Yvette, France}\thanks{julien.bigot@cea.fr} \and Christian Perez\thanksref{lip}\thanks{christian.perez@inria.fr}}
+
+% \institute{H\'el\`ene Coullon \and Christian Perez \at
+%               INRIA, LIP, ENS Lyon, 46 Allée d'Italie, 69364 Lyon Cedex 07, France\\
+%               \email{helene.coullon@inria.fr} \email{christian.perez@inria.fr}
+%            \and
+%            Julien Bigot \at
+%            Maison de la Simulation, CEA, CNRS, Univ. Paris-Sud, UVSQ, Universit\'e Paris-Saclay, 91191 Gif-sur-Yvette, France\\
+%            \email{julien.bigot@cea.fr}
+% }
+
+% Jos\'e Grimm\thanks{Footnote for first author}%
+%   % note partag\'ee (optionnelle)
+%   \thanks[sfn]{Shared foot note}%
+%  % \and entre chaque auteur s'il y en a plusieurs
+%   \and
+% Philippe Louarn\thanks{Footnote for second author}%
+%  % r\'ef\'erence \`a la note partag\'ee
+% \thanksref{sfn}
+%  % liste longue pour tests de mise en page
+% \and Nicolas Bourbaki\thanks{etc} \and Andr\'e Lichnerowicz
+% \and Marcel-Paul Sch\"utzenberger \and Jacques-Louis Lions}
+%% Ceci apparait sur chaque page paire.
+\authorhead{Coullon \& Bigot \& Perez}
+%% titre francais long
+\RRtitle{Le langage MSL: orchestration de stencils au travers d'un DSL maillage-agnostique}
+%% English title
+\RRetitle{The Multi-Stencil Language: orchestrating stencils with a mesh-agnostic DSL}
+%%
+\titlehead{The Multi-Stencil Language}
+%%
+%\RRnote{This is a note}
+%\RRnote{This is a second note}
+%%
+\RRresume{
+
+}
+\RRabstract{
+As the computation power of modern high performance architectures increases, their heterogeneity and complexity also become more important. One of the big challenges of exascale is to get programming models which gives access to high performance computing (HPC) to many scientists and not only to a few HPC specialists. One relevant solution to ease parallel programming for scientists is Domain Specific Language (DSL). However, one problem to avoid with DSLs is to not design a new DSL each time a new domain or a new problem has to be solved. This phenomenon happens for stencil-based numerical simulations, for which a large number of languages has been proposed without code reuse between them. The Multi-Stencil Language (MSL) presented in this paper is a language common to any kind of mesh used into a stencil-based numerical simulation. It is said that MSL is mesh-agnostic. Actually, from the description of a numerical simulation, MSL produces an empty parallel pattern, or skeleton, of the simulation which will be filled using other existing parallel languages and libraries. Thus, MSL, by finding a common language for different kinds of stencil-based simulation, facilitates code reuse. MSL is evaluated on a real case simulation which solves shallow-water equations. It is shown that MSL does not introduce overheads on data parallelism up to 16.384 cores, and that the hybrid parallelism (data and task) introduced improves performance of the simulation.}
+%%
+\RRmotcle{Langage de domaine sp\'cifique, stencil, simulation num\'rique, parall\'lisme de donn\'es, parall\'lisme de t\^aches, ordonnancement, MPI, OpenMP}
+\RRkeyword{Domain Specific Language (DSL), stencil, numerical simulation, data parallelism, task parallelism, scheduling, MPI, OpenMP}
+%%
+%% \RRprojet{Apics}  % cas d'un seul projet
+\RRprojets{Avalon}
+%%
+%% \URLorraine % pour ceux qui sont \`a l'est
+%% \URRennes  % pour ceux qui sont \`a l'ouest
+%% \URRhoneAlpes % pour ceux qui sont dans les montagnes
+%% \URRocq % pour ceux qui sont au centre de la France
+%% \URFuturs % pour ceux qui sont dans le virtuel
+%% \URSophia % pour ceux qui sont au Sud.
+%%
+%% \RCBordeaux % centre de recherche Bordeaux - Sud Ouest
+%% \RCLille % centre de recherche Lille Nord Europe
+%% \RCParis % Paris Rocquencourt
+%% \RCSaclay % Saclay \^Ile de France
+\RCGrenoble % Grenoble - Rh\^one-Alpes
+%% \RCNancy % Nancy - Grand Est
+%% \RCRennes % Rennes - Bretagne Atlantique
+%% \RCSophia % Sophia Antipolis M\'editerran\'ee
+
+
+%
+\begin{document}
+
+%\title{The Multi-Stencil Language: orchestrating stencils with a mesh-agnostic DSL}
+
+%\author{H\'el\`ene Coullon \and Julien Bigot \and Christian Perez}
+
+% \institute{H\'el\`ene Coullon \and Christian Perez \at
+%               INRIA, LIP, ENS Lyon, 46 Allée d'Italie, 69364 Lyon Cedex 07, France\\
+%               \email{helene.coullon@inria.fr} \email{christian.perez@inria.fr}
+%            \and
+%            Julien Bigot \at
+%            Maison de la Simulation, CEA, CNRS, Univ. Paris-Sud, UVSQ, Universit\'e Paris-Saclay, 91191 Gif-sur-Yvette, France\\
+%            \email{julien.bigot@cea.fr}
+% }
+
+\makeRR
+
+% \begin{abstract}
+% As the computation power of modern high performance architectures increases, their heterogeneity and complexity also become more important. One of the big challenges of exascale is to get programming models which gives access to high performance computing (HPC) to many scientists and not only to a few HPC specialists. One relevant solution to ease parallel programming for scientists is Domain Specific Language (DSL). However, one problem to avoid with DSLs is to not design a new DSL each time a new domain or a new problem has to be solved. This phenomenon happens for stencil-based numerical simulations, for which a large number of languages has been proposed without code reuse between them. The Multi-Stencil Language (MSL) presented in this paper is a language common to any kind of mesh used into a stencil-based numerical simulation. It is said that MSL is mesh-agnostic. Actually, from the description of a numerical simulation, MSL produces an empty parallel pattern, or skeleton, of the simulation which will be filled using other existing parallel languages and libraries. Thus, MSL, by finding a common language for different kinds of stencil-based simulation, facilitates code reuse. MSL is evaluated on a real case simulation which solves shallow-water equations. It is shown that MSL does not introduce overheads on data parallelism up to 16.384 cores, and that the hybrid parallelism (data and task) introduced improves performance of the simulation.
+
+% \keywords{Domain Specific Language (DSL) \and stencil \and numerical simulation \and mesh-agnostic \and data parallelism \and task parallelism \and scheduling \and MPI \and OpenMP}
+% \end{abstract}
+
+%------------------------------------------------------------------------------
+\section{Introduction}
+\label{sect:introduction}
+\input{introduction.tex}
+%------------------------------------------------------------------------------
+\section{Related work}
+\label{sect:rel}
+\input{related.tex}
+%------------------------------------------------------------------------------
+\section{Computational model of Multi-Stencil Programs}
+\label{sect:formalism}
+\input{formalism.tex}
+%------------------------------------------------------------------------------
+\section{The Multi-Stencil Language}
+\label{sect:msl}
+\input{msl.tex}
+%------------------------------------------------------------------------------
+\section{Parallelization of Multi-Stencil Programs}
+\label{sect:parallelism}
+\input{parallelism.tex}
+%------------------------------------------------------------------------------
+\section{Static Scheduling and performance model}
+\label{sect:msp}
+\input{msp.tex}
+%------------------------------------------------------------------------------
+\section{Implementation}
+\label{sect:comp}
+\input{compiler.tex}
+%------------------------------------------------------------------------------
+\section{Evaluation}
+\label{sect:eval}
+\input{evaluation.tex}
+%------------------------------------------------------------------------------
+\section{Conclusion}
+\label{sect:concl}
+\input{conclusion.tex}
+%------------------------------------------------------------------------------
+
+%\begin{acknowledgements}
+This work has partially been supported by the PIA ELCI project of the French FSN.
+This  work  was  granted  access  to  the  HPC  resources  of TGCC under  the 
+allocations t2015067470 and x2016067617 made by GENCI.
+%\end{acknowledgements}
+
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+\end{document}
+% end of file template.tex
+
