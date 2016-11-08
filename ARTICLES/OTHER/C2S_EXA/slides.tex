@@ -66,6 +66,12 @@
     }{}
 \makeatother
 
+\AtBeginSection[]
+{
+\begin{frame}{Table of Contents}
+\tableofcontents[currentsection]
+\end{frame}
+}
 %-------------------------------------------------------------------
 \title[The Multi-Stencil Language]{Using Component Model to implement a DSL: The Multi-Stencil Language Case Study}
 \author[]{Hélène Coullon, Julien Bigot, \underline{Christian Perez}} % [Hélène Coullon (INRIA), Julien Bigot (CEA), Christian Perez (INRIA)]
@@ -87,6 +93,11 @@
     \resizebox{2.5cm}{!}{\includegraphics{images/logo-inria.png}}\hspace{1cm}
     \resizebox{1cm}{!}{\includegraphics{images/logo-mdls.png}}\hfill
     \resizebox{1cm}{!}{\includegraphics{images/elci_logo.png}}
+\end{frame}
+
+
+\begin{frame}{Table of Contents}
+  \tableofcontents
 \end{frame}
 
 %% \begin{frame}
@@ -370,22 +381,58 @@
   \frametitle{Component Models} % components
   \begin{block}{Overview}
     \begin{itemize}
-    \item Component = black box with well defined interactions (provided/required)
+    \item Technology advocating composition rather than development
+      \begin{itemize}
+      \item Old idea (late 60') but major development in the 90'
+      \item After Object and before Model Driven Engineering (MDE)
+      \end{itemize}
+    \item Component = black box with well defined interactions
+      \begin{itemize}
+      \item Provides / Requires
+      \end{itemize}
     \item Application = Assembly of components
     \end{itemize}
   \end{block}
   \begin{block}{Benefits}
     \begin{itemize}
-    \item Common model to define software architecture
-    \item Maintainability through separation of concerns
+      \item Application structure well defined
     \item Code-reuse and productivity
+    \item Maintainability through separation of concerns
     \end{itemize}
   \end{block}
-  \begin{alertblock}{Open issues}
+\vspace{-4cm}\hspace{8.15cm}\resizebox{2.5cm}{!}{\includegraphics{images/assembly.png}}
+\end{frame}
+%-------------------------------------------------------------
+\begin{frame}
+\frametitle{L2C: A HPC Component Model}
+\begin{block}{A minimalist component model for HPC}
+  \begin{itemize}
+  \item Component creation/deletion, configuration, and connection
+  \item No L2C code between components \@ runtime
     \begin{itemize}
-    \item Component for HPC, eg task graph?\\ {\color{red} Cf next talk of Jérôme Richard!}
+      \item No language interoperability provided
     \end{itemize}
-  \end{alertblock}
+  \item  Support of native interactions
+    \begin{itemize}
+    \item Use/Provide: C++, CORBA, [ FORTRAN (2008)]
+    \item MPI communicator
+    \end{itemize}
+  \item \url{hlcm.gforge.inria.fr}
+  \end{itemize}
+\end{block}
+\begin{alertblock}{Ongoing extensions}
+  \begin{itemize}
+  \item Concurrent reconfiguration
+    \begin{itemize}
+    \item DirectL2C
+    \end{itemize}
+  \item Task support
+    \begin{itemize}
+    \item {\color{red} Cf next talk on Comet!}
+    \end{itemize}
+  \end{itemize}
+\end{alertblock}
+\vspace{-4.2cm}\hspace{6.8cm}\resizebox{4cm}{!}{\includegraphics{images/jacobi-2X2.png}}
 \end{frame}
 %-------------------------------------------------------------
 \begin{frame}
@@ -476,7 +523,7 @@ stencil shapes :
 \end{column}
 \begin{column}{5.5cm}
 \begin{itemize}
-\item A cartesian mesh is used
+\item A Cartesian mesh is used
 \item Two kinds of mesh entities are declared onto it
 \item Two computations domains, one for each entity type
 \item Three stencil shapes (neighborhood from mesh entity to mesh entity)
@@ -681,6 +728,189 @@ Edge: a direct data dependency (Read / Write)
 %----------------
 %----------------
 \begin{frame}
+\frametitle{Series-Parallel Tree}
+\small\textit{Valdes \& Al, The Recognition of Series Parallel Digraphs, STOC '79}
+\normalsize
+\begin{columns}
+\begin{column}{.48\textwidth}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (s0)    at (0,0) {$\mathcal{S}$};
+   
+   \node[] (c0)    at (-3,1) {$c_0$};
+   \node[] (star1) at (-2,1) {$sync_1$};
+   \node[] (c1)    at (-1,1) {$c_1$};
+   \node[] (p0)    at ( 0,1) {$\mathcal{P}$};
+   \node[] (c7)    at ( 1,1) {$c_7$};
+   \node[] (star8) at ( 2,1) {$sync_8$};
+   \node[] (c8)    at ( 3,1) {$c_8$};
+
+   \node[] (s1)    at (-1,2) {$\mathcal{S}$};
+   \node[] (s2)    at (1,2) {$\mathcal{S}$};
+   
+   \node[] (c2)    at (-3,3) {$c_2$};
+   \node[] (star4) at (-2,3) {$sync_4$};
+   \node[] (c4)    at (-1,3) {$c_4$};
+   \node[] (c6)    at ( 0,3) {$c_6$};
+   \node[] (c3)    at ( 1,3) {$c_3$};
+   \node[] (c5)    at ( 2,3) {$c_5$};
+
+ 
+  \path[->]
+    (s0) edge node {} (c0)
+         edge node {} (star1)
+         edge node {} (c1)
+         edge node {} (p0)
+         edge node {} (c7)
+         edge node {} (star8)
+         edge node {} (c8)
+    (p0) edge node {} (s1)
+         edge node {} (s2)
+    (s1) edge node {} (c2)
+         edge node {} (star4)
+         edge node {} (c4)
+         edge node {} (c4)
+         edge node {} (c6)
+    (s2) edge node {} (c3)
+         edge node {} (c5);
+  \end{tikzpicture}
+  }
+\end{center}
+\end{column}
+\begin{column}{.52\textwidth}
+
+\end{column}
+\end{columns}
+\end{frame}
+%----------------
+
+%----------------
+\begin{frame}
+\frametitle{Series-Parallel Tree}
+\small\textit{Valdes \& Al, The Recognition of Series Parallel Digraphs, STOC '79}
+\normalsize
+\begin{columns}
+\begin{column}{.48\textwidth}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (s0)    at (0,0) {$\mathcal{S}$};
+   
+   \node[] (c0)    at (-3,1) {$c_0$};
+   \node[] (star1) at (-2,1) {$sync_1$};
+   \node[] (c1)    at (-1,1) {$c_1$};
+   \node[] (p0)    at ( 0,1) {$\mathcal{P}$};
+   \node[] (c7)    at ( 1,1) {$c_7$};
+   \node[] (star8) at ( 2,1) {$sync_8$};
+   \node[] (c8)    at ( 3,1) {$c_8$};
+
+   \node[] (s1)    at (-1,2) {$\mathcal{S}$};
+   \node[] (s2)    at (1,2) {$\mathcal{S}$};
+   
+   \node[] (c2)    at (-3,3) {$c_2$};
+   \node[] (star4) at (-2,3) {$sync_4$};
+   \node[] (c4)    at (-1,3) {$c_4$};
+   \node[] (c6)    at ( 0,3) {$c_6$};
+   \node[] (c3)    at ( 1,3) {\textcolor{red}{$c_3;c_5$}};
+   %\node[] (c5)    at ( 2,3) {$c_5$};
+
+ 
+  \path[->]
+    (s0) edge node {} (c0)
+         edge node {} (star1)
+         edge node {} (c1)
+         edge node {} (p0)
+         edge node {} (c7)
+         edge node {} (star8)
+         edge node {} (c8)
+    (p0) edge node {} (s1)
+         edge node {} (s2)
+    (s1) edge node {} (c2)
+         edge node {} (star4)
+         edge node {} (c4)
+         edge node {} (c4)
+         edge node {} (c6)
+    (s2) edge node {} (c3);
+  \end{tikzpicture}
+  }
+\end{center}
+\end{column}
+\begin{column}{.52\textwidth}
+\end{column}
+\end{columns}
+Loop fusion optimization possible
+\end{frame}
+%----------------
+
+%----------------
+\begin{frame}
+\frametitle{Series-Parallel Tree}
+\small\textit{Valdes \& Al, The Recognition of Series Parallel Digraphs, STOC '79}
+\normalsize
+\begin{columns}
+\begin{column}{.48\textwidth}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[] (s0)    at (0,0) {$\mathcal{S}$};
+   
+   \node[] (c0)    at (-3,1) {$c_0$};
+   \node[] (star1) at (-2,1) {$sync_1$};
+   \node[] (c1)    at (-1,1) {$c_1$};
+   \node[] (p0)    at ( 0,1) {$\mathcal{P}$};
+   \node[] (c7)    at ( 1,1) {$c_7$};
+   \node[] (star8) at ( 2,1) {$sync_8$};
+   \node[] (c8)    at ( 3,1) {$c_8$};
+
+   \node[] (s1)    at (-1,2) {$\mathcal{S}$};
+   \node[] (s2)    at (1,2) {$\mathcal{S}$};
+   
+   \node[] (c2)    at (-3,3) {$c_2$};
+   \node[] (star4) at (-2,3) {$sync_4$};
+   \node[] (c4)    at (-1,3) {$c_4$};
+   \node[] (c6)    at ( 0,3) {$c_6$};
+   \node[] (c3)    at ( 1,3) {\textcolor{red}{$c_3;c_5$}};
+   %\node[] (c5)    at ( 2,3) {$c_5$};
+
+ 
+  \path[->]
+    (s0) edge node {} (c0)
+         edge node {} (star1)
+         edge node {} (c1)
+         edge node {} (p0)
+         edge node {} (c7)
+         edge node {} (star8)
+         edge node {} (c8)
+    (p0) edge node {} (s1)
+         edge node {} (s2)
+    (s1) edge node {} (c2)
+         edge node {} (star4)
+         edge node {} (c4)
+         edge node {} (c4)
+         edge node {} (c6)
+    (s2) edge node {} (c3);
+  \end{tikzpicture}
+  }
+\end{center}
+\end{column}
+\begin{column}{.52\textwidth}
+\begin{block}{Specific components}
+\begin{itemize}
+\item $SEQ$ to directly replace $\mathcal{S}$ nodes
+\item $PAR$ to directly replace $\mathcal{P}$ nodes
+\item $SYNC$ for synchronizations
+\item $K$ for computation kernels
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+Loop fusion optimization possible
+\end{frame}
+%----------------
+
+%----------------
+\begin{frame}
 \frametitle{MSL to Component-based runtime}
 \begin{block}{Ready-to-fill parallel pattern}
 \begin{itemize}
@@ -694,7 +924,7 @@ Edge: a direct data dependency (Read / Write)
 \item Static scheduling at the assembly level 
 \item Dynamic scheduling within a driver component
   \begin{itemize}
-  \item OpenMP task (For loop also available)
+  \item OpenMP task
   \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -797,259 +1027,262 @@ A data parallel/task parallel component assembly.\vspace{-0.2em}
 \end{center}
 {\fontsize{8}{8}\selectfont DDS: Distributed Data Structure (using SkelGIS)\par}
 \end{frame}
-%% %-------------------------------------------------------------
-%% \begin{frame}
-%% \frametitle{What is produced ?}
-%% \begin{block}{Implementation}
-%% \begin{itemize}
-%% \item DDS + Quantity + $k_{*}^{sync}$ = written components using SkelGIS (distributed memory, MPI)
-%% \item Scheduler = Serie-Parallel graph of $\Gamma_{dep}$ (OpenMP 3.0)
-%% \item Time + Scheduler = generated components
-%% \item $k_i$ = empty components to write
-%% \end{itemize}
-%% \end{block}
+%----------------
+\begin{frame}
+\frametitle{Component-based runtime: Static Scheduling}
 
-%% \begin{block}{Separation of concerns}
-%% \begin{itemize}
-%% \item numerician (MSL)
-%% \item computer engineer (K)
-%% \item HPC engineer (DDS, quantity, $k_{*}^{sync}$ etc.)
-%% \item DSL designer (component assembly + generated components)
-%% \end{itemize}
-%% \end{block}
-%% \end{frame}
-%% %-------------------------------------------------------------
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+     \node[component,solid] (D) at (0,0) {$Driver$};
+     \node[provide,scale=0.5,solid] (Dp) at (-1,0) {};
+     %\node[solid] (Ds) at (-1.5,0) {start};
+     \node[use,scale=0.5,solid,right=1.5cm of D] (Du1) {};
+     \node[use,scale=0.5,solid,below=1.75cm of D] (Du2) {};
+     \node[use,scale=0.5,solid,below=0.8cm of Du1] (Du3) {$m$};
 
-%% \begin{frame}
-%% \frametitle{Series-Parallel Tree}
-%% \small\textit{Valdes \& Al, The Recognition of Series Parallel Digraphs, STOC '79}
-%% \normalsize
-%% \begin{columns}
-%% \begin{column}{.48\textwidth}
-%% \begin{center}
-%% \resizebox{\textwidth}{!}{%
-%% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-%%    \node[] (s0)    at (0,0) {$\mathcal{S}$};
+     \node[provide,scale=0.5,solid,below=0.15 of Du2] (Tp) {};
+     \node[component,solid,below=1.6cm of Tp] (T) {$Time$};
+     \node[use,scale=0.5,solid,right=1cm of T] (Tu) {};
+     %\node[solid,left=0.8cm of T] (tt) {$T$};
+
+     \node[provide,scale=0.5,solid,right=0.15 of Tu] (Cp) {};
+     \node[component,dashed,right=2cm of Cp] (C) {$Computations$};
+     \node[use,scale=0.5,solid,above=0.8cm of C] (Cu) {};
+     \node[solid,right=0.2cm of Cu] (star) {$*$};
+     %\node[solid,right=1.5cm of C] (gamma) {$\Gamma$};
+
+     \node[provide,scale=0.5,solid,below right=0.2 of Du3] (Datap1) {};
+     \node[provide,scale=0.5,solid,above=0.15 of Cu] (Datap2) {};
+     \node[component,solid,double,above=0.8cm of Datap2] (Data) {$Data$};
+     \node[use,scale=0.5,solid,above=0.8cm of Data] (Datau) {};
+     %\node[solid,left=1cm of Data] (delta) {$\Delta,\mathcal{D}$};
+     %\node[mpi,scale=0.8,rounded corners=0pt,solid,right=1cm of Data] (mpidata) {};
+     %\node[solid,above=0.2cm of mpidata] (star2) {$*$};
+
+     \node[provide,scale=0.5,solid,right=0.15 of Du1] (DDSp1) {};
+     \node[provide,scale=0.5,solid,above=0.15 of Datau] (DDSp2) {};
+     \node[component,solid,above=0.8cm of DDSp2] (DDS) {$DDS$};
+     %\node[solid,right=1.2cm of DDS] (m) {$\mathcal{M},\mathcal{E}$};
    
-%%    \node[] (c0)    at (-3,1) {$c_0$};
-%%    \node[] (star1) at (-2,1) {$sync_1$};
-%%    \node[] (c1)    at (-1,1) {$c_1$};
-%%    \node[] (p0)    at ( 0,1) {$\mathcal{P}$};
-%%    \node[] (c7)    at ( 1,1) {$c_7$};
-%%    \node[] (star8) at ( 2,1) {$sync_8$};
-%%    \node[] (c8)    at ( 3,1) {$c_8$};
+    \path[-]
+      (Dp) edge [solid] node {} (D)
+      (D) edge [solid] node {} (Du1)
+          edge [solid] node {} (Du2)
+          edge [solid] node {} (Du3)
+      (DDSp1) edge [solid] node {} (DDS)
+      (Tp) edge [solid] node {} (T)
+      (T)  edge [solid] node {} (Tu)
+      (Cp) edge [solid] node {} (C)
+      (C) edge [solid] node {} (Cu)
+      (Datap2) edge [solid] node {} (Data)
+      (Datap1) edge [solid] node {} (Data)
+      (Data) edge [solid] node {} (Datau)
+      (DDSp2) edge [solid] node {} (DDS);
+    %\end{tikzpicture}
+    %}
+% \end{column}
+% \begin{column}{.70\textwidth}
+% \begin{center}
+% \resizebox{.80\textwidth}{!}{%
+% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   %seq0
+   \node[component,right=3.5cm of C] (seq0) {$SEQ$};
+   \node[provide] (seq0p) [left = 0.8cm of seq0] {};
+   \node[use] (seq0u) [right = 1cm of seq0] {$m$};
+   %c0
+   \node[component] (c0) [right = 2cm of seq0u] {$K(c_0)$};
+   \node[use] (c0u) [right = 0.8cm of c0] {};
+   \node[right=0.2 of c0u] (star) {*};
+   %sync0
+   \node[component] (sync0) [below = 1cm of c0] {$SYNC$};
+   \node[use] (sync0u) [right = 1cm of sync0] {$m$};
+   %c1
+   \node[component] (c1) [below = 0.8cm of sync0] {$K(c_1)$};
+   \node[use] (c1u) [right = 0.8cm of c1] {};
+   \node[right=0.2 of c1u] (star) {*};
+   %par0
+   \node[component] (par0) [below = 0.8cm of c1] {$PAR$};
+   \node[use] (par0u) [right = 1cm of par0] {$m$};
+  %seq1
+   \node[component] (seq1) [right = 1cm of sync0u] {$SEQ$};
+   \node[use] (seq1u) [right = 1cm of seq1] {$m$};
+  %c2
+   \node[component] (c2) [right = 4cm of c0] {$K(c_2)$};
+   \node[use] (c2u) [right = 0.8cm of c2] {};
+   \node[right=0.2 of c2u] (star) {*};
+  %sync1
+   \node[component] (sync1) [below = 0.8cm of c2] {$SYNC$};
+   \node[use] (sync1u) [right = 1cm of sync1] {$m$};
+  %c4
+   \node[component] (c4) [below = 0.8cm of sync1] {$K(c_4)$};
+   \node[use] (c4u) [right = 0.8cm of c4] {};
+   \node[right=0.2 of c4u] (star) {*};
+  %c6
+   \node[component] (c6) [below = 0.8cm of c4] {$K(c_6)$};
+   \node[use] (c6u) [right = 0.8cm of c6] {};
+   \node[right=0.2 of c6u] (star) {*};
+  %seq2
+   \node[component] (seq2) [below = 3.2cm of seq1] {$SEQ$};
+   \node[use] (seq2u) [right = 1cm of seq2] {$m$};
+  %c3
+   \node[component] (c3) [right = 1cm of seq2u] {$K(c_3)$};
+   \node[use] (c3u) [right = 0.8cm of c3] {};
+   \node[right=0.2 of c3u] (star) {*};
+  %c5
+   \node[component] (c5) [below = 0.8cm of c3] {$K(c_5)$};
+   \node[use] (c5u) [right = 0.8cm of c5] {};
+   \node[right=0.2 of c5u] (star) {*};
+  %c7
+   \node[component] (c7) [below = 0.8cm of par0] {$K(c_7)$};
+   \node[use] (c7u) [right = 0.8cm of c7] {};
+   \node[right=0.2 of c7u] (star) {*};
+  %sync2
+   \node[component] (sync2) [below = 0.8cm of c7] {$SYNC$};
+   \node[use] (sync2u) [right = 1cm of sync2] {$m$};
+  %c8
+   \node[component] (c8) [below = 0.8cm of sync2] {$K(c_8)$};
+   \node[use] (c8u) [right = 0.8cm of c8] {};
+   \node[right=0.2 of c8u] (star) {*};
 
-%%    \node[] (s1)    at (-1,2) {$\mathcal{S}$};
-%%    \node[] (s2)    at (1,2) {$\mathcal{S}$};
+   \path[-]
+   %seq0
+    (seq0) edge node {} (seq0u)
+    (seq0p) edge node {} (seq0)
+   %c0
+    (seq0u) edge node {} (c0)
+    (c0) edge node {} (c0u)
+    %sync0
+    (seq0u) edge node {} (sync0.west)
+    (sync0) edge node {} (sync0u)
+    %c1
+    (seq0u) edge node {} (c1)
+    (c1) edge node {} (c1u)
+   %par0
+    (seq0u) edge node {} (par0.west)
+    (par0) edge node {} (par0u)
+  %seq1
+    (par0u) edge node {} (seq1.west)
+    (seq1) edge node {} (seq1u)
+  %c2
+    (seq1u) edge node {} (c2.west)
+    (c2) edge node {} (c2u)
+  %sync0
+    (seq1u) edge node {} (sync1.west)
+    (sync1) edge node {} (sync1u)
+  %c4
+    (seq1u) edge node {} (c4.west)
+    (c4) edge node {} (c4u)
+  %c6
+    (seq1u) edge node {} (c6.west)
+    (c6) edge node {} (c6u)
+  %seq2
+    (par0u) edge node {} (seq2.west)
+    (seq2) edge node {} (seq2u)
+  %c3
+    (seq2u) edge node {} (c3)
+    (c3) edge node {} (c3u)
+  %c6
+    (seq2u) edge node {} (c5.west)
+    (c5) edge node {} (c5u)
+  %c6
+    (seq0u) edge node {} (c7.west)
+    (c7) edge node {} (c7u)
+  %sync2
+    (seq0u) edge node {} (sync2.west)
+    (sync2) edge node {} (sync2u)
+  %c8
+    (seq0u) edge [bend right] node {} (c8.west)
+    (c8) edge node {} (c8u)
+   ;
+
+   \path[-]
+    (C) edge[dashed] node {} (seq0);
+\end{tikzpicture}
+}
+\end{center}
+% \end{column}
+% \end{columns}
+\end{frame}
+%----------------
+\begin{frame}
+  \frametitle{Component-based runtime: Dynamic Scheduling}
+\begin{center}
+  \begin{itemize}
+  \item \emph{mpiOmpDyn}
+    \begin{itemize}
+    \item \emph{DDS} and \emph{Quantity}: data parallelization.
+    \item \emph{Scheduler}: DAG encoded into OpenMP tasks
+    \end{itemize}
+  \end{itemize}
+  \medskip
+  \begin{tikzpicture}[remember picture]
+  \node[rectangle,rounded corners=3pt,thick,inner sep=5pt,draw=black,dotted] (proc) {
+    \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+     \node[component,solid] (D) at (0,0) {$Driver$};
+     \node[provide,scale=0.5,solid] (Dp) at (-1,0) {};
+     \node[solid] (Ds) at (-1.5,0) {start};
+     \node[use,scale=0.5,solid,right=1.5cm of D] (Du1) {};
+     \node[use,scale=0.5,solid,below=1.75cm of D] (Du2) {};
+     \node[use,scale=0.5,solid,below=0.8cm of Du1] (Du3) {$m$};
+
+     \node[provide,scale=0.5,solid,below=0.15 of Du2] (Tp) {};
+     \node[component,solid,below=1.6cm of Tp] (T) {$Time$};
+     \node[use,scale=0.5,solid,right=1cm of T] (Tu) {};
+
+     \node[provide,scale=0.5,solid,right=0.15 of Tu] (Sp) {};
+     \node[component,solid,right=1.5cm of Sp] (S) {$Scheduling$};
+     \node[use,scale=0.5,solid,right=1.5cm of S] (Su) {};
+
+     \node[provide,scale=0.5,solid,right=0.15 of Su] (Cp) {};
+     \node[component,solid,double,right=2cm of Cp] (C) {$Kernel$};
+     \node[use,scale=0.5,solid,above=0.8cm of C] (Cu) {};
+
+     \node[provide,scale=0.5,solid,below right=0.2 of Du3] (Datap1) {};
+     \node[provide,scale=0.5,solid,above=0.15 of Cu] (Datap2) {};
+     \node[component,solid,double,above=0.8cm of Datap2] (Data) {$Data$};
+     \node[use,scale=0.5,solid,above=0.8cm of Data] (Datau) {};
+
+     \node[provide,scale=0.5,solid,right=0.15 of Du1] (DDSp1) {};
+     \node[provide,scale=0.5,solid,above=0.15 of Datau] (DDSp2) {};
+     \node[component,solid,above=0.8cm of DDSp2] (DDS) {$DDS$};
    
-%%    \node[] (c2)    at (-3,3) {$c_2$};
-%%    \node[] (star4) at (-2,3) {$sync_4$};
-%%    \node[] (c4)    at (-1,3) {$c_4$};
-%%    \node[] (c6)    at ( 0,3) {$c_6$};
-%%    \node[] (c3)    at ( 1,3) {$c_3$};
-%%    \node[] (c5)    at ( 2,3) {$c_5$};
+    \path[-]
+      (Dp) edge [solid] node {} (D)
+      (D) edge [solid] node {} (Du1)
+          edge [solid] node {} (Du2)
+          edge [solid] node {} (Du3)
+      (DDSp1) edge [solid] node {} (DDS)
+      (Tp) edge [solid] node {} (T)
+      (T)  edge [solid] node {} (Tu)
+      (Sp) edge [solid] node {} (S)
+      (S) edge [solid] node {} (Su)
+      (Datap2) edge [solid] node {} (Data)
+      (Datap1) edge [solid] node {} (Data)
+      (Data) edge [solid] node {} (Datau)
+      (C) edge [solid] node {} (Cu)
+      	  edge [solid] node {} (Cp)
+      (DDSp2) edge [solid] node {} (DDS);
+    \end{tikzpicture}
+    };
+    \node[mpi,scale=0.8,rounded corners=0pt,solid,right=0.5cm of proc] (mpidata) {};
+    \node[solid,above=0.1cm of mpidata] (star2) {$*$};
+    \node[solid,below=2.5cm of proc.west,anchor=west] (core) {\textit{\tiny{Duplicated on each processor/core}}};
+    \path[-]
+      (Data.east) edge node {} (mpidata);
+  \end{tikzpicture}
+\end{center}
 
- 
-%%   \path[->]
-%%     (s0) edge node {} (c0)
-%%          edge node {} (star1)
-%%          edge node {} (c1)
-%%          edge node {} (p0)
-%%          edge node {} (c7)
-%%          edge node {} (star8)
-%%          edge node {} (c8)
-%%     (p0) edge node {} (s1)
-%%          edge node {} (s2)
-%%     (s1) edge node {} (c2)
-%%          edge node {} (star4)
-%%          edge node {} (c4)
-%%          edge node {} (c4)
-%%          edge node {} (c6)
-%%     (s2) edge node {} (c3)
-%%          edge node {} (c5);
-%%   \end{tikzpicture}
-%%   }
-%% \end{center}
-%% \end{column}
-%% \begin{column}{.52\textwidth}
-
-%% \end{column}
-%% \end{columns}
-%% \end{frame}
-%% %----------------
-
-%% %----------------
-%% \begin{frame}
-%% \frametitle{Series-Parallel Tree}
-%% \small\textit{Valdes \& Al, The Recognition of Series Parallel Digraphs, STOC '79}
-%% \normalsize
-%% \begin{columns}
-%% \begin{column}{.48\textwidth}
-%% \begin{center}
-%% \resizebox{\textwidth}{!}{%
-%% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-%%    \node[] (s0)    at (0,0) {$\mathcal{S}$};
-   
-%%    \node[] (c0)    at (-3,1) {$c_0$};
-%%    \node[] (star1) at (-2,1) {$sync_1$};
-%%    \node[] (c1)    at (-1,1) {$c_1$};
-%%    \node[] (p0)    at ( 0,1) {$\mathcal{P}$};
-%%    \node[] (c7)    at ( 1,1) {$c_7$};
-%%    \node[] (star8) at ( 2,1) {$sync_8$};
-%%    \node[] (c8)    at ( 3,1) {$c_8$};
-
-%%    \node[] (s1)    at (-1,2) {$\mathcal{S}$};
-%%    \node[] (s2)    at (1,2) {$\mathcal{S}$};
-   
-%%    \node[] (c2)    at (-3,3) {$c_2$};
-%%    \node[] (star4) at (-2,3) {$sync_4$};
-%%    \node[] (c4)    at (-1,3) {$c_4$};
-%%    \node[] (c6)    at ( 0,3) {$c_6$};
-%%    \node[] (c3)    at ( 1,3) {\textcolor{red}{$c_3;c_5$}};
-%%    %\node[] (c5)    at ( 2,3) {$c_5$};
-
- 
-%%   \path[->]
-%%     (s0) edge node {} (c0)
-%%          edge node {} (star1)
-%%          edge node {} (c1)
-%%          edge node {} (p0)
-%%          edge node {} (c7)
-%%          edge node {} (star8)
-%%          edge node {} (c8)
-%%     (p0) edge node {} (s1)
-%%          edge node {} (s2)
-%%     (s1) edge node {} (c2)
-%%          edge node {} (star4)
-%%          edge node {} (c4)
-%%          edge node {} (c4)
-%%          edge node {} (c6)
-%%     (s2) edge node {} (c3);
-%%   \end{tikzpicture}
-%%   }
-%% \end{center}
-%% \end{column}
-%% \begin{column}{.52\textwidth}
-%% \end{column}
-%% \end{columns}
-%% Loop fusion optimization possible
-%% \end{frame}
-%% %----------------
-
-%% %----------------
-%% \begin{frame}
-%% \frametitle{Series-Parallel Tree}
-%% \small\textit{Valdes \& Al, The Recognition of Series Parallel Digraphs, STOC '79}
-%% \normalsize
-%% \begin{columns}
-%% \begin{column}{.48\textwidth}
-%% \begin{center}
-%% \resizebox{\textwidth}{!}{%
-%% \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-%%    \node[] (s0)    at (0,0) {$\mathcal{S}$};
-   
-%%    \node[] (c0)    at (-3,1) {$c_0$};
-%%    \node[] (star1) at (-2,1) {$sync_1$};
-%%    \node[] (c1)    at (-1,1) {$c_1$};
-%%    \node[] (p0)    at ( 0,1) {$\mathcal{P}$};
-%%    \node[] (c7)    at ( 1,1) {$c_7$};
-%%    \node[] (star8) at ( 2,1) {$sync_8$};
-%%    \node[] (c8)    at ( 3,1) {$c_8$};
-
-%%    \node[] (s1)    at (-1,2) {$\mathcal{S}$};
-%%    \node[] (s2)    at (1,2) {$\mathcal{S}$};
-   
-%%    \node[] (c2)    at (-3,3) {$c_2$};
-%%    \node[] (star4) at (-2,3) {$sync_4$};
-%%    \node[] (c4)    at (-1,3) {$c_4$};
-%%    \node[] (c6)    at ( 0,3) {$c_6$};
-%%    \node[] (c3)    at ( 1,3) {\textcolor{red}{$c_3;c_5$}};
-%%    %\node[] (c5)    at ( 2,3) {$c_5$};
-
- 
-%%   \path[->]
-%%     (s0) edge node {} (c0)
-%%          edge node {} (star1)
-%%          edge node {} (c1)
-%%          edge node {} (p0)
-%%          edge node {} (c7)
-%%          edge node {} (star8)
-%%          edge node {} (c8)
-%%     (p0) edge node {} (s1)
-%%          edge node {} (s2)
-%%     (s1) edge node {} (c2)
-%%          edge node {} (star4)
-%%          edge node {} (c4)
-%%          edge node {} (c4)
-%%          edge node {} (c6)
-%%     (s2) edge node {} (c3);
-%%   \end{tikzpicture}
-%%   }
-%% \end{center}
-%% \end{column}
-%% \begin{column}{.52\textwidth}
-%% \begin{block}{Specific components}
-%% \begin{itemize}
-%% \item $SEQ$ to directly replace $\mathcal{S}$ nodes
-%% \item $PAR$ to directly replace $\mathcal{P}$ nodes
-%% \item $SYNC$ for synchronizations
-%% \item $K$ for computation kernels
-%% \end{itemize}
-%% \end{block}
-%% \end{column}
-%% \end{columns}
-%% Loop fusion optimization possible
-%% \end{frame}
-%% %----------------
-
-%% %-------------------------------------------------------------
-%% \section{Implementation}
-%% %-------------------------------------------------------------
-%% \begin{frame}
-%% \frametitle{Component models}
-%% \begin{itemize}
-%% \item Black box with code
-%% \item Use/provide interfaces
-%% \item Improve code reuse (productivity)
-%% \item Improve separation of concerns (maintainability and portability)
-%% \item Improve composability of applications
-%% \end{itemize}
-%% \begin{center}
-%% \begin{tikzpicture}[remember picture]
-%%   \node[component,solid] (A) at (0,0) {A};
-%%   \node[component,solid,right=5cm of A] (B) {B};
-%%   \node[use,scale=0.5,solid,right=1.5cm of A] (Au) {};
-%%   \node[provide,scale=0.5,solid,left=1.5cm of B] (Bp) {};
-%%   \path[-]
-%%     (A) edge node {} (Au)
-%%     (Bp) edge node {} (B);
-%% \end{tikzpicture}
-
-%% \bigskip
-%% \begin{tikzpicture}[remember picture]
-%%   \node[component,solid] (A) at (0,0) {A};
-%%   \node[use,scale=0.5,solid,right=1cm of A] (Au) {};
-%%   \node[provide,scale=0.5,solid,right=0.01cm of Au] (Bp) {};
-%%   \node[component,solid,right=1cm of Bp] (B) {B};
-%%   \path[-]
-%%     (A) edge node {} (Au)
-%%     (Bp) edge node {} (B);
-%% \end{tikzpicture}
-
-%% \medskip
-%% Components A and B into a component assembly
-%% \end{center}
-%% \end{frame}
-
+\end{frame}
 
 %-------------------------------------------------------------
 \section{Evaluations}
 %----------------
 \begin{frame}
-\frametitle{Evaluations}
+\frametitle{Evaluation Setup}
 \begin{block}{Application}
 \begin{itemize}
-\item FullSWOF2D: developed at the MAPMO, Université d'Orléans
+\item FullSWOF2D: developed at the MAPMO, University of Orléans
 \item Solve the shallow-water equations using a finite volume method
 \item Cartesian mesh
 \item 3 mesh entities, 7 computation domains, 48 quantities
@@ -1082,7 +1315,7 @@ A data parallel/task parallel component assembly.\vspace{-0.2em}
 \begin{center}
 \vspace{-1em}
   Strong Scaling\\
-  10k x 10k domaine
+  10k x 10k domain
 \end{center}
 \end{column}
 \end{columns}
@@ -1093,22 +1326,22 @@ A data parallel/task parallel component assembly.\vspace{-0.2em}
 \end{frame}
 %-------------------------------------------------------------
 \begin{frame}
-\frametitle{Data Paralization to Hybrid Parallization: Strong Scaling}
+\frametitle{Data Parallelization to Hybrid Parallelization: Strong Scaling}
 \begin{columns}
 \begin{column}{6cm}
   \resizebox{6cm}{!}{\includegraphics{images/times.pdf}}
   \begin{center}
-\vspace{-1em}\small    Data Parallelization    
+{\vspace{-1em}\small    Data Parallelization    }
   \end{center}
 \end{column}
 \begin{column}{6cm}
 \resizebox{6cm}{!}{\includegraphics{images/base_close_median.pdf}}
 \begin{center}
-\vspace{-1em}\small  Data and Hybrid Parallelizations
+{\vspace{-1em}\small  Data and Hybrid Parallelizations}
 \end{center}
 \end{column}
 \end{columns}
-\bigskip
+\medskip
 \begin{center}
 {\small
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
@@ -1118,10 +1351,96 @@ A data parallel/task parallel component assembly.\vspace{-0.2em}
    Frequency & 2 & 1 & 3 & 5 & 3 & 1 & 1 & 2\\
    \hline
  \end{tabular}
- \\
+  \\
+  \medskip
  Task graph analysis
 }
 \end{center}
+Mesh: 500x500
+\end{frame}
+%-------------------------------------------------------------
+
+\begin{frame}
+  \frametitle{Dynamic Scheduling and Energy Evaluations}
+
+  Application versions:
+  \small
+  \centering
+\begin{tabular}{|c||c|c|c|}
+  \hline
+  Variant Name  & DDS / Quantity & Kernels & Scheduler \\
+  \hline
+  \hline
+  mpiBase        & MPI & Sequential & Sequential \\
+  \hline
+  mpiOmpFor      & MPI & Parallel loops & Sequential \\
+  \hline
+  mpiOmpForkJoin & MPI & Sequential & SPT \\
+  \hline
+  mpiOmpDyn      & MPI & Sequential & OpenMP Tasks \\
+  \hline
+\end{tabular}
+
+\end{frame}
+
+%-------------------------------------------------------------
+
+
+  \begin{frame}
+\frametitle{Energy Usage on Grid'5000}
+\begin{columns}
+\begin{column}{6cm}
+\resizebox{6cm}{!}{\includegraphics{images/4000_100_4node_med_time_maxWatt_cloud.pdf}}
+    \begin{center}
+{\vspace{-1em}\small Time vs Max Watt on 4 nodes}
+  \end{center}
+\end{column}
+\begin{column}{6cm}
+  \resizebox{6cm}{!}{\includegraphics{images/4000_100_4node_med_time_avrgWatt.pdf}}
+\begin{center}
+{\vspace{-1em}\small Time vs Average Watt on 4 nodes}
+\end{center}
+\end{column}
+\end{columns}
+\bigskip
+{\small
+\begin{block}{Parameters:}
+\begin{itemize}
+\vspace{-0.7em}\item Domain: 4000 x 4000
+\item \#Iteration: 100
+\end{itemize}
+\end{block}
+}
+  \end{frame}
+%-------------------------------------------------------------
+  \begin{frame}
+    
+\frametitle{Energy Usage on Curie}
+\begin{columns}
+\begin{column}{6cm}
+\resizebox{6cm}{!}{\includegraphics{images/Curie_20k_10k_time_avrgWatt_2048.pdf}}
+    \begin{center}
+{\vspace{-1em}\small Time vs Max Watt on 2048 cores}
+  \end{center}
+\end{column}
+\begin{column}{6cm}
+  \resizebox{6cm}{!}{\includegraphics{images/Curie_84k_500_time_avrgWatt.pdf}}
+\begin{center}
+{\vspace{-1em}\small Time vs Average Watt on 2048 cores}
+\end{center}
+\end{column}
+\end{columns}
+\bigskip
+{\small
+\begin{block}{Parameters:}
+\begin{itemize}
+\vspace{-0.7em}\item Domain: 20,000 x 20,000
+\item \#Iteration: 10,000
+\item One measure every 5 min!
+\end{itemize}
+\end{block}
+}
+  
 \end{frame}
 %-------------------------------------------------------------
 
@@ -1134,118 +1453,27 @@ A data parallel/task parallel component assembly.\vspace{-0.2em}
 \frametitle{Conclusion and Future Work}
 \begin{block}{Conclusion}
 \begin{itemize}
-\item A DSL for Multi-Stencil applications (MSL)
+\vspace{-0.4em}\item A DSL for Multi-Stencil applications (MSL)
 \item The generation of a component based runtime, including scheduling
 \begin{itemize}
-\item Data parallelism
-\item Task parallelism
+\item Data and task parallelism
 \end{itemize}
-\item Evaluation on Curie: no overhead introduced 
+\item Evaluation on Grid'5000 and Curie: no overhead introduced
+\item Basis for ongoing energy studies
 \end{itemize}
 \end{block}
 
-\begin{block}{Future Work}
+\begin{block}{Perspectives}
   \begin{itemize}
-  \item Language improvement (convergence criteria, reduction etc.)
-  \item OpenMP 3 inside kernels
+\vspace{-0.4em}  \item Language improvement (convergence criteria, reduction etc.)
+  \item OpenMP inside kernels/components
   \item CPU+GPGPUs using stencil compilers (Pochoir, PATUS etc.)
-$\hookrightarrow$ Show portability, maintainability introduced by components
-
+  \item Composition of various DSLs by agreeing on component runtimes?
   \end{itemize}
 \end{block}
 \end{frame}
 %-------------------------------------------------------------
 
-
-%% %-------------------------------------------------------------
-%% \begin{frame}
-%% \frametitle{Conclusion}
-%% \begin{block}{Work in progress}
-%% \begin{itemize}
-%% \item Different types of scheduling and back-end in MSL
-%% \item Combine MSL implementation choices to an energy-aware framework
-%% \item New programming model back-end for MSL: combining component models and task models (Ph.D. Jérôme Richard)
-%% \end{itemize}
-%% \end{block}
-%% \begin{block}{Collaborations}
-%% \begin{itemize}
-%% \item More application cases
-%% \item Back-end programming model: component models and task scheduling (Components in OmpSs ?)
-%% \item DSLs interoperability
-%% \end{itemize}
-%% \end{block}
-%% \end{frame}
-%-------------------------------------------------------------
-
-% \begin{withoutheadline}
-% \begin{frame}{}
-% \begin{center}
-% \huge Thank You !
-% \end{center}
-% \end{frame}
-% \end{withoutheadline}
-
-%----------------
-%% \begin{frame}
-%% \frametitle{MSL to Component-based runtime}
-%% \begin{center}
-%% \begin{tikzpicture}[remember picture]
-%%   \node[rectangle,rounded corners=3pt,thick,inner sep=5pt,draw=black,dotted] (proc) {
-%%     \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-%%      \node[component,solid] (D) at (0,0) {$Driver$};
-%%      \node[provide,scale=0.5,solid] (Dp) at (-1,0) {};
-%%      \node[solid] (Ds) at (-1.5,0) {start};
-%%      \node[use,scale=0.5,solid,right=1.5cm of D] (Du1) {};
-%%      \node[use,scale=0.5,solid,below=1.75cm of D] (Du2) {};
-%%      \node[use,scale=0.5,solid,below=0.8cm of Du1] (Du3) {$m$};
-
-%%      \node[provide,scale=0.5,solid,below=0.15 of Du2] (Tp) {};
-%%      \node[component,solid,below=1.6cm of Tp] (T) {$Time$};
-%%      \node[use,scale=0.5,solid,right=1cm of T] (Tu) {};
-
-%%      \node[provide,scale=0.5,solid,right=0.15 of Tu] (Sp) {};
-%%      \node[component,solid,right=1.5cm of Sp] (S) {$Scheduling$};
-%%      \node[use,scale=0.5,solid,right=1.5cm of S] (Su) {};
-
-%%      \node[provide,scale=0.5,solid,right=0.15 of Su] (Cp) {};
-%%      \node[component,solid,double,right=2cm of Cp] (C) {$Kernel$};
-%%      \node[use,scale=0.5,solid,above=0.8cm of C] (Cu) {};
-
-%%      \node[provide,scale=0.5,solid,below right=0.2 of Du3] (Datap1) {};
-%%      \node[provide,scale=0.5,solid,above=0.15 of Cu] (Datap2) {};
-%%      \node[component,solid,double,above=0.8cm of Datap2] (Data) {$Data$};
-%%      \node[use,scale=0.5,solid,above=0.8cm of Data] (Datau) {};
-
-%%      \node[provide,scale=0.5,solid,right=0.15 of Du1] (DDSp1) {};
-%%      \node[provide,scale=0.5,solid,above=0.15 of Datau] (DDSp2) {};
-%%      \node[component,solid,above=0.8cm of DDSp2] (DDS) {$DDS$};
-   
-%%     \path[-]
-%%       (Dp) edge [solid] node {} (D)
-%%       (D) edge [solid] node {} (Du1)
-%%           edge [solid] node {} (Du2)
-%%           edge [solid] node {} (Du3)
-%%       (DDSp1) edge [solid] node {} (DDS)
-%%       (Tp) edge [solid] node {} (T)
-%%       (T)  edge [solid] node {} (Tu)
-%%       (Sp) edge [solid] node {} (S)
-%%       (S) edge [solid] node {} (Su)
-%%       (Datap2) edge [solid] node {} (Data)
-%%       (Datap1) edge [solid] node {} (Data)
-%%       (Data) edge [solid] node {} (Datau)
-%%       (C) edge [solid] node {} (Cu)
-%%       	  edge [solid] node {} (Cp)
-%%       (DDSp2) edge [solid] node {} (DDS);
-%%     \end{tikzpicture}
-%%     };
-%%     \node[mpi,scale=0.8,rounded corners=0pt,solid,right=0.5cm of proc] (mpidata) {};
-%%     \node[solid,above=0.1cm of mpidata] (star2) {$*$};
-%%     \node[solid,below=2.5cm of proc.west,anchor=west] (core) {\textit{\tiny{Duplicated on each processor/core}}};
-%%     \path[-]
-%%       (Data.east) edge node {} (mpidata);
-%%   \end{tikzpicture}
-%% \end{center}
-%% \end{frame}
 
 \end{document}
 
