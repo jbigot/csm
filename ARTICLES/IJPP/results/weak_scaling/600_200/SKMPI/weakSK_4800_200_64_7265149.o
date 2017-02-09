@@ -1,0 +1,91 @@
+MPI 0 -  :  Time TOTAL CALCULATION : 36.4913 
+MPI 48 -  :  Time TOTAL CALCULATION : 36.4868 
+MPI 16 -  :  Time TOTAL CALCULATION : 36.4865 
+MPI 1 -  :  Time TOTAL CALCULATION : 36.4756 
+MPI 50 -  :  Time TOTAL CALCULATION : 36.4767 
+MPI 32 -  :  Time TOTAL CALCULATION : 36.4913 
+MPI 2 -  :  Time TOTAL CALCULATION : 36.4759 
+MPI 51 -  :  Time TOTAL CALCULATION : 36.4773 
+MPI 33 -  :  Time TOTAL CALCULATION : 36.4755 
+MPI 5 -  :  Time TOTAL CALCULATION : 36.4753 
+MPI 52 -  :  Time TOTAL CALCULATION : 36.4771 
+MPI 34 -  :  Time TOTAL CALCULATION : 36.4759 
+MPI 6 -  :  Time TOTAL CALCULATION : 36.4757 
+MPI 53 -  :  Time TOTAL CALCULATION : 36.481 
+MPI 35 -  :  Time TOTAL CALCULATION : 36.47 
+MPI 7 -  :  Time TOTAL CALCULATION : 36.476 
+MPI 54 -  :  Time TOTAL CALCULATION : 36.4761 
+MPI 36 -  :  Time TOTAL CALCULATION : 36.4779 
+MPI 8 -  :  Time TOTAL CALCULATION : 36.4911 
+MPI 55 -  :  Time TOTAL CALCULATION : 36.4781 
+MPI 37 -  :  Time TOTAL CALCULATION : 36.4753 
+MPI 9 -  :  Time TOTAL CALCULATION : 36.4883 
+MPI 56 -  :  Time TOTAL CALCULATION : 36.4936 
+MPI 38 -  :  Time TOTAL CALCULATION : 36.4757 
+MPI 10 -  :  Time TOTAL CALCULATION : 36.4881 
+MPI 57 -  :  Time TOTAL CALCULATION : 36.4917 
+MPI 39 -  :  Time TOTAL CALCULATION : 36.476 
+MPI 11 -  :  Time TOTAL CALCULATION : 36.4921 
+MPI 58 -  :  Time TOTAL CALCULATION : 36.4903 
+MPI 40 -  :  Time TOTAL CALCULATION : 36.4911 
+MPI 12 -  :  Time TOTAL CALCULATION : 36.4885 
+MPI 59 -  :  Time TOTAL CALCULATION : 36.4949 
+MPI 41 -  :  Time TOTAL CALCULATION : 36.4883 
+MPI 13 -  :  Time TOTAL CALCULATION : 36.49 
+MPI 61 -  :  Time TOTAL CALCULATION : 36.4923 
+MPI 42 -  :  Time TOTAL CALCULATION : 36.4881 
+MPI 14 -  :  Time TOTAL CALCULATION : 36.4904 
+MPI 63 -  :  Time TOTAL CALCULATION : 36.4947 
+MPI 43 -  :  Time TOTAL CALCULATION : 36.4921 
+MPI 15 -  :  Time TOTAL CALCULATION : 36.4929 
+MPI 49 -  :  Time TOTAL CALCULATION : 36.479 
+MPI 44 -  :  Time TOTAL CALCULATION : 36.4884 
+MPI 3 -  :  Time TOTAL CALCULATION : 36.47 
+MPI 60 -  :  Time TOTAL CALCULATION : 36.4896 
+MPI 45 -  :  Time TOTAL CALCULATION : 36.49 
+MPI 4 -  :  Time TOTAL CALCULATION : 36.4779 
+MPI 62 -  :  Time TOTAL CALCULATION : 36.4927 
+MPI 46 -  :  Time TOTAL CALCULATION : 36.4903 
+MPI 47 -  :  Time TOTAL CALCULATION : 36.4929 
+MPI 17 -  :  Time TOTAL CALCULATION : 36.4787 
+MPI 18 -  :  Time TOTAL CALCULATION : 36.4764 
+MPI 19 -  :  Time TOTAL CALCULATION : 36.4769 
+MPI 20 -  :  Time TOTAL CALCULATION : 36.4767 
+MPI 21 -  :  Time TOTAL CALCULATION : 36.4806 
+MPI 22 -  :  Time TOTAL CALCULATION : 36.4757 
+MPI 23 -  :  Time TOTAL CALCULATION : 36.4777 
+MPI 24 -  :  Time TOTAL CALCULATION : 36.4932 
+MPI 25 -  :  Time TOTAL CALCULATION : 36.4913 
+MPI 26 -  :  Time TOTAL CALCULATION : 36.49 
+MPI 27 -  :  Time TOTAL CALCULATION : 36.4945 
+MPI 28 -  :  Time TOTAL CALCULATION : 36.4892 
+MPI 29 -  :  Time TOTAL CALCULATION : 36.4919 
+MPI 30 -  :  Time TOTAL CALCULATION : 36.4923 
+MPI 31 -  :  Time TOTAL CALCULATION : 36.4943 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 7265149
+Jobname   : weakSK_4800_200_64
+User      : coullohe
+Account   : gen10191@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 09/02/2017 09:46:17 , start = 09/02/2017 10:10:30
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 1 , ncpus = 64 , nodes = 4
+   Nodes=curie[3174-3177] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+7265149       weakSK_4800_200_64        -     64      4           -     00:00:41     100            -      -  -
+7265149.0     FullSWOF_2D              64     64      4      BBlock     00:00:40    97.5     00:00:34   85.0  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

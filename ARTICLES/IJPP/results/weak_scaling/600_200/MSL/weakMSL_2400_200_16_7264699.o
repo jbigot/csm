@@ -1,0 +1,43 @@
+4 Time TOTAL CALCULATION : 36.9231
+13 Time TOTAL CALCULATION : 36.9227
+12 Time TOTAL CALCULATION : 36.9234
+11 Time TOTAL CALCULATION : 36.9231
+15 Time TOTAL CALCULATION : 36.9231
+5 Time TOTAL CALCULATION : 36.9237
+10 Time TOTAL CALCULATION : 36.9231
+3 Time TOTAL CALCULATION : 36.9235
+6 Time TOTAL CALCULATION : 36.9227
+7 Time TOTAL CALCULATION : 36.9236
+8 Time TOTAL CALCULATION : 36.9233
+2 Time TOTAL CALCULATION : 36.9235
+0 Time TOTAL CALCULATION : 36.9234
+14 Time TOTAL CALCULATION : 36.9233
+1 Time TOTAL CALCULATION : 36.9238
+9 Time TOTAL CALCULATION : 36.9237
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 7264699
+Jobname   : weakMSL_2400_200_16
+User      : coullohe
+Account   : gen10191@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 09/02/2017 08:35:45 , start = 09/02/2017 08:55:02
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 16 , cpus/task = 1 , ncpus = 16 , nodes = 1
+   Nodes=curie6394 CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+7264699       weakMSL_2400_200_16       -     16      1           -     00:01:25     100            -      -  -
+7264699.0     llcmcpp_loader           16     16      1      BBlock     00:01:20    94.1     00:00:34   42.5  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########
