@@ -1,0 +1,59 @@
+MPI 0 -  :  Time TOTAL CALCULATION : 63.0362 
+MPI 16 -  :  Time TOTAL CALCULATION : 63.0361 
+MPI 1 -  :  Time TOTAL CALCULATION : 63.0365 
+MPI 2 -  :  Time TOTAL CALCULATION : 63.0351 
+MPI 3 -  :  Time TOTAL CALCULATION : 63.0369 
+MPI 4 -  :  Time TOTAL CALCULATION : 63.0338 
+MPI 6 -  :  Time TOTAL CALCULATION : 63.0353 
+MPI 7 -  :  Time TOTAL CALCULATION : 63.0339 
+MPI 8 -  :  Time TOTAL CALCULATION : 63.0341 
+MPI 10 -  :  Time TOTAL CALCULATION : 63.034 
+MPI 11 -  :  Time TOTAL CALCULATION : 63.0333 
+MPI 14 -  :  Time TOTAL CALCULATION : 63.0344 
+MPI 5 -  :  Time TOTAL CALCULATION : 63.0342 
+MPI 9 -  :  Time TOTAL CALCULATION : 63.0335 
+MPI 12 -  :  Time TOTAL CALCULATION : 63.0343 
+MPI 13 -  :  Time TOTAL CALCULATION : 63.0344 
+MPI 15 -  :  Time TOTAL CALCULATION : 63.0404 
+MPI 17 -  :  Time TOTAL CALCULATION : 63.0364 
+MPI 18 -  :  Time TOTAL CALCULATION : 63.0351 
+MPI 19 -  :  Time TOTAL CALCULATION : 63.0368 
+MPI 20 -  :  Time TOTAL CALCULATION : 63.0338 
+MPI 21 -  :  Time TOTAL CALCULATION : 63.0341 
+MPI 22 -  :  Time TOTAL CALCULATION : 63.0353 
+MPI 23 -  :  Time TOTAL CALCULATION : 63.0338 
+MPI 24 -  :  Time TOTAL CALCULATION : 63.034 
+MPI 25 -  :  Time TOTAL CALCULATION : 63.0334 
+MPI 26 -  :  Time TOTAL CALCULATION : 63.034 
+MPI 27 -  :  Time TOTAL CALCULATION : 63.0333 
+MPI 28 -  :  Time TOTAL CALCULATION : 63.0343 
+MPI 29 -  :  Time TOTAL CALCULATION : 63.0344 
+MPI 30 -  :  Time TOTAL CALCULATION : 63.0343 
+MPI 31 -  :  Time TOTAL CALCULATION : 63.0403 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 7268024
+Jobname   : weakSK_3200_200_32
+User      : coullohe
+Account   : gen10191@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 09/02/2017 18:34:02 , start = 09/02/2017 18:39:39
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 32 , cpus/task = 1 , ncpus = 32 , nodes = 2
+   Nodes=curie[4117-4118] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+7268024       weakSK_3200_200_32        -     32      2           -     00:01:08     100            -      -  -
+7268024.0     FullSWOF_2D              32     32      2      BBlock     00:01:07    98.5     00:00:57   85.0  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

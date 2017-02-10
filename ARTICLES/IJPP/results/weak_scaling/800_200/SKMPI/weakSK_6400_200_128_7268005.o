@@ -1,0 +1,155 @@
+MPI 18 -  :  Time TOTAL CALCULATION : 64.0417 
+MPI 80 -  :  Time TOTAL CALCULATION : 64.0382 
+MPI 0 -  :  Time TOTAL CALCULATION : 64.0333 
+MPI 112 -  :  Time TOTAL CALCULATION : 64.0408 
+MPI 96 -  :  Time TOTAL CALCULATION : 64.0413 
+MPI 48 -  :  Time TOTAL CALCULATION : 64.041 
+MPI 64 -  :  Time TOTAL CALCULATION : 64.0332 
+MPI 1 -  :  Time TOTAL CALCULATION : 64.035 
+MPI 20 -  :  Time TOTAL CALCULATION : 64.0446 
+MPI 113 -  :  Time TOTAL CALCULATION : 64.0473 
+MPI 97 -  :  Time TOTAL CALCULATION : 64.0406 
+MPI 49 -  :  Time TOTAL CALCULATION : 64.0476 
+MPI 32 -  :  Time TOTAL CALCULATION : 64.0415 
+MPI 2 -  :  Time TOTAL CALCULATION : 64.0349 
+MPI 17 -  :  Time TOTAL CALCULATION : 64.0477 
+MPI 114 -  :  Time TOTAL CALCULATION : 64.0401 
+MPI 98 -  :  Time TOTAL CALCULATION : 64.0449 
+MPI 50 -  :  Time TOTAL CALCULATION : 64.0404 
+MPI 33 -  :  Time TOTAL CALCULATION : 64.0408 
+MPI 3 -  :  Time TOTAL CALCULATION : 64.0284 
+MPI 19 -  :  Time TOTAL CALCULATION : 64.0414 
+MPI 115 -  :  Time TOTAL CALCULATION : 64.0406 
+MPI 99 -  :  Time TOTAL CALCULATION : 64.0423 
+MPI 51 -  :  Time TOTAL CALCULATION : 64.0409 
+MPI 34 -  :  Time TOTAL CALCULATION : 64.045 
+MPI 5 -  :  Time TOTAL CALCULATION : 64.0377 
+MPI 21 -  :  Time TOTAL CALCULATION : 64.046 
+MPI 116 -  :  Time TOTAL CALCULATION : 64.0429 
+MPI 100 -  :  Time TOTAL CALCULATION : 64.0398 
+MPI 52 -  :  Time TOTAL CALCULATION : 64.0432 
+MPI 35 -  :  Time TOTAL CALCULATION : 64.0424 
+MPI 6 -  :  Time TOTAL CALCULATION : 64.0332 
+MPI 22 -  :  Time TOTAL CALCULATION : 64.0377 
+MPI 117 -  :  Time TOTAL CALCULATION : 64.0451 
+MPI 101 -  :  Time TOTAL CALCULATION : 64.0469 
+MPI 53 -  :  Time TOTAL CALCULATION : 64.0453 
+MPI 36 -  :  Time TOTAL CALCULATION : 64.0399 
+MPI 9 -  :  Time TOTAL CALCULATION : 64.0341 
+MPI 23 -  :  Time TOTAL CALCULATION : 64.0457 
+MPI 118 -  :  Time TOTAL CALCULATION : 64.0463 
+MPI 102 -  :  Time TOTAL CALCULATION : 64.0413 
+MPI 54 -  :  Time TOTAL CALCULATION : 64.0466 
+MPI 37 -  :  Time TOTAL CALCULATION : 64.047 
+MPI 10 -  :  Time TOTAL CALCULATION : 64.0358 
+MPI 24 -  :  Time TOTAL CALCULATION : 64.0454 
+MPI 119 -  :  Time TOTAL CALCULATION : 64.0457 
+MPI 103 -  :  Time TOTAL CALCULATION : 64.0435 
+MPI 55 -  :  Time TOTAL CALCULATION : 64.0459 
+MPI 38 -  :  Time TOTAL CALCULATION : 64.0414 
+MPI 11 -  :  Time TOTAL CALCULATION : 64.0342 
+MPI 25 -  :  Time TOTAL CALCULATION : 64.0466 
+MPI 120 -  :  Time TOTAL CALCULATION : 64.0448 
+MPI 104 -  :  Time TOTAL CALCULATION : 64.0363 
+MPI 56 -  :  Time TOTAL CALCULATION : 64.0451 
+MPI 39 -  :  Time TOTAL CALCULATION : 64.0436 
+MPI 12 -  :  Time TOTAL CALCULATION : 64.0347 
+MPI 26 -  :  Time TOTAL CALCULATION : 64.045 
+MPI 121 -  :  Time TOTAL CALCULATION : 64.046 
+MPI 105 -  :  Time TOTAL CALCULATION : 64.0382 
+MPI 57 -  :  Time TOTAL CALCULATION : 64.0462 
+MPI 40 -  :  Time TOTAL CALCULATION : 64.0364 
+MPI 13 -  :  Time TOTAL CALCULATION : 64.0343 
+MPI 27 -  :  Time TOTAL CALCULATION : 64.0446 
+MPI 122 -  :  Time TOTAL CALCULATION : 64.0455 
+MPI 106 -  :  Time TOTAL CALCULATION : 64.0477 
+MPI 58 -  :  Time TOTAL CALCULATION : 64.0458 
+MPI 41 -  :  Time TOTAL CALCULATION : 64.0383 
+MPI 14 -  :  Time TOTAL CALCULATION : 64.0362 
+MPI 28 -  :  Time TOTAL CALCULATION : 64.0469 
+MPI 123 -  :  Time TOTAL CALCULATION : 64.0443 
+MPI 107 -  :  Time TOTAL CALCULATION : 64.0453 
+MPI 59 -  :  Time TOTAL CALCULATION : 64.0446 
+MPI 42 -  :  Time TOTAL CALCULATION : 64.0478 
+MPI 15 -  :  Time TOTAL CALCULATION : 64.0397 
+MPI 29 -  :  Time TOTAL CALCULATION : 64.045 
+MPI 124 -  :  Time TOTAL CALCULATION : 64.0472 
+MPI 108 -  :  Time TOTAL CALCULATION : 64.0403 
+MPI 60 -  :  Time TOTAL CALCULATION : 64.0475 
+MPI 43 -  :  Time TOTAL CALCULATION : 64.0454 
+MPI 4 -  :  Time TOTAL CALCULATION : 64.0345 
+MPI 30 -  :  Time TOTAL CALCULATION : 64.049 
+MPI 125 -  :  Time TOTAL CALCULATION : 64.0448 
+MPI 109 -  :  Time TOTAL CALCULATION : 64.0396 
+MPI 61 -  :  Time TOTAL CALCULATION : 64.0451 
+MPI 44 -  :  Time TOTAL CALCULATION : 64.0404 
+MPI 7 -  :  Time TOTAL CALCULATION : 64.034 
+MPI 31 -  :  Time TOTAL CALCULATION : 64.04 
+MPI 126 -  :  Time TOTAL CALCULATION : 64.0485 
+MPI 110 -  :  Time TOTAL CALCULATION : 64.0398 
+MPI 62 -  :  Time TOTAL CALCULATION : 64.0488 
+MPI 45 -  :  Time TOTAL CALCULATION : 64.0397 
+MPI 8 -  :  Time TOTAL CALCULATION : 64.0325 
+MPI 16 -  :  Time TOTAL CALCULATION : 64.0381 
+MPI 127 -  :  Time TOTAL CALCULATION : 64.049 
+MPI 111 -  :  Time TOTAL CALCULATION : 64.0487 
+MPI 63 -  :  Time TOTAL CALCULATION : 64.0493 
+MPI 46 -  :  Time TOTAL CALCULATION : 64.0399 
+MPI 47 -  :  Time TOTAL CALCULATION : 64.0489 
+MPI 65 -  :  Time TOTAL CALCULATION : 64.0349 
+MPI 66 -  :  Time TOTAL CALCULATION : 64.0348 
+MPI 67 -  :  Time TOTAL CALCULATION : 64.0282 
+MPI 68 -  :  Time TOTAL CALCULATION : 64.0344 
+MPI 69 -  :  Time TOTAL CALCULATION : 64.0376 
+MPI 70 -  :  Time TOTAL CALCULATION : 64.0331 
+MPI 71 -  :  Time TOTAL CALCULATION : 64.0339 
+MPI 72 -  :  Time TOTAL CALCULATION : 64.0324 
+MPI 73 -  :  Time TOTAL CALCULATION : 64.034 
+MPI 74 -  :  Time TOTAL CALCULATION : 64.0357 
+MPI 75 -  :  Time TOTAL CALCULATION : 64.0341 
+MPI 76 -  :  Time TOTAL CALCULATION : 64.0346 
+MPI 77 -  :  Time TOTAL CALCULATION : 64.0342 
+MPI 78 -  :  Time TOTAL CALCULATION : 64.0361 
+MPI 79 -  :  Time TOTAL CALCULATION : 64.0396 
+MPI 81 -  :  Time TOTAL CALCULATION : 64.0477 
+MPI 82 -  :  Time TOTAL CALCULATION : 64.0417 
+MPI 83 -  :  Time TOTAL CALCULATION : 64.0414 
+MPI 84 -  :  Time TOTAL CALCULATION : 64.0446 
+MPI 85 -  :  Time TOTAL CALCULATION : 64.0461 
+MPI 86 -  :  Time TOTAL CALCULATION : 64.0377 
+MPI 87 -  :  Time TOTAL CALCULATION : 64.0458 
+MPI 88 -  :  Time TOTAL CALCULATION : 64.0455 
+MPI 89 -  :  Time TOTAL CALCULATION : 64.0466 
+MPI 90 -  :  Time TOTAL CALCULATION : 64.045 
+MPI 91 -  :  Time TOTAL CALCULATION : 64.0446 
+MPI 92 -  :  Time TOTAL CALCULATION : 64.047 
+MPI 93 -  :  Time TOTAL CALCULATION : 64.0451 
+MPI 94 -  :  Time TOTAL CALCULATION : 64.049 
+MPI 95 -  :  Time TOTAL CALCULATION : 64.0401 
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 7268005
+Jobname   : weakSK_6400_200_128
+User      : coullohe
+Account   : gen10191@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 09/02/2017 18:33:48 , start = 09/02/2017 18:34:14
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 128 , cpus/task = 1 , ncpus = 128 , nodes = 8
+   Nodes=curie[5802-5809] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+7268005       weakSK_6400_200_128       -    128      8           -     00:01:10     100            -      -  -
+7268005.0     FullSWOF_2D             128    128      8      BBlock     00:01:07    95.7     00:01:00   89.5  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########

@@ -1,0 +1,91 @@
+29 Time TOTAL CALCULATION : 64.7709
+13 Time TOTAL CALCULATION : 64.7711
+42 Time TOTAL CALCULATION : 64.7695
+61 Time TOTAL CALCULATION : 64.7708
+10 Time TOTAL CALCULATION : 64.7711
+47 Time TOTAL CALCULATION : 64.7708
+60 Time TOTAL CALCULATION : 64.7711
+15 Time TOTAL CALCULATION : 64.7711
+44 Time TOTAL CALCULATION : 64.7726
+63 Time TOTAL CALCULATION : 64.7706
+12 Time TOTAL CALCULATION : 64.7715
+46 Time TOTAL CALCULATION : 64.7704
+52 Time TOTAL CALCULATION : 64.7728
+4 Time TOTAL CALCULATION : 64.7725
+34 Time TOTAL CALCULATION : 64.7729
+11 Time TOTAL CALCULATION : 64.7715
+35 Time TOTAL CALCULATION : 64.7727
+14 Time TOTAL CALCULATION : 64.771
+40 Time TOTAL CALCULATION : 64.7709
+57 Time TOTAL CALCULATION : 64.7705
+9 Time TOTAL CALCULATION : 64.7708
+45 Time TOTAL CALCULATION : 64.7718
+62 Time TOTAL CALCULATION : 64.7709
+53 Time TOTAL CALCULATION : 64.7725
+58 Time TOTAL CALCULATION : 64.7728
+3 Time TOTAL CALCULATION : 64.7743
+43 Time TOTAL CALCULATION : 64.7729
+2 Time TOTAL CALCULATION : 64.7735
+51 Time TOTAL CALCULATION : 64.7729
+50 Time TOTAL CALCULATION : 64.7728
+32 Time TOTAL CALCULATION : 64.7729
+54 Time TOTAL CALCULATION : 64.7729
+0 Time TOTAL CALCULATION : 64.774
+1 Time TOTAL CALCULATION : 64.7735
+33 Time TOTAL CALCULATION : 64.773
+37 Time TOTAL CALCULATION : 64.7733
+7 Time TOTAL CALCULATION : 64.7735
+5 Time TOTAL CALCULATION : 64.7738
+36 Time TOTAL CALCULATION : 64.7735
+48 Time TOTAL CALCULATION : 64.773
+55 Time TOTAL CALCULATION : 64.7742
+38 Time TOTAL CALCULATION : 64.7734
+49 Time TOTAL CALCULATION : 64.7725
+39 Time TOTAL CALCULATION : 64.774
+56 Time TOTAL CALCULATION : 64.7755
+6 Time TOTAL CALCULATION : 64.7752
+59 Time TOTAL CALCULATION : 64.78
+41 Time TOTAL CALCULATION : 64.7831
+8 Time TOTAL CALCULATION : 64.7874
+28 Time TOTAL CALCULATION : 64.7711
+20 Time TOTAL CALCULATION : 64.773
+26 Time TOTAL CALCULATION : 64.7713
+31 Time TOTAL CALCULATION : 64.7709
+24 Time TOTAL CALCULATION : 64.7711
+30 Time TOTAL CALCULATION : 64.7709
+25 Time TOTAL CALCULATION : 64.7716
+18 Time TOTAL CALCULATION : 64.7744
+23 Time TOTAL CALCULATION : 64.7741
+21 Time TOTAL CALCULATION : 64.7744
+19 Time TOTAL CALCULATION : 64.7742
+22 Time TOTAL CALCULATION : 64.7742
+16 Time TOTAL CALCULATION : 64.7741
+17 Time TOTAL CALCULATION : 64.7737
+27 Time TOTAL CALCULATION : 64.7877
+########## ########## ########## ########## ########## ########## ########## ##########
+Execution Sum Up
+########## ########## ########## ########## ########## ########## ########## ##########
+Jobid     : 7268181
+Jobname   : weakMSL_6400_200_64
+User      : coullohe
+Account   : gen10191@standard
+Limits    : time = 9:00 , memory/task = 4000 Mo
+Date      : submit = 09/02/2017 18:40:57 , start = 10/02/2017 06:13:48
+Execution : partition = standard , QoS = normal , Comment = (null)
+Resources : ntasks = 64 , cpus/task = 1 , ncpus = 64 , nodes = 4
+   Nodes=curie[5065,5076-5077,5081] CPU_IDs=0-15 Mem=64000
+ 
+Memory / step 
+--------------
+                        Resident Size (Mo)                     Virtual Size (Go)
+JobID          Max     (Node:Task)       AveTask    Max  (Node:Task)            AveTask
+-----------    ------------------------  -------    --------------------------  -------
+
+Accounting / step 
+------------------
+
+JobID          JobName             Ntasks  Ncpus Nnodes     Layout       Elapsed   Ratio      CPusage    Eff  State
+------------   ------------        ------  ----- ------     -------      -------   -----      -------    ---  -----
+7268181       weakMSL_6400_200_64       -     64      4           -     00:01:17     100            -      -  -
+7268181.0     llcmcpp_loader           64     64      4      BBlock     00:01:11    92.2     00:01:00   84.5  COMPLETED
+########## ########## ########## ########## ########## ########## ########## ##########
