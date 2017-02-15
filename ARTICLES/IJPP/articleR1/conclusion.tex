@@ -1,3 +1,7 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% unifier texte avec nouvelle version article
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 We have presented the Multi-Stencil Language (MSL), a domain specific language for stencil-based numerical simulations. Compared to other existing stencil DSLs, MSL proposes a higher abstraction level for end-users. MSL offers a way to describe a numerical simulation independently from the type of mesh used. As a result, the language can be used for a larger number of simulations. It helps to clearly separate the description of the simulation from implementation choices, which facilitates reuse of existing languages and libraries, for example languages for data structures optimizations and parallelization strategies. 
 
 In this paper, the formal definition of a multi-stencil program has been given. This formalism helps to understand what is defined into the light grammar of MSL, and also how parallelization can be extracted from it. MSL produces an empty parallel pattern of the numerical simulation described. This pattern indicates where synchronizations are needed, but not how they are performed, which is dependent from the type of mesh and from implementation choices. This second step is left to other existing languages, which are chosen as a back-end of MSL. For example, in this paper the chosen back-end is a code using SkelGIS~\cite{CPE:CPE3494,DBLP:conf/ieeehpcs/HeleneS13,DBLP:conf/europar/CoullonL14}, a templated C++ language for distributed meshes (using MPI), and OpenMP~\cite{660313}.

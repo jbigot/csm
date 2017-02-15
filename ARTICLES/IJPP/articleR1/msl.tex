@@ -1,3 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% unifier texte avec nouvelle version article
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------------
+\subsection{Generic Assembly}
+%----------------------------------------
+
+\begin{figure}[t]
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[component] (D) at (0,0) {$Driver$};
+   \node[provide] (Dp) at (-1,0) {};
+   \node (Ds) at (-1.5,0) {start};
+   \node[use,right=1.5cm of D] (Du1) {};
+   \node[use,below=1.75cm of D] (Du2) {};
+   \node[use,below=0.8cm of Du1] (Du3) {$m$};
+
+   \node[provide,below=0.15 of Du2] (Tp) {};
+   \node[component,below=1.6cm of Tp] (T) {$Time$};
+   \node[use,right=1cm of T] (Tu) {};
+   \node[left=0.8cm of T] (tt) {$T$};
+
+   \node[provide,right=0.15 of Tu] (Cp) {};
+   \node[component, draw=green!80!black,right=2cm of Cp] (C) {$Computations$};
+   \node[use,above=0.8cm of C] (Cu) {};
+   \node[right=0.2cm of Cu] (star) {$*$};
+   \node[right=1.5cm of C] (gamma) {$\Gamma$};
+
+   \node[provide,below right=0.2 of Du3] (Datap1) {};
+   \node[provide,above=0.15 of Cu] (Datap2) {};
+   \node[component,double, draw=red,above=0.8cm of Datap2] (Data) {$Data$};
+   \node[use,above=0.8cm of Data] (Datau) {};
+   \node[left=1cm of Data] (delta) {$\Delta,\mathcal{D}$};
+   \node[mpi,right=1cm of Data] (mpidata) {};
+   \node[above=0.2cm of mpidata] (star2) {$*$};
+
+   \node[provide,right=0.15 of Du1] (DDSp1) {};
+   \node[provide,above=0.15 of Datau] (DDSp2) {};
+   \node[component, draw=red,above=0.8cm of DDSp2] (DDS) {$DDS$};
+   \node[right=1.2cm of DDS] (m) {$\mathcal{M},\mathcal{E}$};
+ 
+  \path[-]
+    (Dp) edge node {} (D)
+    (D) edge node {} (Du1)
+        edge node {} (Du2)
+        edge node {} (Du3)
+    (DDSp1) edge node {} (DDS)
+    (Tp) edge node {} (T)
+    (T)  edge node {} (Tu)
+    (Cp) edge node {} (C)
+    (C) edge node {} (Cu)
+    (Datap2) edge node {} (Data)
+    (Datap1) edge node {} (Data)
+    (Data) edge node {} (Datau)
+          edge node {} (mpidata)
+    (DDSp2) edge node {} (DDS);
+\end{tikzpicture}
+\vspace*{.5em}
+\caption{Generic Assembly according to the Multi-Stencil program formalism.}
+\label{fig:ga}
+\end{center}
+\end{figure}
+
+%----------------------------------------
+\subsection{The Multi-Stencil Language}
+%----------------------------------------
+
 From the formalism detailed in the previous section, the Multi-Stencil Language and its grammar can already be given.
 This grammar is sufficient to automatically extract parallelism from the program as will be explained in the next section.
 
