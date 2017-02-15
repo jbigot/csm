@@ -1,0 +1,26 @@
+mesh : cart
+mesh entities : cell, edgex
+computation domains :
+  d1 in cell
+  d2 in edgex
+independent :
+  d1 and d2
+stencil shapes :
+  ncc from cell to cell
+  nce from cell to edgex
+  nec from edgex to cell
+mesh quantities :
+  cell A,B,D,E,F,G,I,J
+  edgex C,H
+scalars : mu, tau
+time : 500
+computations :
+  B[d1] = k0(tau,A)
+  C[d2] = k1(B[nec])
+  D[d1] = k2(C)
+  E[d1] = k3(C)
+  F[d1] = k4(D,C[nce])
+  G[d1] = k0(mu,tau,E)
+  H[d2] = k6(F)
+  I[d1] = k7(G,H)
+  J[d1] = k8(mu,I[ncc])
