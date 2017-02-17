@@ -9,10 +9,9 @@ While the computations can have various forms, we focus on three categories.
 \emph{Local} computations depend on the computed location only (this can be seen as a stencil of size one).
 Finally, \emph{reductions} enable to transform values mapped on the mesh to a single scalar value.
 
-This section gives a complete formal description of what we call a \textit{stencil program} and its computations.
-The proposed language MSL (Multi-Stencil Language) does not depend on the type of space discretization used.
-Thus, some details given in the following sections, are useful to understand the domain but do not have to be kept in mind to understand the Multi-Stencil Language.
-% As a result, at the end of each subsection a summary of what is useful to understand the language is given.
+This section gives a complete formal description of what we call a \textit{stencil program} and its computations. For this formal description is extracted a Multi-Stencil Program meta-model which will be used to define MSL and GA in the next section.
+%The proposed language MSL (Multi-Stencil Language) does not depend on the type of space discretization used.
+%Thus, some details given in the following sections, are useful to understand the domain but do not have to be kept in mind to understand the Multi-Stencil Language.
 
 %-------------------------------------
 \subsection{Time, mesh and data}
@@ -142,9 +141,10 @@ The set of $n$ ordered computation kernels of a numerical simulation is denoted 
 
 \begin{mydef}
 A \textit{multi-stencil program} is defined by the octuplet 
-\begin{equation*}
+\begin{equation}
 \mathcal{MSP}(\mathcal{M},\Phi,\mathcal{D},\mathcal{N},\Delta, \mathcal{S},T,\Gamma)
-\end{equation*}
+\label{eq:msp}
+\end{equation}
 \end{mydef}
 
 % This section has presented the general formalism of what is a computation kernel and a multi-stencil program.
@@ -189,8 +189,8 @@ comp: A(x,y)=A(x,y)+C(x1,y1)+C(x1+1,y1).
 \end{equation*}
 
 \medskip
-A stencil program has been formally defined in this section. This formalism is used in the next Section to define two parallelization techniques of a multi-stencil program.
+A stencil program has been formally defined in this section. This formalism is used in the next Section as a meta-model to define both a the domain specific language MSL, and the generic assembly of a multi-stencil program GA.
 
-One can note that all definitions given in this section are independent from the topology of the mesh. This property will be kept in the rest of this paper to propose the mesh-agnostic MSL language.
+One can note that all definitions given in this section are independent from the topology of the mesh. This property will be kept in the rest of this paper so that MSF has the capacity to be used for any kind of mesh, thus being mesh-agnostic.
 
 
