@@ -1,0 +1,63 @@
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb, stmaryrd}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{cite}
+\usepackage{enumitem}
+\usepackage{filecontents}
+\usepackage{listings}
+\usepackage{mathtools, cuted}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[textwidth=17mm]{todonotes}
+\usetikzlibrary{calc,arrows,shapes,automata,petri,positioning,decorations.markings,shadows}
+
+\tikzset{
+    use/.style={
+    circle,draw=black,fill=black,scale=0.5,text=white
+    },
+    mpi/.style={
+    rectangle,draw=black,fill=black,scale=0.8,text=white
+    },
+    provide/.style={
+    circle,draw=black,fill=white,scale=0.5
+    },
+    component/.style={
+    rectangle,rounded corners=3pt,draw=black
+    },
+    dcomponent/.style={
+    rectangle,rounded corners=3pt,dashed,draw=black
+    },
+}
+
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{color}
+
+% comments
+\newcommand{\customtodo}[4]{
+        \todo[color=#2,inline,size=\small]{
+                \ifx&#3&
+                        \textbf{#1} #4
+                \else
+                        \textbf{#1$\Rightarrow$#3} #4
+                \fi
+        }
+}
+\newcommand{\HC}[2][]{\customtodo{HC}{red!20}{#1}{#2}}
+\newcommand{\CP}[2][]{\customtodo{CP}{blue!20}{#1}{#2}}
+\newcommand{\JB}[2][]{\customtodo{JB}{green!20}{#1}{#2}}
+
+\newcommand{\ie}{\emph{i.e.,}\xspace}
+\newcommand{\llc}{L\textsuperscript{2}C\xspace}
+
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{myprop}[theorem]{Proposition}
+\newtheorem{mydef}[theorem]{Definition}
+\newtheorem{myth}[theorem]{Theorem}
+\newenvironment{mydefs}[1][Definitions]{\par\medskip\noindent\textbf{#1}\nopagebreak\begin{itemize}[noitemsep,topsep=.25\topsep]}{\end{itemize}}
+
+\def\pprec{\mathrel{\scalebox{.9}[1]{$\prec$}\mkern-3mu%
+  \scalebox{.4}[1]{$\prec$}\mkern-5.5mu\scalebox{.4}[1]{$\prec$}}}
