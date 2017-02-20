@@ -63,7 +63,7 @@ The use of different back-ends for data-parallelism, such as for example the dis
 For the task parallelism, we use OpenMP~\cite{660313}.
 OpenMP targets shared-memory platforms only. However, as the level of parallelism introduced by task parallelism technique is low compared to data parallelism, shared-memory, or intra-node parallelism is a good architecture choice for task parallelism.% but the degree of task-parallelism is typically much lower than that of data parallelism.
 %With the increasing number of cores of current machines this has not proved to be a problem in our experience. % LN : ?
-While the version 4 of OpenMP has introduced explicit support for tasks, our implementation only requires version 3 whose fork-join model is well suited for the static scheduling introduced in Section~\ref{sect:msp}.
+Although the version 4 of OpenMP has introduced explicit support for tasks, our implementation only requires version 3 whose fork-join model is well suited for the static scheduling introduced in Section~\ref{sect:msp}.
 The use of dynamic schedulers such as provided by libgomp\footnote{\url{https://gcc.gnu.org/projects/gomp/}}, StarPU~\cite{Augonnet2011}, or XKaapi~\cite{Gautier:2013:XRS:2510661.2511383} to directly execute the DAG $\Gamma_{dep}$ will be the subject of some future work.
 
 As a result, the MSL compiler generates an hybrid code which uses both SkelGIS and OpenMP.

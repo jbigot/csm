@@ -70,7 +70,7 @@ The concatenation of two ordered lists of respectively $n$ and $m$ computations 
 From the ordered list of computation $\Gamma$, a new synchronized ordered list $\Gamma_{sync}$ is obtained from the call $\Gamma_{sync} = F_{sync}(\Gamma,0)$, where $F_{sync}$ is the recursive function defined in Algorithm~\ref{alg:sync}.
 \end{mydef}
 
-Algorithm~\ref{alg:sync} follows previous definitions to build a new ordered list which includes synchronizations. In this algorithm, lines 7 to 19 apply Definition~(\ref{def:sync}), lines 20 to 29 apply Definition~(\ref{def:sync2}), and finally lines 34 and 35 apply Definition~(\ref{def:red}). Finally, line 39 of the algorithm is the recursive call.
+Algorithm~\ref{alg:sync} follows previous definitions to build a new ordered list which includes synchronizations. In this algorithm, lines 7 to 19 apply Definition~(\ref{def:sync}), lines 20 to 29 apply Definition~(\ref{def:sync2}), and finally lines 34 and 35 apply Definition~(\ref{def:red}). Finally, line 37 of the algorithm is the recursive call.
 
 \begin{algorithm}
 \caption{$F_{sync}$ recursive function}
@@ -128,11 +128,11 @@ is performed.
 
 \paragraph{\textbf{Example}} Figure~\ref{fig:exmsl} gives an example of a $\mathcal{MSP}$ program. From this example, the following ordered list of computation kernels can be extracted:
 \begin{equation*}
-\Gamma = [k_0,k_1,k_2,k_3,k_4,k_0,k_6,k_7,k_8]
+\Gamma = [k_0,k_1,k_2,k_3,k_4,k_5,k_6,k_7,k_8]
 \end{equation*}
 From this ordered list of computation kernels $\Gamma$, and from the rest of the multi-stencil program, synchronizations can be automatically detected from the call to $F_{sync}(\Gamma,0)$ to get the synchronized ordered list of kernels:
 \begin{equation}
-\Gamma_{sync} = [k_0,k_{0;1}^{sync},k_1,k_2,k_3,k_{1;4}^{sync},k_4,k_0,k_6,k_7,k_{7;8}^{sync},k_8],
+\Gamma_{sync} = [k_0,k_{0;1}^{sync},k_1,k_2,k_3,k_{1;4}^{sync},k_4,k_5,k_6,k_7,k_{7;8}^{sync},k_8],
 \label{eq:exsync}
 \end{equation}
 \begin{subequations}

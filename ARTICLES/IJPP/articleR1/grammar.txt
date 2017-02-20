@@ -4,7 +4,7 @@ program ::= "mesh:" meshid
             "independent:" listinde
             "stencil shapes:" liststencil
             "mesh quantities:" listquantities
-            "scalars" listscalar
+            "scalars:" listscalar
             listloop
 
 listgroup ::= groupid "," listgroup | groupid
@@ -21,7 +21,7 @@ listscalar ::= scalarid "," listscalar | scalarid
 listloop ::= loop listloop | loop
 loop ::=  "time:" iteration
           "computations:" listcomp
-iteration ::= num | scalar
+iteration ::= num | scalarid
 listcomp ::= comp listcomp |  comp
 comp ::= written "=" compid "(" listread ")"
 written ::= quantityid "[" compdomid "]" | scalar

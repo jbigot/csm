@@ -43,7 +43,7 @@ However in this paper, single mesh simulations are addressed.
 \end{mydefs}
 
 For example, in a 2D Cartesian mesh, a group of entities where each entity is made of four vertices and four edges could form the cells.
-Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$. Both groups, then, would be part of $\Phi$. This example is illustrated in Figure~\ref{fig:ex1}.
+Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$. Both groups, then, would be part of $\Phi$. This example is illustrated in Figure~\ref{fig:meshbase}.
 
 \medskip
 
@@ -59,10 +59,10 @@ It can, however, also be defined by recursion with both the time-step and the nu
 
 \begin{mydefs}[Definitions (quantity)]
 \item $\mathbb{V}=\Delta\cup\mathcal{S}$ is the set of \emph{variables} or \emph{quantities}.
-\item $\Delta$ are the \textit{mesh variables} that to each entity of a group and time-step associates a value $\delta: \mathcal{G}\times T\mapsto \mathcal{V}_\delta$ where $V_{\delta}$ is a value type.
+\item $\Delta$ are the \textit{mesh variables} that to each entity of a group and time-step associates a value $\delta: \mathcal{G}\times T\mapsto \mathcal{V}_\delta$ where $\mathcal{V}_{\delta}$ is a value type.
 \item The group of entities a variable is mapped on is denoted $entity(\delta)=\mathcal{G}$.
 \item $\mathcal{S}$ are the \textit{scalar variables} that to each time-step associates a value $s: T\mapsto \mathcal{V}_\delta$ where $\mathcal{V}_{\delta}$ is a value type.
-\item Amongst the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria whose value is $0$ except at the last step where it is 1. Thus, $\forall t\in \llbracket 0, T_{max-1} \rrbracket$, $conv(t)=1$, and $conv(T_{max})=1$.
+\item Amongst the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria whose value is $0$ except at the last step where it is 1. Thus, $\forall t\in \llbracket 0, T_{max-1} \rrbracket$, $conv(t)=0$, and $conv(T_{max})=1$.
 \end{mydefs}
 
 %For example, the simplest $conv$ is typically to have two scalars: $t$ the time, and a constant number of iterations denoted $it$.

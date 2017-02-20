@@ -7,7 +7,7 @@ In this section we detail a static scheduling of $\Gamma_{dep}$ by using minimal
 \subsection{Series-Parallel graph}
 \label{sect:tsp}
 
-In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the class of Minimal Series-Parallel DAGs (MSPD). Such a graph can be decomposed as a serie-parallel tree, denoted $TSP$, where each leaf is a vertex of the MSPD DAG it represents, and whose internal nodes are labelled $S$ or $P$ to indicate respectively the series or parallel composition of sub-trees. Such a tree can be considered as a fork-join model and as a static scheduling.
+In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the class of Minimal Series-Parallel DAGs (MSPD). Such a graph can be decomposed as a serie-parallel tree, denoted $TSP$, where each leaf is a vertex of the MSPD it represents, and whose internal nodes are labelled $S$ or $P$ to indicate respectively the series or parallel composition of sub-trees. Such a tree can be considered as a fork-join model and as a static scheduling.
 
 Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have identified a forbidden shape, or subgraph, called $N$, such that the following property is verified :
 
@@ -15,7 +15,7 @@ Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have identified a forbidden sh
 The transitive reduction of a DAG $G$ is MSPD if and only if it does not contain $N$ as an induced subgraph.
 \end{myth}
 
-To remove the forbidden N-shapes from the transitive reduction of $\Gamma_{dep}=(V,E)$, we have chosen to apply an over-constraint with the relation $k_0 \prec k_3$, such that a complete bipartite graph is created for the sub-dag, and can be translated to a series-parallel decomposition, as illustrated in Figure~\ref{fig:allover}.
+To remove the forbidden N-shapes from the transitive reduction of $\Gamma_{dep}=(V,E)$, we have chosen to apply an over-constraint with the relation $k_0 \prec k_3$, such that a complete bipartite graph is created for the sub-dag, and can be translated to a series-parallel decomposition, as illustrated in Figure~\ref{fig:over}.
 
 \begin{figure}[h!]
 \begin{center}
@@ -227,7 +227,7 @@ The fusion function $F_{fus}$ is described in Algorithm~\ref{alg:fus}, where $pa
 \Procedure{$F_{fus}$} {$TSP(V,E)$}
 \For {$(k_i,k_j) \in V^2$}
 \If {parent($k_i$)==parent($k_j$)}
-\If {$type(k_i)=type(k_j)=comp$}
+\If {$type(k_i)==type(k_j)==comp$}
 \If {parent($k_i$)==$S$}
 \If {$D_i==D_j$}
 \State propose the fusion $k_{i;j}^{fus}$

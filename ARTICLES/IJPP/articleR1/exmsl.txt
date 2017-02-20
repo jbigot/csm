@@ -20,7 +20,7 @@ computations :
   D[d1] = k2(C)
   E[d1] = k3(C)
   F[d1] = k4(D,C[nce])
-  G[d1] = k0(mu,tau,E)
+  G[d1] = k5(mu,tau,E)
   H[d2] = k6(F)
   I[d1] = k7(G,H)
   J[d1] = k8(mu,I[ncc])
