@@ -52,8 +52,8 @@
 \HC{change the title, improve it}
 \HC{is it possible to have authors on a single line ?}
 \begin{abstract}
-\HC{has to be revised according to modifications}
-As the computation power of modern high performance architectures increases, their heterogeneity and complexity also become more important. One of the big challenges of exascale is to get programming models which gives access to high performance computing (HPC) to many scientists and not only to a few HPC specialists. One relevant solution to ease parallel programming for scientists is Domain Specific Language (DSL). However, one problem to avoid with DSLs is to not design a new DSL each time a new domain or a new problem has to be solved. This phenomenon happens for stencil-based numerical simulations, for which a large number of languages has been proposed without code reuse between them. The Multi-Stencil Language (MSL) presented in this paper is a language common to any kind of mesh used into a stencil-based numerical simulation. It is said that MSL is mesh-agnostic. Actually, from the description of a numerical simulation, MSL produces an empty parallel pattern, or skeleton, of the simulation which will be filled using other existing parallel languages and libraries. Thus, MSL, by finding a common language for different kinds of stencil-based simulation, facilitates code reuse. MSL is evaluated on a real case simulation which solves shallow-water equations. It is shown that MSL does not introduce overheads on data parallelism up to 16.384 cores, and that the hybrid parallelism (data and task) introduced improves performance of the simulation.
+%\HC{has to be revised according to modifications}
+%As the computation power of modern high performance architectures increases, their heterogeneity and complexity also become more important. One of the big challenges of exascale is to get programming models which gives access to high performance computing (HPC) to many scientists and not only to a few HPC specialists. One relevant solution to ease parallel programming for scientists is Domain Specific Language (DSL). However, one problem to avoid with DSLs is to not design a new DSL each time a new domain or a new problem has to be solved. This phenomenon happens for stencil-based numerical simulations, for which a large number of languages has been proposed without code reuse between them. The Multi-Stencil Language (MSL) presented in this paper is a language common to any kind of mesh used into a stencil-based numerical simulation. It is said that MSL is mesh-agnostic. Actually, from the description of a numerical simulation, MSL produces an empty parallel pattern, or skeleton, of the simulation which will be filled using other existing parallel languages and libraries. Thus, MSL, by finding a common language for different kinds of stencil-based simulation, facilitates code reuse. MSL is evaluated on a real case simulation which solves shallow-water equations. It is shown that MSL does not introduce overheads on data parallelism up to 16.384 cores, and that the hybrid parallelism (data and task) introduced improves performance of the simulation.
 
 \keywords{Domain Specific Language (DSL) \and stencil \and numerical simulation \and mesh-agnostic \and data parallelism \and task parallelism \and scheduling \and MPI \and OpenMP}
 \end{abstract}
@@ -78,9 +78,9 @@ As the computation power of modern high performance architectures increases, the
 \label{sect:parallelism}
 \input{parallelism.tex}
 %------------------------------------------------------------------------------
-\section{Static Scheduling and performance model}
-\label{sect:msp}
-\input{msp.tex}
+%\section{Static Scheduling and performance model}
+%\label{sect:msp}
+%\input{msp.tex}
 %------------------------------------------------------------------------------
 \section{Implementation}
 \label{sect:comp}

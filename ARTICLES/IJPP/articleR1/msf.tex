@@ -6,12 +6,12 @@ This section first presents a background on component models and particularly on
 \subsection{Background on component models}
 %----------------------------------------
 Component-based software engineering (CBSE) is a domain of software engineering~\cite{Szyperski:2002:CSB:515228} which improves code re-use, separations of concerns, and thus maintainability.
-An component-based application is made of a set of component instances linked together, this is also called a component \emph{assembly}.
+A component-based application is made of a set of component instances linked together, this is also called a component \emph{assembly}.
 A component is a black box that implements an independent functionality of the application, and which interacts with its environment only through well defined interfaces: its ports.
 A port can, for example, specify services provided or required by the component.
 With respect to high performance computing, some works have also shown
 that component models can achieve the needed level of performance, and
-scalability while also helping in application portability~\cite{Bernholdt01052006, bigot:inria-00388508, UCHPC2015}
+scalability while also helping in application portability~\cite{Bernholdt01052006, bigot:inria-00388508, UCHPC2015}.
 
 Many component models exist, each of them with its own specificities.
 Well known component models include, for example, the CORBA Component Model (CCM)~\cite{corba:omg06}, and the Grid Component Model (GCM)~\cite{Baude} for distributed computing, while the Common Component Architecture (CCA)~\cite{Bernholdt01052006}, and Low Level Components (\llc)~\cite{l2c} are HPC-oriented.
@@ -27,7 +27,7 @@ Services are specified as \texttt{C++} interfaces.
 components can also have attribute ports to be configured.
 %
 In this paper, and as illustrated in Figures~\ref{fig:ports}, a $provide$ port is represented by a white circle, a $use$ port with a black circle, a $use-multiple$ port by a black circle with a white $m$ in it. MPI port are connected with a black rectangle. A \llc-based application is a static \emph{assembly} of components instances and the connections between their ports.
-Such an assembly is described in LAD, an XML dialect.
+Such an assembly is described in LAD, an XML dialect, and is managed by the \llc runtime system that minimize overheads by loading simple dynamic libraries. One can also notice that \llc can achieve performance if the granularity of components is high enough and attentively chosen by the user.
 
 \begin{figure}[t]
 \begin{center}
@@ -86,17 +86,16 @@ Such an assembly is described in LAD, an XML dialect.
 %----------------------------------------
 \subsection{Multi-Stencil Framework overview}
 %----------------------------------------
-The Multi-Stencil Framework helps end-users to produce high performance parallel applications for the specific case of multi-stencils. The multi-stencil domain will be formally defined in the next section. A multi-stencil program is typically a numerical simulation based on explicit numerical schemes that approximate PDEs equations with one or multiple neighborhood computations.
+The Multi-Stencil Framework helps end-users to produce high performance parallel applications for the specific case of multi-stencils. The multi-stencil domain will be formally defined in the next section. A multi-stencil program is an approximation of PDEs equations by one or multiple numerical computations, some of them using neighborhood values around an element, also called a \emph{stencil} computation.
 
 Figure~\ref{fig:msf} presents the overview of the Multi-Stencil Framework that will be entirely detailed throughout this paper. It is composed of four different parts presented below.
-
 One can note in this figure that MSF is addressed to two different kinds of end-users: the \emph{numerician}, in other words the mathematician, and the \emph{developer}. Most of the time numericians do have programming knowledge, however as it is not their core domain and because of a lack of time, development is often left to engineers according to numericians needs. MSF has the interesting particularity to propose a clear separation of concerns between these two end-users by distinguishing the description language from the numerical code. 
 
-MSF also has the interesting capability to become flexible thanks to a third user possibility to interact with the framework: the High Performance Computing (HPC) specialist.
+MSF also has the interesting capability to be more flexible than existing solutions thanks to a possibility for a third party to interact with the framework. This third party is a High Performance Computing (HPC) specialist as illustrated in Fig.~\ref{fig:msf}.
 
 \begin{figure}[t]
 \begin{center}
-  \includegraphics[width=.6\textwidth]{./images/msf.pdf}
+  \includegraphics[width=.4\textwidth]{./images/msf.pdf}
   \caption{The Multi-Stencil Framework (MSF) composed of the Multi-Stencil Language (MSL), the Generic Assembly (GA), the Multi-Stencil Compiler (MSC) and which produces a specialized assembly of components.}
   \label{fig:msf}
 \end{center}
@@ -106,11 +105,10 @@ MSF also has the interesting capability to become flexible thanks to a third use
 The Multi-Stencil Language, or MSL, is the domain specific language proposed by the framework for the numerician. It is a descriptive language, easy to use, without any concern onto implementation details, which fits the need of a mathematician to describe the simulation. The description written with MSL can be considered as an input of the framework. MSL is described in details in Section~\ref{sect:msl}. The language is built upon the meta-model described in Section~\ref{sect:formalism}.
 
 \paragraph{\textbf{Generic Assembly}}
-In addition to the language MSL and the simulation description written by the numerician, MSF needs a generic assembly of a multi-stencil program as input. What is called a generic assembly is a component assembly for which meta-types are represented and for which some parts need to be generated or specialized. It is similar to a generic pattern or a skeleton in usual programming models such as C++ or functional models. From this generic assembly will be built the final specialized assembly of the simulation. As well as MSL, this generic assembly is described in Section~\ref{sect:msl} and is built upon the meta-model described in Section~\ref{sect:formalism}. Moreover, an example of generic assembly is used in evaluations of Section~\ref{sect:eval}.
-\HC{Note idée : HPC specialist gives types for DDS and Data}
+In addition to the language MSL and the simulation description written by the numerician, MSF needs a Generic Assembly (GA) of a multi-stencil program as input. What is called a GA is a component assembly for which meta-types are represented and for which some parts need to be generated or specialized. A GA could be compared to a generic template or a skeleton respectively in usual object programming languages such as C++ or in functional languages. From this generic assembly will be built the final specialized assembly of the simulation where component types will be precised, and some parts of GA will be transformed or added. As well as MSL, this generic assembly is described in Section~\ref{sect:msl} and is built upon the meta-model described in Section~\ref{sect:formalism}.
 
 \paragraph{\textbf{Multi-Stencil Compiler}}
-The core of the framework is the Multi-Stencil Compiler, or MSC. It is responsible for transforming the genric assembly into the final parallel assembly which is specific to the simulation described by the numerician. MSC is described in Sections~\ref{sect:parallelism} and~\ref{sect:msp}.
+The core of the framework is the Multi-Stencil Compiler, or MSC. It is responsible for transforming the genric assembly into the final parallel assembly which is specific to the simulation described by the numerician with MSL. MSC is described in Section~\ref{sect:parallelism}.
 
 \paragraph{\textbf{Specialized assembly}}
-Finally, the input of MSF is the component assembly generated by MSC. It is an instanciation and a transformation of the generic component assembly, by adding component types and by adding specific components generated by MSC. From this final component assembly which is specific to the simulation initially described by using MSL, the developer will finally write numerical codes.
+Finally, the output of MSF is the component assembly generated by MSC. It is an instanciation and a transformation of the generic component assembly, by adding component types, transforming some part of the assembly, and by adding specific components generated by MSC. From this final component assembly which is specific to the simulation initially described with MSL, the developer will finally write numerical codes. This final specialized component assembly represents the parallel computations orchestration of the simulation initially described by the numerician.
