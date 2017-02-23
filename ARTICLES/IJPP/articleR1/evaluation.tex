@@ -1,31 +1,41 @@
-\HC{has to be revised according to modifications + add new results for weak scaling + improve clarity (asked by reviewers)}
-
-This section evaluates the MSL compiler and the code it generates.
-We first evaluate the generated code in the case where only data parallelization and fusion are applied and compare this to a full SkelGIS program.
-Then, we analyze a case taking advantage of the full the hybrid parallelization combining data and task parallelism and validate the performance model proposed in Section~\ref{sect:tsp}.
-
-All evaluations presented in this section are based on a real case study of the shallow-Water Equations as solved in  the FullSWOF2D\footnote{\url{http://www.univ-orleans.fr/mapmo/soft/FullSWOF/}}~\cite{Ferrari2004,CPE:CPE3494} code from the MAPMO laboratory, University of Orl\'eans.
-We have developed a MSL version of FullSWOF2D that contains 3~mesh entities, 7~computation domains, 48~data and 98~computations (32~stencil kernels and 66~local kernels).
+This section first presents the implementation details chosen to evaluate MSF in this paper. Then, the studied use case is presented. Once this context is clear the MSC performance is evaluated as well as both available parallelization techniques, data and task. Finally, the performance model proposed in Section~\ref{sect:perfs}.
 
 %-------------------------------------
-\subsection{Compiler}
+\subsection{Implementation details}
 
-Table~\ref{fig:exectime} illustrates the execution time of each step of the MSL compiler for the FullSWOF2D example.
+The two main implementation choices to take in MSC and its specialized assembly generation concern the technologies used for data and task parallelizations.
+
+For the data-parallelization, as already detailed many times throughout the paper, a third party HPC specialist is responsible for implementing $DDS$ and $Data$ using a chosen library or external language and by following the interfaces specified by these two components. To evaluate MSF, we have played the role of HPC specialists and have implemented these components using SkelGIS, a C++ embedded DSL~\cite{CPE:CPE3494} that proposes a distributed Cartesian mesh as well as user API to manipulate structures while hiding their underlying distribution.
+
+For the task parallelism, we have chosen to use OpenMP~\cite{660313} to generate the code of the $Scheduler$ component. OpenMP targets shared-memory platforms only. Although the version 4 of OpenMP has introduced explicit support for dynamic task scheduling, our implementation only requires version 3 whose fork-join model is well suited for the static scheduling introduced in Section~\ref{sect:parallelism}.
+The use of dynamic schedulers, such as provided by libgomp\footnote{\url{https://gcc.gnu.org/projects/gomp/}}, StarPU~\cite{Augonnet2011}, or XKaapi~\cite{Gautier:2013:XRS:2510661.2511383},  to directly execute the DAG $\Gamma_{dep}$ will be the subject of future works.
+
+As a result, the MSL compiler generates a hybrid code which uses both SkelGIS and OpenMP.
+It also generates empty components where the developer must provide local sequential implementations of the kernels. In our case these kernels are written using SkelGIS API.
+
+%-------------------------------------
+\subsection{Use case description}
+
+All evaluations presented in this section are based on a real case study of the shallow-Water Equations as solved in the FullSWOF2D\footnote{\url{http://www.univ-orleans.fr/mapmo/soft/FullSWOF/}}~\cite{Ferrari2004,CPE:CPE3494} code from the MAPMO laboratory, University of Orl\'eans.
+In 2013, a full SkelGIS implementation of this use case has been performed by numericians and developers of the MAPMO laboratory~\cite{CPE:CPE3494,cordier2013fullswof,coullon:hal-00832660}. From this implementation we have kept the code of computation kernels to directly use it into $K$ components. Compared to a full SkelGIS implementation, where synchronizations and fusions are handled manually, MSF automatically compute where synchronizations are needed and how to perform a fusion without errors. To evaluate MSF on this use case we have described the FullSWOF2D simulation by using MSL. FullSWOF2D contains 3~mesh entities, 7~computation domains, 48~data and 98~computations (32~stencil kernels and 66~local kernels). Performances of the obtained implementation are compared to the full SkelGIS implementation to show that no overheads are introduced by MSF.
+
+%-------------------------------------
+\subsection{Compiler evaluation}
+
+Table~\ref{fig:exectime} illustrates the execution time of each step of MSC for the FullSWOF2D example.
 This has been computed on a laptop with a dual-core Intel Core i5 1.4~GHz, and 8~GB of DDR3.
 While the overall time of 4.6 seconds remains reasonable, one can notice that the computation of the $TSP$ tree is by far the longest step.
 As a matter of fact, the complexity of the algorithm for N-shapes removal is $O(n^3)$.
-The replacement of the static scheduling by a direct scheduling of the DAG by dedicated tools should solve this in the future.
+If this complexity is not a problem at the moment and onto this use case it could become one for just-in-time compilation or bigger simulations. The replacement of the static scheduling by a dynamic scheduling using dedicated tools (such as OpenMP 4, StarPU etc.) should solve this in the future.
 
 \begin{table}[!h]
  \begin{center}
  \begin{tabular}{|c|c|c|c|c|}
-  \hline
    Step & Parser & $\Gamma_{sync}$ & $\Gamma_{dep}$ & $TSP$\\
    \hline
    Time (ms) & 1 & 2 & 4.2 & 3998.5\\
    \hline
    \% & 0.022 & 0.043 & 0.09 & 86.6\\
-   \hline
  \end{tabular}
 \caption{Execution times of the MSL compiler}
 \label{fig:exectime}
@@ -33,7 +43,7 @@ The replacement of the static scheduling by a direct scheduling of the DAG by de
 \end{table}
 
 %-------------------------------------
-\subsection{Data parallelism}
+\subsection{Data parallelism evaluation}
 
 In this evaluation, we disable task-parallelism (fix its degree to 1) to focus on data-parallelism.
 In the implementation evaluated in this paper, the data parallelism is handled using SkelGIS that has already been evaluated in comparison with a native MPI implementation for the FullSWOF2D example~\cite{CPE:CPE3494}.
@@ -42,7 +52,6 @@ In addition to SkelGIS, MSL automatically inserts the required MPI synchronizati
 \begin{table}[!ht]
 \begin{center}
  \begin{tabular}{|c|c|}
-   \hline
     Cluster & \textbf{TGCC Curie Thin Nodes}\\
      \hline         
     Processor & 2$\times$SandyBridge\\
@@ -52,8 +61,6 @@ In addition to SkelGIS, MSL automatically inserts the required MPI synchronizati
     RAM/core & 4GB\\
     Compiler [-O3] & gcc 4.9.1\\
     MPI & Bullxmpi\\
-    Network & fat-tree Infiniband\\
-    \hline
  \end{tabular}
  \caption{\label{tab:TGCC}Hardware configuration of TGCC Curie Thin nodes.}
  \end{center}
@@ -115,7 +122,7 @@ Figure~\ref{fig:fusion} shows the number of iterations per second as a function 
 \end{center}\end{figure}
 
 %-------------------------------------
-\subsection{Hybrid parallelism}
+\subsection{Hybrid parallelism evaluation}
 
 \begin{table}[th]
  \begin{center}
