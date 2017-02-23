@@ -34,7 +34,6 @@ If this complexity is not a problem at the moment and onto this use case it coul
    Step & Parser & $\Gamma_{sync}$ & $\Gamma_{dep}$ & $TSP$\\
    \hline
    Time (ms) & 1 & 2 & 4.2 & 3998.5\\
-   \hline
    \% & 0.022 & 0.043 & 0.09 & 86.6\\
  \end{tabular}
 \caption{Execution times of the MSL compiler}
@@ -45,14 +44,12 @@ If this complexity is not a problem at the moment and onto this use case it coul
 %-------------------------------------
 \subsection{Data parallelism evaluation}
 
-In this evaluation, we disable task-parallelism (fix its degree to 1) to focus on data-parallelism.
-In the implementation evaluated in this paper, the data parallelism is handled using SkelGIS that has already been evaluated in comparison with a native MPI implementation for the FullSWOF2D example~\cite{CPE:CPE3494}.
-In addition to SkelGIS, MSL automatically inserts the required MPI synchronizations and identifies possible fusion of kernels to reduce cache misses.
+In this evaluation, we disable task-parallelism to focus on data-parallelism. Two versions of code are compared in this section: first a plain SkelGIS implementation of FullSWOF2D, where synchronizations and fusions are handled manually; second, the automatic synchronizations and fusions handled by MSF over SkelGIS. SkelGIS has already been evaluated in comparison with a native MPI implementation for the FullSWOF2D example~\cite{CPE:CPE3494}. For this reason, this section uses the plain SkelGIS implementation as the reference version. This enables to evaluate both the choices made by MSC as well as the potential overheads of using \llc~\cite{l2c} that is not used in the plain SkelGIS version. The evaluations have been performed on the Curie supercomputer (TGCC, France) described in Table~\ref{tab:TGCC}. Each evaluation has been performed nine times and the median is presented in results.
 
 \begin{table}[!ht]
 \begin{center}
  \begin{tabular}{|c|c|}
-    Cluster & \textbf{TGCC Curie Thin Nodes}\\
+     & TGCC Curie Thin Nodes\\
      \hline         
     Processor & 2$\times$SandyBridge\\
     & (2.7 GHz)\\
@@ -66,84 +63,95 @@ In addition to SkelGIS, MSL automatically inserts the required MPI synchronizati
  \end{center}
 \end{table}
 
-This section compares the performance of the code produced by MSL for FullSWOF2D with a plain SkelGIS program where synchronizations and fusion choices have been done by the developer without any automatic support.
-This enables to evaluate both the choices made by the compiler as well as the potential overheads of using \llc~\cite{l2c} that is not used in the plain SkelGIS version.
-The evaluations have been performed on the Curie supercomputer (TGCC, France) described in Table~\ref{tab:TGCC}.
-Each evaluation has been performed nine times and the median is presented in results.
+Figures~\ref{fig:weak1}, \ref{fig:weak2} and~\ref{fig:weak3} respectively show weak scalings for a computation domain of $400 \times 400$ cells by core, $600 \times 600$ cells by core and $800 \times 800$ cells by core from 16 cores to 16.384 cores, as resumed in Table~\ref{tab:weak}.
 
+\begin{table}[!ht]
+\begin{center}
+ \begin{tabular}{|c|c|}
+    Domain size per core & Number of iterations\\
+    \hline
+     $400 \times 400$ & $200$\\
+     $600 \times 600$ & $200$\\
+     $800 \times 800$ & $200$\\
+ \end{tabular}
+ \caption{\label{tab:weak}Weak scaling experiments of Fig.~\ref{fig:weak1}, Fig.~\ref{fig:weak2} and Fig.~\ref{fig:weak3}.}
+ \end{center}
+\end{table}
 
 \paragraph{\textbf{Weak scaling}}
 \begin{figure}[t]
 \begin{minipage}{.475\textwidth}
-  \includegraphics[width=\textwidth]{../results/weak_scaling/400/median_weak.pdf}
-  \caption{weak-scaling with $400 \times 400$ domain per core.}
+  \includegraphics[width=\textwidth]{../results/weak_scaling/400_200/median_weak.pdf}
+  \caption{weak-scaling with $400 \times 400$ domain per core and $200$ time iterations.}
   \label{fig:weak1}
 \end{minipage}
 \hfill
 \begin{minipage}{.475\textwidth}
-  \includegraphics[width=\textwidth]{../results/weak_scaling/800/median_weak.pdf}
-  \caption{weak-scaling with $800 \times 800$ domain per core.}
+  \includegraphics[width=\textwidth]{../results/weak_scaling/600_200/median_weak.pdf}
+  \caption{weak-scaling with $600 \times 600$ domain per core and $200$ time iterations.}
   \label{fig:weak2}
 \end{minipage}\end{figure}
-%In a weak scaling, a constant amount of work is given to each core while increasing the overall number of cores.
-%As a result, the overall domain size also increase with the number of cores.
-%A weak scaling is a good evaluation to detect overheads which are independent from the amount of computation performed by each core, such as collective communications, or overheads introduced by \llc components, for example.
-Figures~\ref{fig:weak1} and~\ref{fig:weak2} show a weak scaling for a $400 \times 400$ points by core and a $800 \times 800$ points by core from 16 cores to 16.384 cores.
-Minimum and maximum values are also shown as error bars in figures.
 
-One can notice that the MSL code produces a slightly better execution time on the $400 \times 400$ domain and a small overhead on the $800 \times 800$ domain.
-This might be explained by slightly different compiler optimization flags since \llc requires compilation as dynamic libraries with the \emph{-fpic} compilation flag while the SkelGIS version does not.
-This flag can have slight positive or negative effect on code performance depending on the situation and might be responsible for the observed difference.
-In any case, these difference are barely noticeable and often included in the error bar of the measure and both version globally perform similarly.
-The MPI synchronizations performed by MSL perform as good as manually specified ones, and \llc does not introduce any noticeable overhead.
+\begin{figure}[t]
+\begin{center}
+  \includegraphics[width=.6\textwidth]{../results/weak_scaling/800_200/median_weak.pdf}
+  \caption{weak-scaling with $800 \times 800$ domain per core and $200$ time iterations.}
+  \label{fig:weak3}
+ \end{center}
+\end{figure}
+
+From these results, one can notice first that performances of MSF are very close to the reference version using plain SKelGIS. This is a very good result which shows first that MSC performs good synchronizations and fusions, and second that overheads introduced by \llc are limited thanks to a good granularity in GA.
+However, it seems that a slightly drop of performance happens when the domain size per core increases. This performance decrease is really small though, with a maximum difference between the two versions of 2.83\%.
+
+The only noticeable difference between the two versions are due to \llc which load dynamic libraries at runtime. Because of this particularity, components of \llc are compiled with the \emph{-fpic} compilation flag while the SkelGIS version does not. This flag can have slight positive or negative effect on code performance depending on the situation and might be responsible for the observed difference.
+
+\HC{another benchmark to show that with the static version of \llc the problem disappear ?}
 
 \paragraph{\textbf{Strong scaling}}
 \begin{figure}[t]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/strong_scaling/10K_1K/median_strong.pdf}
-  \caption{Strong scaling on a $10k \times 10k$ domain.}
+  \caption{Strong scaling on a $10k \times 10k$ domain and $1000$ time iterations.}
   \label{fig:strong}
 \end{center}\end{figure}
-% The second evaluation is a strong scaling evaluation.
-% Unlike a weak scaling, a strong scaling keeps a constant overall size of problem, while the number of cores increase.
-% As a result, the sub-domain computed by each core reduces while the number of cores increases.
-% The strong scaling is a good additional evaluation to the weak scaling, showing different kinds of overheads, such as cache misses (when the size of sub-domain becomes small enough to fit into cache memory), or small constant overheads.
-Figure~\ref{fig:strong} shows the number of iteration per second for a 10k$\times$10k global domain size from 16 to 16.384 cores.
-The ideal strong scaling is also illustrated.
 
-First, one can notice that the strong scaling evaluated for the code generated by MSL is close to the ideal speedup up to 16.384 cores, which is a very good result. Moreover, no overheads are introduced by MSL which shows that automatic synchronization detections and automatic fusion detections are the same one that the one written manually into the SkelGIS code of FullSWOF2D. Finally, no overheads are introduced by components of \llc. A small behavior difference can be noticed with $2^9=512$ cores, however this variation is no longer observed with 1024 cores.
+Figure~\ref{fig:strong} shows the number of iteration per second for a 10k$\times$10k global domain size from 16 to 16.384 cores. The total number of time iterations for this benchmark is $1000$. In addition to the reference SkelGIS version, the ideal strong scaling is also illustrated in the figure.
 
-\paragraph{\textbf{Fusion}} Finally, to evaluate the data parallelization technique automatically introduced by MSL, the fusion optimization is evaluated.
-Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores, for FullSWOF2D with and without fusion optimization and onto a $500 \times 500$ domain. As explained in Section~\ref{sect:fusion}, the MSL fusion happens at a high level and is most of the time done naturally by a computer scientist. However, for a non computer scientist which write its numerical codes, an automatic proposition of such fusions makes the implementation easier. Moreover, one can notice that the performance is clearly improved (around 40\%) by this fusion.
+First, one can notice that the strong scaling evaluated for the MSF version is close to the ideal speedup up to 16.384 cores, which is a very good result. Moreover, no overheads are introduced by MSF which shows that automatic synchronizations and automatic fusions are the same one that the one written manually into the plain SkelGIS version. Finally, no overheads are introduced by components of \llc. A small behavior difference can be noticed with $2^9=512$ cores, however this variation is no longer observed with 1024 cores.
+
+\paragraph{\textbf{Fusion}} Finally, we evaluate loop fusions automatically proposed by MSF from the $TSP$ tree of computation kernels. Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations. As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level and is most of the time done naturally by a computer scientist. However, for a non computer scientist which write its numerical codes, an automatic proposition of such fusions avoid errors, particularly for a parallel execution. Moreover, one can notice that the performance is clearly improved (around 40\%) by this fusion.
 
 \begin{figure}[!h]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/fusVSbase.pdf}
-  \caption{Strong scaling on a 500x500 domain, with and without the fusion optimization.}
+  \caption{Strong scaling on a 500x500 domain size with $200$ time iterations, with and without fusions proposed by MSF.}
   \label{fig:fusion}
 \end{center}\end{figure}
+
+\HC{another benchmark with and without fusion fro task parallelization ?}
 
 %-------------------------------------
 \subsection{Hybrid parallelism evaluation}
 
+In this section, we introduce task parallelism to evaluate the hybrid parallelization offered by MSF. The MSF implementation evaluated in this paper relies on SkelGIS and OpenMP.
+
+The series-parallel tree decomposition $TSP$ of this simulation, extracted by MSC, is composed of 17 nodes labeled as sequence $\mathcal{S}$ and 18 nodes labeled as parallel $\mathcal{P}$. 
+
+We define the \emph{level of parallelism} as the number of parallel tasks inside a fork of the fork/join model.  
+
+Table~\ref{fig:freq} represents the number of time a given level of parallelism, \ie the number of tasks to perform concurrently, is observed in the final tree. One can notice that the level of task parallelism extracted from the Shallow water equations is limited by two sequential parts in the application (level 1). Moreover, a level of 16~parallel tasks is reached two times, and five times for the fourth level.
+This means that if two threads are dedicated to task parallelism, two parts of the code at least will not take advantage of this and that no part of the code would benefit from more than 16 threads.
+The task parallelism alone is therefore clearly not enough to take advantage of even a single node of a cluster that typically supports today between 16 and 32 threads (16 for Curie).
+
 \begin{table}[th]
  \begin{center}
  \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-    \hline 
    Level & 1 & 2 & 3 & 4 & 6 & 10 & 12 & 16\\
    \hline
    Frequency & 2 & 1 & 3 & 5 & 3 & 1 & 1 & 2\\
-   \hline
  \end{tabular}
 \caption{Parallelism level (number of parallel tasks) and the number of times this level appears.}
 \label{fig:freq}
  \end{center}
 \end{table}
-
-In this evaluation, we introduce task parallelism to evaluate the hybrid parallelization offered by MSL that mixes data parallelization and task parallelization.
-In the implementation evaluated in this paper and in addition to SkelGIS, the hybrid parallelization relies on OpenMP.
-
-The series-parallel tree decomposition $TSP$ of this simulation, extracted by the MSL compiler, is composed of 17~sequence nodes and 18~parallel nodes. Table~\ref{fig:freq} represents the number of time a given level of parallelism, \ie the number of tasks to perform concurrently, is observed in the final tree. One can notice that the level of task parallelism extracted from the Shallow water equations is limited by two sequential parts in the application (level 1). Moreover, a level of 16~parallel tasks is reached two times, and five times for the fourth level.
-This means that if two threads are dedicated to task parallelism, two parts of the code at least will not take advantage of this and that no part of the code would benefit from more than 16 threads.
-The task parallelism alone is therefore clearly not enough to take advantage of even a single node of a cluster that typically supports today between 16 and 32 threads (16 for Curie).
 
 \begin{figure}[bh]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/analytic/times.pdf}
