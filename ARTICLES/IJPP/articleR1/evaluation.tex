@@ -135,11 +135,7 @@ In this section, we introduce task parallelism to evaluate the hybrid paralleliz
 
 The series-parallel tree decomposition $TSP$ of this simulation, extracted by MSC, is composed of 17 nodes labeled as sequence $\mathcal{S}$ and 18 nodes labeled as parallel $\mathcal{P}$. 
 
-We define the \emph{level of parallelism} as the number of parallel tasks inside a fork of the fork/join model.  
-
-Table~\ref{fig:freq} represents the number of time a given level of parallelism, \ie the number of tasks to perform concurrently, is observed in the final tree. One can notice that the level of task parallelism extracted from the Shallow water equations is limited by two sequential parts in the application (level 1). Moreover, a level of 16~parallel tasks is reached two times, and five times for the fourth level.
-This means that if two threads are dedicated to task parallelism, two parts of the code at least will not take advantage of this and that no part of the code would benefit from more than 16 threads.
-The task parallelism alone is therefore clearly not enough to take advantage of even a single node of a cluster that typically supports today between 16 and 32 threads (16 for Curie).
+We define the \emph{level of parallelism} as the number of parallel tasks inside one fork of the fork/join model. The fork/join model obtained for FullSWOF2D is composed of 18 fork phases (corresponding to $\mathcal{P}$ nodes of $TSP$). Table~\ref{fig:freq} represents the number of time a given level of parallelism is obtained inside fork phases.
 
 \begin{table}[th]
  \begin{center}
@@ -153,19 +149,19 @@ The task parallelism alone is therefore clearly not enough to take advantage of 
  \end{center}
 \end{table}
 
+One can notice that the level of task parallelism extracted from the Shallow water equations is limited by two sequential parts in the application (level 1). Moreover, a level of 16~parallel tasks is reached two times, and five times for the fourth level.
+This means that if two cores are dedicated to task parallelism, the two sequential parts of the code will not take advantage of these two cores, and that no part of the code would benefit from more than 16 cores. The task parallelism, as proposed in this paper (\ie where each kernel is a task) is therefore not insufficient to take advantage of a single node of modern clusters that typically supports more than 16 cores.
+
 \begin{figure}[bh]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/analytic/times.pdf}
   \caption{Computation vs communication times in the data parallelization technique.}
   \label{fig:limit}
 \end{center}\end{figure}
 
-On the other hand, Figure~\ref{fig:limit} illustrates limitations of data parallelization technique alone.
-While the computation time decreases linearly with the number of core used, the communication behavior is much more erratic.
-Between 2 and 16 cores, the communication happen inside a single node and the time is small and nearly constant.
-There is a small oscillation that might be explained by difference between number of processors that are power of 4, where the communications are all the same, and those that are nota power of 4, where there is an imbalance.
-Starting with 32 cores, there are multiple nodes and the communication time is typically modeled as $L+S/B$ where $L$ is the latency, $S$ the data size and $B$ the bandwidth.
-This explains the decrease of time from 32 to 128 cores where the data sizes communicated by each process decreases.
-The increased observed after that might be due to the fact that with the increased number of processes the fat-tree becomes deeper and the latencies increase.
+On the other hand, Fig.~\ref{fig:limit} illustrates limitations of data parallelization technique alone. In this figure is represented the execution time (with a logarithmic scale) of FullSWOF2D while increasing the number of cores for a fix domain size of $500 \times 500$ with a total of $200$ time iterations (\ie this is a strong scaling). The speedup of this same benchmark is represented in blue in Fig.~\ref{fig:close}. One can note that the scaling is not as good is the one presented in Fig.~\ref{fig:strong}. 
+The main difference between these two benchmarks is the domain size. In the benchmark of Fig.~\ref{fig:strong} the domain size is $10k \times 10k$ which means that using $2^8$ cores, for example, each core has to compute only a $31 \times 31$ sub-domain. On the other hand using $2^8$ cores in Fig.~\ref{fig:close} each core has to compute a $625 \times 625$ sub-domain. Fig.~\ref{fig:limit} shows why the speedup is not as good as the one with a bigger domain size.  
+
+Actually, in this figure, while the computation time (in blue) decreases linearly with the number of core used, the communication behavior (in red) is much more erratic. Between 2 and 16 cores, communications are performed inside a single node thus the time is small and nearly constant. There is a small oscillation that might be explained by the partitioning differences. SkelGIS performs a two dimensional partitioning strategy. For this reason a smaller number of bytes are communicated using 2 cores than using 4, and using 8 cores than using 16 cores. Starting from 32 cores, each node is fully used and more than one node is used. From this point thus the communication time is typically modeled as $L+S/B$ where $L$ is the latency, $S$ the data size and $B$ the bandwidth. This explains the decrease of time from 32 to 128 cores where the data sizes communicated by each process decreases. The increased observed after$128$ cores that might be due to the fact that with the increased number of processes the fat-tree becomes deeper and the latencies increase.
 
 \begin{figure}[th]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/base_close_median.pdf}
@@ -173,17 +169,18 @@ The increased observed after that might be due to the fact that with the increas
   \label{fig:close}
 \end{center}\end{figure}
 
-All in all, when the number of core used increases, the computation/communication ratio becomes poorer and poorer.
-As a result, the data parallelism alone fails to provide enough parallelism to leverage the whole machine and other sources of parallelism have to be found.
-The blue curve of Figure~\ref{fig:close} shows the total execution time for the same example as in Figure~\ref{fig:limit} and as expected, the speedup bends down from 256 to 2048 cores.
+All in all, when the number of core used increases, the computation/communication ratio becomes poorer and poorer. As a result, the data parallelism alone fails to provide enough parallelism to leverage the whole machine and other sources of parallelism have to be found. As expected, in  Figure~\ref{fig:close} the speedup bends down from 256 to 2048 cores. The same problem would happened in previous experiment of Fig.~\ref{fig:strong}, however as the domain size is larger, the phenomena appears with much more cores. 
 
-In addition to the blue curve, Figure~\ref{fig:close} shows strong scalings for the same example but using an hybrid parallelization. For example, the purple curve shows the parallelization which uses 8 cores, to perform the task parallelization, for each process used for data parallelization (\ie MPI process). As a result, for example, when using 2 machines of the TGCC cluster, with a total of 32 cores, 4 cores are used for SkelGIS MPI processes, for data parallelization, and for each one 8 cores are used for task parallelization ($4 \times 8 = 32$).
+As task parallelism fails to scale from 16 cores, and as data parallelism also fails to scale when the communication cost overpass the execution time, an hybrid parallelization strategy is proposed by MSF and evaluated below.
 
-As a result, and as explained in Section~\ref{sect:perfs}, data is less divided into sub-domains and the effect which is observe onto the blue curve is delayed. This figure shows a comparison with 2, 4, 8 and 16 cores per MPI process for task parallelization.
+In addition to the blue curve, Fig.~\ref{fig:close} shows speedups for the same example ($500 \times 500$ domain with $200$ iterations) but using an hybrid parallelization. Fig.~\ref{fig:close} shows a comparison with 2, 4, 8 and 16 cores per MPI process for task parallelization.
 
-From 2 to 8 cores, the improvement of the strong scaling is clear. However, reaching 16 cores, an important initial overhead appears and in addition to this, the curve bends down rapidly instead of improving the one with 8 cores for task parallelization. Two different phenomena happen.
+For example, the purple curve shows the parallelization which uses for each data parallelization process (\ie MPI process) 8 additional cores for task parallelization. As a result, for example, when using 2 machines of the TGCC cluster, with a total of 32 cores, 4 cores are used for SkelGIS MPI processes, for data parallelization, and for each one 8 cores are used for task parallelization ($4 \times 8 = 32$). This respect $P = P_{data} \times P_{task}$ presented in Section~\ref{sect:perfs}.
+As a result, and as explained in Section~\ref{sect:perfs}, quantities are less divided into sub-domains, that are responsible for communications, and the effect which is observe onto the blue curve is delayed.
 
-First, thin nodes of the TGCC Curie are built with two NUMA nodes each of 8 cores. As a result, when increasing the number of OpenMP cores for task parallelization from 8 to 16 cores, an overhead is introduced by exchanges of data between memories of the two NUMA nodes. This phenomena is illutrated in Figure~\ref{fig:spread}. In this figure, a different strategy is used to bind threads onto available cores (using OpenMP). This strategy, called \emph{spread} (instead of \emph{close} in Figure~\ref{fig:close}), binds threads on cores in order to spread as much as possible onto resources, which means that the two NUMA nodes are directly used whatever the number of cores kept for task parallelization. As a result, and as shown in the figure, using 2, 4 and 8 cores an initial overhead is introduced.
+From 2 to 8 cores, the improvement of the strong scaling is clear. However, reaching 16 cores, an important initial overhead appears and in addition to this, the curve bends down rapidly instead of improving the one with 8 cores for task parallelization. Two different phenomena happen in this case.
+
+First, thin nodes of the TGCC Curie are built with two NUMA nodes each of 8 cores. As a result, when increasing the number of OpenMP cores for task parallelization from 8 to 16 cores, an overhead is introduced by exchanges of data between memories of the two NUMA nodes. This phenomena is illutrated in Fig.~\ref{fig:spread}. In this figure, a different binding strategy is used. A binding strategy is the way the scheduler binds threads onto available cores. The strategy used in Fig.~\ref{fig:spread} is called \emph{spread} (instead of \emph{close} in Figure~\ref{fig:close}). This strategy binds threads on cores in order to spread as much as possible onto resources, which means that the two NUMA nodes are directly used whatever the number of cores used for task parallelism. As a result, and as shown in the figure, using 2, 4 and 8 cores an initial overhead is introduced as the one observed in Fig.~\ref{fig:close}. This shows that the initial overhead with 16 cores is due to NUMA effects.
 
 \begin{figure}[!h]\begin{center}
   \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_spread_median.pdf}}
@@ -191,9 +188,9 @@ First, thin nodes of the TGCC Curie are built with two NUMA nodes each of 8 core
   \label{fig:spread}
 \end{center}\end{figure}
 
-The second phenomena, which happens in Figure~\ref{fig:close} with 16 cores for tasks parallelization, is due to the level of parallelization introduced by the task parallelization technique. Actually, as illustrated in Table~\ref{fig:freq}, only two steps of the $TSP$ static scheduling generated by the MSL compiler can take advantage of 16 cores among a total of 18 steps. This phenomena has been explained in Section~\ref{sect:perfs} by the variable $F_{task}$ and the fact that it is not always true that $F_{task}=P_{task}$. This explains why using 16 cores for task parallelization in Figure~\ref{fig:spread} is still less efficient than using 8 cores even if the two NUMA nodes are always used in this evaluation.
+The second phenomena that happens in Figure~\ref{fig:close} using 16 cores is due to the level of parallelism introduced by the task parallelization technique. Actually, as illustrated in Table~\ref{fig:freq}, only two forks of $TSP$ can take advantage of 16 cores among a total of 18 forks. This phenomena has been mentioned in Section~\ref{sect:perfs} by the variable $F_{task}$ and the fact that it is not always true that $F_{task}=P_{task}$. This explains why using 16 cores is less efficient than using 8 cores, even when the two NUMA nodes are always used as in Fig.~\ref{fig:spread}.
 
-Finally, to completely validate the performance model introduced in Section~\ref{sect:perfs}, and to understand when the hybrid parallelization becomes more interesting than the data parallelization, Figure~\ref{fig:tth2} represents $T_{COM1}$ and $T_{COM2}+T_{task}$ of Equation~(\ref{eq:hyb}), for the best case (\ie when 8 cores are used for task parallelization), and with a \emph{close} OpenMP bind of threads onto cores. Table~\ref{fig:tth} gives time details.
+Finally, to validate the performance model introduced in Section~\ref{sect:perfs}, and to understand when the hybrid parallelization becomes more interesting than the data parallelization, Figure~\ref{fig:tth2} represents $T_{COM1}$ and $T_{COM2}+T_{task}$ of Equation~(\ref{eq:hyb}), for the best case, \ie when 8 cores are used in Fig.~\ref{fig:close}.  Figure~\ref{fig:tth2} and Table~\ref{fig:tth} presents results of these measurements. Results perfectly matches Fig.~\ref{fig:close} for 8 cores per MPI process. As a result, the hybrid parallelization becomes better with a total of 512 cores in this case.
 
 \begin{table}[!h]
  \begin{center}
@@ -221,5 +218,3 @@ Finally, to completely validate the performance model introduced in Section~\ref
   \caption{Execution times (seconds) of $T_{COM1}$ and $T_{COM2} + T_{task}$ for 8 cores for task parallelization. Verification of the Equation~(\ref{eq:hyb}).}
   \label{fig:tth2}
 \end{center}\end{figure}
-
-Figure~\ref{fig:tth2} and Table~\ref{fig:tth} perfectly matches results observed in Figure~\ref{fig:close} for 8 cores used for task parallelization per core used for data parallelization. As a result, the hybrid parallelization becomes better with a total of 512 cores.
