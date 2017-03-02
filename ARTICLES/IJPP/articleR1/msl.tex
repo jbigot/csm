@@ -1,5 +1,3 @@
-\HC{under revision / has to be revised according to modifications}
-
 %----------------------------------------
 \subsection{Generic Assembly}
 %----------------------------------------
@@ -8,7 +6,7 @@ From the meta-model represented by Equation (~\ref{eq:msp}) the Generic Assembly
 \begin{figure}[t]
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component,fill=green!80!black] (D) at (0,0) {$Driver$};
+   \node[component,fill=green!50!white] (D) at (0,0) {$Driver$};
    \node[provide] (Dp) at (-1,0) {};
    \node (Ds) at (-1.5,0) {start};
    \node[use,right=1.5cm of D] (Du1) {};
@@ -16,12 +14,12 @@ From the meta-model represented by Equation (~\ref{eq:msp}) the Generic Assembly
    \node[use,below=0.8cm of Du1] (Du3) {$m$};
 
    \node[provide,below=0.15 of Du2] (Tp) {};
-   \node[component,below=1.6cm of Tp,fill=green!80!black] (T) {$Time$};
+   \node[component,below=1.6cm of Tp,fill=green!50!white] (T) {$Time$};
    \node[use,right=1cm of T] (Tu) {};
    \node[left=0.8cm of T] (tt) {$T$};
 
    \node[provide,right=0.15 of Tu] (Cp) {};
-   \node[component, draw=blue!60!white,fill=green!80!black,text=blue!80!black,line width=0.5mm,right=2cm of Cp] (C) {$Computations$};
+   \node[component, draw=blue!60!white,fill=green!50!white,text=blue!80!black,line width=0.5mm,right=2cm of Cp] (C) {$Computations$};
    \node[use,above=0.8cm of C] (Cu) {};
    \node[right=0.2cm of Cu] (star) {$*$};
    \node[right=1.5cm of C] (gamma) {$\Gamma$};

@@ -590,7 +590,7 @@ To illustrate how a specialized assembly is generated, the specialized assembly 
 \begin{figure}[t]
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
-   \node[component,fill=green!80!black] (D) at (0,0) {$Driver$};
+   \node[component,fill=green!50!white] (D) at (0,0) {$Driver$};
    \node[provide] (Dp) at (-1,0) {};
    \node (Ds) at (-1.5,0) {start};
    \node[use,right=1.5cm of D] (Du1) {};
@@ -598,17 +598,17 @@ To illustrate how a specialized assembly is generated, the specialized assembly 
    \node[use,below=0.8cm of Du1] (Du3) {$m$};
 
    \node[provide,below=0.15 of Du2] (Tp) {};
-   \node[component,below=1.6cm of Tp,fill=green!80!black] (T) {$Time$};
+   \node[component,below=1.6cm of Tp,fill=green!50!white] (T) {$Time$};
    \node[use,right=1cm of T] (Tu) {};
 
    \node[provide,right=0.15 of Tu] (Cp) {};
-   \node[component, fill=green!80!black,right=2cm of Cp] (C) {$Scheduler$};
+   \node[component, fill=green!50!white,right=2cm of Cp] (C) {$Scheduler$};
    \node[use,right=1.8 of C] (scu1) {};
    \node[use,below=0.2 of scu1] (scu2) {};
 
    \node[provide,below right=0.2 of Du3] (Datap1) {};
-   \node[component,draw=red,fill=red!50!white,above=0.8cm of Datap2] (Data) {$A$};
-   \node[component,draw=red,fill=red!50!white,below=0.8cm of Data] (Data2) {$B$};
+   \node[component,draw=red,line width=0.4mm,fill=green!50!white,above=0.8cm of Datap2] (Data) {$A$};
+   \node[component,draw=red,line width=0.4mm,fill=green!50!white,below=0.8cm of Data] (Data2) {$B$};
    \node[below=0.5cm of Data2] (Data3) {...};
    \node[use,above=0.8cm of Data] (Datau) {};
    \node[provide,right=1cm of Data] (mpidata) {};
@@ -624,12 +624,12 @@ To illustrate how a specialized assembly is generated, the specialized assembly 
    
    \node[provide,right=0.15 of scu1] (pk0) {};
    \node[provide,right=0.15 of scu2] (psync1) {};
-   \node[component, fill=blue!60!white,right=2cm of pk0] (k0) {$k_0$};
+   \node[component, fill=blue!50!white,right=2cm of pk0] (k0) {$k_0$};
    \node[use,right=0.8 of k0] (k0u) {};
    \node[right=0.2 of k0u] (1) {1};
    \node[use,below=0.2 of k0u] (k0u2) {};
    \node[right=0.2 of k0u2] (1) {2};
-   \node[component, fill=blue!60!white,below=0.8cm of k0] (sync1) {$Sync(0,1)$};
+   \node[component, fill=green!50!white,below=0.8cm of k0] (sync1) {$Sync(0,1)$};
    \node[use,right=1.5 of sync1] (syncu) {};
    \node[right=0.2 of syncu] (1) {3};
    \node[below=0.5cm of sync1] (next) {...};
