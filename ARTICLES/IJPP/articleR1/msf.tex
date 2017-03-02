@@ -1,14 +1,14 @@
-This section first presents a background on component models and particularly on the Low Level Components. This background is needed to understand the second part of the section which presents an overview of the overall Multi-Stencil Framework (MSF).
+This section first presents a background on component models and particularly on the Low Level Components. This background is needed to understand the second part of the section which gives an overview of the overall Multi-Stencil Framework (MSF).
 
 %----------------------------------------
 \subsection{Background on component models}
 %----------------------------------------
-Component-based software engineering (CBSE) is a domain of software engineering~\cite{Szyperski:2002:CSB:515228} which improves code re-use, separations of concerns, and thus maintainability.
+Component-based software engineering (CBSE) is a domain of software engineering~\cite{Szyperski:2002:CSB:515228} which aims at improving code re-use, separations of concerns, and thus maintainability.
 A component-based application is made of a set of component instances linked together, this is also called a component \emph{assembly}.
 A component is a black box that implements an independent functionality of the application, and which interacts with its environment only through well defined interfaces: its ports.
-A port can, for example, specify services provided or required by the component.
+For example, a port can specify services provided or required by the component.
 With respect to high performance computing, some works have also shown
-that component models can achieve the needed level of performance, and
+that component models can achieve the needed level of performance and
 scalability while also helping in application portability~\cite{Bernholdt01052006, bigot:inria-00388508, UCHPC2015}.
 
 Many component models exist, each of them with its own specificities.
@@ -24,8 +24,8 @@ Services are specified as \texttt{C++} interfaces.
 \llc also offers $MPI$ ports that enable components to share MPI communicators. Finally, 
 components can also have attribute ports to be configured.
 %
-In this paper, and as illustrated in Figures~\ref{fig:ports}, a $provide$ port is represented by a white circle, a $use$ port with a black circle, a $use-multiple$ port by a black circle with a white $m$ in it. MPI port are connected with a black rectangle. A \llc-based application is a static \emph{assembly} of components instances and the connections between their ports.
-Such an assembly is described in LAD, an XML dialect, and is managed by the \llc runtime system that minimize overheads by loading simple dynamic libraries. One can also notice that \llc can achieve performance if the granularity of components is high enough and attentively chosen by the user.
+In this paper, and as illustrated in Figure~\ref{fig:ports}, a $provide$ port is represented by a white circle, a $use$ port by a black circle, a $use-multiple$ port by a black circle with a white $m$ in it. MPI port are connected with a black rectangle. A \llc-based application is a static \emph{assembly} of components instances and the connections between their ports.
+Such an assembly is described in LAD, an XML dialect, and is managed by the \llc runtime system that minimize overheads by loading simple dynamic libraries. One can also notice that \llc can achieve performance if the granularity of components is high enough and attentively chosen by the user. The typical overhead of a \llc is a \texttt{C++} indirect virtual method invocation.
 
 \begin{figure}[t]
 \begin{center}
