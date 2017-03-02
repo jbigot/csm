@@ -1,10 +1,10 @@
 Some approaches to numerically solve partial differential equations (PDEs) are based on direct iterative methods (\textit{e.g.} finite difference, finite volume or finite element methods).
 They approximate the solution through a discretized process where the continuous time and space domains are discretized and numerical computations are iteratively (time discretization) applied onto a mesh (space discretization).
 %In other words, the PDEs are transformed to a set of numerical computations applied at each time-step on elements of the discretized space domain.
-While the computations can have various forms, we focus on three categories.
+While the computations can have various forms, we focus on three categories:
 %TODO[JB] 4 plus tard...
-\emph{Stencil} computations involve access to neighbor values only (the concept of neighborhood depending on the space discretization used).
-\emph{Local} computations depend on the computed location only (this can be seen as a stencil of size one).
+\emph{Stencil} computations involve access to neighbor values only (the concept of neighborhood depending on the space discretization used);
+\emph{Local} computations depend on the computed location only (this can be seen as a stencil of size one);
 Finally, \emph{reductions} enable to transform values mapped on the mesh to a single scalar value.
 
 This section gives a complete formal description of what we call a \textit{stencil program} and its computations. A Multi-Stencil Program meta-model is extracted from this formal description. The meta-model will be used to define MSL and GA in the next section.
@@ -12,6 +12,7 @@ This section gives a complete formal description of what we call a \textit{stenc
 %-------------------------------------
 \subsection{Time, mesh and data}
 
+Let introduce some notations.
 $\Omega$ is the continuous space domain of a numerical simulation (typically $\mathbb{R}^n$). %For example, if $n=3$, any geographic point on earth could be represented in this space in a given geographic coordinate system.
 A mesh $\mathcal{M}$ defines the discretization of the continuous space domain $\Omega$ of a set of PDEs and is defined as follows.
 
@@ -33,17 +34,20 @@ A mesh can be structured (as Cartesian or curvilinear meshes), unstructured, reg
 \begin{mydefs}[Definitions (mesh)]
 \item An \textit{entity} $\phi$ of a mesh $\mathcal{M}=(V,E)$ is defined as a subset of its vertices and edges, $\phi\subset V\cup E$.
 \item A \textit{group of mesh entities} $\mathcal{G} \in \mathcal{P}(V\cup E)$ represents a set of entities of the same topology and the mesh of a group is denoted $mesh(\mathcal{G})$, \textit{i.e.} $\mathcal{G} \in \mathcal{P}(V\cup E) \Leftrightarrow mesh(\mathcal{G})=(V,E)$
+\CP{Pas clair pour moi}
 \item The \textit{set of entities groups} used in a simulation is denoted $\Phi$.
+\CP{Entities groups not defined! a propos, n'est pas set of entit*y* groups?}
 \end{mydefs}
 
 For example, in a 2D Cartesian mesh, a group of entities where each entity is made of four vertices and four edges represents the cells.
 Another group of entities are the vertices defined as all singletons formed of a single vertex of $V$. Both groups, then, would be part of $\Phi$. This example is illustrated in Figure~\ref{fig:meshbase}.
+\CP{Idem, pas top clair. Il y a des implicites !}
 
 \medskip
 
 \begin{mydef}
 The finite sequence $T: (t_n)_{n\in\llbracket 0, T_{max} \rrbracket}$ represents the discretization of the continuous time domain $\mathcal{T}=\mathbb{R}$.
-To each discrete time-step $n\in\llbracket 0, T_{max} \rrbracket$, a time value $t_n\in\mathcal{T}$ is associated. The time step is $t_n-t_{n-1}$.
+To each discrete time-step $n\in\llbracket 0, T_{max} \rrbracket$, a time value $t_n\in\mathcal{T}$ is associated. The time step for $t_n$ is equal to $t_n-t_{n-1}$.
 \end{mydef}
 
 The time discretization can be as simple as a constant time-step with a fixed number of steps.
@@ -54,9 +58,9 @@ The time-step and the number of steps can also change on the fly during the simu
 \begin{mydefs}[Definitions (quantity)]
 \item $\mathbb{V}=\Delta\cup\mathcal{S}$ is the set of \emph{variables} or \emph{quantities}.
 \item $\Delta$ are the \textit{mesh variables}. A mesh variable $\delta \in \Delta$ associates to each pair of entity and time-step a value $\delta: \mathcal{G}\times T\mapsto \mathcal{V}_\delta$ where $\mathcal{V}_{\delta}$ is a value type.
-\item The group of entities a variable is mapped on is denoted $entity(\delta)=\mathcal{G}$.
+\item The group of entities a variable is mapped on is denoted $entity(\delta)=\mathcal{G}$.\CP{Pas clair}
 \item $\mathcal{S}$ are the \textit{scalar variables}. A scalar variable $s \in \mathcal{S}$ associates to each time-step a value $s: T\mapsto \mathcal{V}_\delta$ where $\mathcal{V}_{\delta}$ is a value type.
-\item Among the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria, whose value is $0$ except at the last step where it is 1. Thus, $\forall t\in \llbracket 0, T_{max-1} \rrbracket$, $conv(t)=0$, and $conv(T_{max})=1$.
+\item Among the scalar variables is one specific variable $conv\in\mathcal{S}$, the convergence criteria, whose value is $0$ except at the last step where it is 1. Thus, $\forall t\in \llbracket 0, T_{max-1} \rrbracket$, $conv(t)=0$, and $conv(T_{max})=1$. \CP{Il y a des implicites : est ce un calcul jusqu'à convergence ou un calcul sur MAX time step? Ou veux tu modéliser les deux (suivant que MAX est connu a priori ou a postiori?}
 \end{mydefs}
 
 \medskip
