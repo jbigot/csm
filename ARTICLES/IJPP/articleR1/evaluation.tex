@@ -105,7 +105,7 @@ However, it seems that a slightly drop of performance happens when the domain si
 
 The only noticeable difference between the two versions are due to \llc which load dynamic libraries at runtime. Because of this particularity, components of \llc are compiled with the \emph{-fpic} compilation flag while the SkelGIS version does not. This flag can have slight positive or negative effect on code performance depending on the situation and might be responsible for the observed difference.
 
-\HC{another benchmark to show that with the static version of \llc the problem disappear ?}
+%\HC{another benchmark to show that with the static version of \llc the problem disappear ?}
 
 \paragraph{\textbf{Strong scaling}}
 \begin{figure}[t]\begin{center}
@@ -118,15 +118,15 @@ Figure~\ref{fig:strong} shows the number of iteration per second for a 10k$\time
 
 First, one can notice that the strong scaling evaluated for the MSF version is close to the ideal speedup up to 16.384 cores, which is a very good result. Moreover, no overheads are introduced by MSF which shows that automatic synchronizations and automatic fusions are the same one that the one written manually into the plain SkelGIS version. Finally, no overheads are introduced by components of \llc. A small behavior difference can be noticed with $2^9=512$ cores, however this variation is no longer observed with 1024 cores.
 
-\paragraph{\textbf{Fusion}} Finally, we evaluate loop fusions automatically proposed by MSF from the $TSP$ tree of computation kernels. Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations. As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level and is most of the time done naturally by a computer scientist. However, for a non computer scientist which write its numerical codes, an automatic proposition of such fusions avoid errors, particularly for a parallel execution. Moreover, one can notice that the performance is clearly improved (around 40\%) by this fusion.
-
-\begin{figure}[!h]\begin{center}
-  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/fusVSbase.pdf}
-  \caption{Strong scaling on a 500x500 domain size with $200$ time iterations, with and without fusions proposed by MSF.}
-  \label{fig:fusion}
-\end{center}\end{figure}
-
-\HC{another benchmark with and without fusion fro task parallelization ?}
+%\paragraph{\textbf{Fusion}} Finally, we evaluate loop fusions automatically proposed by MSF from the $TSP$ tree of computation kernels. Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations. As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level and is most of the time done naturally by a computer scientist. However, for a non computer scientist which write its numerical codes, an automatic proposition of such fusions avoid errors, particularly for a parallel execution. Moreover, one can notice that the performance is clearly improved (around 40\%) by this fusion.
+%
+%\begin{figure}[!h]\begin{center}
+%  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/fusVSbase.pdf}
+%  \caption{Strong scaling on a 500x500 domain size with $200$ time iterations, with and without fusions proposed by MSF.}
+%  \label{fig:fusion}
+%\end{center}\end{figure}
+%
+%\HC{another benchmark with and without fusion fro task parallelization ?}
 
 %-------------------------------------
 \subsection{Hybrid parallelism evaluation}
@@ -218,3 +218,40 @@ Finally, to validate the performance model introduced in Section~\ref{sect:perfs
   \caption{Execution times (seconds) of $T_{COM1}$ and $T_{COM2} + T_{task}$ for 8 cores for task parallelization. Verification of the Equation~(\ref{eq:hyb}).}
   \label{fig:tth2}
 \end{center}\end{figure}
+
+\subsection{Fusion evaluation}
+
+\paragraph{\textbf{Fusion}} Finally, we evaluate loop fusions automatically proposed by MSF from the $TSP$ tree of computation kernels. Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations. As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level and is most of the time done naturally by a computer scientist. However, for a non computer scientist which write its numerical codes, an automatic proposition of such fusions avoid errors, particularly for a parallel execution. Moreover, one can notice that the performance is clearly improved (around 40\%) by this fusion.
+
+\begin{figure}[!h]\begin{center}
+  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/fusVSbase.pdf}
+  \caption{Strong scaling on a 500x500 domain size with $200$ time iterations, with and without fusions proposed by MSF.}
+  \label{fig:fusion}
+\end{center}\end{figure}
+
+
+\begin{figure}[ht]
+\begin{center}
+\subfloat[blabla\label{fig:fusion1}]{
+\includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout2_close_median.pdf}
+}\\
+\hspace{10pt}
+\subfloat[blabla\label{fig:fusion2}]{
+\includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout8_close_median.pdf}
+}
+\end{center}
+\caption{blabla}
+\label{fig:fusion}
+\end{figure}
+
+%\begin{figure}[!h]\begin{center}
+%  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout2_close_median.pdf}
+%  \caption{Strong scaling on a 500x500 domain size with $200$ time iterations, with and without fusions proposed by MSF.}
+%  \label{fig:fusion}
+%\end{center}\end{figure}
+%
+%\begin{figure}[!h]\begin{center}
+%  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout8_close_median.pdf}
+%  \caption{Strong scaling on a 500x500 domain size with $200$ time iterations, with and without fusions proposed by MSF.}
+%  \label{fig:fusion}
+%\end{center}\end{figure}

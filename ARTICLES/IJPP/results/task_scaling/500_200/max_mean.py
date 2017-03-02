@@ -3,8 +3,8 @@ import glob, os, string
 # os.chdir("./base")
 # filesearch = "base_MSL_500_200_128_"
 
-os.chdir("./fus")
-filesearch = "fus_MSL_500_200_128_"
+os.chdir("./task2Fus")
+filesearch = "taskFus2MSL_500_200_1024_"
 
 # os.chdir("./task16")
 # filesearch = "task16MSL_500_200_128_"
