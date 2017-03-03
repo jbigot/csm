@@ -224,9 +224,9 @@ Finally, to validate the performance model introduced in Section~\ref{sect:perfs
 \label{sect:fus}
 %-------------------------------------------------
 
-\HC{under modification}
+In this section we propose an evaluation of the fusion optimization. Three fusion optimizations have been formally detailed in Section~\ref{sect:fusion}. From the $TSP$ tree computed by MSC it is possible according to specific conditions to merge domain loops of kernels, thus optimizing the use of cache memories.
 
-\paragraph{\textbf{Fusion}} Finally, we evaluate loop fusions automatically proposed by MSF from the $TSP$ tree of computation kernels. Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations. As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level and is most of the time done naturally by a computer scientist. However, for a non computer scientist which write its numerical codes, an automatic proposition of such fusions avoid errors, particularly for a parallel execution. Moreover, one can notice that the performance is clearly improved (around 40\%) by this fusion.
+Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations, and by using data parallelism alone (without tasks). As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level. Most of the time such fusions are done naturally by a computer scientist. However, for a numerician who usually writes equations more than numerical codes, an automatic detection of such fusions avoids errors, particularly for a parallel execution. In addition to this, more advanced fusion cases, such as a scatter are more difficult to deduce. In FullSWOF2D a total of  62 fusions are proposed by MSF over a total of 98 computation kernels. Fig.~\ref{fig:fusion} shows that the performance is clearly improved (around 40\%) by these fusions.
 
 \begin{figure}[!h]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/fusVSbase.pdf}
@@ -234,14 +234,22 @@ Finally, to validate the performance model introduced in Section~\ref{sect:perfs
   \label{fig:fusion}
 \end{center}\end{figure}
 
+However, fusion optimizations are not always relevant. To illustrate this, we are using the same benchmark of FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations, however we compare data parallelism and hybrid parallelism both with and without fusion. 
+
+Blue curves of Fig.~\ref{fig:fusion1} represent results for data parallelism only with and without fusion. One can note that the best performance, as expected, is reached by the version using fusions. Green curves represent results by using 2 cores per MPI process dedicated for tasks, with and without fusion again. One can note that the best performance is also reached by the version using fusion.
+
 \begin{figure}[!h]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout2_close_median.pdf}
   \caption{blabla}
   \label{fig:fusion1}
 \end{center}\end{figure}
 
+However, to deeper analyze this results, we propose a second evaluation presented in Fig.~\ref{fig:fusion2}. The blue curves are exactly the same one than in Fig.~\ref{fusion1}. The purple curves, on the other hand, represent results by using 8 cores per MPI process dedicated to tasks, with and without fusion. Interesting results appears in this figure as the hybrid version using fusions is less efficient than the one without fusions. As already explained, this result is due to the fact that fusions reduce the number of tasks from 98 to 36 resulting in a non optimized use of eight cores for task parallelism. By using only 2 cores per MPI process (in Fig.~\ref{fig:fusion1}) the 36 computation kernels were enough to feed the two cores, while it is not for eight.
+
 \begin{figure}[!h]\begin{center}
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout8_close_median.pdf}
   \caption{blabla}
   \label{fig:fusion2}
 \end{center}\end{figure}
+
+As a result, if fusion optimization incurs a too large reduction of the number of tasks to feed dedicated cores, the problem observed for 16 cores in Fig.~\ref{fig:close} happens earlier which reduces obtained performances.
