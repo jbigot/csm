@@ -1,28 +1,35 @@
-As previously explained, in a computation $k(S,R,(w,D),comp)$, $comp$ is not handled by MSF. Numerical codes are left in a second step to the developer by using the $DDS$ component selected during the MSF compilation. As a result, in the rest of this paper, and to simplify notations, we denote the same computation $k(S,R,(w,D))$.
+In a computation $k(S,R,(w,D),comp)$, the $comp$ part is provided by the developer after the MSC compilation phase.
+This part does therefore not have any impact on compilation concerns.
+Thus, to simplify notations in the rest of this paper, we use the shortcut notation $k(S,R,(w,D))$ instead of $k(S,R,(w,D),comp)$.
 
 %------------------------------
 \subsection{Data parallelism}
 \label{sect:dataparal}
-In a data parallelization technique, the idea is to split data, or quantities, on which the program is computed into balanced sub-parts, one for each available resource. The same sequential program can afterwards be applied on each sub-part simultaneously, with some additional synchronizations between resources to update the data not computed locally, and thus to guarantee a correct result.
+In a data parallelization technique, the idea is to split data, or quantities, on which the program is computed into
+%JB: oui, certes... mais ca n'apporte rien comme info ici.
+% balanced 
+sub-domains, one for each execution resource.
+The same program is applied to each sub-domain simultaneously with some additional synchronizations to ensure coherence.
 
 \medskip
 More formally, the data parallelization of a multi-stencil program 
 \begin{equation*}
 \mathcal{MSP}(\mathcal{M},\Phi,\mathcal{D},\mathcal{N},\Delta, \mathcal{S},T,\Gamma)
 \end{equation*}
+consists in a partitioning of the mesh $\mathcal{M}$ in $p$ sub-meshes $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$.
+This step can be performed by an external graph partitioner~\cite{Pellegrini:1996:SSP:645560.658570,DBLP:conf/ieeehpcs/HeleneS13,lachat:hal-00768916} and is addressed by the third party DDS component instantiated from GA. 
 
-consists in, first, a partitioning of the mesh $\mathcal{M}$ in $p$ balanced sub-meshes (for $p$ resources) $\mathcal{M}=\{\mathcal{M}_0,\dots,\mathcal{M}_{p-1}\}$. This step can be performed by an external graph partitionner~\cite{Pellegrini:1996:SSP:645560.658570,DBLP:conf/ieeehpcs/HeleneS13,lachat:hal-00768916} and is addressed by the third party DDS component instantiated from GA. 
+As entities and quantities are mapped on the mesh, the set of groups of mesh entities and the set of quantities $\Delta$ are partitioned the same way as the mesh: $\Phi=\{\Phi_0,\dots,\Phi_{p-1}\}$, $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. 
 
-As entities and quantities are mapped onto the mesh, the set of groups of mesh entities and the set of quantities $\Delta$ are partitioned the same way than the mesh: $\Phi=\{\Phi_0,\dots,\Phi_{p-1}\}$, $\Delta=\{\Delta_0,\dots,\Delta_{p-1}\}$. 
-
-The second step of the parallelization is to identify in $\Gamma$ the needed synchronizations between resources to update data, and thus to build a new ordered list of computations $\Gamma_{sync}$.
+The second step of the parallelization is to identify in $\Gamma$ the synchronizations required to update data.
+It leads to the construction of a new ordered list of computations $\Gamma_{sync}$.
 
 \begin{mydef}
 For $n$ the number of computations in $\Gamma$, and for $i,j$ such that $i<j<n$, a \textit{synchronization} is needed between $k_i$ and $k_j$, denoted $k_i \pprec k_j$, if $\exists (r_j,n_j) \in R_j$ such that $w_i=r_j$ and $n_j\neq identity$ ($k_j$ is a stencil computation). The quantity to synchronize is $\{w_i\}$.
 \label{def:sync}
 \end{mydef}
 
-Actually, a synchronization is needed by the quantity read by a stencil computation (not local), if this quantity has been written before. This synchronization is needed because a neighborhood function $n \in \mathcal{N}$ of a stencil computation involves values computed on different resources.
+A synchronization is needed for the quantity read by a stencil computation (not local), if this quantity has been written before. This synchronization is needed because a neighborhood function $n \in \mathcal{N}$ of a stencil computation involves values computed on different resources.
 
 However, as a multi-stencil program is an iterative program, computations which happen after $k_j$ at the time iteration $t$ have also been computed before $k_j$ at the previous time iteration $t-1$. For this reason another case of synchronization has to be defined.
 
@@ -45,9 +52,10 @@ If $k_i \pprec k_j$, $k_j$ is replaced by the list
 \begin{equation*}
 [k_{i,j}^{sync}, k_j]
 \end{equation*}
+where the synchronization operation has been added.
 \end{mydef}
 
-When data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is first applied locally on each subset of entities, on each resource. Thus, $p$ (number of resources) scalar values are obtained. For this reason, to perform the final reduction, a set of synchronizations are needed to get the final reduced scalar. As most parallelism libraries (MPI, OpenMP) already propose a reduction synchronization with its own optimizations, we simply choose to replace the reduction computation by itself annotated by $red$.
+When data parallelism is applied, the other type of computation which is responsible for additional synchronizations is the reduction. Actually, the reduction is first applied locally on each subset of entities, on each resource. Thus, $p$ (number of resources) scalar values are obtained. For this reason, to perform the final reduction, a set of synchronizations are needed to get the final reduced scalar. As most parallelism libraries (MPI, OpenMP) already propose a reduction synchronization with their own optimizations, we simply replace the reduction computation by itself annotated by $red$.
 
 \begin{mydef}
 A reduction kernel $k_j(S_j,R_j,(w_j,D_j))$, where $w$ is a scalar, is replaced by $k^{red}_j(S_j,R_j,(w_j,D_j))$.
@@ -250,7 +258,7 @@ F_{dep}(F_{sync}(\Gamma,0),0).
 \subsection{Static scheduling}
 \label{sect:tsp}
 
-In this section we detail a static scheduling of $\Gamma_{dep}$ by using minimal series-parallel directed acyclic graphs. Such a static scheduling may not be the most efficient one, but it offers a simple fork/join task model which make possible the design of a performance model. Moreover, such a scheduling offers a simple way to propose a fusion optimization. 
+In this section we detail a static scheduling of $\Gamma_{dep}$ by using minimal series-parallel directed acyclic graphs. Such a static scheduling may not be the most efficient one, but it offers a simple fork/join task model which makes possible the design of a performance model. Moreover, such a scheduling offers a simple way to propose a fusion optimization. 
 
 In 1982, Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have defined the class of Minimal Series-Parallel DAGs (MSPD). Such a graph can be decomposed as a serie-parallel tree, denoted $TSP$, where each leaf is a vertex of the MSPD it represents, and whose internal nodes are labeled $S$ or $P$ to indicate whether the two sub-trees form a sequence or parallel composition. Such a tree can be considered as a fork-join model and as a static scheduling. An example is given in Fig.~\ref{fig:solu}.
 
@@ -395,7 +403,7 @@ After these over-constraints are applied, $\Gamma_{dep}$ is MSPD. Valdes \& Al~\
 \subsection{Fusion optimization}
 \label{sect:fusion}
 
-Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized independent stencil codes, but to produce the parallel orchestration of computations, building the $TSP$ tree make available an easy optimization when the data parallelization technique is the only one used. 
+Using MSL, it is possible to ask for data parallelization of the application, or for an hybrid parallelization. Even though the MSL language is not dedicated to produce very optimized independent stencil codes, but to produce the parallel orchestration of computations, building the $TSP$ tree makes available an easy optimization when the data parallelization technique is the only one used. 
 This optimization consists in proposing a valid merge of some computation kernels inside a single space loop. This is called a fusion. As previously explained in Section~\ref{sect:formalism}, MSL restrict the definition of a numerical computation by writing a single quantity at a time which is more natural for numericians, and which avoid errors in manual fusion or counter-productive fusions for task parallelization. MSF guarantee that proposed fusions are correct and will not cause errors in the final results of the simulation.
 
 Those fusions can be computed from the canonical form of the $TSP$ tree decomposition. The canonical form consists in recursively merging successive $S$ vertices or successive $P$ vertices of $TSP$.
@@ -430,11 +438,16 @@ The fusion function $F_{fus}$ is described in Algorithm~\ref{alg:fus}, where the
 \end{algorithmic}
 \end{algorithm}
 
-We are not arguing that such a simple fusion algorithm could be as good as complex cache optimization techniques which can be found in stencil DSLs for example~\cite{spaaTangCKLL11}. However, this fusion takes place at a different level and can bring performance improvements as it will be illustrated in Section~\ref{sect:eval}. This fusion algorithm relies on two statements:
-\begin{itemize}
-\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are, by construction, data dependent. As a result, what is written by the first one is read by the second one. Thus, $w_i$ the quantity written by $k_i$ is common to these computations. Thus, if the computation domains verify $D_i=D_j$, the fusion of $k_i$ and $k_j$ will decrease cache misses.
-\item Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $P$ in TSP are not, by construction, data dependent. However, if the computation domains verify $D_i=D_j$, and if $R_i \cap R_j \neq \emptyset$ cache misses could also be decreased by the fusion $k_{i;j}^{fus}$.
-\end{itemize}
+We are not arguing that such a simple fusion algorithm could be as good as complex cache optimization techniques which can be found in stencil DSLs~\cite{spaaTangCKLL11} for example. However, this fusion takes place at a different level and can bring performance improvements as will be illustrated in Section~\ref{sect:eval}. This fusion algorithm relies on the following observations.
+
+%JB: des items sont normalement des parties de phrases, pas de point. Ici tu peux faire des paragraphes il me semble
+% \begin{itemize}
+% \item
+First, two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are, by construction, data dependent. As a result, what is written by the first one is read by the second one. Thus, $w_i$ the quantity written by $k_i$ is common to these computations. Thus, if the computation domains verify $D_i=D_j$, the fusion of $k_i$ and $k_j$ will decrease cache misses.
+
+% \item 
+Second, two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $P$ in TSP are not, by construction, data dependent. However, if the computation domains verify $D_i=D_j$, and if $R_i \cap R_j \neq \emptyset$ cache misses could also be decreased by the fusion $k_{i;j}^{fus}$.
+% \end{itemize}
 These two cases are illustrated by Fig.~\ref{fig:fus1} and Fig.~\ref{fig:fus2}.
 
 \begin{figure}[h!]
@@ -479,8 +492,7 @@ These two cases are illustrated by Fig.~\ref{fig:fus1} and Fig.~\ref{fig:fus2}.
 \end{center}
 \end{figure}
 
-One additional case of fusion can also happen. It is close to the first one above but is a little more difficult:
-Two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are, by construction, data dependent. As a result, what is written by the first one is read by the second one. The construction of the tree also guarantee that synchronizations are not needed between these computations, otherwise a $k^{sync}$ would have been inserted between them (inherited from $\Gamma_{sync}$). Thus, $w_i$ the quantity written by $k_i$ is common to these computations. Considering the following:
+Thirs, and similarly to the first observation, two successive computation kernels $k_i$ and $k_j$ which are under the same parent vertex $S$ in TSP are data dependent and what is written by the first one is read by the second one. The construction of the tree also guarantees that synchronizations are not needed between these computations, otherwise a $k^{sync}$ would have been inserted between them (inherited from $\Gamma_{sync}$). Thus, $w_i$ the quantity written by $k_i$ is common to these computations. Considering the following:
 \begin{itemize}
 \item $D_i \neq D_j$, which means that loop fusion is by default not possible,
 \item $(r_j,n_j)$ is the pair read by $k_j$ for which $r_j=w_i$ and for which $n_j:D_j \rightarrow D_i^m$
@@ -516,8 +528,8 @@ This means that even if domains are different, a loop fusion is possible if an a
 \subsection{Overall compilation process}
 \label{sect:ovcompil}
 
-MSC takes a MSL file written following the grammar described in Section~\ref{sect:msl}, as well as the Generic Assembly of components represented in Fig.~\ref{fig:ga} as inputs, and generates a specialized component assembly that manages the parallel orchestration of the computations of the simulation. In this final assembly, that could be compared to a pattern or a skeleton of the simulation, the developer still has to fill the functions corresponding to the various computation kernels by using the DDS instantiation chosen into the specialized assembly.
-The overall behavior of the compiler is as follow: %presented in Algorithm~\ref{alg:compiler}.
+MSC takes a MSL file written following the grammar described in Section~\ref{sect:msl}, as well as the Generic Assembly of components represented in Fig.~\ref{fig:ga} as inputs, and generates a specialized component assembly that manages the parallel orchestration of the computations of the simulation. In this final assembly, that could be compared to a pattern or a skeleton of the simulation, the developer still has to fill-in the functions corresponding to the various computation kernels by using the DDS instantiation chosen into the specialized assembly.
+The overall behavior of the compiler is as follows: %presented in Algorithm~\ref{alg:compiler}.
 \begin{enumerate}
  \item it parses the MSL input file and generates $\Gamma$, the list of computation kernels,
  \item from $\Gamma$, it builds $\Gamma_{sync}$, the list including synchronizations for data parallelism using Algorithm $F_{sync}$ introduced in Section~\ref{sect:parallelism},
@@ -536,11 +548,14 @@ The last step of this compilation process is detailed below. It is composed of f
  \end{enumerate}
 
 % detailed each component (interfaces)
-New components have been introduced above and need to be explained. A $K$ component is a component into which the developer will write numerical code. It could represents a single computation kernel described by the numerician using MSL, or it could represents the fusion of multiple computation kernels. In any case the name of the generated component will use kernel identifiers used in the MSL description. A $K$ kernel is composed of $m$ use ports that are used to be connected to the $m$ quantities needed by the computation (\ie the numerical code). The component is also equipped with a provide port to be connected to the $Scheduler$ component. A generic $K$ component is represented in Fig.~\ref{fig:k}.
+New components have been introduced above and need to be explained. A $K$ component is a component into which the developer will write numerical code. It could represents a single computation kernel described by the numerician using MSL, or it could represents the fusion of multiple computation kernels. In any case the name of the generated component will use kernel identifiers used in the MSL description. A $K$ kernel is composed of $m$ use ports that are used to be connected to the $m$ quantities needed by the computation (\ie the numerical code). The component also exposes a provide port to be connected to the $Scheduler$ component. A generic $K$ component is represented in Fig.~\ref{fig:k}.
 
-A $Sync$ component is a static component (not generated) composed of a use-multiple port which is used to ask synchronizations to all quantities it is linked to ($Data$). The component is also equipped with a provide port to be connected to the $Scheduler$ component. The $Sync$ component is represented in Fig.~\ref{fig:sync}.
+A $Sync$ component is a static component (not generated) composed of a use-multiple port which is used to request synchronizations for all quantities it is linked to ($Data$). The component also exposes a provide port to be connected to the $Scheduler$ component. The $Sync$ component is represented in Fig.~\ref{fig:sync}.
 
-Finally, the $Scheduler$ component is the component responsible for implementing the $TSP$ computed by MSC. Thus, this component represents the specific parallel orchestration of  computations. It is a heavy component with as much use ports as the number of $K$ components to call (\ie computations and fusions of computations). The component is also equipped with a provide port to be connected to the $Time$ component. A generic $Scheduler$ component is represented in Fig.~\ref{fig:ass}.
+Finally, the $Scheduler$ component is the component responsible for implementing the $TSP$ computed by MSC. Thus, this component represents the specific parallel orchestration of  computations. It exposes as many use ports as there are instances of $K$ components to call (\ie computations and fusions of computations). The component also exposes a provide port to be connected to the $Time$ component. A generic $Scheduler$ component is represented in Fig.~\ref{fig:ass}.
+
+% draw the sepcialized assembly of the example
+To illustrate how a specialized assembly is generated, the specialized assembly of the example that has been used throughout this paper is represented in Fig.~\ref{fig:specass}. 
 
 \begin{figure}[t]
 \begin{center}
@@ -583,9 +598,6 @@ Finally, the $Scheduler$ component is the component responsible for implementing
 \label{fig:specass}
 \end{center}
 \end{figure}
-
-% draw the sepcialized assembly of the example
-To illustrate how a specialized assembly is generated, the specialized assembly of the example that has been used throughout this paper is represented by Fig.~\ref{specass}. As this assembly is heavy to entirely draw, only a sub part of it is represented by the figure. Moreover some connections are represented by numbers instead of lines to not complexity the read.
 
 \begin{figure}[t]
 \begin{center}
@@ -663,7 +675,10 @@ To illustrate how a specialized assembly is generated, the specialized assembly 
     %(syncp.east) edge [bend right] node {} (mpidata3.east);
 \end{tikzpicture}
 \vspace*{.5em}
-\caption{Generic Assembly according to the Multi-Stencil program formalism.}
+\caption{Generic Assembly according to the Multi-Stencil program formalism.
+The complete assembly would be too complex to entirely draw and only a sub part is represented.
+Some connections are represented by numbers instead of lines in order not to make the schema more clear.
+\JB{etre plus clair sur les notations (Comme pour la Fig\ref{fig:ga}}}
 \label{fig:specass}
 \end{center}
 \end{figure}
@@ -672,9 +687,11 @@ To illustrate how a specialized assembly is generated, the specialized assembly 
 \subsection{Performance model}
 \label{sect:perfs}
 
-In this subsection are introduced two performance models, one for the data parallelization technique, and one for the hybrid data and task parallelization technique, both previously explained.
+In this subsection we introduce two performance models, one for the data parallelization technique, and one for the hybrid data and task parallelization technique, both previously explained.
 
-The performance model of a data parallelization technique is inspired from the Bulk Synchronous Parallel model. Actually data parallelization technique consider that each process has its own part of the domain. Thus the performance model reveals that the computation time is the sum of the reference sequential time divided by the number of processes, and of the time spent in communications between processes. Thus, for
+The performance model for the data parallelization technique is inspired by the Bulk Synchronous Parallel model.
+We consider that each process handles its own sub-domain that has been distributed in a perfectly balanced way.
+The performance model describes the computation time as the sum of the sequential time divided by the number of processes, and of the time spent in communications between processes. Thus, for
 \begin{itemize}
 \item $T_{SEQ}$ the sequential reference time, 
 \item $P$ the total number of processes, 
@@ -691,8 +708,9 @@ Thus, when the number of processes $P$ increase in data parallelization, the per
 \end{equation}
 
 As a result, the critical point for performance is when $T_{COM} \geq \frac{T_{SEQ}}{P}$, which happens naturally in data parallelization as $T_{COM}$ will increase with the number of processes, and $\frac{T_{SEQ}}{P}$ decrease with the number of processes.
+\JB{Pour moi $T_{COM}$ est constant quand on communique entre voisins... Il diminue meme legerement si on reduit les donnees par process.}
 
-This limitation is always true, but can be delayed by different strategies. First, it is possible to overlap communications by performing computations simultaneously. Second, it is possible to introduce another kind of parallelization, task parallelization. Thus, for the same total number of processes, only a part of them are used for data parallelization, and the rest are used for task parallelism. As a result, $\frac{T_{SEQ}}{P}$ will continue to decrease but $T_{COM}$ will increase later. This second strategy is the one studied in the following hybrid performance model.
+This limitation is always true, but can be delayed by different strategies. First, it is possible to overlap communications and computations. Second, it is possible to introduce another kind of parallelization, task parallelization. Thus, for the same total number of processes, only a part of them are used for data parallelization, and the rest are used for task parallelism. As a result, $\frac{T_{SEQ}}{P}$ will continue to decrease but $T_{COM}$ will increase later. This second strategy is the one studied in the following hybrid performance model.
 
 For an hybrid (data and task) parallelization technique, and for
 \begin{itemize}
@@ -723,7 +741,7 @@ F_{task} = P_{task},
 however, as it will be illustrated in Section~\ref{sect:eval} $F_{task}$ is more difficult to establish. Actually, the lower and upper bounds of $F_{task}$ are constrained by the dependency graph of the application.
 
 \medskip
-As a result when $P_{data}$ is small a data parallelization technique may be more efficient, while an hybrid parallelization could be interesting at some point to improve performance. The question is: when is it interesting to use hybrid parallelization ? This paper does not propose an intelligent system to answer this question automatically, however, it offers a way to understand how to answer the question. To answer this question lets consider the two parallelization techniques, data only and hybrid. We denote
+As a result when $P_{data}$ is small a data parallelization technique may be more efficient, while an hybrid parallelization could be interesting at some point to improve performance. The question is: when is it interesting to use hybrid parallelization ? This paper does not propose an intelligent system to answer this question automatically, however, it offers a way to understand how to answer the question. To answer this question let's consider the two parallelization techniques, data only and hybrid. We denote
 \begin{itemize}
 \item $P_{data1}$ the total number of processes entirely used by the data only parallelization,
 \item $P_{data2}$ the number of processes used for data parallelization in the hybrid parallelization,
@@ -742,4 +760,4 @@ T_{COM1} \geq T_{COM2} + T_{task}
 \label{eq:hyb}
 \end{equation}
 
-This performance model will be validated and will help to explain results of Section~\ref{sect:eval}.
+This performance model will be validated and will help explain results of Section~\ref{sect:eval}.
