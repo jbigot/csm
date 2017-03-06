@@ -748,7 +748,7 @@ Thus, when the number of processes $P$ increase in data parallelization, the per
 \end{equation}
 
 As a result, the critical point for performance is when $T_{COM} \geq \frac{T_{SEQ}}{P}$, which happens naturally in data parallelization as $T_{COM}$ will increase with the number of processes, and $\frac{T_{SEQ}}{P}$ decrease with the number of processes.
-\JB{Pour moi $T_{COM}$ est constant quand on communique entre voisins... Il diminue meme legerement si on reduit les donnees par process.}
+%\JB{Pour moi $T_{COM}$ est constant quand on communique entre voisins... Il diminue meme legerement si on reduit les donnees par process.}
 
 This limitation is always true, but can be delayed by different strategies. First, it is possible to overlap communications and computations. Second, it is possible to introduce another kind of parallelization, task parallelization. Thus, for the same total number of processes, only a part of them are used for data parallelization, and the rest are used for task parallelism. As a result, $\frac{T_{SEQ}}{P}$ will continue to decrease but $T_{COM}$ will increase later. This second strategy is the one studied in the following hybrid performance model.
 
