@@ -192,7 +192,7 @@ From 2 to 8 cores, the improvement of the strong scaling is clear. However, reac
 First, thin nodes of the TGCC Curie are built with two NUMA socket each of 8 cores. As a result, when increasing the number of OpenMP cores for task parallelization from 8 to 16 cores, an overhead is introduced by exchanges of data between memories of the two NUMA sockets. This phenomena is illustrated in Figure~\ref{fig:spread}. In this figure, a different binding strategy is used. A binding strategy is the way the scheduler binds threads onto available cores. The strategy used in Figure~\ref{fig:spread} is called \emph{spread} (instead of \emph{close} in Figure~\ref{fig:close}). This strategy binds threads on cores in order to spread as much as possible onto resources, which means that the two NUMA sockets are used whatever the number of cores used for tasks is. As a result, and as shown in the figure, using 2, 4 and 8 cores an initial overhead is introduced as the one observed in Figure~\ref{fig:close}. This shows that the initial overhead with 16 cores is due to NUMA effects.
 
 \begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/base_spread_median.pdf}}
+  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/base_spread_median.pdf}
   \caption{Strong scaling comparisons between data parallelization and hybrid parallelization. A \emph{spread} OpenMP clause is used to bind threads onto cores.}
   \label{fig:spread}
 \end{center}\end{figure}
@@ -223,7 +223,7 @@ Finally, to validate the performance model introduced in Section~\ref{sect:perfs
 \end{table}
 
 \begin{figure}[!h]\begin{center}
-  \resizebox{8cm}{!}{\includegraphics{../results/task_scaling/500_200/analytic/tth.pdf}}
+  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/analytic/tth.pdf}
   \caption{Execution times (seconds) for a single time iteration of $T_{COM1}$ and $T_{COM2} + T_{task}$ for 8 cores for task parallelization. Verification of the Equation~(\ref{eq:hyb}).}
   \label{fig:tth2}
 %\CP{Time en puissance de 2 ou de 10 ?}
@@ -267,5 +267,4 @@ However, to deeper analyze this results, we propose a second evaluation presente
   \label{fig:fusion2}
     %\CP{A FINIR !!! ERREUR DANS LEGENDES AUSSI.}
 \end{center}\end{figure}
-
 As a result, if fusion optimization incurs a too large reduction of the number of tasks to feed dedicated cores, the problem observed for 16 cores in Figure~\ref{fig:close} happens earlier which reduces obtained performances. For this reason, MSF performs fusions only when data parallelization is used alone. This choice could be more intelligent but this is the subject of future work.
