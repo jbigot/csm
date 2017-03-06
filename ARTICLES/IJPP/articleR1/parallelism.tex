@@ -267,10 +267,10 @@ Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have identified a forbidden sh
 Thus, as $\Gamma_{dep}$ is a DAG, by removing N-Shapes it is transformed to a MSPD. The intuition is illustrated in Fig.~\ref{fig:over}. Considering the figure without the dashed line, the sub graph forms a "N" shape. The fact is that this shape cannot be represented as a composition of sequences or parallel executions.
 To remove such forbidden N-shapes of $\Gamma_{dep}=(V,E)$, we have chosen to apply an over-constraint with the relation $k_0 \prec k_3$, such that a complete bipartite graph is created for the sub-dag as illustrated in Figure~\ref{fig:over}. By adding this arc to the DAG, it is possible to identify its execution as $sequence(parallel(k_0;k_2);parallel(k_1;k3))$ represented by the TSP tree of Fig.~\ref{fig:solu}.
 
-\begin{figure}[h!]
+\begin{figure}[t]
+\begin{minipage}{.475\textwidth}
 \begin{center}
-\subfloat[Over-constraint on the forbidden $N$ shape.\label{fig:over}]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+  \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[] (c0) at (0,0) {$k_0$};
    \node[] (bc0) at (-1,0) {};
    \node[] (c1) at (2,0) {$k_1$};
@@ -286,10 +286,14 @@ To remove such forbidden N-shapes of $\Gamma_{dep}=(V,E)$, we have chosen to app
     (c2) edge node {} (c1)
         edge node {} (c3);
   \end{tikzpicture}
-}
-\hspace{30pt}
-\subfloat[TSP tree of Fig.~\ref{fig:over}\label{fig:solu}]{
-\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+  \caption{Over-constraint on the forbidden $N$ shape.}
+  \label{fig:over}
+ \end{center}
+\end{minipage}
+\hfill
+\begin{minipage}{.475\textwidth}
+\begin{center}
+  \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
    \node[] (S0) at (0,0) {$\mathcal{S}$};
    \node[] (bS0) at (-1,-1) {};
    \node[] (P1) at (-1,1) {$\mathcal{P}$};
@@ -308,11 +312,57 @@ To remove such forbidden N-shapes of $\Gamma_{dep}=(V,E)$, we have chosen to app
     (P2) edge node {} (c1)
         edge node {} (c3);
   \end{tikzpicture}
-}
-\label{fid:nshape}
-\caption{N-Shape problem and solution}
-\end{center}
-\end{figure}
+  \caption{TSP tree of Fig.~\ref{fig:over}.}
+  \label{fig:solu}
+ \end{center}
+\end{minipage}\end{figure}
+
+%\begin{figure}[h!]
+%\begin{center}
+%\subfloat[Over-constraint on the forbidden $N$ shape.\label{fig:over}]{
+%\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%   \node[] (c0) at (0,0) {$k_0$};
+%   \node[] (bc0) at (-1,0) {};
+%   \node[] (c1) at (2,0) {$k_1$};
+%   \node[] (c2) at (0,-1) {$k_2$};
+%   \node[] (bc2) at (-1,-1) {};
+%   \node[] (c3) at (2,-1) {$k_3$};
+% 
+%  \path[->]
+%    (bc0) edge [dotted] node {} (c0)
+%    (bc2) edge [dotted] node {} (c2)
+%    (c0) edge node {} (c1)
+%          edge [dashed] node [swap] {} (c3)
+%    (c2) edge node {} (c1)
+%        edge node {} (c3);
+%  \end{tikzpicture}
+%}
+%\hspace{30pt}
+%\subfloat[TSP tree of Fig.~\ref{fig:over}\label{fig:solu}]{
+%\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+%   \node[] (S0) at (0,0) {$\mathcal{S}$};
+%   \node[] (bS0) at (-1,-1) {};
+%   \node[] (P1) at (-1,1) {$\mathcal{P}$};
+%   \node[] (aP1) at (-1.5,2) {$k_0$};
+%   \node[] (aaP1) at (-0.5,2) {$k_2$};
+%   \node[] (P2) at (1,1) {$\mathcal{P}$};
+%   \node[] (c1) at (0.5,2) {$k_1$};
+%   \node[] (c3) at (1.5,2) {$k_3$};
+% 
+%  \path[->]
+%    (bS0) edge [dotted] node {} (S0)
+%    (S0) edge node {} (P1)
+%         edge node {} (P2)
+%    (P1) edge node [swap] {} (aP1)
+%          edge node [swap] {} (aaP1)
+%    (P2) edge node {} (c1)
+%        edge node {} (c3);
+%  \end{tikzpicture}
+%}
+%\label{fid:nshape}
+%\caption{N-Shape problem and solution}
+%\end{center}
+%\end{figure}
 
 After these over-constraints are applied, $\Gamma_{dep}$ is MSPD. Valdes \& Al~\cite{Valdes:1979:RSP:800135.804393} have proposed a linear algorithm to know if a DAG is MSPD and, if it is, to decompose it to its associated binary decomposition tree. As a result, the binary tree decomposition algorithm of Valdes \& Al can be applied on $\Gamma_{dep}$ to get the $TSP$ static scheduling of the multi-stencil program.
 
