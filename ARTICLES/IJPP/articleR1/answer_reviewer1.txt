@@ -1,0 +1,82 @@
+First of all we would like to warmly thank the reviewers for their remarks that have been very helpful to improve the paper. To take their remarks into account, we have changed the structure of the paper and  we have added details and improved sentences. Moreover we have added two experiments to clarify the results and conclusions. 
+
+In the previous submission we had tried to present the domain specific language MSL. This DSL is actually part of a larger framework, the Multi-Stencil Framework. It appears in reviews that splitting the DSL from its framework and presenting it alone is difficult to understand for readers. We have therefore reworked the paper to acknoledge that fact.
+We have changed the title of the paper. We have inserted a new section after the introduction that presents an overview of the Multi-Stencil Framework (MSF) to help understanding the rest of the paper as well as its outline. We have improved the third section that presents the formalism of a multi-stencil program according to the remarks of the reviewers. Sections four and five are based on this formalism, or meta-model. In Section four, we present the MSL grammar as well as the second input of the Multi-Stencil Framework, a generic template of a multi-stencil program. In Section five, we present the overall compilation process of the framework. This part was split in two different sections in the previous submission. Furthermore, this section has been improved by adding the scatter fusion case in Section 5.4, as well as the explanation of how the back-end code is produced in Section 5.5. Section six presents the evaluation of the framework. Evaluations has been clarified and additional results have been added in Section 6.4 and 6.6. Finally, the related work has been clarified according to the Multi-Stencil Framework and not only from the DSL point of view which helps to understand the contribution compared to other solutions.
+
+A detailed answer to each reviewer follows.
+
+**** Reviewer 1**********************************************************
+
+- "It would be better to swap the last two subsections, since the fusion optimization is partially built upon an intermediate data introduced for the static"
+    + this swap has been done as the fusion is detailed in Section 5.4 and the performance model in Section 5.6
+
+- "The first results show that a data-parallel version scales up to at least
+2^14 processor cores in both a strong and a weak scaling experiment, which is
+promising. However, the results shown in Figures 12 to 14 for a version named
+"MSL data parallelization only" do not scale to more than 2^8 processors.  Based on the descriptions, both experiments should be identical, so why do the results differ that much?  I am not sure whether the discrepancy is due to an insufficient description of the experiment setup or some other major issues.  More generally stated, the experiment setup for all parts of the evaluation should be clear, and possible discrepancies between different experiments should be explained in detail."
+    + The reviewer is right, we had forgotten to give a precise and clear description of this evaluation (of the old Section 8.3). This has been improved in the new section 6.5. Strong scaling results are different in figures 20 and 22 (new submission references) because, to illustrate data prallelization limitations (by using MPI), we have considerably reduced the domain size of the experiment. In Figure 20 the strong scaling was shown for a domain size of 10k x 10k, while the domain size is only 500x500 in Figure 22. As a result, when reaching 2^8 cores, for example, each core has to compute only 31x31 in Figure 22, while for 2^8 cores each core has to compute 625x625 in Figure 20. As explained and shown in the new Section 6.5, this result is due to communication overheads compared to computations. This has been clarified in the paper in Section 6.5.
+
+- "Concerning Figures 8 and 9, for a 400*400 domain per core, the MSL code
+performs better but, for an 800*800 domain, SkelGIS is better: does this trend
+continue for an even larger domain per core?  Do both perform exactly
+identically for a 600*600 domain size?  The explanation in the paper is
+confusing: are different compiler flags used for both MSL versions, or for the
+MSL + SkelGIS and the SkelGIS only version?  In the former case: why? The only
+difference is the problem size."
+  + It is true that results are a bit different for weak scaling using 400x400 or 800x800 domain sizes. We have conducted the same experiments again and we have added the weak scaling result for a domain size 600x600. This result confirms that the weak scaling gets worse when increasing the domain size. However, results are still very close to the version using SkelGIS only (less than 3%). As clarified in the new Section 6.4, the difference between "SkelGIS" and "MSF over SkelGIS" is the use of component models l2c, for which the flag -fpic of gcc is used to produce dynamic libraries. It is quite difficult to clearly state what are the differences due to this flag and why both code versions are not exactly behaving the same. This is probably due to some minor compiler optimizations not possible because of this option.
+
+- "An overall problem of the paper is that the language is in parts convoluted, especially in the evaluation.  The following sentence is one example from Section 8.3: "Table 3 represents the number of time a given level of parallelism, i.e., the number of tasks to perform concurrently, is observed in the final tree."
+  + the English correctness has been improved in the paper
+
+
+
+*** Reviewer 2**********************************************************
+
+- "The formalism developed is rigorous but doesn't seem to give any new insight into the computation"
+    + The formalism of Section 3 (new submission) is the basis of the Multi-Stencil framework. It is a meta-model of any multi-stencil simulation. It means that this formalism should be common to any existing solution. MSF is based on this meta-model and this is why MSF is flexible and could combine multiple kinds of back-end solution. This has been clarified in the new submission.
+    
+- "Languages like Listz already capture and utilize the same information in almost the same way."
+    + We have improved the clarity of the contribution of the paper. As indicated in the new submission, the proposed meta-model of a multi-stencil program can be compared to the mesh abstraction proposed by Listz and OP2. However, neither Listz or OP2 propose an hybrid parallelization. Finally Listz and OP2 are monolithic solutions with a limited flexibility and a limited separation of concerns. This separation of concerns eases code reuse of existing solutions as well as code-reuse from one simulation to another. We hope that the new submission is more clear and answers this remark.
+
+- "The modeling of when to use data parallelism and when to use fork-join model is interesting but not enough details are provided as to how this exactly works."
+    + It has been clarified in the paper that MSF does not propose a way to choose neither the best parallelization technique nor the best fusion choices according to the kind of run or hardware used. However, MSF and its evaluation shows that the choice is not trivial and it proposes a first performance model that could help this choice. Algorithms to automatically choose the best configuration are left for future work as described in the conclusion of the paper.
+
+- "Further the paper seems to have been submitted in a rush without adequate editing. There are a lot of grammatical errors, spelling mistakes, even undefined references that should be fixed before any submission."
+    + the English correctness has been improved in the paper.
+
+- "My suggestion to the authors is to flush out the hybrid parallelism aspect in more detail. The huge amount of formalism developed does not contribute much to this part of the paper, and the actual interesting part gets lost in all that detail. The evaluation of this is done only for Shallow water. More examples of use of this approach would make a more compelling case for the utility of this approach across different applications."
+    + The contribution of the paper has been clarified and we hope that this clarification helps the reader to understand why our formalism is important. The proposed meta-model is the basis of the Multi-Stencil framework and is the way to enhance separation of concerns and flexibility. We did not have the opportunity to perform our evaluations onto different use cases than the shallow-water equations. However, we have tried to provide a deeper analyze of results.
+
+- "Section 4: The MSL does not support sparse-updates. Supporting scatter computation is an important in many mesh-based applications. It is often computationally cheaper to traverse a particular mesh element (like vertices in a mesh) and update all adjoining mesh elements. This restriction needs to be addressed for a true mesh-based applications.
+    + The reviewer is right, we have not take into account scatter computations in the previous submission. We have added it to the new submission in Section 5.4. We consider in our model that a scatter computation is actually a particular case of fusion where the developer wants to optimize cache memories by updating adjacent elements of the one being iterated. We think that more fusion cases could be added to the work, however we think that our formalism is large enough to cover almost any case.
+
+- "The partitioning being used is traditional mesh partitioning. Previous work [4] has shown that using a hyper-graph partitioner where nodes represent iteration points and edges represent data elements touched by each iteration gives a better partitioning by reducing the communication volume. There is no modeling of the total communication volume due to the partitioning. It seems like it is treated as a constant when really it depends on the number of edges cut during the partitioning."
+    + As precised at the beginning of the Section 5 (old and new), the partitioning problem is not addressed by MSF but  by the external DDS component, SkelGIS in this paper. We are aware that hyper-graph partitioning could be more interesting in some cases, and we have cited papers. However it is true that by using a better partitioning algorithm than the one used in SkelGIS, limitations of data parallelization can be delayed.
+
+- "Please add some description of the algorithm used. The paper should at least give an intuition of what the transformation is and why it works. For example, there should at least be a line description of what an "induced subgraph" is and why it is important in the context of this paper."
+    + We have improved the description of the series-parallel graphs and their use to produce a static scheduling of tasks
+
+- "What is task parallelization degree. Its an undefined term
+How is P = P_task * P_data ? This needs to be clarified by a better description of what P_task and P_data are. The formulation using P_data1 and P-data2, etc. is completely opaque. This needs to be explained better with some running example maybe."
+    + Although these terms were already defined in section "performance model" of the previous submission we have tried to improve the clarity of the paper concerning this part (Section 5.6 in the new submission)
+
+- "This is by far the strongest section of the paper. The results are very good. I would really like to see more examples here and if the parallelization effort is explained clearly it will be easier for a reader to appreciate what the different performance evaluation means.""
+    + Unfortunately we did not have the opportunity to add additional use cases in the paper. However we have added performances results to clarify our conclusions.
+
+
+
+*** Reviewer 3 **********************************************************
+
+- "Therefore, as a DSL for determining and orchestrating task parallelism, a major omission of the paper is that it does not compare itself against other task-parallel frameworks (Legion, HPX, PFunc, etc.), and argue why a mesh-specific abstraction is better than a general task-dependency abstraction."
+    + We have added a clear statement about MSF compared to general purpose task-parallel frameworks in the related work section (Section 7 in the new submission). General purpose task-parallelism frameworks are not suited for numericians. The interesting idea behind domain specific languages and domain specific frameworks is to be closer to the domain semantic, thus easier to use by specialists of this domain. Moreover, as a specific knowledge is also known onto the domain, performances can still be interesting while the language is easier to use. Finally these solutions (domain specific or general purpose) are not mutually exclusive but take place at a different abstraction level. This is the point of MSF, to enhance the use of different general purpose back-ends. In the paper OpenMP has been used as a task-based back-end, and SkelGIS as an MPI back-end. However, Legion or StarPU could have been used too. This is the subject of future works as described in the new conclusion.
+
+  - "The mesh abstraction is very well described, yet there is an important omission that (in its current form) would mostly limit its applicability to structured meshes: there is no support for indirectly writing/incrementing data, as Definition 4 states that the variable written must be defined on the domain over which we iterate. In unstructured mesh computations, this scatter pattern is very common."
+    + The reviewer is right, we have not take into account scatter computations in the previous submission. We have added it to the new submission in Section 5.4. We consider in our model that a scatter computation is actually a particular case of fusion where the developer wants to optimize cache memories by updating adjacent elements of the one being iterated.
+    => je ne pense pas que tu répondes à la question (ou alors c'est trop implicite) : est que MSF supporte les maillages irréguliers et en particulier les opérations "writing/incrementing data" ?
+
+
+  - "It is also a bit tedious, that a single kernel can only write a single variable, as in many codes a single kernel will write several - granted with loop fusion this can then be recovered and fused, but splitting kernels to conform to this requirement and then merging them again is painful."
+    + By asking to write a single variable into one kernel, MSF guarantees that fusions are proposed in a correct manner even if different kinds of parallelization techniques are used. Moreover, we have shown in the new Section 6.6 that fusions are not always a good choice for performances. By writing a single variable in the description MSF offers more flexibility with respect to one paralellization technique or another.
+
+  - "The paper cites the examples of other DSLs and argues that the description of the simulation is not separated from implementation concerns, therefore making re-use more difficult. However, languages like Liszt, OP2, and OPS and others have a similar abstraction to what this paper describes (even if they don't exploit it to do task parallelsim), and what they do is separate the abstraction from the !parallel! implementation concerns, and enable the parallel execution of code without any additional work, unlike this paper, where data parallel code, the computaitonal core, and the distributed messaging still has to be implemented. This distinction isn't described very well - the proposed layering of DSLs in contrast to more monolithic approaches (where the opportunity for code re-use is less), such as the aforementioned DSLs"
+    + We have improved the clarity of the contribution of the paper. As indicated in the new submission, the proposed meta-model of a multi-stencil program can be compared to the mesh abstraction proposed by Listz and OP2. However, neither Listz or OP2 propose an hybrid parallelization. Finally Listz and OP2 are monolithic solutions with a limited flexibility and a limited separation of concerns. This separation of concerns eases code reuse of existing solutions as well as code-reuse from one simulation to another. We hope that the new submission is more clear and answers this remark.
