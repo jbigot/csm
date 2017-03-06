@@ -2,10 +2,10 @@ As the computation power of modern high performance architectures increases, the
 
 One of the big challenges to solve to be able to use these upcoming Exascale computers is to propose programming models which gives access to high performance computing (HPC) to many scientists and not only to a few HPC specialists~\cite{ETP4HPC2013}. Actually, applications that run on supercomputers and need such computation power (\textit{e.g.} physics, weather or genomic) are typically not implemented by HPC specialists but by domain scientists.
 
-%JB: pourquoi tu parles de taches ?
+\JB{pourquoi tu parles de taches ?}
 One possible runtime execution model for HPC is based on dynamic scheduling of task graphs combined with message passing~\cite{Gautier:2013:XRS:2510661.2511383,Augonnet2011,wu:hal-01078359}.
 These models increase code portability and enable users to reach interesting performance on heterogeneous architectures.
-%JB: j'enleverais ce qui est au dessus et je commencerait tout de suite avec "OpenMP c'est compliqué"
+\JB{j'enleverais ce qui est au dessus et je commencerait tout de suite avec "OpenMP c'est compliqué"}
 General purpose parallel languages, such as OpenMP~\cite{660313} and OpenCL~\cite{Stone:2010:OPP:622179.1803953} start to include these concepts.
 For non-expert users however, these languages are difficult to use and make it complex to tune applications for a given architecture. 
 An interesting approach that combines simplicity of use due to a high abstraction level with efficient execution consists in domain specific languages (DSL) and domain specific frameworks (DSF).
@@ -16,7 +16,7 @@ Domain specific solutions are therefore able to separate end-user concerns from 
 Many domain specific languages and frameworks have been proposed that claim to handle distinct specific use-cases each.
 Each solution is however typically re-implemented from scratch.
 In this paper, we claim that the sharing of common building blocks when designing DSLs or DSFs would increases re-use, flexibility and maintainability in their implementation.
-%JB: J'ajoute cet argument, tu peux le retirer si tu trouves ça dangereux
+\JB{J'ajoute cet argument, tu peux le retirer si tu trouves ça dangereux}
 It would also ease the creation of approaches and applications combining multiple DSLs and DSFs.
 
 For example, some of the approaches to numerically solve partial differential equations (PDEs) lead to \emph{stencil computations} where the values associated to one point in space at a given time are computed from the values at the previous time at the exact same location together with a few neighbor locations.
