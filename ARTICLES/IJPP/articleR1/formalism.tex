@@ -132,8 +132,8 @@ In addition, the modification of multiple quantities in a single loop nest can l
 Automatically detecting kernels that can be fused instead of leaving this to the responsibility of the domain scientist avoids these potential errors.
 We have therefore chosen to restrict kernels to the computation of a single quantity as it is equivalent from an expressiveness point of view and potentially more efficient and safer.
 
-%JB: je garderais la discussion sur le scatter pour plus tard
-% Moreover, one can note that the usual \emph{scatter} optimization of numerical codes is actually a specific case of fusion.
+\JB{je garderais la discussion sur le scatter pour plus tard}
+\JB{Moreover, one can note that the usual \emph{scatter} optimization of numerical codes is actually a specific case of fusion.}
 
 \begin{mydef}
 The set of $n$ ordered computation kernels of a numerical simulation is denoted $\Gamma = [k_i]_{0 \leq i \leq n-1}$, such that $\forall k_i,k_j \in \Gamma$, if $i < j$, then $k_i$ is computed before $k_j$.
