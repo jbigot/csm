@@ -1,8 +1,8 @@
-In this paper, we have presented MSF, the multi-stencil framework.
+In this paper, we have presented MSF, a multi-stencil framework.
 MSF is built upon a meta-model of a multi-stencil program which we have presented in Section~\ref{sect:formalism}.
 From this meta-model, we have designed, first, the generic component assembly of a multi-stencil program, and second, the domain specific language MSL that enables the description of a specific application by a numerician.
 From these entries, MSC, the MSF compiler, automatically generates a parallel component assembly.
-This assembly represents the parallel orchestration of computations, independently of implementation choices.
+This assembly represents the parallel orchestration of computations, independently of implementation choices. Two paralization strategies are supported: data parallelization and hybrid (data and task) parallelization.
 
 By combining a meta-model and component-based programming, MSF has the particularity to enhance separation of concerns and code-reuse of existing solutions (\eg SkelGIS and OpenMP in this paper).
 MSF has been evaluated on the real case simulation FullSWOF2D.
