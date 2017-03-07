@@ -598,7 +598,7 @@ New components have been introduced above and need to be explained. A $K$ compon
 
 A $Sync$ component is a static component (not generated) composed of a use-multiple port which is used to request synchronizations for all quantities it is linked to ($Data$). The component also exposes a provide port to be connected to the $Scheduler$ component. The $Sync$ component is represented in Fig.~\ref{fig:sync}.
 
-Finally, the $Scheduler$ component is the component responsible for implementing the $TSP$ tree  computed by MSC. Thus, this component represents the specific parallel orchestration of  computations. It exposes as many use ports as there are instances of $K$ components to call (\ie computations and fusions of computations). The component also exposes a provide port to be connected to the $Time$ component. Interfaces of a $Scheduler$ component are represented in Fig.~\ref{fig:ass}.
+Finally, the $Scheduler$ component is the component responsible for implementing the $TSP$ tree  computed by MSC. Thus, this component represents the specific parallel orchestration of  computations. It exposes as many use ports as there are instances of $K$ components to call (\ie computations and fusions of computations). The component also exposes a provide port to be connected to the $Time$ component. Interfaces of a $Scheduler$ component are represented in Fig.~\ref{fig:sched}.
 
 % draw the sepcialized assembly of the example
 To illustrate how a specialized assembly is generated, the specialized assembly of the example that has been used throughout this paper is represented in Fig.~\ref{fig:specass}. 
@@ -641,7 +641,7 @@ To illustrate how a specialized assembly is generated, the specialized assembly 
 \end{tikzpicture}
 }
 \caption{Specific components used to transform GA to the specialized component assembly of the simulation.}
-\label{fig:specass}
+\label{fig:speccomp}
 \end{center}
 \end{figure}
 
