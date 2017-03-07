@@ -234,10 +234,11 @@ Finally, to validate the performance model introduced in Section~\ref{sect:perfs
 \label{sect:fus}
 %-------------------------------------------------
 
-In this section we propose an evaluation of the fusion optimization. From the $TSP$ tree computed by MSC it may be possible, according to some specific conditions, to merge the domain loops of some kernels, thus optimizing the use of cache memories. This kind of optimization is called a fusion and has been introduced in Section\ref{sect:fusion}. Three fusion optimizations
+In this section we propose an evaluation of the fusion optimization. From the $TSP$ tree computed by MSC it may be possible, according to some specific conditions, to merge the domain loops of some kernels, thus optimizing the use of cache memories. This kind of optimization is called a fusion and
+three fusion optimizations have been introduced in Section~\ref{sect:fusion}. Among 
 %\CP{les rappeler !}
 %
-have been formally detailed in Section~\ref{sect:fusion}. The two first ones of Figures~\ref{fig:fus1} and~\ref{fig:fus2}~\vpageref{fig:fus2} have been automatically detected by MSF in our case study (\ie the third scatter optimization of Fig.~\ref{fig:fus3} has not been detected).
+them, the two first ones (Figures~\ref{fig:fus1} and~\ref{fig:fus2}~\vpageref{fig:fus2}) have been automatically detected by MSF in this case study.% (the third scatter optimization of Fig.~\ref{fig:fus3} has not been detected).
 %\CP{Et la troisieme ?}
 
 Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations, and by using data parallelism alone (without tasks). As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level. Most of the time such fusions are done naturally by a computer scientist. However, an automatic detection of such fusions avoids errors, particularly for a parallel execution. In addition to this, more advanced fusion cases, such as a scatter, are more difficult to deduce. In FullSWOF2D a total of  62 fusions are proposed by MSF over a total of 98 computation kernels. Figure~\ref{fig:fusion} shows that the performance is clearly improved (around 40\%) by these fusions.
