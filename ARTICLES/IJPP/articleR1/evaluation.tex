@@ -161,7 +161,7 @@ One can notice that the level of task parallelism extracted from the Shallow wat
 This means that if two cores are dedicated to task parallelism, the two sequential parts of the code will not take advantage of these two cores, and that no part of the code would benefit from more than 16 cores. The task parallelism, as proposed in this paper (\ie where each kernel is a task) is therefore insufficient to take advantage of a single node of modern clusters that typically supports more than 16 cores.
 
 \begin{figure}[th]\begin{center}
-  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/analytic/times.pdf}
+  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/analytic/times2.pdf}
   \caption{Computation vs communication times for a single time iteration using the data parallelization technique.}
   \label{fig:limit}
   %\CP{es tu sûr que le temps soit en puissance de 2 et pas en puissance de 10? C'est strange.}
@@ -223,7 +223,7 @@ Finally, to validate the performance model introduced in Section~\ref{sect:perfs
 \end{table}
 
 \begin{figure}[!h]\begin{center}
-  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/analytic/tth.pdf}
+  \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/analytic/tth2.pdf}
   \caption{Execution times (seconds) for a single time iteration of $T_{COM1}$ and $T_{COM2} + T_{task}$ for 8 cores for task parallelization. Verification of the Equation~(\ref{eq:hyb}).}
   \label{fig:tth2}
 %\CP{Time en puissance de 2 ou de 10 ?}
@@ -234,11 +234,11 @@ Finally, to validate the performance model introduced in Section~\ref{sect:perfs
 \label{sect:fus}
 %-------------------------------------------------
 
-In this section we propose an evaluation of the fusion optimization. From the $TSP$ tree computed by MSC it may be possible, according to some specific conditions, to merge the domain loops of some kernels, thus optimizing the use of cache memories. This optimization is called a fusion and has been introduced in Section\ref{sect:fusion}. Three fusion optimizations
+In this section we propose an evaluation of the fusion optimization. From the $TSP$ tree computed by MSC it may be possible, according to some specific conditions, to merge the domain loops of some kernels, thus optimizing the use of cache memories. This kind of optimization is called a fusion and has been introduced in Section\ref{sect:fusion}. Three fusion optimizations
 %\CP{les rappeler !}
 %
-have been formally detailed in Section~\ref{sect:fusion}. The two first ones of Figures~\ref{fig:fus1} and~\ref{fig:fus2}~\vpageref{fig:fus2} have been automatically detected by MSF in our case study (\ie scatter optimization has not been detected).
-\CP{Et la troisieme ?}
+have been formally detailed in Section~\ref{sect:fusion}. The two first ones of Figures~\ref{fig:fus1} and~\ref{fig:fus2}~\vpageref{fig:fus2} have been automatically detected by MSF in our case study (\ie the third scatter optimization of Fig.~\ref{fig:fus3} has not been detected).
+%\CP{Et la troisieme ?}
 
 Figure~\ref{fig:fusion} shows the number of iterations per second as a function of the number of cores with and without fusions. This benchmark is performed on FullSWOF2D onto a $500 \times 500$ domain size with $200$ time iterations, and by using data parallelism alone (without tasks). As explained in Section~\ref{sect:fusion}, the MSF loop fusion happens at a high level. Most of the time such fusions are done naturally by a computer scientist. However, an automatic detection of such fusions avoids errors, particularly for a parallel execution. In addition to this, more advanced fusion cases, such as a scatter, are more difficult to deduce. In FullSWOF2D a total of  62 fusions are proposed by MSF over a total of 98 computation kernels. Figure~\ref{fig:fusion} shows that the performance is clearly improved (around 40\%) by these fusions.
 
@@ -257,7 +257,7 @@ Blue curves of Figure~\ref{fig:fusion1} represent results for data parallelism w
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout2_close_median.pdf}
   \caption{Strong scaling on a 500x500 domain size with $200$ time iterations. Blue curves represent strong scaling for data parallelism with and without fusion. Red curves represent strong scaling by using 2 cores per MPI process dedicated to tasks, with and without fusion.}
   \label{fig:fusion1}
-  \CP{ERREUR DANS LEGENDES !!}
+  %\CP{ERREUR DANS LEGENDES !!}
 \end{center}\end{figure}
 
 However, to deeper analyze this results, we propose a second evaluation presented in Figure~\ref{fig:fusion2}. The blue curves are exactly the same one than in Figure~\ref{fig:fusion1}. The red curves, on the other hand, represent results by using 8 cores per MPI process dedicated to tasks, with and without fusion. Interesting results appears in this figure as the hybrid version using fusions is less efficient than the one without fusions. As already explained, this result is due to the fact that fusions reduce the number of tasks from 98 to 36 resulting in a non optimized use of eight cores for task parallelism. By using only 2 cores per MPI process (in Figure~\ref{fig:fusion1}) the 36 computation kernels were enough to feed the two cores, while it is not for eight.
@@ -266,6 +266,6 @@ However, to deeper analyze this results, we propose a second evaluation presente
   \includegraphics[width=.6\textwidth]{../results/task_scaling/500_200/withwithout8_close_median.pdf}
   \caption{Strong scaling on a 500x500 domain size with $200$ time iterations. Blue curves represent strong scaling for data parallelism with and without fusion, thus are exactly the same than blue curves of Fig.~\ref{fig:fusion1}. Red curves represent strong scaling by using 8 cores per MPI process dedicated to tasks, with and without fusion.}
   \label{fig:fusion2}
-    \CP{ERREUR DANS LEGENDES.}
+    %\CP{ERREUR DANS LEGENDES.}
 \end{center}\end{figure}
 In conclusion, if fusion optimization incurs a too large reduction of the number of tasks to feed dedicated cores, the problem observed for 16 cores in Figure~\ref{fig:close} happens earlier which reduces performance. For this reason, MSF performs fusions only when data parallelization is used alone. This choice could be more intelligent but this is the subject of future work.
